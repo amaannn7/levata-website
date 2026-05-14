@@ -81,7 +81,7 @@ export default function Navbar() {
             }}
         >
             <nav
-                className="mx-auto grid max-w-7xl items-center px-6 py-5 sm:px-10"
+                className="mx-auto flex items-center justify-between max-w-7xl px-6 py-4 sm:px-10 md:py-5 md:grid"
                 style={{ gridTemplateColumns: "1fr auto 1fr" }}
             >
                 {/* Logo */}
@@ -276,7 +276,7 @@ export default function Navbar() {
                         className="md:hidden overflow-hidden"
                         style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
                     >
-                        <div className="flex flex-col px-6 py-4">
+                        <div className="flex flex-col px-6 py-4 overflow-y-auto" style={{ maxHeight: "calc(100svh - 68px)" }}>
                             <p className="px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/30">
                                 Services
                             </p>

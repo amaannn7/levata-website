@@ -670,7 +670,7 @@ export default function HeroSection() {
                 }}
             />
 
-            <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+            <div className="pointer-events-none absolute inset-0 z-0">
                 <div style={{
                     position: "absolute",
                     top: "100px",
@@ -708,7 +708,7 @@ export default function HeroSection() {
             <section
                 data-hero
                 className="relative z-10 flex flex-1 flex-col items-center justify-start text-center px-6"
-                style={{ paddingTop: 'clamp(60px, calc(50px + 9.5vw - 30px), 140px)' }}
+                style={{ paddingTop: 'clamp(120px, calc(50px + 9.5vw - 30px), 155px)' }}
             >
                 <HeroFloatingCards />
 
