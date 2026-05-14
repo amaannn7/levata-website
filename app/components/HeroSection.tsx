@@ -676,8 +676,8 @@ export default function HeroSection() {
                     top: "100px",
                     left: "50%",
                     transform: "translateX(-50%)",
-                    width: "160vw",
-                    height: "160vw",
+                    width: "max(160vw, 900px)",
+                    height: "max(160vw, 900px)",
                 }}>
                     <img
                         ref={outerRef}
@@ -692,8 +692,8 @@ export default function HeroSection() {
                     top: "calc(100px + 16vw)",
                     left: "50%",
                     transform: "translateX(-50%)",
-                    width: "128vw",
-                    height: "128vw",
+                    width: "max(128vw, 720px)",
+                    height: "max(128vw, 720px)",
                 }}>
                     <img
                         ref={innerRef}

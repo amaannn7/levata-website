@@ -22,7 +22,7 @@ export default function PageArcs() {
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
             <div style={{
                 position: "absolute", top: "100px", left: "50%",
-                transform: "translateX(-50%)", width: "160vw", height: "160vw",
+                transform: "translateX(-50%)", width: "max(160vw, 900px)", height: "max(160vw, 900px)",
             }}>
                 <img
                     ref={outerRef}
@@ -33,7 +33,7 @@ export default function PageArcs() {
             </div>
             <div style={{
                 position: "absolute", top: "calc(100px + 16vw)", left: "50%",
-                transform: "translateX(-50%)", width: "128vw", height: "128vw",
+                transform: "translateX(-50%)", width: "max(128vw, 720px)", height: "max(128vw, 720px)",
             }}>
                 <img
                     ref={innerRef}
