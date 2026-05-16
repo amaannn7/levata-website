@@ -374,11 +374,7 @@ export default function AIIntelligencePage() {
                         >
                             Book a Strategy Call
                         </button>
-                        <a href="#approach">
-                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-3">
-                                Explore Stack
-                            </NeonButton>
-                        </a>
+
                     </div>
                 </motion.div>
             </section>
@@ -763,11 +759,7 @@ export default function AIIntelligencePage() {
                         >
                             Book Your AI Strategy Session
                         </button>
-                        <Link href="/products/sales-intelligence-platform">
-                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-3">
-                                Explore More
-                            </NeonButton>
-                        </Link>
+
                     </div>
                 </motion.div>
             </section>

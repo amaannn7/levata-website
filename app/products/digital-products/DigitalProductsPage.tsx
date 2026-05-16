@@ -278,11 +278,7 @@ export default function DigitalProductsPage() {
                         >
                             Book a Strategy Call
                         </button>
-                        <a href="#process">
-                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-3">
-                                See How We Build
-                            </NeonButton>
-                        </a>
+
                     </div>
                 </motion.div>
             </section>

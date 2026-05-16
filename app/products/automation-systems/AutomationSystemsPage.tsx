@@ -385,11 +385,7 @@ export default function AutomationSystemsPage() {
                         >
                             Book a Strategy Call
                         </button>
-                        <a href="#sub-services">
-                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-3">
-                                See What We Build
-                            </NeonButton>
-                        </a>
+
                     </div>
                 </motion.div>
             </section>
@@ -799,11 +795,7 @@ export default function AutomationSystemsPage() {
                         >
                             Book a Strategy Call
                         </button>
-                        <a href="/products/sales-intelligence-platform">
-                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-3">
-                                Explore More
-                            </NeonButton>
-                        </a>
+
                     </div>
                 </motion.div>
             </section>
