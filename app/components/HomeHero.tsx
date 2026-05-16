@@ -238,11 +238,16 @@ export default function HomeHero() {
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
-                        className="mb-5"
+                        className="mb-5 md:mb-6"
                     >
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
+                        {/* Mobile eyebrow — plain uppercase */}
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55 md:hidden">
                             Digital Solutions &amp; Software
                         </p>
+                        {/* Desktop eyebrow — animated SectionLabel */}
+                        <div className="hidden md:block">
+                            <SectionLabel text="Digital Solutions & Software" />
+                        </div>
                     </motion.div>
 
                     <motion.h1
@@ -253,20 +258,38 @@ export default function HomeHero() {
                         className="max-w-2xl text-balance text-[2.1rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
                         style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
                     >
-                        Build the systems your business
-                        {" "}
-                        <span className="jakarta-italic">deserves, faster.</span>
+                        {/* Mobile headline — same copy as desktop */}
+                        <span className="md:hidden">
+                            Your Business Deserves Intelligence,{" "}
+                            <span className="jakarta-italic">Not Just Software.</span>
+                        </span>
+                        {/* Desktop headline */}
+                        <span className="hidden md:inline">
+                            Your Business Deserves Intelligence,
+                            <br />
+                            <span className="jakarta-italic">Not Just Software.</span>
+                        </span>
                     </motion.h1>
 
-                    <motion.p
+                    <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, delay: 0.32, ease: EASE }}
-                        className="mt-5 max-w-xl text-sm leading-relaxed text-white/55 md:text-base"
+                        className="mt-5 max-w-xl"
                     >
-                        Levata builds digital products, platforms, and automation that move ambitious businesses
-                        forward — engineered to compound, not just ship.
-                    </motion.p>
+                        {/* Mobile subhead — same copy as desktop */}
+                        <p className="text-sm leading-relaxed text-white/55 md:hidden">
+                            Levata builds AI-powered systems, platforms, and automation that don&apos;t just support
+                            your business — they transform it. We are the infrastructure partner for companies ready
+                            to operate, compete, and grow at a different level.
+                        </p>
+                        {/* Desktop subhead */}
+                        <p className="hidden text-sm leading-relaxed text-white/55 md:block md:text-base">
+                            Levata builds AI-powered systems, platforms, and automation that don&apos;t just support
+                            your business — they transform it. We are the infrastructure partner for companies ready
+                            to operate, compete, and grow at a different level.
+                        </p>
+                    </motion.div>
 
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
@@ -291,7 +314,7 @@ export default function HomeHero() {
                                     "0 0 10px rgba(114,200,245,0.12), 0 0 10px rgba(155,47,255,0.10), inset 0 0 0 1px rgba(114,200,245,0.22)";
                             }}
                         >
-                            <span>Talk to Us</span>
+                            <span>Book a Strategy Call</span>
                             <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                         </button>
                     </motion.div>
