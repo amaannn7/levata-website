@@ -36,9 +36,9 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Levata — AI-Native Intelligence Partner",
+  title: "Levata — Digital Solutions & Software",
   description:
-    "Levata builds AI-powered systems, platforms, and automation that transform how ambitious businesses operate, compete, and grow.",
+    "Levata builds digital products, platforms, and automation that move ambitious businesses forward — engineered to compound, not just ship.",
 };
 
 export default function RootLayout({

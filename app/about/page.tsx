@@ -106,21 +106,10 @@ const WHY_ITEMS = [
 ];
 
 const TEAM = [
-    {
-        name: "Amaan K.",
-        role: "CEO & Co-founder",
-        bio: "Architects the strategic vision and AI systems that drive measurable client outcomes.",
-    },
-    {
-        name: "Sarah M.",
-        role: "Head of AI Engineering",
-        bio: "Leads model integration and intelligent automation across every Levata build.",
-    },
-    {
-        name: "Daniel R.",
-        role: "Head of Delivery",
-        bio: "Owns end-to-end execution: from discovery to launch to continuous optimisation.",
-    },
+    { name: "Shiham Samsudeen", role: "Co-founder", bio: "" },
+    { name: "Shameer Refai", role: "Co-founder", bio: "" },
+    { name: "Abdul Rahman", role: "Co-founder", bio: "" },
+    { name: "Amaan Yusuf", role: "Co-founder", bio: "" },
 ];
 
 // ── Page ───────────────────────────────────────────────────────────────────
@@ -282,7 +271,7 @@ export default function AboutPage() {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+                    <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
                         {TEAM.map(({ name, role, bio }, i) => (
                             <motion.div
                                 key={name}
@@ -306,7 +295,9 @@ export default function AboutPage() {
                                 </div>
                                 <p className="mt-6 text-lg font-bold text-white md:text-xl">{name}</p>
                                 <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">{role}</p>
-                                <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/55">{bio}</p>
+                                {bio && (
+                                    <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/55">{bio}</p>
+                                )}
                             </motion.div>
                         ))}
                     </div>

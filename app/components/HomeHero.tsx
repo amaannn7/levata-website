@@ -233,14 +233,16 @@ export default function HomeHero() {
             <div className="relative z-20 mx-auto grid min-h-[min(100vh,920px)] w-full max-w-7xl items-center gap-10 px-5 py-16 sm:px-6 sm:py-24 md:gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-0">
 
                 {/* Left column — text + CTAs */}
-                <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
+                <div className="flex flex-col items-start text-left">
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
-                        className="mb-6"
+                        className="mb-5"
                     >
-                        <SectionLabel text="AI-Native Intelligence Partner" />
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
+                            Digital Solutions &amp; Software
+                        </p>
                     </motion.div>
 
                     <motion.h1
@@ -248,13 +250,12 @@ export default function HomeHero() {
                         initial={{ opacity: 0, y: 18 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.85, delay: 0.18, ease: EASE }}
-                        className="max-w-2xl text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
+                        className="max-w-2xl text-balance text-[2.1rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
                         style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
                     >
-                        Your Business Deserves Intelligence,
-                        <br className="hidden md:inline" />
+                        Build the systems your business
                         {" "}
-                        <span className="jakarta-italic">Not Just Software.</span>
+                        <span className="jakarta-italic">deserves, faster.</span>
                     </motion.h1>
 
                     <motion.p
@@ -263,37 +264,36 @@ export default function HomeHero() {
                         transition={{ duration: 0.7, delay: 0.32, ease: EASE }}
                         className="mt-5 max-w-xl text-sm leading-relaxed text-white/55 md:text-base"
                     >
-                        Levata builds AI-powered systems, platforms, and automation that don&apos;t just support
-                        your business — they transform it. We are the infrastructure partner for companies ready
-                        to operate, compete, and grow at a different level.
+                        Levata builds digital products, platforms, and automation that move ambitious businesses
+                        forward — engineered to compound, not just ship.
                     </motion.p>
 
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.46, ease: EASE }}
-                        className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:items-start"
+                        className="mt-8"
                     >
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative w-full rounded-full px-5 py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer sm:w-auto"
+                            className="group relative inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer sm:py-3.5"
                             style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
+                                background: "linear-gradient(135deg, rgba(114,200,245,0.10), rgba(155,47,255,0.10))",
+                                boxShadow: "0 0 10px rgba(114,200,245,0.12), 0 0 10px rgba(155,47,255,0.10), inset 0 0 0 1px rgba(114,200,245,0.22)",
                             }}
                             onMouseEnter={(e) => {
                                 (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
+                                    "0 0 24px rgba(114,200,245,0.34), 0 0 24px rgba(155,47,255,0.26), inset 0 0 0 1px rgba(114,200,245,0.5)";
                             }}
                             onMouseLeave={(e) => {
                                 (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
+                                    "0 0 10px rgba(114,200,245,0.12), 0 0 10px rgba(155,47,255,0.10), inset 0 0 0 1px rgba(114,200,245,0.22)";
                             }}
                         >
-                            Book a Strategy Call
+                            <span>Talk to Us</span>
+                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                         </button>
-
                     </motion.div>
                 </div>
 
