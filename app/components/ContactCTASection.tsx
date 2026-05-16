@@ -2,7 +2,6 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { Button as NeonButton } from "@/app/components/ui/neon-button";
 
 // Icons
 function ChevronIcon() {
@@ -200,7 +199,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
     const selected = COUNTRIES.find((c) => c.code === country) ?? COUNTRIES[0];
 
     return (
-        <section ref={sectionRef} id="contact-cta" className="relative w-full bg-[#07001F] px-6 py-10 md:py-14">
+        <section ref={sectionRef} id="contact-cta" className="relative w-full bg-[#07001F] px-5 py-8 sm:px-6 md:py-14">
             <div className="mx-auto max-w-6xl">
 
                 {showHeading && (
@@ -234,7 +233,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
                         {/* Left info panel */}
                         <div
-                            className="flex flex-col justify-between gap-10 border-b border-white/8 p-8 md:p-10 lg:border-b-0 lg:border-r"
+                            className="flex flex-col justify-between gap-8 border-b border-white/8 p-6 sm:p-8 md:gap-10 md:p-10 lg:border-b-0 lg:border-r"
                             style={{ background: "linear-gradient(160deg,rgba(155,47,255,0.15) 0%,rgba(7,0,31,0.98) 100%)" }}
                         >
                             <div>
@@ -265,7 +264,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                         </div>
 
                         {/* Right form panel */}
-                        <div className="bg-[#07001F] p-8 md:p-10">
+                        <div className="bg-[#07001F] p-6 sm:p-8 md:p-10">
                             <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-5">
 
                                 {/* Name + Email */}
@@ -343,14 +342,24 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                 {/* Submit */}
                                 <div className="mt-2 flex items-center justify-between border-t border-white/8 pt-5" data-form-field>
                                     <p className="text-xs text-white/25">All fields marked * are required</p>
-                                    <NeonButton
+                                    <button
                                         type="submit"
-                                        variant="solid"
-                                        size="lg"
-                                        className="font-semibold tracking-wide"
+                                        className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:shadow-lg"
+                                        style={{
+                                            background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
+                                            boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            const target = e.currentTarget as HTMLButtonElement;
+                                            target.style.boxShadow = "0 0 20px rgba(114,200,245,0.15), 0 0 20px rgba(155,47,255,0.12), inset 0 0 0 1px rgba(114,200,245,0.25)";
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            const target = e.currentTarget as HTMLButtonElement;
+                                            target.style.boxShadow = "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
+                                        }}
                                     >
                                         Send Request
-                                    </NeonButton>
+                                    </button>
                                 </div>
 
                             </form>

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Manrope, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Manrope, Space_Grotesk, Plus_Jakarta_Sans } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SmoothScrollProvider from "./components/SmoothScrollProvider";
 import TextReveal from "./components/TextReveal";
+import BookCallProvider from "./components/BookCallProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,6 +29,12 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "600", "700"],
 });
 
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
 export const metadata: Metadata = {
   title: "Levata — AI-Native Intelligence Partner",
   description:
@@ -42,14 +49,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} ${spaceGrotesk.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} ${spaceGrotesk.variable} ${plusJakarta.variable} antialiased`}
     >
       <body className="min-h-screen bg-[#07001F]" style={{ fontFamily: 'var(--font-manrope), Manrope, "Manrope Fallback", Helvetica, Arial, sans-serif' }}>
         <SmoothScrollProvider>
-          <TextReveal />
-          <Navbar />
-          {children}
-          <Footer />
+          <BookCallProvider>
+            <TextReveal />
+            <Navbar />
+            {children}
+            <Footer />
+          </BookCallProvider>
         </SmoothScrollProvider>
       </body>
     </html>

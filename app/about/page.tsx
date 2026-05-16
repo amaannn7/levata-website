@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import PageArcs from "@/app/components/PageArcs";
+import HeroBubbles from "@/app/components/HeroBubbles";
+import { useBookCall } from "@/app/components/BookCallProvider";
 
 // ── Section label ──────────────────────────────────────────────────────────
 function SectionLabel({ text }: { text: string }) {
@@ -18,80 +20,86 @@ function SectionLabel({ text }: { text: string }) {
     );
 }
 
-// ── Why-choose icons (4 selected from the original 6) ──────────────────────
-function IconAINative() {
+// ── Monochrome schematic diagrams (mirror homepage §9 WhyVisualHint set) ──
+const MONO_STROKE = "rgba(255,255,255,0.65)";
+const MONO_FILL = "rgba(255,255,255,0.08)";
+
+function IconLayersDiagram() {
     return (
-        <svg width="60" height="54" viewBox="0 0 60 54" fill="none" aria-hidden>
-            <defs>
-                <linearGradient id="aw-a" x1="14" y1="11" x2="46" y2="43" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#72C8F5" /><stop offset="1" stopColor="#BB00FF" />
-                </linearGradient>
-            </defs>
-            <path d="M30 11 L30 43 M14 27 L46 27 M18.7 15.7 L41.3 38.3 M41.3 15.7 L18.7 38.3" stroke="url(#aw-a)" strokeWidth="3.5" strokeLinecap="square" />
-        </svg>
-    );
-}
-function IconEndToEnd() {
-    return (
-        <svg width="60" height="54" viewBox="0 0 60 54" fill="none" aria-hidden>
-            <defs>
-                <linearGradient id="aw-b" x1="10" y1="7" x2="50" y2="47" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#72C8F5" /><stop offset="1" stopColor="#BB00FF" />
-                </linearGradient>
-            </defs>
-            <circle cx="30" cy="27" r="20" stroke="url(#aw-b)" strokeWidth="2" />
-            <circle cx="30" cy="27" r="11" stroke="url(#aw-b)" strokeWidth="2" />
-            <circle cx="30" cy="27" r="4" fill="url(#aw-b)" />
-        </svg>
-    );
-}
-function IconContinuous() {
-    return (
-        <svg width="60" height="54" viewBox="0 0 60 54" fill="none" aria-hidden>
-            <defs>
-                <linearGradient id="aw-c" x1="11" y1="7" x2="49" y2="47" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#72C8F5" /><stop offset="1" stopColor="#BB00FF" />
-                </linearGradient>
-            </defs>
-            <path d="M11 7 C20 7 25 20 30 27 C35 20 40 7 49 7" stroke="url(#aw-c)" strokeWidth="2.4" strokeLinecap="round" />
-            <path d="M11 47 C20 47 25 34 30 27 C35 34 40 47 49 47" stroke="url(#aw-c)" strokeWidth="2.4" strokeLinecap="round" />
-        </svg>
-    );
-}
-function IconOutcomes() {
-    return (
-        <svg width="60" height="54" viewBox="0 0 60 54" fill="none" aria-hidden>
-            <defs>
-                <linearGradient id="aw-d" x1="9" y1="12" x2="51" y2="42" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#72C8F5" /><stop offset="1" stopColor="#BB00FF" />
-                </linearGradient>
-            </defs>
-            <rect x="9" y="12" width="5.5" height="30" rx="2.75" fill="url(#aw-d)" />
-            <rect x="19" y="18" width="5.5" height="18" rx="2.75" fill="url(#aw-d)" />
-            <rect x="29" y="23" width="5.5" height="8" rx="2.75" fill="url(#aw-d)" />
-            <path d="M43 22 L51 27 L43 32" stroke="url(#aw-d)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
+            <rect x="10" y="6" width="60" height="6" rx="2" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="10" y="15" width="60" height="6" rx="2" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="10" y="24" width="60" height="6" rx="2" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <circle cx="22" cy="9" r="1.5" fill={MONO_STROKE} />
+            <circle cx="40" cy="18" r="1.5" fill={MONO_STROKE} />
+            <circle cx="58" cy="27" r="1.5" fill={MONO_STROKE} />
         </svg>
     );
 }
 
+function IconE2EDiagram() {
+    return (
+        <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
+            <line x1="14" y1="18" x2="40" y2="18" stroke={MONO_STROKE} strokeWidth="1.4" strokeDasharray="3 3" opacity="0.6" />
+            <line x1="40" y1="18" x2="66" y2="18" stroke={MONO_STROKE} strokeWidth="1.4" strokeDasharray="3 3" opacity="0.6" />
+            <circle cx="14" cy="18" r="7" fill="rgba(8,1,28,0.95)" stroke={MONO_STROKE} strokeWidth="1.4" />
+            <circle cx="14" cy="18" r="2.5" fill={MONO_STROKE} />
+            <circle cx="40" cy="18" r="7" fill="rgba(8,1,28,0.95)" stroke={MONO_STROKE} strokeWidth="1.4" />
+            <circle cx="40" cy="18" r="2.5" fill={MONO_STROKE} />
+            <circle cx="66" cy="18" r="7" fill="rgba(8,1,28,0.95)" stroke={MONO_STROKE} strokeWidth="1.4" />
+            <circle cx="66" cy="18" r="2.5" fill={MONO_STROKE} />
+        </svg>
+    );
+}
+
+function IconLoopDiagram() {
+    return (
+        <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
+            <path d="M14 22 Q 40 -2, 66 22" stroke={MONO_STROKE} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+            <path d="M66 22 Q 40 38, 14 22" stroke={MONO_STROKE} strokeWidth="1.5" strokeDasharray="3 3" fill="none" strokeLinecap="round" opacity="0.55" />
+            <path d="M58 16 L 66 22 L 60 28" stroke={MONO_STROKE} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="14" cy="22" r="3" fill={MONO_STROKE} />
+        </svg>
+    );
+}
+
+function IconBarsDiagram() {
+    return (
+        <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
+            <rect x="10" y="22" width="10" height="10" rx="1.5" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="26" y="16" width="10" height="16" rx="1.5" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="42" y="10" width="10" height="22" rx="1.5" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="58" y="4" width="10" height="28" rx="1.5" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <path d="M15 24 L 31 18 L 47 12 L 63 6" stroke={MONO_STROKE} strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    );
+}
+
+// ── Initials avatar (for Team cards) ──────────────────────────────────────
+function initialsFrom(name: string) {
+    const parts = name.replace(/\./g, "").trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 const WHY_ITEMS = [
     {
-        Icon: IconAINative,
+        Icon: IconLayersDiagram,
         title: "AI-native from the ground up",
         body: "Every system we ship is designed with AI at its core — not bolted on later.",
     },
     {
-        Icon: IconEndToEnd,
+        Icon: IconE2EDiagram,
         title: "End-to-end under one roof",
         body: "Strategy, design, engineering, automation, and growth — coordinated under one accountable team.",
     },
     {
-        Icon: IconContinuous,
+        Icon: IconLoopDiagram,
         title: "Continuous partnership model",
         body: "We don't disappear after launch. We measure, iterate, and compound results month over month.",
     },
     {
-        Icon: IconOutcomes,
+        Icon: IconBarsDiagram,
         title: "Outcomes over outputs",
         body: "We commit to measurable business results, not deliverables in a Notion doc.",
     },
@@ -118,6 +126,8 @@ const TEAM = [
 // ── Page ───────────────────────────────────────────────────────────────────
 export default function AboutPage() {
     const ctaRef = useRef<HTMLElement>(null);
+    const heroRef = useRef<HTMLElement>(null);
+    const { open: openBookCall } = useBookCall();
 
     return (
         <main className="relative min-h-screen bg-[#07001F] flex flex-col overflow-hidden">
@@ -125,10 +135,11 @@ export default function AboutPage() {
 
             {/* ── Hero ─────────────────────────────────────────── */}
             <section
+                ref={heroRef}
                 data-hero
-                className="relative flex flex-col items-center justify-center text-center px-6 overflow-hidden"
-                style={{ paddingTop: "150px", paddingBottom: "100px" }}
+                className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
+                <HeroBubbles containerRef={heroRef} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -137,22 +148,38 @@ export default function AboutPage() {
                 >
                     <SectionLabel text="About Levata" />
                     <h1
-                        className="text-balance text-[1.9rem] font-semibold leading-[1.06] tracking-[-0.02em] text-white sm:text-[2.25rem] md:text-[2.7rem] lg:text-[3rem]"
-                        style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
+                        className="text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
+                        style={{
+                            fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif",
+                        }}
                     >
                         We&apos;re Not a Digital Agency.<br />
-                        We&apos;re an Intelligence Partner.
+                        <span className="jakarta-italic">We&apos;re an Intelligence Partner.</span>
                     </h1>
-                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-lg">
+                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                         Levata builds AI-powered systems that help businesses move faster, decide smarter, and
                         compete at a level that wasn&apos;t possible before.
                     </p>
-                    <div className="mt-2 flex flex-col items-center gap-3 sm:flex-row">
-                        <a href="/contact">
-                            <NeonButton variant="solid" size="lg" className="font-semibold tracking-wide">
-                                Book a Strategy Call
-                            </NeonButton>
-                        </a>
+                    <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
+                        <button
+                            type="button"
+                            onClick={openBookCall}
+                            className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                            style={{
+                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
+                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
+                            }}
+                            onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
+                            }}
+                            onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
+                            }}
+                        >
+                            Book a Strategy Call
+                        </button>
                     </div>
                 </motion.div>
 
@@ -172,54 +199,57 @@ export default function AboutPage() {
                     ].join(", "),
                 }} />
 
-                <div className="relative z-10 mx-auto max-w-6xl grid grid-cols-1 gap-12 md:grid-cols-[1.1fr_1.9fr] md:gap-20 items-start">
+                <div className="relative z-10 mx-auto max-w-4xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex flex-col gap-4"
+                        className="mb-12 flex flex-col items-center text-center gap-5"
                     >
                         <SectionLabel text="Who we are" />
-                        <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-tight">
-                            Building the AI-native<br />operations layer.
+                        <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
+                            Building the AI-native operations layer.
                         </h2>
                     </motion.div>
-                    <motion.div
+
+                    <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex flex-col gap-6"
+                        className="mx-auto max-w-3xl text-center text-base leading-relaxed text-white/55 md:text-[1.05rem]"
                     >
-                        <p className="text-base leading-relaxed text-white/60 md:text-lg">
-                            We founded Levata to close the gap between powerful AI technology and the businesses
-                            that need it most. Not through software subscriptions or one-off projects — but as a
-                            genuine systems partner with end-to-end accountability for every outcome we promise.
-                        </p>
+                        We founded Levata to close the gap between powerful AI technology and the businesses
+                        that need it most. Not through software subscriptions or one-off projects — but as a
+                        genuine systems partner with end-to-end accountability for every outcome we promise.
+                    </motion.p>
 
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        className="mx-auto mt-10 max-w-2xl rounded-2xl p-px"
+                        style={{
+                            background:
+                                "linear-gradient(135deg, rgba(114,200,245,0.35) 0%, rgba(255,255,255,0.06) 50%, rgba(155,47,255,0.35) 100%)",
+                        }}
+                    >
                         <div
-                            className="relative rounded-2xl p-px"
+                            className="relative rounded-[15px] p-7 md:p-8"
                             style={{
-                                background:
-                                    "linear-gradient(135deg, rgba(114,200,245,0.35) 0%, rgba(255,255,255,0.06) 50%, rgba(155,47,255,0.35) 100%)",
+                                background: "rgba(8,1,28,0.96)",
+                                border: "1px solid rgba(255,255,255,0.04)",
                             }}
                         >
-                            <div
-                                className="relative rounded-[15px] p-7"
-                                style={{
-                                    background: "rgba(8,1,28,0.96)",
-                                    border: "1px solid rgba(255,255,255,0.04)",
-                                }}
-                            >
-                                <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
-                                    Our vision
-                                </p>
-                                <p className="text-lg font-medium leading-snug text-white/90 md:text-xl">
-                                    &ldquo;To make AI-powered operations the standard for every ambitious business —
-                                    not just the enterprise.&rdquo;
-                                </p>
-                            </div>
+                            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
+                                Our vision
+                            </p>
+                            <p className="text-lg font-medium leading-snug text-white/90 md:text-xl">
+                                &ldquo;To make AI-powered operations the standard for every ambitious business —
+                                not just the enterprise.&rdquo;
+                            </p>
                         </div>
                     </motion.div>
                 </div>
@@ -240,51 +270,43 @@ export default function AboutPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-12 flex flex-col gap-4"
+                        className="mb-12 flex flex-col items-center text-center gap-5"
                     >
                         <SectionLabel text="The team" />
-                        <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-tight">
+                        <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
                             The people behind the partnership.
                         </h2>
-                        <p className="max-w-md text-sm text-white/45 leading-relaxed">
+                        <p className="max-w-md text-base text-white/45 leading-relaxed md:text-[1.05rem]">
                             A focused team of strategists, engineers, and AI specialists obsessed with shipping
                             outcomes — not deliverables.
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
                         {TEAM.map(({ name, role, bio }, i) => (
                             <motion.div
                                 key={name}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                                className="overflow-hidden rounded-2xl"
-                                style={{
-                                    background: "rgba(255,255,255,0.03)",
-                                    border: "1px solid rgba(255,255,255,0.08)",
-                                }}
+                                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                className="flex flex-col items-center text-center"
                             >
                                 <div
-                                    className="relative flex items-end justify-center overflow-hidden"
+                                    aria-hidden
+                                    className="flex h-32 w-32 items-center justify-center rounded-full border-2 border-dashed md:h-36 md:w-36"
                                     style={{
-                                        height: 320,
-                                        background: "linear-gradient(180deg, #0a0118 0%, #12002e 100%)",
-                                        borderBottom: "1px solid rgba(255,255,255,0.06)",
+                                        borderColor: "rgba(255,255,255,0.18)",
+                                        background: "radial-gradient(circle, rgba(155,47,255,0.08) 0%, rgba(8,1,28,0.5) 70%)",
                                     }}
                                 >
-                                    <div aria-hidden className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(155,47,255,0.14) 0%, transparent 70%)" }} />
-                                    <svg aria-hidden viewBox="0 0 120 160" fill="none" className="relative z-10 w-40 opacity-20">
-                                        <ellipse cx="60" cy="42" rx="24" ry="24" fill="white" />
-                                        <path d="M10 160 C10 110 30 90 60 90 C90 90 110 110 110 160Z" fill="white" />
-                                    </svg>
+                                    <span className="text-2xl font-bold tracking-tight text-white/85 md:text-3xl">
+                                        {initialsFrom(name)}
+                                    </span>
                                 </div>
-                                <div className="px-6 py-5">
-                                    <p className="text-base font-bold text-white">{name}</p>
-                                    <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">{role}</p>
-                                    <p className="mt-3 text-sm leading-relaxed text-white/50">{bio}</p>
-                                </div>
+                                <p className="mt-6 text-lg font-bold text-white md:text-xl">{name}</p>
+                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">{role}</p>
+                                <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/55">{bio}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -314,30 +336,26 @@ export default function AboutPage() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:auto-rows-fr">
                         {WHY_ITEMS.map(({ Icon, title, body }, i) => (
                             <motion.div
                                 key={title}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: (i % 2) * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                                className="group flex items-start gap-5 rounded-2xl p-6 transition-colors duration-500"
+                                transition={{ duration: 0.6, delay: (i % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={{ y: -4 }}
+                                className="flex h-full flex-col gap-6 rounded-2xl p-7 md:p-9 transition-colors duration-300 hover:bg-white/[0.03]"
                                 style={{
-                                    background: "rgba(255,255,255,0.02)",
-                                    border: "1px solid rgba(255,255,255,0.06)",
+                                    background: "rgba(8,1,28,0.55)",
+                                    border: "1px solid rgba(255,255,255,0.07)",
                                 }}
                             >
-                                <span
-                                    className="flex-shrink-0 transition-all duration-500 group-hover:drop-shadow-[0_0_22px_rgba(114,200,245,0.65)]"
-                                    style={{ opacity: 0.92 }}
-                                >
-                                    <Icon />
-                                </span>
-                                <div>
-                                    <h3 className="text-lg font-bold leading-snug text-white md:text-xl">{title}</h3>
-                                    <p className="mt-2 text-sm leading-relaxed text-white/50">{body}</p>
-                                </div>
+                                <Icon />
+                                <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
+                                    {title}
+                                </h3>
+                                <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">{body}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -372,13 +390,27 @@ export default function AboutPage() {
                         within 48 hours.
                     </p>
                     <div className="flex flex-col items-center gap-3 sm:flex-row">
-                        <a href="/contact">
-                            <NeonButton variant="solid" size="lg" className="font-semibold tracking-wide">
-                                Book a Free Strategy Call
-                            </NeonButton>
-                        </a>
+                        <button
+                            type="button"
+                            onClick={openBookCall}
+                            className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                            style={{
+                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
+                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
+                            }}
+                            onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
+                            }}
+                            onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
+                            }}
+                        >
+                            Book a Free Strategy Call
+                        </button>
                         <a href="/#services">
-                            <NeonButton variant="ghost" size="lg" className="font-semibold tracking-wide">
+                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-2.5">
                                 Explore Our Services
                             </NeonButton>
                         </a>

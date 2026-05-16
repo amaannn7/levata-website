@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { gsap } from "gsap";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     SiReact, SiNextdotjs, SiVuedotjs, SiNuxt, SiSvelte, SiAngular,
     SiExpress, SiNestjs, SiSpring, SiFastapi, SiDjango, SiLaravel,
@@ -13,7 +12,9 @@ import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import ClientsMarquee from "@/app/components/ClientsMarquee";
 import { CircleArrow } from "@/app/components/ServicesSection";
 import TestimonialsSection from "@/app/components/TestimonialsSection";
-import HeroFloatingCards from "@/app/components/HeroFloatingCards";
+import HomeHero from "@/app/components/HomeHero";
+import ProcessTabsSection from "@/app/components/ProcessTabsSection";
+import { useBookCall } from "@/app/components/BookCallProvider";
 
 // ── Count-up hook ──────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2000) {
@@ -57,10 +58,11 @@ function StatCounter({ leadNumber, suffix, label }: { leadNumber: number; suffix
         <div className="flex flex-col items-center gap-3">
             <span
                 ref={elRef}
-                className="text-5xl font-extrabold leading-none tracking-tight text-white md:text-6xl"
+                className="text-5xl font-extrabold leading-none tracking-tight md:text-6xl"
+                style={{ color: "#3DFD98" }}
             >
                 {count}
-                <span className="text-white">{suffix}</span>
+                <span style={{ color: "#3DFD98" }}>{suffix}</span>
             </span>
             <span className="max-w-[180px] text-center text-sm font-medium leading-snug text-white/45 tracking-wide">
                 {label}
@@ -82,130 +84,87 @@ function SectionLabel({ text }: { text: string }) {
     );
 }
 
-// ── Tech Stack (LOCKED — do not modify) ────────────────────────────────────
-const TECH_CATEGORIES = [
-    {
-        label: "Frontend",
-        items: [
-            { name: "Next.js", color: "#ffffff", Icon: SiNextdotjs },
-            { name: "React", color: "#61DAFB", Icon: SiReact },
-            { name: "Vue.js", color: "#4FC08D", Icon: SiVuedotjs },
-            { name: "Nuxt", color: "#00DC82", Icon: SiNuxt },
-            { name: "SvelteKit", color: "#FF3E00", Icon: SiSvelte },
-            { name: "Angular", color: "#DD0031", Icon: SiAngular },
-        ],
-    },
-    {
-        label: "Backend",
-        items: [
-            { name: "Express", color: "#ffffff", Icon: SiExpress },
-            { name: "NestJS", color: "#E0234E", Icon: SiNestjs },
-            { name: "Spring Boot", color: "#6DB33F", Icon: SiSpring },
-            { name: "FastAPI", color: "#009688", Icon: SiFastapi },
-            { name: "Django", color: "#44B78B", Icon: SiDjango },
-            { name: "Laravel", color: "#FF2D20", Icon: SiLaravel },
-        ],
-    },
-    {
-        label: "CMS",
-        items: [
-            { name: "Sanity", color: "#F03E2F", Icon: SiSanity },
-            { name: "Strapi", color: "#8C4BFF", Icon: SiStrapi },
-            { name: "Contentful", color: "#2478CC", Icon: SiContentful },
-            { name: "WordPress", color: "#21759B", Icon: SiWordpress },
-            { name: "Payload CMS", color: "#ffffff", Icon: SiPayloadcms },
-            { name: "Directus", color: "#6644FF", Icon: SiDirectus },
-        ],
-    },
-    {
-        label: "Databases",
-        items: [
-            { name: "PostgreSQL", color: "#336791", Icon: SiPostgresql },
-            { name: "MySQL", color: "#4479A1", Icon: SiMysql },
-            { name: "MongoDB", color: "#47A248", Icon: SiMongodb },
-            { name: "Supabase", color: "#3ECF8E", Icon: SiSupabase },
-            { name: "Firebase", color: "#FFCA28", Icon: SiFirebase },
-            { name: "Redis", color: "#DC382D", Icon: SiRedis },
-        ],
-    },
+// ── Two-row opposing marquee — Tech Stack (replaces the old tab grid) ─────
+type TechItem = { name: string; Icon: React.ComponentType<{ size?: number; className?: string }> };
+
+const TECH_ROW_TOP: TechItem[] = [
+    { name: "Next.js", Icon: SiNextdotjs },
+    { name: "React", Icon: SiReact },
+    { name: "Vue.js", Icon: SiVuedotjs },
+    { name: "Nuxt", Icon: SiNuxt },
+    { name: "SvelteKit", Icon: SiSvelte },
+    { name: "Angular", Icon: SiAngular },
+    { name: "Express", Icon: SiExpress },
+    { name: "NestJS", Icon: SiNestjs },
+    { name: "Spring Boot", Icon: SiSpring },
+    { name: "FastAPI", Icon: SiFastapi },
+    { name: "Django", Icon: SiDjango },
+    { name: "Laravel", Icon: SiLaravel },
 ];
 
-function TechStackSection() {
-    const [activeCategory, setActiveCategory] = useState(0);
-    const cat = TECH_CATEGORIES[activeCategory];
-    const sectionRef = useRef<HTMLElement>(null);
+const TECH_ROW_BOTTOM: TechItem[] = [
+    { name: "Sanity", Icon: SiSanity },
+    { name: "Strapi", Icon: SiStrapi },
+    { name: "Contentful", Icon: SiContentful },
+    { name: "WordPress", Icon: SiWordpress },
+    { name: "Payload CMS", Icon: SiPayloadcms },
+    { name: "Directus", Icon: SiDirectus },
+    { name: "PostgreSQL", Icon: SiPostgresql },
+    { name: "MySQL", Icon: SiMysql },
+    { name: "MongoDB", Icon: SiMongodb },
+    { name: "Supabase", Icon: SiSupabase },
+    { name: "Firebase", Icon: SiFirebase },
+    { name: "Redis", Icon: SiRedis },
+];
 
+function TechMarqueeRow({ items, direction, duration }: { items: TechItem[]; direction: "left" | "right"; duration: number }) {
+    const doubled = [...items, ...items];
     return (
-        <section ref={sectionRef} className="relative w-full px-6 py-14 md:py-20 overflow-hidden">
-            <div className="pointer-events-none absolute z-0" style={{
-                top: "20%", left: "50%", transform: "translateX(-50%)",
-                width: "120vw", height: "500px",
-                background: [
-                    "radial-gradient(ellipse 30% 50% at 25% 50%, rgba(114,200,245,0.06) 0%, transparent 70%)",
-                    "radial-gradient(ellipse 30% 50% at 75% 50%, rgba(155,47,255,0.07) 0%, transparent 70%)",
-                ].join(", "),
-            }} />
+        <div className="tech-marquee-mask relative w-full overflow-hidden">
+            <div
+                className="flex items-center whitespace-nowrap"
+                style={{
+                    width: "max-content",
+                    gap: "clamp(32px, 5vw, 72px)",
+                    animation: `marquee ${duration}s linear infinite`,
+                    animationDirection: direction === "left" ? "normal" : "reverse",
+                }}
+            >
+                {doubled.map(({ name, Icon }, i) => (
+                    <div
+                        key={`${name}-${i}`}
+                        title={name}
+                        className="group flex flex-shrink-0 items-center justify-center"
+                        style={{ width: 44, height: 44 }}
+                    >
+                        <Icon
+                            size={40}
+                            className="[filter:grayscale(1)_brightness(0)_invert(1)_opacity(0.55)] transition-[filter,opacity] duration-300 group-hover:[filter:grayscale(1)_brightness(0)_invert(1)_opacity(1)_drop-shadow(0_0_12px_rgba(255,255,255,0.4))]"
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function TechStackSection() {
+    return (
+        <section className="relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-24 overflow-hidden">
             <div className="relative z-10 mx-auto max-w-6xl">
-                <div className="mb-3 inline-flex items-center gap-3">
-                    <span className="flex items-center">
-                        <span className="animate-label-line" />
-                        <span className="animate-label-dot" />
-                    </span>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">Our stack</p>
-                </div>
-                <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-white md:text-4xl" data-reveal>Tech that stacks up</h2>
-                <p className="mb-10 max-w-xl text-sm text-white/40 leading-relaxed" data-reveal>
-                    We use the best technology for your product &mdash; whether it&apos;s cutting-edge AI or battle-tested infrastructure.
-                </p>
-                <div className="mb-10 flex flex-wrap justify-center gap-2">
-                    {TECH_CATEGORIES.map((c, i) => {
-                        const active = activeCategory === i;
-                        return (
-                            <button
-                                key={c.label}
-                                onClick={() => setActiveCategory(i)}
-                                className="rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-500"
-                                style={{
-                                    background: active ? "rgba(155,47,255,0.12)" : "transparent",
-                                    border: active ? "1px solid rgba(155,47,255,0.35)" : "1px solid rgba(255,255,255,0.08)",
-                                    color: active ? "#ffffff" : "rgba(255,255,255,0.45)",
-                                    boxShadow: active ? "0 0 24px rgba(155,47,255,0.18)" : "none",
-                                }}
-                            >
-                                {c.label}
-                            </button>
-                        );
-                    })}
+                <div className="mb-12 flex flex-col items-center text-center gap-5">
+                    <SectionLabel text="Our stack" />
+                    <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
+                        Built on tech that compounds.
+                    </h2>
+                    <p className="max-w-xl text-base leading-relaxed text-white/45 md:text-[1.05rem]">
+                        Battle-tested infrastructure paired with cutting-edge AI — chosen for longevity, not novelty.
+                    </p>
                 </div>
 
-                <div
-                    key={activeCategory}
-                    className="grid grid-cols-2 md:grid-cols-3 animate-tech-fade-in"
-                    style={{
-                        borderTop: "1px solid rgba(255,255,255,0.06)",
-                        borderLeft: "1px solid rgba(255,255,255,0.06)",
-                    }}
-                >
-                    {cat.items.map(({ name, color, Icon }) => (
-                        <div
-                            key={name}
-                            className="group relative flex items-center justify-center gap-5 py-12 px-6 transition-colors duration-500 cursor-default"
-                            style={{
-                                borderRight: "1px solid rgba(255,255,255,0.06)",
-                                borderBottom: "1px solid rgba(255,255,255,0.06)",
-                                ["--tech-glow" as string]: color,
-                            }}
-                        >
-                            <Icon
-                                size={32}
-                                color={color}
-                                className="[filter:grayscale(1)_brightness(0)_invert(1)_opacity(0.55)] group-hover:[filter:drop-shadow(0_0_12px_var(--tech-glow))] transition-[filter] duration-500 flex-shrink-0"
-                            />
-                            <span className="text-base font-medium text-white/45 group-hover:text-white transition-colors duration-500">
-                                {name}
-                            </span>
-                        </div>
-                    ))}
+                <div className="flex flex-col gap-4">
+                    <TechMarqueeRow items={TECH_ROW_TOP} direction="left" duration={40} />
+                    <TechMarqueeRow items={TECH_ROW_BOTTOM} direction="right" duration={36} />
                 </div>
             </div>
         </section>
@@ -213,36 +172,6 @@ function TechStackSection() {
 }
 
 // ── Content data ───────────────────────────────────────────────────────────
-const SERVICES_TICKER = [
-    "AI & Intelligence Systems",
-    "Digital Products",
-    "Automation & Systems",
-    "Growth & Marketing",
-];
-const TICKER_ITEMS = [
-    SERVICES_TICKER[3], SERVICES_TICKER[0], SERVICES_TICKER[1], SERVICES_TICKER[2],
-    SERVICES_TICKER[3], SERVICES_TICKER[0], SERVICES_TICKER[1],
-];
-const ITEM_H = 56;
-
-const PAIN_POINTS = [
-    {
-        title: "Manual operations bleeding hours",
-        body: "Reporting, follow-ups, data entry, and approvals are consuming time that should be driving growth.",
-        accent: "#9B2FFF",
-    },
-    {
-        title: "Digital presence that doesn't convert",
-        body: "Your website looks fine — but it's not designed to capture, qualify, and close. It's a brochure, not a revenue engine.",
-        accent: "#72C8F5",
-    },
-    {
-        title: "Disconnected tools, fragmented data",
-        body: "Your CRM doesn't talk to your platform. Your platform doesn't talk to your ops. Every tool creates a new silo.",
-        accent: "#3DFD98",
-    },
-];
-
 const PRODUCT_FEATURES = [
     "AI-powered prospect research: company profiles, pain points, buying signals, and opening hooks",
     "Lead scoring and prioritization against your ideal customer profile",
@@ -252,15 +181,17 @@ const PRODUCT_FEATURES = [
     "CRM sync — push qualified opportunities directly into your pipeline",
 ];
 
-// ── Service icons (colored square with line-art glyph + sparkle) ──────────
-function ServiceIcon({ kind, accent }: { kind: IconKind; accent: string }) {
+// ── Service icons (monochrome line-art glyph + sparkle) ───────────────────
+// `accent` prop kept for backwards compat but ignored — all homepage icons render in white.
+function ServiceIcon({ kind }: { kind: IconKind; accent?: string }) {
+    const ICON_COLOR = "#72C8F5";
     const sparkle = (
         <path
             d="M26 4L27 6L29 7L27 8L26 10L25 8L23 7L25 6Z"
-            fill={accent}
+            fill={ICON_COLOR}
         />
     );
-    const stroke = { stroke: accent, strokeWidth: 1.8, fill: "none" as const, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+    const stroke = { stroke: ICON_COLOR, strokeWidth: 1.8, fill: "none" as const, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
     if (kind === "ai") {
         return (
             <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
@@ -322,15 +253,16 @@ type IconKind = "ai" | "sales" | "products" | "services" | "automation" | "growt
 
 const SERVICE_CARDS: Array<{
     title: string;
+    description: string;
     subServices: string[];
     learnMore: string;
     href: string;
     accent: string;
     icon: IconKind;
-    featured: boolean;
 }> = [
         {
             title: "AI & Intelligence",
+            description: "AI-native systems and intelligent automation woven into every layer of your business — not bolted on.",
             subServices: [
                 "AI integration & assistants",
                 "Custom model deployment",
@@ -340,165 +272,445 @@ const SERVICE_CARDS: Array<{
             href: "/products/ai-intelligence",
             accent: "#9B2FFF",
             icon: "ai",
-            featured: true,
-        },
-        {
-            title: "Sales Intelligence Platform",
-            subServices: [
-                "AI-powered prospect research",
-                "Lead scoring & prioritization",
-                "Outreach automation & CRM sync",
-            ],
-            learnMore: "Discover Sales Intelligence",
-            href: "/products/sales-intelligence-platform",
-            accent: "#72C8F5",
-            icon: "sales",
-            featured: false,
         },
         {
             title: "Digital Products",
+            description: "Validated MVPs and scalable platforms engineered to ship fast and compound value over time.",
             subServices: [
                 "MVP development with AI",
                 "Validated product launches",
                 "Scalable platform architecture",
             ],
             learnMore: "Build a digital product",
-            href: "/contact",
+            href: "/products/digital-products",
             accent: "#BB00FF",
             icon: "products",
-            featured: false,
         },
         {
             title: "Digital Services",
+            description: "Conversion-optimised websites, web platforms, and e-commerce — built to capture and qualify pipeline.",
             subServices: [
                 "Websites & web platforms",
                 "E-commerce & portals",
                 "Conversion-optimized builds",
             ],
             learnMore: "Explore digital services",
-            href: "/contact",
+            href: "/products/digital-services",
             accent: "#3DFD98",
             icon: "services",
-            featured: false,
         },
         {
             title: "Automation & Systems",
+            description: "Operations infrastructure that runs itself — workflows, reporting, and back-office automation that scale with you.",
             subServices: [
                 "Workflow & back-office automation",
                 "Real-time reporting & BI",
                 "Operations infrastructure",
             ],
             learnMore: "Automate your operations",
-            href: "/contact",
+            href: "/products/automation-systems",
             accent: "#72C8F5",
             icon: "automation",
-            featured: false,
-        },
-        {
-            title: "Growth & Marketing",
-            subServices: [
-                "AI-driven acquisition",
-                "Content & SEO systems",
-                "Conversion rate optimization",
-            ],
-            learnMore: "Scale your growth",
-            href: "/contact",
-            accent: "#9B2FFF",
-            icon: "growth",
-            featured: false,
         },
     ];
 
-function ServiceCard({ card }: { card: typeof SERVICE_CARDS[number] }) {
+// ── Service card primitives (icon square + sub-services + learn-more) ────
+// Monochrome icon square — no accent color, no radial-glow halo, no boxShadow.
+// `accent` prop kept for backwards compat but ignored.
+function ServiceIconSquare({ icon, size = "md" }: { icon: IconKind; accent?: string; size?: "sm" | "md" }) {
+    const dims = size === "sm" ? "h-11 w-11" : "h-14 w-14";
     return (
-        <motion.div
-            whileHover={{ y: -4 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="group relative flex h-full flex-col gap-6 rounded-2xl p-7"
+        <div
+            className={`flex ${dims} items-center justify-center rounded-xl`}
             style={{
-                background: card.featured
-                    ? "linear-gradient(145deg, rgba(155,47,255,0.13) 0%, rgba(7,0,31,0.97) 100%)"
-                    : "rgba(8,1,28,0.55)",
-                border: card.featured
-                    ? "1px solid rgba(155,47,255,0.3)"
-                    : "1px solid rgba(255,255,255,0.07)",
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.08)",
             }}
         >
-            {/* Hover border glow */}
-            <div
-                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                    boxShadow: `inset 0 0 0 1px ${card.accent}40`,
-                    background: `radial-gradient(ellipse 80% 50% at 0% 0%, ${card.accent}0F 0%, transparent 60%)`,
-                }}
-            />
-
-            {/* Icon square with glow */}
-            <div className="relative">
-                <div
-                    aria-hidden
-                    className="pointer-events-none absolute -inset-3 rounded-2xl blur-xl"
-                    style={{ background: `radial-gradient(ellipse 60% 60% at 50% 50%, ${card.accent}40 0%, transparent 70%)` }}
-                />
-                <div
-                    className="relative flex h-14 w-14 items-center justify-center rounded-xl"
-                    style={{
-                        background: `linear-gradient(135deg, ${card.accent}3B 0%, ${card.accent}14 100%)`,
-                        border: `1px solid ${card.accent}50`,
-                        boxShadow: `0 0 20px ${card.accent}30, inset 0 0 10px ${card.accent}15`,
-                    }}
-                >
-                    <ServiceIcon kind={card.icon} accent={card.accent} />
-                </div>
-            </div>
-
-            {/* Title — pure white */}
-            <h3 className="text-[1.4rem] font-bold leading-snug tracking-tight text-white">
-                {card.title}
-            </h3>
-
-            {/* Bulleted sub-services — pure white text, accent-colored diamonds */}
-            <ul className="flex flex-1 flex-col gap-3">
-                {card.subServices.map((s) => (
-                    <li key={s} className="flex items-start gap-3 text-sm leading-relaxed text-white">
-                        <span
-                            aria-hidden
-                            className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rotate-45"
-                            style={{ background: card.accent }}
-                        />
-                        <span>{s}</span>
-                    </li>
-                ))}
-            </ul>
-
-            {/* Learn-more link — white text, accent-colored on hover */}
-            <a
-                href={card.href}
-                className="group/lm inline-flex items-center gap-2 self-start text-sm font-semibold text-white transition-opacity hover:opacity-80"
-            >
-                {card.learnMore}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="transition-transform duration-300 group-hover/lm:translate-x-0.5" aria-hidden>
-                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-            </a>
-        </motion.div>
+            <ServiceIcon kind={icon} />
+        </div>
     );
 }
 
-function ServiceCardsTrack() {
+function ServiceLearnMore({ label, href }: { label: string; href: string }) {
     return (
-        <div className="mx-auto max-w-6xl px-6">
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-                {SERVICE_CARDS.map((card, i) => (
+        <a
+            href={href}
+            className="group/lm inline-flex items-center gap-2 self-start text-sm font-semibold text-white transition-opacity hover:opacity-80"
+        >
+            {label}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="transition-transform duration-300 group-hover/lm:translate-x-0.5" aria-hidden>
+                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        </a>
+    );
+}
+
+// Featured 2×2 card — split content (text left, image placeholder right on lg+)
+// ── Services accordion (Joidy-style: image left, expandable list right) ──
+function ServicesAccordion() {
+    const [active, setActive] = useState<number | null>(0);
+    return (
+        <div className="flex flex-col">
+            {SERVICE_CARDS.map((card, i) => {
+                const isOpen = active === i;
+                const isLast = i === SERVICE_CARDS.length - 1;
+                return (
+                    <div
+                        key={card.title}
+                        className="transition-colors duration-300"
+                        style={{
+                            borderBottom: isLast ? "none" : "1px solid rgba(255,255,255,0.08)",
+                            background: isOpen ? "rgba(255,255,255,0.02)" : "transparent",
+                        }}
+                    >
+                        <button
+                            type="button"
+                            onClick={() => setActive(isOpen ? null : i)}
+                            aria-expanded={isOpen}
+                            className="flex w-full items-center gap-5 py-6 text-left transition-colors duration-200 hover:bg-white/[0.02] md:py-7"
+                        >
+                            <span className="flex-shrink-0">
+                                <ServiceIconSquare icon={card.icon} accent={card.accent} size="sm" />
+                            </span>
+                            <span className="flex-1 text-[1.25rem] font-bold leading-tight tracking-tight text-white md:text-[1.4rem]">
+                                {card.title}
+                            </span>
+                            <span
+                                aria-hidden
+                                className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300"
+                                style={{
+                                    background: "rgba(255,255,255,0.04)",
+                                    border: "1px solid rgba(255,255,255,0.18)",
+                                    transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                                }}
+                            >
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <path d="M6 1v10M1 6h10" stroke="rgba(255,255,255,0.75)" strokeWidth="1.6" strokeLinecap="round" />
+                                </svg>
+                            </span>
+                        </button>
+                        <AnimatePresence initial={false}>
+                            {isOpen && (
+                                <motion.div
+                                    key="content"
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                    className="overflow-hidden"
+                                >
+                                    <div className="flex flex-col gap-5 pb-6 pl-[60px] pr-4 md:pl-[68px]">
+                                        <ul className="flex flex-col gap-3">
+                                            {card.subServices.map((s) => (
+                                                <li
+                                                    key={s}
+                                                    className="flex items-start gap-3 text-sm leading-relaxed text-white md:text-[15px]"
+                                                >
+                                                    <span
+                                                        aria-hidden
+                                                        className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rotate-45"
+                                                        style={{ background: "rgba(255,255,255,0.6)" }}
+                                                    />
+                                                    <span>{s}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <ServiceLearnMore label={card.learnMore} href={card.href} />
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
+// ── Services Explorer (canonical §5 layout) ──────────────────────────────
+// Left = clickable numbered list, right = active service detail panel.
+function ServicesExplorer() {
+    const [active, setActive] = useState(0);
+    const card = SERVICE_CARDS[active];
+    return (
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[0.7fr_1.3fr] md:gap-12 lg:gap-16 items-start">
+            {/* LEFT — clickable list */}
+            <div className="flex flex-col">
+                {SERVICE_CARDS.map((s, i) => {
+                    const isActive = active === i;
+                    return (
+                        <button
+                            key={s.title}
+                            type="button"
+                            onClick={() => setActive(i)}
+                            aria-pressed={isActive}
+                            className="group relative flex items-baseline gap-4 py-4 pl-5 pr-3 text-left transition-colors duration-200 hover:bg-white/[0.02]"
+                            style={{
+                                background: isActive ? "rgba(255,255,255,0.03)" : "transparent",
+                            }}
+                        >
+                            {/* Active gradient left border */}
+                            <span
+                                aria-hidden
+                                className="absolute left-0 top-0 bottom-0 w-[2px] transition-opacity duration-300"
+                                style={{
+                                    background: "linear-gradient(180deg, #9B2FFF, #72C8F5)",
+                                    opacity: isActive ? 1 : 0,
+                                }}
+                            />
+                            <span
+                                className="text-[10px] font-bold uppercase tracking-[0.18em] transition-colors duration-200"
+                                style={{ color: isActive ? s.accent : "rgba(255,255,255,0.4)" }}
+                            >
+                                {String(i + 1).padStart(2, "0")}
+                            </span>
+                            <span
+                                className="flex-1 text-base font-bold tracking-tight transition-colors duration-200 md:text-lg"
+                                style={{ color: isActive ? "#fff" : "rgba(255,255,255,0.55)" }}
+                            >
+                                {s.title}
+                            </span>
+                        </button>
+                    );
+                })}
+            </div>
+
+            {/* RIGHT — active detail panel */}
+            <div
+                className="rounded-2xl p-7 md:p-9"
+                style={{
+                    background: "rgba(8,1,28,0.55)",
+                    border: "1px solid rgba(255,255,255,0.07)",
+                }}
+            >
+                <AnimatePresence mode="wait">
                     <motion.div
                         key={card.title}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="flex flex-col gap-5"
                     >
-                        <ServiceCard card={card} />
+                        <div className="mx-auto w-full max-w-sm">
+                            <ImagePlaceholder
+                                aspect="3 / 2"
+                                label={`${card.title} mockup`}
+                                accent={card.accent}
+                            />
+                        </div>
+                        <span
+                            className="text-[10px] font-bold uppercase tracking-[0.22em]"
+                            style={{ color: `${card.accent}CC` }}
+                        >
+                            Service {String(active + 1).padStart(2, "0")}
+                        </span>
+                        <h3 className="text-[1.5rem] font-bold leading-snug tracking-tight text-white md:text-[1.75rem]">
+                            {card.title}
+                        </h3>
+                        <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">
+                            {card.description}
+                        </p>
+                        <ul className="flex flex-col gap-3">
+                            {card.subServices.map((s) => (
+                                <li
+                                    key={s}
+                                    className="flex items-start gap-3 text-sm leading-relaxed text-white md:text-[15px]"
+                                >
+                                    <span
+                                        aria-hidden
+                                        className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rotate-45"
+                                        style={{ background: card.accent }}
+                                    />
+                                    <span>{s}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <ServiceLearnMore label={card.learnMore} href={card.href} />
                     </motion.div>
+                </AnimatePresence>
+            </div>
+        </div>
+    );
+}
+
+// ── Services Carousel (canonical §5 layout — horizontal scroll-snap) ─────
+// Section header on top-left, prev/next arrows top-right, cards scroll horizontally.
+function ServicesCarousel() {
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [canPrev, setCanPrev] = useState(false);
+    const [canNext, setCanNext] = useState(true);
+    const { open: openBookCall } = useBookCall();
+
+    useEffect(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const update = () => {
+            setCanPrev(el.scrollLeft > 4);
+            setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+        };
+        update();
+        el.addEventListener("scroll", update, { passive: true });
+        const ro = new ResizeObserver(update);
+        ro.observe(el);
+        return () => {
+            el.removeEventListener("scroll", update);
+            ro.disconnect();
+        };
+    }, []);
+
+    const scrollBy = (dir: 1 | -1) => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const first = el.querySelector("[data-card]") as HTMLElement | null;
+        const step = first ? first.offsetWidth + 16 : el.clientWidth * 0.85;
+        el.scrollBy({ left: step * dir, behavior: "smooth" });
+    };
+
+    return (
+        <div>
+            {/* Header row — title left, arrows right */}
+            <div className="mb-8 flex items-end justify-between gap-6 px-1 md:mb-12">
+                <div className="flex flex-col gap-3">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">
+                        What we do
+                    </span>
+                    <h2 className="text-3xl font-extrabold leading-[1.05] tracking-tight text-white md:text-4xl">
+                        Four capabilities.<br />One unified system.
+                    </h2>
+                    <button
+                        type="button"
+                        onClick={openBookCall}
+                        className="group mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-white/70 transition-colors hover:text-white md:text-base cursor-pointer"
+                    >
+                        Book a strategy call
+                        <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                            aria-hidden
+                        >
+                            <path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+                <div className="flex flex-shrink-0 items-center gap-2">
+                    <button
+                        type="button"
+                        aria-label="Previous service"
+                        disabled={!canPrev}
+                        onClick={() => scrollBy(-1)}
+                        className="flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 disabled:opacity-30 disabled:pointer-events-auto"
+                        style={{
+                            background: "rgba(255,255,255,0.03)",
+                            border: "1px solid rgba(255,255,255,0.12)",
+                        }}
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                    <button
+                        type="button"
+                        aria-label="Next service"
+                        disabled={!canNext}
+                        onClick={() => scrollBy(1)}
+                        className="flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 disabled:opacity-30 disabled:pointer-events-auto"
+                        style={{
+                            background: "rgba(255,255,255,0.03)",
+                            border: "1px solid rgba(255,255,255,0.12)",
+                        }}
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            {/* Scroll track */}
+            <div
+                ref={scrollRef}
+                className="-mx-1 flex gap-4 overflow-x-auto pb-4 pt-1 services-carousel-scroll"
+                style={{
+                    scrollSnapType: "x mandatory",
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                    WebkitOverflowScrolling: "touch",
+                }}
+            >
+                {SERVICE_CARDS.map((card, i) => (
+                    <a
+                        key={card.title}
+                        data-card
+                        href={card.href}
+                        className="group flex flex-shrink-0 flex-col gap-5 rounded-2xl p-6 md:p-7 transition-colors duration-300 hover:bg-white/[0.03]"
+                        style={{
+                            background: "rgba(8,1,28,0.55)",
+                            border: "1px solid rgba(255,255,255,0.07)",
+                            scrollSnapAlign: "start",
+                            width: "min(85vw, 360px)",
+                        }}
+                    >
+                        {/* Image placeholder per service — BLUE tint */}
+                        <ImagePlaceholder
+                            aspect="3 / 2"
+                            label={`${card.title} mockup`}
+                            accent="#72C8F5"
+                        />
+
+                        {/* Per-service number eyebrow + title */}
+                        <div className="flex items-baseline gap-3">
+                            <span
+                                className="text-[10px] font-bold uppercase tracking-[0.22em]"
+                                style={{ color: "#3DFD98" }}
+                            >
+                                Service {String(i + 1).padStart(2, "0")}
+                            </span>
+                        </div>
+                        <h3 className="text-[1.3rem] font-bold leading-snug tracking-tight text-white md:text-[1.4rem]">
+                            {card.title}
+                        </h3>
+                        <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">
+                            {card.description}
+                        </p>
+
+                        {/* Sub-services (compact bullets) */}
+                        <ul className="mt-auto flex flex-col gap-2.5">
+                            {card.subServices.map((s) => (
+                                <li
+                                    key={s}
+                                    className="flex items-start gap-3 text-sm leading-relaxed text-white"
+                                >
+                                    <span
+                                        aria-hidden
+                                        className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rotate-45"
+                                        style={{ background: "#72C8F5" }}
+                                    />
+                                    <span className="leading-snug">{s}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <span
+                            className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-opacity group-hover:opacity-80"
+                        >
+                            Learn more
+                            <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                className="transition-transform duration-300 group-hover:translate-x-0.5"
+                                aria-hidden
+                            >
+                                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </span>
+                    </a>
                 ))}
             </div>
         </div>
@@ -512,269 +724,239 @@ const KEY_RESULTS: Array<{ leadNumber: number; suffix: string; label: string }> 
     { leadNumber: 12, suffix: "mo", label: "Average ROI timeline" },
 ];
 
-// ── Process steps data ────────────────────────────────────────────────────
+// ── Why Choose Levata visual hints (monochrome schematic SVGs) ────────────
+const MONO_STROKE = "rgba(255,255,255,0.65)";
+const MONO_FILL = "rgba(255,255,255,0.08)";
 
-const PROCESS_STEPS = [
-    {
-        num: "01",
-        accent: "#9B2FFF",
-        title: "Discovery & Audit",
-        bullets: [
-            "Map your business model, data flows, and existing systems.",
-            "Identify the highest-leverage AI and automation opportunities.",
-            "Align technical capability with your commercial goals.",
-        ],
-        result: "A clear opportunity map and prioritised roadmap — before a single line of code is written.",
-    },
-    {
-        num: "02",
-        accent: "#72C8F5",
-        title: "Architecture & Strategy",
-        bullets: [
-            "Design your custom AI ecosystem and integration architecture.",
-            "Define measurable KPIs and success criteria for each initiative.",
-            "Validate the roadmap against real business constraints.",
-        ],
-        result: "A battle-tested blueprint your team can execute against with full confidence.",
-    },
-    {
-        num: "03",
-        accent: "#3DFD98",
-        title: "Build, Launch & Optimise",
-        bullets: [
-            "Ship in focused engineering sprints with full progress visibility.",
-            "Managed launch with onboarding, documentation, and support.",
-            "Continuous iteration: measure results and compound improvements.",
-        ],
-        result: "A system that keeps getting smarter — delivering increasing ROI month over month.",
-    },
-];
+function IconLayersDiagram() {
+    // 3 stacked horizontal layers with embedded nodes — represents AI-native foundation
+    return (
+        <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
+            <rect x="10" y="6" width="60" height="6" rx="2" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="10" y="15" width="60" height="6" rx="2" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="10" y="24" width="60" height="6" rx="2" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <circle cx="22" cy="9" r="1.5" fill={MONO_STROKE} />
+            <circle cx="40" cy="18" r="1.5" fill={MONO_STROKE} />
+            <circle cx="58" cy="27" r="1.5" fill={MONO_STROKE} />
+        </svg>
+    );
+}
 
-const WHY_LEVATA = [
+function IconE2EDiagram() {
+    return (
+        <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
+            <line x1="14" y1="18" x2="40" y2="18" stroke={MONO_STROKE} strokeWidth="1.4" strokeDasharray="3 3" opacity="0.6" />
+            <line x1="40" y1="18" x2="66" y2="18" stroke={MONO_STROKE} strokeWidth="1.4" strokeDasharray="3 3" opacity="0.6" />
+            <circle cx="14" cy="18" r="7" fill="rgba(8,1,28,0.95)" stroke={MONO_STROKE} strokeWidth="1.4" />
+            <circle cx="14" cy="18" r="2.5" fill={MONO_STROKE} />
+            <circle cx="40" cy="18" r="7" fill="rgba(8,1,28,0.95)" stroke={MONO_STROKE} strokeWidth="1.4" />
+            <circle cx="40" cy="18" r="2.5" fill={MONO_STROKE} />
+            <circle cx="66" cy="18" r="7" fill="rgba(8,1,28,0.95)" stroke={MONO_STROKE} strokeWidth="1.4" />
+            <circle cx="66" cy="18" r="2.5" fill={MONO_STROKE} />
+        </svg>
+    );
+}
+
+function IconLoopDiagram() {
+    return (
+        <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
+            <path d="M14 22 Q 40 -2, 66 22" stroke={MONO_STROKE} strokeWidth="1.5" fill="none" strokeLinecap="round" />
+            <path d="M66 22 Q 40 38, 14 22" stroke={MONO_STROKE} strokeWidth="1.5" strokeDasharray="3 3" fill="none" strokeLinecap="round" opacity="0.55" />
+            <path d="M58 16 L 66 22 L 60 28" stroke={MONO_STROKE} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="14" cy="22" r="3" fill={MONO_STROKE} />
+        </svg>
+    );
+}
+
+function IconBarsDiagram() {
+    return (
+        <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
+            <rect x="10" y="22" width="10" height="10" rx="1.5" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="26" y="16" width="10" height="16" rx="1.5" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="42" y="10" width="10" height="22" rx="1.5" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <rect x="58" y="4" width="10" height="28" rx="1.5" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
+            <path d="M15 24 L 31 18 L 47 12 L 63 6" stroke={MONO_STROKE} strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    );
+}
+
+function WhyVisualHint({ title }: { title: string }) {
+    const t = title.toLowerCase();
+    if (t.includes("ai-native")) return <IconLayersDiagram />;
+    if (t.includes("end-to-end")) return <IconE2EDiagram />;
+    if (t.includes("continuous")) return <IconLoopDiagram />;
+    if (t.includes("outcomes")) return <IconBarsDiagram />;
+    return <IconLayersDiagram />;
+}
+
+const WHY_LEVATA: Array<{ title: string; body: string; icon: IconKind; accent: string; featured?: boolean }> = [
     {
         title: "AI-Native From the Ground Up",
-        body: "Every system we ship is designed with AI at its core — not bolted on as an afterthought.",
+        body: "Every system we ship is designed with AI at its core — not bolted on as an afterthought. Strategy, architecture, and execution are all informed by what AI can compound over time.",
+        icon: "ai",
+        accent: "#9B2FFF",
+        featured: true,
     },
     {
         title: "End-to-End Under One Roof",
         body: "Strategy, design, engineering, automation, and growth — all coordinated under one accountable team.",
+        icon: "services",
+        accent: "#72C8F5",
     },
     {
-        title: "Continuous Optimisation Model",
+        title: "Continuous Optimisation",
         body: "We don't disappear after launch. We measure, iterate, and compound results month over month.",
+        icon: "automation",
+        accent: "#3DFD98",
+    },
+    {
+        title: "Outcomes Over Outputs",
+        body: "We commit to measurable business results — pipeline, conversion, ops cost — not deliverables in a Notion doc.",
+        icon: "growth",
+        accent: "#BB00FF",
     },
 ];
 
+// ── Problem section: before/after transformation pairs ────────────────────
+const TRANSFORMATIONS: Array<{ pain: string; win: string }> = [
+    { pain: "Manual operations bleeding hours", win: "Automation reclaiming days" },
+    { pain: "Digital presence that doesn't convert", win: "Conversion infrastructure built-in" },
+    { pain: "Disconnected tools, fragmented data", win: "Unified intelligence layer" },
+];
+
+// ── Solution section: 4-node delivery flow ────────────────────────────────
+const FLOW_NODES: Array<{ num: string; title: string; caption: string; icon: IconKind; accent: string }> = [
+    { num: "01", title: "Diagnose", caption: "Map operations, surface friction, identify ROI opportunities.", icon: "sales", accent: "#72C8F5" },
+    { num: "02", title: "Architect", caption: "Design AI-native systems matched to your business model.", icon: "ai", accent: "#9B2FFF" },
+    { num: "03", title: "Build", caption: "Ship integrated products, automation, and intelligence layers.", icon: "products", accent: "#BB00FF" },
+    { num: "04", title: "Compound", caption: "Measure, iterate, and grow returns month over month.", icon: "growth", accent: "#3DFD98" },
+];
+
+// ── Reusable inline helpers ───────────────────────────────────────────────
+
+function ImagePlaceholder({
+    aspect = "16 / 9",
+    label = "Image placeholder",
+    className = "",
+    accent,
+}: {
+    aspect?: string;
+    label?: string;
+    className?: string;
+    accent?: string;
+}) {
+    const bg = accent
+        ? `linear-gradient(135deg, ${accent}1F, ${accent}08)`
+        : "linear-gradient(135deg, rgba(155,47,255,0.10), rgba(114,200,245,0.06))";
+    const border = accent ? `1px solid ${accent}33` : "1px solid rgba(255,255,255,0.06)";
+    const glow = accent
+        ? `radial-gradient(ellipse 60% 60% at 50% 50%, ${accent}33 0%, transparent 70%)`
+        : "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.18) 0%, transparent 70%)";
+    return (
+        <div
+            className={`relative w-full overflow-hidden rounded-xl ${className}`}
+            style={{ aspectRatio: aspect, background: bg, border }}
+            aria-hidden
+        >
+            <div className="hero-grid-bg absolute inset-0 opacity-50" />
+            <div className="absolute inset-0" style={{ background: glow }} />
+            <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30">
+                    {label}
+                </span>
+            </div>
+        </div>
+    );
+}
+
+// ── §4 SOLUTION: flow node + animated connector ──
+function FlowNode({ num, title, caption, icon, accent }: typeof FLOW_NODES[number]) {
+    return (
+        <div className="flex flex-col items-center gap-3 text-center">
+            <div
+                className="rounded-2xl p-px"
+                style={{
+                    background: `linear-gradient(135deg, #72C8F588, rgba(255,255,255,0.08), rgba(155,47,255,0.4))`,
+                    boxShadow: `0 16px 40px #72C8F51F`,
+                }}
+            >
+                <div
+                    className="relative flex h-20 w-20 items-center justify-center rounded-[15px]"
+                    style={{ background: "rgba(8,1,28,0.95)", border: "1px solid rgba(255,255,255,0.06)" }}
+                >
+                    <span
+                        className="absolute left-3 top-2 text-[9px] font-bold uppercase tracking-[0.18em]"
+                        style={{ color: "#3DFD98" }}
+                    >
+                        {num}
+                    </span>
+                    <ServiceIcon kind={icon} accent={accent} />
+                </div>
+            </div>
+            <h3 className="text-base font-bold tracking-tight text-white md:text-lg">{title}</h3>
+            <p className="max-w-[180px] text-xs leading-relaxed text-white/50 md:text-sm">{caption}</p>
+        </div>
+    );
+}
+
+function FlowConnector({ vertical = false }: { vertical?: boolean }) {
+    if (vertical) {
+        return (
+            <div className="flex justify-center" aria-hidden>
+                <svg width="2" height="48" viewBox="0 0 2 48" fill="none">
+                    <defs>
+                        <linearGradient id="flowConnV" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#9B2FFF" />
+                            <stop offset="100%" stopColor="#72C8F5" />
+                        </linearGradient>
+                    </defs>
+                    <line x1="1" y1="0" x2="1" y2="48" stroke="url(#flowConnV)" strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
+                    <motion.circle
+                        cx="1"
+                        r="2"
+                        fill="#72C8F5"
+                        initial={{ cy: 0 }}
+                        animate={{ cy: 48 }}
+                        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                </svg>
+            </div>
+        );
+    }
+    return (
+        <div className="flex flex-1 items-center px-2" aria-hidden>
+            <svg viewBox="0 0 200 4" preserveAspectRatio="none" className="block h-1 w-full">
+                <defs>
+                    <linearGradient id="flowConnH" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#9B2FFF" />
+                        <stop offset="100%" stopColor="#72C8F5" />
+                    </linearGradient>
+                </defs>
+                <line x1="0" y1="2" x2="200" y2="2" stroke="url(#flowConnH)" strokeWidth="1" strokeDasharray="4 4" opacity="0.55" />
+                <motion.circle
+                    cy="2"
+                    r="2"
+                    fill="#72C8F5"
+                    initial={{ cx: 0 }}
+                    animate={{ cx: 200 }}
+                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                />
+            </svg>
+        </div>
+    );
+}
+
 // ── Page ───────────────────────────────────────────────────────────────────
 export default function HeroSection() {
-    const outerRef = useRef<HTMLImageElement>(null);
-    const innerRef = useRef<HTMLImageElement>(null);
-    const tickerTrack = useRef<HTMLDivElement>(null);
-    const step = useRef(0);
-
-    useEffect(() => {
-        if (!outerRef.current || !innerRef.current) return;
-
-        const t1 = gsap.to(outerRef.current, {
-            rotation: -360,
-            duration: 45,
-            ease: "none",
-            repeat: -1,
-            transformOrigin: "center center",
-        });
-
-        const t2 = gsap.to(innerRef.current, {
-            rotation: 360,
-            duration: 45,
-            ease: "none",
-            repeat: -1,
-            transformOrigin: "center center",
-        });
-
-        const setRowStyles = (s: number, instant = false) => {
-            const rows = tickerTrack.current?.children;
-            if (!rows) return;
-            for (let i = 0; i < rows.length; i++) {
-                const isMiddle = i === s + 1;
-                const isAdjacent = i === s || i === s + 2;
-                const opacity = isMiddle ? 1 : isAdjacent ? 0.25 : 0;
-                if (instant) {
-                    gsap.set(rows[i], { opacity });
-                } else {
-                    gsap.to(rows[i], { opacity, duration: 0.4, ease: "power2.out" });
-                }
-            }
-        };
-
-        step.current = 0;
-        gsap.set(tickerTrack.current, { y: 0 });
-        setRowStyles(0, true);
-
-        const tick = () => {
-            step.current += 1;
-            setRowStyles(step.current);
-            gsap.to(tickerTrack.current, {
-                y: -(step.current * ITEM_H),
-                duration: 0.65,
-                ease: "power2.inOut",
-                onComplete: () => {
-                    if (step.current === 4) {
-                        gsap.set(tickerTrack.current, { y: 0 });
-                        step.current = 0;
-                        setRowStyles(0, true);
-                    }
-                },
-            });
-        };
-
-        let interval = setInterval(tick, 2800);
-
-        const handleVisibilityChange = () => {
-            if (document.hidden) {
-                clearInterval(interval);
-            } else {
-                gsap.killTweensOf(tickerTrack.current);
-                step.current = 0;
-                gsap.set(tickerTrack.current, { y: 0 });
-                setRowStyles(0, true);
-                interval = setInterval(tick, 2800);
-            }
-        };
-
-        document.addEventListener("visibilitychange", handleVisibilityChange);
-
-        return () => {
-            t1.kill();
-            t2.kill();
-            clearInterval(interval);
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
-        };
-    }, []);
-
+    const { open: openBookCall } = useBookCall();
     return (
         <main className="relative min-h-screen bg-[#07001F] flex flex-col">
 
-            {/* ── 1. HERO ──────────────────────────────────────── */}
-            <div
-                className="pointer-events-none absolute z-0"
-                style={{
-                    top: "calc(100vh - 260px)",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "140vw",
-                    height: "520px",
-                    background: [
-                        "radial-gradient(ellipse 30% 60% at 35% 80%, rgba(61,253,152,0.18) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 30% 60% at 65% 80%, rgba(160,133,254,0.22) 0%, transparent 70%)",
-                    ].join(", "),
-                }}
-            />
+            {/* ── 1. HERO (cinematic) ──────────────────────────── */}
+            <HomeHero />
 
-            <div className="pointer-events-none absolute inset-0 z-0">
-                <div style={{
-                    position: "absolute",
-                    top: "100px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "max(160vw, 1800px)",
-                    height: "max(160vw, 1800px)",
-                }}>
-                    <img
-                        ref={outerRef}
-                        src="/circular-hero-out.svg"
-                        alt=""
-                        aria-hidden="true"
-                        style={{ display: "block", width: "100%", height: "100%" }}
-                    />
-                </div>
-                <div style={{
-                    position: "absolute",
-                    top: "calc(100px + 16vw)",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "max(128vw, 1440px)",
-                    height: "max(128vw, 1440px)",
-                }}>
-                    <img
-                        ref={innerRef}
-                        src="/688ce43e4092c9990ed4a821_hero-circular-in.svg"
-                        alt=""
-                        aria-hidden="true"
-                        style={{ display: "block", width: "100%", height: "100%" }}
-                    />
-                </div>
-            </div>
-
-            <section
-                data-hero
-                className="relative z-10 flex flex-1 flex-col items-center justify-start text-center px-6"
-                style={{ paddingTop: 'clamp(120px, calc(50px + 9.5vw - 30px), 155px)' }}
-            >
-                <HeroFloatingCards />
-
-                <h1
-                    className="mb-7 max-w-3xl text-balance text-[1.9rem] font-semibold leading-[1.06] tracking-[-0.02em] text-white sm:text-[2.25rem] md:text-[2.7rem] lg:text-[3rem]"
-                    style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
-                >
-                    Your Business Deserves Intelligence,
-                    <br />Not Just Software.
-                </h1>
-
-
-                {/* Services ticker */}
-                <div className="delay-150 mb-10 flex flex-col items-center gap-2">
-                    <p className="text-[11px] font-semibold text-white/30 uppercase tracking-[0.18em]">What we build</p>
-                    <div style={{ overflow: "hidden", height: `${ITEM_H * 3}px` }}>
-                        <div ref={tickerTrack}>
-                            {TICKER_ITEMS.map((service, i) => (
-                                <div key={i} style={{
-                                    height: `${ITEM_H}px`,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    opacity: i === 1 ? 1 : (i === 0 || i === 2) ? 0.25 : 0,
-                                }}>
-                                    <span style={{
-                                        fontSize: "clamp(18px, 2.2vw, 26px)",
-                                        fontWeight: 700,
-                                        background: "linear-gradient(90deg, #9B2FFF, #72C8F5)",
-                                        WebkitBackgroundClip: "text",
-                                        WebkitTextFillColor: "transparent",
-                                        backgroundClip: "text",
-                                        whiteSpace: "nowrap",
-                                        letterSpacing: "-0.01em",
-                                    }}>
-                                        {service}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                {/* CTAs */}
-                <div className="flex flex-col items-center gap-3 sm:flex-row">
-                    <a href="/contact">
-                        <NeonButton variant="solid" size="lg" className="font-semibold tracking-wide">
-                            Book a Free Strategy Call
-                        </NeonButton>
-                    </a>
-                    <a href="#services">
-                        <NeonButton variant="ghost" size="lg" className="font-semibold tracking-wide">
-                            Explore Our Services
-                        </NeonButton>
-                    </a>
-                </div>
-            </section>
-
-            {/* ── 2. CLIENTS MARQUEE (LOCKED) ─────────────────── */}
-            <div className="relative z-10 mt-auto pb-10 pt-16 md:pt-24">
-                <div className="mx-auto mb-0 h-px w-24 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-                <ClientsMarquee />
-            </div>
-
-            {/* ── 3. THE PROBLEM ───────────────────────────────── */}
-            <section id="problem" className="relative w-full px-6 pt-20 pb-0 md:pt-40 md:pb-0">
+            {/* ── 2. THE PROBLEM (Before / After split) ────────── */}
+            <section id="problem" className="relative w-full px-6 pt-20 pb-10 md:pt-32 md:pb-14">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(155,47,255,0.06) 0%, transparent 70%)",
@@ -791,74 +973,273 @@ export default function HeroSection() {
                     >
                         <SectionLabel text="The problem" />
                         <h2 className="max-w-3xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
-                            Most businesses are running on duct tape and spreadsheets.
+                            Most businesses are running on <span className="jakarta-italic">duct tape and spreadsheets.</span>
                         </h2>
+                        <p className="max-w-xl text-base text-white/45 md:text-lg leading-relaxed">
+                            Levata replaces the chaos with infrastructure.
+                        </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                        {PAIN_POINTS.map((pp, i) => (
-                            <motion.div
-                                key={pp.title}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                                className="group rounded-2xl p-px"
+                    {/* Before / After split */}
+                    <div className="relative grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+                        {/* BEFORE card */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -24 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                            className="flex flex-col gap-5 rounded-2xl p-7 md:p-8"
+                            style={{
+                                background: "rgba(8,1,28,0.7)",
+                                border: "1px solid rgba(255,255,255,0.07)",
+                            }}
+                        >
+                            {/* Header row */}
+                            <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-1.5">
+                                    <span className="h-2.5 w-2.5 rounded-full" style={{ background: "rgba(255,60,60,0.7)" }} />
+                                    <span className="h-2.5 w-2.5 rounded-full" style={{ background: "rgba(255,180,0,0.55)" }} />
+                                    <span className="h-2.5 w-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
+                                </div>
+                                <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/30">Before Levata</span>
+                            </div>
+
+                            <h3 className="text-xl font-bold leading-snug tracking-tight text-white/60 md:text-2xl">
+                                Operating in the fog
+                            </h3>
+
+                            <ul className="flex flex-col gap-2.5">
+                                {TRANSFORMATIONS.map(({ pain }) => (
+                                    <li key={pain} className="flex items-start gap-3 text-sm leading-relaxed text-white/40 md:text-[15px]">
+                                        <span
+                                            aria-hidden
+                                            className="mt-[6px] flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full"
+                                            style={{ background: "rgba(255,60,60,0.08)", border: "1px solid rgba(255,60,60,0.25)" }}
+                                        >
+                                            <svg viewBox="0 0 8 8" fill="none" className="h-2 w-2">
+                                                <line x1="2" y1="2" x2="6" y2="6" stroke="rgba(255,100,100,0.7)" strokeWidth="1.4" strokeLinecap="round" />
+                                                <line x1="6" y1="2" x2="2" y2="6" stroke="rgba(255,100,100,0.7)" strokeWidth="1.4" strokeLinecap="round" />
+                                            </svg>
+                                        </span>
+                                        <span>{pain}</span>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            {/* Fake error terminal */}
+                            <div
+                                className="mt-auto rounded-xl p-4 font-mono"
                                 style={{
-                                    background: `linear-gradient(160deg, ${pp.accent}33 0%, rgba(255,255,255,0.05) 60%)`,
+                                    background: "rgba(0,0,0,0.4)",
+                                    border: "1px solid rgba(255,255,255,0.05)",
                                 }}
                             >
-                                <div
-                                    className="h-full rounded-[15px] p-7"
-                                    style={{ background: "rgba(8,1,28,0.98)", border: "1px solid rgba(255,255,255,0.04)" }}
-                                >
-                                    <div
-                                        className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl"
-                                        style={{ background: `${pp.accent}1A`, border: `1px solid ${pp.accent}55` }}
-                                    >
-                                        <span
-                                            className="h-2 w-2 rounded-full"
-                                            style={{ background: pp.accent, boxShadow: `0 0 12px ${pp.accent}` }}
-                                        />
+                                <p className="text-[10px] text-white/20 mb-2">system_log.txt</p>
+                                {[
+                                    { tag: "ERR", msg: "Data sync failed — 3 sources disconnected", color: "rgba(255,80,80,0.75)" },
+                                    { tag: "WARN", msg: "Manual export overdue by 4 days", color: "rgba(255,180,0,0.65)" },
+                                    { tag: "ERR", msg: "Pipeline report: incomplete data", color: "rgba(255,80,80,0.75)" },
+                                ].map(({ tag, msg, color }) => (
+                                    <div key={msg} className="flex items-start gap-2 py-0.5">
+                                        <span className="mt-px flex-shrink-0 text-[9px] font-bold" style={{ color }}>[{tag}]</span>
+                                        <span className="text-[10px] leading-relaxed text-white/30">{msg}</span>
                                     </div>
-                                    <h3 className="mb-3 text-lg font-bold leading-snug text-white md:text-xl">
-                                        {pp.title}
-                                    </h3>
-                                    <p className="text-sm leading-relaxed text-white/50">{pp.body}</p>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* Connector arrow (md+ only) */}
+                        <div
+                            aria-hidden
+                            className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block"
+                            style={{ zIndex: 1 }}
+                        >
+                            <div
+                                className="flex h-10 w-10 items-center justify-center rounded-full"
+                                style={{
+                                    background: "rgba(7,0,31,0.95)",
+                                    border: "1px solid rgba(155,47,255,0.45)",
+                                    boxShadow: "0 0 24px rgba(155,47,255,0.4)",
+                                }}
+                            >
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                    <path
+                                        d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5"
+                                        stroke="#9B2FFF"
+                                        strokeWidth="1.6"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        {/* AFTER card */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.7, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                            className="rounded-2xl p-px"
+                            style={{
+                                background: "linear-gradient(135deg, rgba(114,200,245,0.5) 0%, rgba(255,255,255,0.08) 50%, rgba(155,47,255,0.5) 100%)",
+                                boxShadow: "0 20px 60px rgba(155,47,255,0.18)",
+                            }}
+                        >
+                            <div
+                                className="flex h-full flex-col gap-6 rounded-[15px] p-7 md:p-9"
+                                style={{ background: "rgba(8,1,28,0.96)", border: "1px solid rgba(255,255,255,0.06)" }}
+                            >
+                                <div className="flex items-center gap-2.5">
+                                    <span
+                                        className="h-2 w-2 rounded-full"
+                                        style={{ background: "#3DFD98", boxShadow: "0 0 12px #3DFD98" }}
+                                    />
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: "#3DFD98" }}>
+                                        After
+                                    </span>
                                 </div>
-                            </motion.div>
-                        ))}
+                                <h3 className="text-xl font-bold leading-snug text-white md:text-2xl">
+                                    Operating as infrastructure
+                                </h3>
+                                <ul className="flex flex-col gap-3">
+                                    {TRANSFORMATIONS.map(({ win }) => (
+                                        <li key={win} className="flex items-start gap-3 text-sm leading-relaxed text-white md:text-base">
+                                            <span
+                                                aria-hidden
+                                                className="mt-[6px] flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full"
+                                                style={{
+                                                    background: "rgba(61,253,152,0.14)",
+                                                    border: "1px solid rgba(61,253,152,0.45)",
+                                                }}
+                                            >
+                                                <svg viewBox="0 0 10 10" fill="none" className="h-2.5 w-2.5">
+                                                    <path d="M2 5l2.2 2.2L8 3.2" stroke="#3DFD98" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                            </span>
+                                            <span>{win}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                                {/* Live metric mini-dashboard */}
+                                <div className="mt-auto grid grid-cols-3 gap-2.5">
+                                    {[
+                                        { label: "Ops automated", value: "84%", color: "#3DFD98" },
+                                        { label: "Pipeline CVR", value: "+3.2×", color: "#72C8F5" },
+                                        { label: "Manual hrs", value: "−61%", color: "#3DFD98" },
+                                    ].map(({ label, value, color }) => (
+                                        <div
+                                            key={label}
+                                            className="flex flex-col items-center gap-1 rounded-xl py-3 px-2"
+                                            style={{
+                                                background: "rgba(255,255,255,0.03)",
+                                                border: "1px solid rgba(255,255,255,0.06)",
+                                            }}
+                                        >
+                                            <span className="text-lg font-bold leading-none tracking-tight" style={{ color }}>{value}</span>
+                                            <span className="text-center text-[9px] leading-tight text-white/35">{label}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* ── 4. OUR SOLUTION ──────────────────────────────── */}
-            <section className="relative w-full px-6 py-28 md:py-70">
-                <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background:
-                        "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.09) 0%, transparent 65%)",
-                }} />
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center gap-6"
-                >
-                    <SectionLabel text="Our solution" />
-                    <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
-                        We don&apos;t sell services. We build intelligence infrastructure.
-                    </h2>
-                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-lg">
-                        Levata designs and operates integrated AI systems built specifically for your business model
-                        and growth trajectory. Strategy, technology, automation, and digital experience — all
-                        coordinated under one team, one vision, and one accountability structure.
-                    </p>
-                </motion.div>
+            {/* ── §2 → §3 vertical connector ────────────────────── */}
+            <div aria-hidden className="relative flex justify-center" style={{ height: "80px" }}>
+                <FlowConnector vertical />
+            </div>
+
+            {/* ── 3. OUR SOLUTION (with 4-node flow diagram) ───── */}
+            <section className="relative w-full px-6 pt-10 pb-24 md:pt-14 md:pb-28">
+                <div className="relative z-10 mx-auto max-w-6xl">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="mx-auto mb-16 flex max-w-4xl flex-col items-center text-center gap-5"
+                    >
+                        <SectionLabel text="Our solution" />
+                        <p className="text-sm italic text-white/45 md:text-base">
+                            This is the system that replaces the duct tape.
+                        </p>
+                        <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
+                            We don&apos;t sell services. <span className="jakarta-italic">We build intelligence infrastructure.</span>
+                        </h2>
+                        <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-lg">
+                            Levata designs and operates integrated AI systems built specifically for your business model
+                            and growth trajectory. Strategy, technology, automation, and digital experience — all
+                            coordinated under one team, one vision, and one accountability structure.
+                        </p>
+                    </motion.div>
+
+                    {/* Flow diagram — horizontal on md+, vertical on mobile */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        {/* Desktop: horizontal */}
+                        <div className="hidden md:flex items-start justify-between gap-2">
+                            {FLOW_NODES.map((node, i) => (
+                                <div key={node.num} className="flex flex-1 items-start">
+                                    <FlowNode {...node} />
+                                    {i < FLOW_NODES.length - 1 && (
+                                        <div className="mt-10 flex-1">
+                                            <FlowConnector />
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                        {/* Mobile: vertical */}
+                        <div className="flex flex-col items-center gap-3 md:hidden">
+                            {FLOW_NODES.map((node, i) => (
+                                <div key={node.num} className="flex flex-col items-center gap-3">
+                                    <FlowNode {...node} />
+                                    {i < FLOW_NODES.length - 1 && <FlowConnector vertical />}
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                </div>
             </section>
 
-            {/* ── 5. FEATURED PRODUCT — Sales Intelligence Platform ── */}
-            <section className="relative w-full px-6 pt-24 pb-16 md:pt-5 md:pb-20">
+            {/* §5 Featured Product moved to §7 — see below */}
+
+            {/* ── 4. SERVICE CATEGORIES (Horizontal carousel) ──── */}
+            <section id="services" className="relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-28 overflow-hidden">
+                <div className="pointer-events-none absolute inset-0 z-0" style={{
+                    background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                }} />
+
+                <div className="relative z-10 mx-auto max-w-7xl">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <ServicesCarousel />
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── 5. OUR PROCESS (Tabbed stepper) ──────────────── */}
+            <ProcessTabsSection />
+
+            {/* ── 6. CLIENTS MARQUEE (LOCKED) ─────────────────── */}
+            <div className="relative z-10 py-12 md:py-16">
+                <div className="mx-auto mb-8 h-px w-24 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                <ClientsMarquee />
+            </div>
+
+            {/* ── 7. FEATURED PRODUCT — Sales Intelligence Platform ── */}
+            <section className="relative w-full px-6 pt-20 pb-10 md:pt-24 md:pb-14">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -868,7 +1249,7 @@ export default function HeroSection() {
                 >
                     <SectionLabel text="Featured product" />
                     <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.12]">
-                        Introducing: The AI Sales Workspace<br />Built for B2B Teams.
+                        Introducing: The AI Sales Workspace<br /><span className="jakarta-italic">Built for B2B Teams.</span>
                     </h2>
                     <p className="max-w-xl text-sm leading-relaxed text-white/45 md:text-base">
                         Turn your raw lead list into a researched, prioritized, and actionable pipeline — in hours,
@@ -926,7 +1307,7 @@ export default function HeroSection() {
                                     </a>
                                 </div>
 
-                                {/* Dashboard mockup (preserved from previous arc-end block) */}
+                                {/* Dashboard mockup */}
                                 <div className="relative flex-1 min-h-[360px] lg:min-h-0 overflow-hidden"
                                     style={{ borderLeft: "1px solid rgba(255,255,255,0.06)", background: "#06001a" }}>
                                     <div className="pointer-events-none absolute inset-0"
@@ -1052,35 +1433,15 @@ export default function HeroSection() {
                 </motion.div>
             </section>
 
-            {/* ── 6. SERVICE CATEGORIES ────────────────────────── */}
-            <section id="services" className="relative w-full py-20 md:py-28 overflow-hidden">
-                <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(114,200,245,0.05) 0%, transparent 70%)",
-                }} />
+            {/* §6 ↔ §7 horizontal divider — bridges Featured Product into the numbers */}
+            <div aria-hidden className="relative mx-auto h-px w-32"
+                style={{ background: "linear-gradient(to right, transparent, rgba(155,47,255,0.5), transparent)" }} />
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 mb-14 flex flex-col items-center text-center gap-5 px-6"
-                >
-                    <SectionLabel text="Services" />
-                    <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.08]">
-                        Six capabilities. One unified system.
-                    </h2>
-                </motion.div>
-
-                <div className="relative z-10">
-                    <ServiceCardsTrack />
-                </div>
-            </section>
-
-            {/* ── 7. KEY RESULTS ───────────────────────────────── */}
-            <section className="relative w-full px-6 py-20 md:py-24">
+            {/* ── 8. BY THE NUMBERS (clean 4-counter row) ──────── */}
+            <section className="relative w-full px-6 pt-10 pb-20 md:pt-14 md:pb-24">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background:
-                        "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(155,47,255,0.08) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(155,47,255,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -1096,7 +1457,7 @@ export default function HeroSection() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-14 md:grid-cols-4 md:gap-x-12 text-center">
+                    <div className="grid grid-cols-2 gap-y-12 gap-x-8 md:grid-cols-4 md:gap-x-12 text-center">
                         {KEY_RESULTS.map((r) => (
                             <StatCounter key={r.label} {...r} />
                         ))}
@@ -1104,99 +1465,14 @@ export default function HeroSection() {
                 </div>
             </section>
 
-            {/* ── 8. OUR PROCESS ───────────────────────────────── */}
-            <section className="relative w-full py-20 md:py-28">
-                <div className="mx-auto max-w-7xl px-6 md:px-12 lg:px-20">
-                    <div className="grid grid-cols-1 gap-16 md:grid-cols-[0.65fr_1fr] md:gap-20 items-start">
+            {/* ── 9. TESTIMONIALS ─────────────────────────────── */}
+            <TestimonialsSection />
 
-                        {/* LEFT — sticky on desktop */}
-                        <div className="md:sticky md:top-[30%] flex flex-col gap-6">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-80px" }}
-                                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                                className="flex flex-col gap-5"
-                            >
-                                <SectionLabel text="How we work" />
-                                <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
-                                    From strategy to compounding success.
-                                </h2>
-                                <p className="text-base leading-relaxed text-white/40 md:text-lg">
-                                    A repeatable system that turns strategic clarity into measurable outcomes — fast.
-                                </p>
-                            </motion.div>
-                        </div>
+            {/* ── 10. TECH STACK (LOCKED) ──────────────────────── */}
+            <TechStackSection />
 
-                        {/* RIGHT — stacking cards */}
-                        <div className="flex flex-col gap-8">
-                            {PROCESS_STEPS.map((step, i) => (
-                                <div
-                                    key={step.num}
-                                    className="md:sticky"
-                                    style={{
-                                        top: `${30 + i * 2}%`,
-                                        // gradient border: 1px padding wrapping a solid-bg inner card
-                                        background: "linear-gradient(315deg, #9B2FFF44, #3a3550)",
-                                        borderRadius: 18,
-                                        padding: 1,
-                                        boxShadow: "rgba(6,0,28,0.85) 0px -60px 80px",
-                                        zIndex: i + 1,
-                                    }}
-                                >
-                                    {/* inner card */}
-                                    <div
-                                        className="flex flex-col gap-5 rounded-[17px] p-8"
-                                        style={{ background: "#07001F" }}
-                                    >
-                                        {/* number */}
-                                        <div
-                                            className="text-[2.5rem] font-black leading-none"
-                                            style={{
-                                                color: step.accent,
-                                                textShadow: `${step.accent}B3 0px 0px 10px`,
-                                            }}
-                                        >
-                                            {step.num}.
-                                        </div>
-
-                                        {/* title */}
-                                        <h3 className="text-xl font-bold text-white md:text-2xl">
-                                            {step.title}
-                                        </h3>
-
-                                        {/* bullets */}
-                                        <ul className="flex flex-col gap-3">
-                                            {step.bullets.map((b) => (
-                                                <li key={b} className="flex items-start gap-3 text-sm leading-relaxed text-white/60 md:text-base">
-                                                    <span
-                                                        className="mt-[6px] h-2 w-2 shrink-0 rounded-full"
-                                                        style={{
-                                                            background: step.accent,
-                                                            boxShadow: `${step.accent}80 0px 0px 6px`,
-                                                        }}
-                                                    />
-                                                    {b}
-                                                </li>
-                                            ))}
-                                        </ul>
-
-                                        {/* result */}
-                                        <p className="text-sm leading-relaxed text-white/40 md:text-base">
-                                            <span className="font-semibold text-white/70">Result: </span>
-                                            {step.result}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            {/* ── 9. WHY CHOOSE LEVATA ─────────────────────────── */}
-            <section className="relative w-full px-6 py-20 md:py-24">
+            {/* ── 11. WHY CHOOSE LEVATA (flat 2×2 equal-cards grid) ── */}
+            <section className="relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-24">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 50% 50% at 20% 50%, rgba(155,47,255,0.07) 0%, transparent 70%)",
@@ -1217,38 +1493,34 @@ export default function HeroSection() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:auto-rows-fr">
                         {WHY_LEVATA.map((w, i) => (
                             <motion.div
                                 key={w.title}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                                className="rounded-2xl p-7"
+                                transition={{ duration: 0.6, delay: (i % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={{ y: -4 }}
+                                className="flex h-full flex-col gap-6 rounded-2xl p-7 md:p-9 transition-colors duration-300 hover:bg-white/[0.03]"
                                 style={{
-                                    background: "rgba(255,255,255,0.02)",
-                                    border: "1px solid rgba(255,255,255,0.08)",
+                                    background: "rgba(8,1,28,0.55)",
+                                    border: "1px solid rgba(255,255,255,0.07)",
                                 }}
                             >
-                                <h3 className="mb-3 text-lg font-bold leading-snug text-white md:text-xl">
+                                <WhyVisualHint title={w.title} />
+                                <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
                                     {w.title}
                                 </h3>
-                                <p className="text-sm leading-relaxed text-white/50">{w.body}</p>
+                                <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">{w.body}</p>
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* ── 10. TECH STACK (LOCKED) ──────────────────────── */}
-            <TechStackSection />
-
-            {/* ── 11. TESTIMONIALS ─────────────────────────────── */}
-            <TestimonialsSection />
-
             {/* ── 12. FINAL CTA ────────────────────────────────── */}
-            <section className="relative w-full px-6 py-24 md:py-32 overflow-hidden">
+            <section className="relative w-full px-5 py-16 sm:px-6 sm:py-24 md:py-32 overflow-hidden">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(155,47,255,0.18) 0%, transparent 65%)",
@@ -1273,12 +1545,26 @@ export default function HeroSection() {
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-lg">
                         The question is whether you&apos;ll be leading — or catching up.
                     </p>
-                    <div className="flex flex-col items-center gap-3 sm:flex-row">
-                        <a href="/contact">
-                            <NeonButton variant="solid" size="lg" className="font-semibold tracking-wide">
-                                Book Your Free AI Strategy Call
-                            </NeonButton>
-                        </a>
+                    <div className="flex flex-col items-center gap-2.5 sm:flex-row">
+                        <button
+                            type="button"
+                            onClick={openBookCall}
+                            className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                            style={{
+                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
+                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
+                            }}
+                            onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
+                            }}
+                            onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
+                            }}
+                        >
+                            Book Your Free AI Strategy Call
+                        </button>
                     </div>
                 </motion.div>
             </section>

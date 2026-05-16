@@ -38,6 +38,12 @@ h6 {
   font-family: var(--font-space-grotesk), "Space Grotesk", Helvetica, Arial, sans-serif;
 }
 
+/* Italic accent phrases — uses Plus Jakarta Sans which has proper italic variants */
+.jakarta-italic {
+  font-family: var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
+  font-style: italic;
+}
+
 /* ── Keyframe animations ── */
 @keyframes badgePulse {
 
@@ -138,6 +144,23 @@ h6 {
   animation: labelDotPulse 2.8s ease-in-out infinite;
 }
 
+/* ── Tech-stack marquee row — edge fade mask ── */
+.tech-marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+/* ── Cinematic homepage hero — perspective grid ── */
+.hero-grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 80%);
+}
+
 
 
 /* ── Animation delay helpers ── */
@@ -183,4 +206,9 @@ h6 {
 
 .delay-3000 {
   animation-delay: 3000ms;
+}
+
+/* ── Services carousel — hide native scrollbar ── */
+.services-carousel-scroll::-webkit-scrollbar {
+  display: none;
 }

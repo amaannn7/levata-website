@@ -1,6 +1,7 @@
 import ContactCTASection from "@/app/components/ContactCTASection";
 import BookCallSection from "@/app/components/BookCallSection";
 import PageArcs from "@/app/components/PageArcs";
+import ContactHero from "@/app/components/ContactHero";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -30,32 +31,8 @@ export default function ContactPage() {
                 }}
             />
 
-            {/* Hero — centered inside arc rings, same pattern as home */}
-            <section
-                data-hero
-                className="relative z-10 flex flex-1 flex-col items-center justify-start text-center px-6"
-                style={{ paddingTop: "calc(72px + 9.5vw)", paddingBottom: "clamp(60px, 8vw, 120px)" }}
-            >
-                <div className="mb-4 inline-flex items-center gap-3">
-                    <span className="flex items-center">
-                        <span className="animate-label-line" />
-                        <span className="animate-label-dot" />
-                    </span>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">Strategy call</p>
-                </div>
-
-                <h1
-                    className="mb-6 max-w-3xl text-balance text-[1.9rem] font-semibold leading-[1.06] tracking-[-0.02em] text-white sm:text-[2.25rem] md:text-[2.7rem] lg:text-[3rem]"
-                    style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
-                >
-                    Let&apos;s build the intelligence layer your business deserves.
-                </h1>
-
-                <p className="mb-8 max-w-xl text-base leading-relaxed text-white/55">
-                    Tell us about your business. We&apos;ll come back with a clear path to AI-powered operations
-                    within 48 hours.
-                </p>
-            </section>
+            {/* Hero — cursor-reactive orbs + Lyzr typography */}
+            <ContactHero />
 
             {/* Form */}
             <ContactCTASection showHeading={false} />

@@ -4,6 +4,78 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import PageArcs from "@/app/components/PageArcs";
+import HeroBubbles from "@/app/components/HeroBubbles";
+import { useBookCall } from "@/app/components/BookCallProvider";
+
+// ── Image placeholder (matches homepage helper — drop a real <Image> later) ──
+function ImagePlaceholder({
+    aspect = "16 / 9",
+    label = "Image placeholder",
+    className = "",
+}: {
+    aspect?: string;
+    label?: string;
+    className?: string;
+}) {
+    return (
+        <div
+            className={`relative w-full overflow-hidden rounded-xl ${className}`}
+            style={{
+                aspectRatio: aspect,
+                background: "linear-gradient(135deg, rgba(155,47,255,0.10), rgba(114,200,245,0.06))",
+                border: "1px solid rgba(255,255,255,0.06)",
+            }}
+            aria-hidden
+        >
+            <div className="hero-grid-bg absolute inset-0 opacity-50" />
+            <div
+                className="absolute inset-0"
+                style={{
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.18) 0%, transparent 70%)",
+                }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/30">
+                    {label}
+                </span>
+            </div>
+        </div>
+    );
+}
+
+// ── §2 Problem — line-art icons (one per pain) ────────────────────────────
+function IconResearchClock() {
+    return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M12 7V12L15 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <path d="M3 12H1M21 12H23" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeDasharray="2 2" opacity="0.55" />
+        </svg>
+    );
+}
+
+function IconEnvelopeIgnored() {
+    return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <rect x="3" y="6" width="18" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M3 7L12 14L21 7" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+            <path d="M9 14L15 18M15 14L9 18" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        </svg>
+    );
+}
+
+function IconLeakyFunnel() {
+    return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M4 5H20L14 12V19L10 21V12L4 5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+            <circle cx="12" cy="22" r="0.9" fill="currentColor" />
+            <circle cx="12" cy="19.5" r="0.6" fill="currentColor" opacity="0.6" />
+        </svg>
+    );
+}
+
+const PAIN_ICONS = [IconResearchClock, IconEnvelopeIgnored, IconLeakyFunnel] as const;
+const PAIN_ACCENTS = ["#9B2FFF", "#BB00FF", "#72C8F5"] as const;
 
 // ── Section label helper ───────────────────────────────────────────────────
 function SectionLabel({ text }: { text: string }) {
@@ -71,10 +143,11 @@ function AnimatedStat({
         <div className="flex flex-col items-center gap-3 text-center">
             <span
                 ref={elRef}
-                className="text-5xl font-extrabold leading-none tracking-tight text-white md:text-6xl"
+                className="text-5xl font-extrabold leading-none tracking-tight md:text-6xl"
+                style={{ color: "#3DFD98" }}
             >
                 {animate ? count : value}
-                <span className="text-white">{suffix}</span>
+                <span style={{ color: "#3DFD98" }}>{suffix}</span>
             </span>
             <span className="max-w-[200px] text-sm font-medium leading-snug text-white/45 tracking-wide">
                 {label}
@@ -361,6 +434,8 @@ function FAQItem({
 // ── Page ──────────────────────────────────────────────────────────────────
 export default function SalesIntelligencePage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
+    const heroRef = useRef<HTMLElement>(null);
+    const { open: openBookCall } = useBookCall();
 
     return (
         <main className="relative min-h-screen bg-[#07001F] overflow-hidden">
@@ -368,10 +443,11 @@ export default function SalesIntelligencePage() {
 
             {/* ── 1. HERO ───────────────────────────────────── */}
             <section
+                ref={heroRef}
                 data-hero
-                className="relative flex flex-col items-center justify-center overflow-hidden px-6 text-center"
-                style={{ paddingTop: "150px", paddingBottom: "100px" }}
+                className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
+                <HeroBubbles containerRef={heroRef} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -380,21 +456,37 @@ export default function SalesIntelligencePage() {
                 >
                     <SectionLabel text="Sales Intelligence Platform" />
                     <h1
-                        className="text-balance text-[1.9rem] font-semibold leading-[1.06] tracking-[-0.02em] text-white sm:text-[2.25rem] md:text-[2.7rem] lg:text-[3rem]"
-                        style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
+                        className="text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
+                        style={{
+                            fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif",
+                        }}
                     >
-                        Turn Your Lead List Into a Qualified Pipeline —<br />In Hours, Not Days.
+                        Turn Your Lead List Into a Qualified Pipeline —<br /><span className="jakarta-italic">In Hours, Not Days.</span>
                     </h1>
-                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-lg">
+                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                         The AI-powered sales workspace for B2B teams. Research prospects, prioritize leads, generate
                         personalized outreach, and push qualified opportunities into your CRM — all from one place.
                     </p>
-                    <div className="mt-2 flex flex-col items-center gap-3 sm:flex-row">
-                        <a href="/contact">
-                            <NeonButton variant="solid" size="lg" className="font-semibold tracking-wide">
-                                Start Your Free Trial
-                            </NeonButton>
-                        </a>
+                    <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
+                        <button
+                            type="button"
+                            onClick={openBookCall}
+                            className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                            style={{
+                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
+                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
+                            }}
+                            onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
+                            }}
+                            onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
+                            }}
+                        >
+                            Start Your Free Trial
+                        </button>
                     </div>
                 </motion.div>
 
@@ -406,7 +498,7 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 2. PROBLEM ────────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-6 py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 z-0"
@@ -431,45 +523,47 @@ export default function SalesIntelligencePage() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                        {PAIN_POINTS.map((pp, i) => (
-                            <motion.div
-                                key={pp.title}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                                className="rounded-2xl p-px"
-                                style={{
-                                    background: `linear-gradient(160deg, ${pp.accent}33 0%, rgba(255,255,255,0.05) 60%)`,
-                                }}
-                            >
-                                <div
-                                    className="h-full rounded-[15px] p-7"
-                                    style={{ background: "rgba(8,1,28,0.98)", border: "1px solid rgba(255,255,255,0.04)" }}
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+                        {PAIN_POINTS.map((pp, i) => {
+                            const Icon = PAIN_ICONS[i] ?? PAIN_ICONS[0];
+                            const accent = PAIN_ACCENTS[i] ?? PAIN_ACCENTS[0];
+                            return (
+                                <motion.div
+                                    key={pp.title}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-60px" }}
+                                    transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                    whileHover={{ y: -4 }}
+                                    className="flex h-full flex-col gap-5 rounded-2xl p-7 md:p-8 transition-colors duration-300 hover:bg-white/[0.03]"
+                                    style={{
+                                        background: "rgba(8,1,28,0.55)",
+                                        border: "1px solid rgba(255,255,255,0.07)",
+                                    }}
                                 >
                                     <div
-                                        className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl"
-                                        style={{ background: `${pp.accent}1A`, border: `1px solid ${pp.accent}55` }}
+                                        className="flex h-12 w-12 items-center justify-center rounded-xl"
+                                        style={{
+                                            background: "rgba(114,200,245,0.08)",
+                                            border: "1px solid rgba(114,200,245,0.25)",
+                                            color: "#72C8F5",
+                                        }}
                                     >
-                                        <span
-                                            className="h-2 w-2 rounded-full"
-                                            style={{ background: pp.accent, boxShadow: `0 0 12px ${pp.accent}` }}
-                                        />
+                                        <Icon />
                                     </div>
-                                    <h3 className="mb-3 text-lg font-bold leading-snug text-white md:text-xl">
+                                    <h3 className="text-lg font-bold leading-snug text-white md:text-xl">
                                         {pp.title}
                                     </h3>
-                                    <p className="text-sm leading-relaxed text-white/50">{pp.body}</p>
-                                </div>
-                            </motion.div>
-                        ))}
+                                    <p className="text-sm leading-relaxed text-white/55">{pp.body}</p>
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
 
             {/* ── 3. CORE CAPABILITIES ──────────────────────── */}
-            <section className="relative w-full overflow-hidden px-6 py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 z-0"
@@ -491,56 +585,46 @@ export default function SalesIntelligencePage() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                         {CAPABILITIES.map((c, i) => (
                             <motion.div
                                 key={c.title}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.7, delay: (i % 2) * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                                transition={{ duration: 0.6, delay: (i % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
                                 whileHover={{ y: -4 }}
-                                className="rounded-2xl p-px"
+                                className="flex h-full flex-col gap-5 rounded-2xl p-7 md:p-8 transition-colors duration-300 hover:bg-white/[0.03]"
                                 style={{
-                                    background: `linear-gradient(160deg, ${c.accent}33 0%, rgba(255,255,255,0.05) 60%)`,
+                                    background: "rgba(8,1,28,0.55)",
+                                    border: "1px solid rgba(255,255,255,0.07)",
                                 }}
                             >
                                 <div
-                                    className="flex h-full flex-col gap-5 rounded-[15px] p-7"
-                                    style={{ background: "rgba(8,1,28,0.98)", border: "1px solid rgba(255,255,255,0.04)" }}
+                                    className="flex h-12 w-12 items-center justify-center rounded-xl"
+                                    style={{
+                                        background: "rgba(114,200,245,0.08)",
+                                        border: "1px solid rgba(114,200,245,0.25)",
+                                    }}
                                 >
-                                    <div className="relative w-fit">
-                                        <div
-                                            aria-hidden
-                                            className="absolute -inset-2 rounded-2xl"
-                                            style={{ background: `radial-gradient(circle, ${c.accent}33 0%, transparent 70%)` }}
-                                        />
-                                        <div
-                                            className="relative flex h-12 w-12 items-center justify-center rounded-xl"
-                                            style={{
-                                                background: `linear-gradient(135deg, ${c.accent}22, ${c.accent}08)`,
-                                                border: `1px solid ${c.accent}40`,
-                                            }}
-                                        >
-                                            <CapabilityIcon kind={c.icon} accent={c.accent} />
-                                        </div>
-                                    </div>
-                                    <h3 className="text-[1.3rem] font-bold leading-snug tracking-tight text-white">
-                                        {c.title}
-                                    </h3>
-                                    <p className="text-sm leading-relaxed text-white/55">{c.description}</p>
-                                    <ul className="mt-auto flex flex-col gap-2.5">
-                                        {c.bullets.map((b) => (
-                                            <li key={b} className="flex items-start gap-3 text-sm text-white">
-                                                <span
-                                                    className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rotate-45"
-                                                    style={{ background: c.accent }}
-                                                />
-                                                <span className="leading-snug">{b}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <CapabilityIcon kind={c.icon} accent="#72C8F5" />
                                 </div>
+                                <h3 className="text-[1.2rem] font-bold leading-snug tracking-tight text-white md:text-[1.35rem]">
+                                    {c.title}
+                                </h3>
+                                <p className="text-sm leading-relaxed text-white/55">{c.description}</p>
+                                <ul className="mt-auto flex flex-col gap-2.5">
+                                    {c.bullets.map((b) => (
+                                        <li key={b} className="flex items-start gap-3 text-sm text-white">
+                                            <span
+                                                aria-hidden
+                                                className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rotate-45"
+                                                style={{ background: "#72C8F5" }}
+                                            />
+                                            <span className="leading-snug">{b}</span>
+                                        </li>
+                                    ))}
+                                </ul>
                             </motion.div>
                         ))}
                     </div>
@@ -650,7 +734,7 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 6. HOW IT WORKS ──────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-6 py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 z-0"
@@ -675,39 +759,53 @@ export default function SalesIntelligencePage() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                        {STEPS.map((step, i) => (
-                            <motion.div
-                                key={step.num}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: (i % 3) * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                className="rounded-2xl p-px"
-                                style={{
-                                    background: `linear-gradient(315deg, ${step.accent}44, rgba(58,53,80,0.5))`,
-                                }}
-                            >
-                                <div
-                                    className="flex h-full flex-col gap-3 rounded-[15px] p-6"
-                                    style={{ background: "#07001F" }}
+                    {/* Horizontal stepped flow */}
+                    <div className="relative">
+                        {/* Connecting line — lg+ only, behind the badge row */}
+                        <div
+                            aria-hidden
+                            className="pointer-events-none absolute hidden lg:block lg:left-0 lg:right-0"
+                            style={{
+                                top: "28px",
+                                height: "1px",
+                                background: "linear-gradient(to right, transparent, rgba(255,255,255,0.18) 6%, rgba(255,255,255,0.18) 94%, transparent)",
+                            }}
+                        />
+
+                        <div className="grid grid-cols-1 gap-x-4 gap-y-12 sm:grid-cols-2 lg:grid-cols-6">
+                            {STEPS.map((step, i) => (
+                                <motion.div
+                                    key={step.num}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-60px" }}
+                                    transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                                    className="flex flex-col items-center text-center"
                                 >
-                                    <span
-                                        className="text-[2rem] font-black leading-none"
+                                    <div
+                                        className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full md:h-14 md:w-14"
                                         style={{
-                                            color: step.accent,
-                                            textShadow: `${step.accent}80 0px 0px 12px`,
+                                            background: "rgba(8,1,28,1)",
+                                            border: "1px solid #3DFD9880",
+                                            boxShadow: "0 0 0 4px #07001F, 0 0 20px #3DFD9825",
                                         }}
                                     >
-                                        {step.num}.
-                                    </span>
-                                    <h3 className="text-lg font-bold leading-snug text-white md:text-xl">
+                                        <span
+                                            className="text-base font-bold tracking-tight md:text-lg"
+                                            style={{ color: "#3DFD98" }}
+                                        >
+                                            {step.num}
+                                        </span>
+                                    </div>
+                                    <h3 className="mt-4 text-base font-bold leading-snug tracking-tight text-white md:text-lg">
                                         {step.title}
                                     </h3>
-                                    <p className="text-sm leading-relaxed text-white/50">{step.body}</p>
-                                </div>
-                            </motion.div>
-                        ))}
+                                    <p className="mt-2 max-w-[180px] text-xs leading-relaxed text-white/55 md:text-sm">
+                                        {step.body}
+                                    </p>
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -751,7 +849,7 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 8. FINAL CTA ─────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-6 py-24 md:py-32">
+            <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 z-0"
@@ -784,11 +882,25 @@ export default function SalesIntelligencePage() {
                         Give your team the AI workspace that does the heavy lifting before every email and every call.
                     </p>
                     <div className="flex flex-col items-center gap-3 sm:flex-row">
-                        <a href="/contact">
-                            <NeonButton variant="solid" size="lg" className="font-semibold tracking-wide">
-                                Book a Demo
-                            </NeonButton>
-                        </a>
+                        <button
+                            type="button"
+                            onClick={openBookCall}
+                            className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                            style={{
+                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
+                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
+                            }}
+                            onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
+                            }}
+                            onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
+                            }}
+                        >
+                            Book a Demo
+                        </button>
                     </div>
                 </motion.div>
             </section>
