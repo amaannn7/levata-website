@@ -225,11 +225,12 @@ export default function HomeHero() {
             className="relative w-full overflow-hidden"
             style={{
                 background: "radial-gradient(ellipse 120% 90% at 15% 50%, #18004A 0%, #0D0030 55%, #07001F 100%)",
+                minHeight: "min(100vh, 920px)",
             }}
         >
             <HeroBubbles containerRef={heroRef} />
             {/* Content layer (left text / right cards) */}
-            <div className="relative z-20 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-20 sm:px-6 sm:py-24 md:gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:min-h-[min(100vh,920px)] lg:py-0">
+            <div className="relative z-20 mx-auto grid min-h-[min(100vh,920px)] w-full max-w-7xl items-center gap-10 px-5 py-16 sm:px-6 sm:py-24 md:gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-0">
 
                 {/* Left column — text + CTAs */}
                 <div className="flex flex-col items-center text-center sm:items-start sm:text-left">

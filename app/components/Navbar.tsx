@@ -120,17 +120,24 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    // Lock scroll while mobile menu is open — html+body overflow prevents momentum scroll on iOS
+    // iOS-safe scroll lock: position:fixed prevents rubber-band scroll bleeding through
     useEffect(() => {
         if (!mobileOpen) return;
-        const htmlEl = document.documentElement;
-        const prevBodyOverflow = document.body.style.overflow;
-        const prevHtmlOverflow = htmlEl.style.overflow;
+        const scrollY = window.scrollY;
+        const prevOverflow = document.body.style.overflow;
+        const prevPosition = document.body.style.position;
+        const prevWidth = document.body.style.width;
+        const prevTop = document.body.style.top;
         document.body.style.overflow = "hidden";
-        htmlEl.style.overflow = "hidden";
+        document.body.style.position = "fixed";
+        document.body.style.width = "100%";
+        document.body.style.top = `-${scrollY}px`;
         return () => {
-            document.body.style.overflow = prevBodyOverflow;
-            htmlEl.style.overflow = prevHtmlOverflow;
+            document.body.style.overflow = prevOverflow;
+            document.body.style.position = prevPosition;
+            document.body.style.width = prevWidth;
+            document.body.style.top = prevTop;
+            window.scrollTo(0, scrollY);
         };
     }, [mobileOpen]);
 
@@ -342,8 +349,7 @@ export default function Navbar() {
                     {/* Hamburger — mobile only */}
                     <button
                         type="button"
-                        className="md:hidden flex h-11 w-11 flex-col items-center justify-center gap-[5px]"
-                        style={{ touchAction: "manipulation" }}
+                        className="md:hidden flex h-10 w-10 flex-col items-center justify-center gap-[5px] -mr-1.5"
                         onClick={() => setMobileOpen((v) => !v)}
                         aria-label={mobileOpen ? "Close menu" : "Open menu"}
                         aria-expanded={mobileOpen}
@@ -382,7 +388,7 @@ export default function Navbar() {
                             borderTop: "1px solid rgba(255,255,255,0.07)",
                         }}
                     >
-                        <div className="flex h-full flex-col overflow-y-auto px-5 pb-10 pt-4" style={{ overscrollBehavior: "contain" }}>
+                        <div className="flex h-full flex-col overflow-y-auto px-5 pb-10 pt-4">
                             {/* Segmented section tabs */}
                             <div
                                 className="mb-4 flex items-center gap-1 rounded-full p-1"
