@@ -9,7 +9,7 @@ export default function BookCallButton({ children = "Book a Strategy Call", ...p
         <NeonButton
             variant={props.variant ?? "solid"}
             size={props.size ?? "default"}
-            className={props.className ?? "text-sm font-semibold tracking-wide px-6 py-2.5"}
+            className={props.className ?? "text-sm font-semibold tracking-wide px-6 py-3"}
             {...props}
             onClick={(e) => {
                 props.onClick?.(e);

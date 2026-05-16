@@ -262,7 +262,7 @@ export default function DigitalProductsPage() {
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
                             style={{
                                 background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
                                 boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
@@ -279,7 +279,7 @@ export default function DigitalProductsPage() {
                             Book a Strategy Call
                         </button>
                         <a href="#process">
-                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-2.5">
+                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-3">
                                 See How We Build
                             </NeonButton>
                         </a>
@@ -301,7 +301,7 @@ export default function DigitalProductsPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-14 flex flex-col items-center gap-5 text-center"
+                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="The problem" />
                         <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
@@ -574,7 +574,7 @@ export default function DigitalProductsPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-14 flex flex-col items-center gap-5 text-center"
+                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Outcomes" />
                         <h2 className="max-w-2xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
@@ -598,7 +598,7 @@ export default function DigitalProductsPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-14 flex flex-col items-center gap-5 text-center"
+                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Delivery process" />
                         <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
@@ -731,7 +731,7 @@ export default function DigitalProductsPage() {
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
                             style={{
                                 background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
                                 boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",

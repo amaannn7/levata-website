@@ -233,7 +233,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
                         {/* Left info panel */}
                         <div
-                            className="flex flex-col justify-between gap-8 border-b border-white/8 p-6 sm:p-8 md:gap-10 md:p-10 lg:border-b-0 lg:border-r"
+                            className="flex flex-col justify-between gap-5 border-b border-white/8 p-6 sm:gap-8 sm:p-8 md:gap-10 md:p-10 lg:border-b-0 lg:border-r"
                             style={{ background: "linear-gradient(160deg,rgba(155,47,255,0.15) 0%,rgba(7,0,31,0.98) 100%)" }}
                         >
                             <div>
@@ -248,7 +248,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                 </p>
                             </div>
 
-                            <div className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-4 sm:gap-6">
                                 {INFO_ITEMS.map((item) => (
                                     <div key={item.label} className="flex items-start gap-4">
                                         <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/40">
@@ -280,7 +280,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                     </label>
                                     <div className="flex overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition-colors focus-within:border-white/22">
                                         {/* Country trigger */}
-                                        <div className="relative flex shrink-0 cursor-pointer items-center gap-2 border-r border-white/10 px-3 py-3.5 hover:bg-white/[0.03]">
+                                        <div className="relative flex shrink-0 cursor-pointer items-center gap-2 border-r border-white/10 px-2.5 py-3 hover:bg-white/[0.03] sm:px-3 sm:py-3.5">
                                             <Image
                                                 src={`https://flagcdn.com/w20/${selected.code}.png`}
                                                 alt={selected.name}
@@ -344,7 +344,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                     <p className="text-xs text-white/25">All fields marked * are required</p>
                                     <button
                                         type="submit"
-                                        className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:shadow-lg"
+                                        className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:shadow-lg sm:px-6 sm:py-3"
                                         style={{
                                             background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
                                             boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBookCall } from "@/app/components/BookCallProvider";
@@ -76,6 +77,67 @@ function ChevronIcon({ open }: { open: boolean }) {
     );
 }
 
+// ── Mobile drawer helpers ─────────────────────────────────────────────
+function DrawerLink({ href, onClick, children }: { href: string; onClick: () => void; children: React.ReactNode }) {
+    return (
+        <Link
+            href={href}
+            onClick={onClick}
+            className="flex items-center justify-between border-b border-white/[0.08] py-4 text-[15px] font-semibold text-white/90 transition-colors active:text-white"
+        >
+            {children}
+        </Link>
+    );
+}
+
+function DrawerExpandable({
+    label,
+    expanded,
+    onToggle,
+    children,
+}: {
+    label: string;
+    expanded: boolean;
+    onToggle: () => void;
+    children: React.ReactNode;
+}) {
+    return (
+        <div className="border-b border-white/[0.08]">
+            <button
+                type="button"
+                onClick={onToggle}
+                aria-expanded={expanded}
+                className="flex w-full items-center justify-between py-4 text-left text-[15px] font-semibold text-white/90 transition-colors active:text-white"
+            >
+                {label}
+                <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    aria-hidden
+                    style={{
+                        transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+                        transition: "transform 300ms ease",
+                        opacity: 0.6,
+                    }}
+                >
+                    <path d="M2 4.5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+            </button>
+            <div
+                className="overflow-hidden transition-[max-height,opacity] duration-300 ease-out"
+                style={{
+                    maxHeight: expanded ? "400px" : "0px",
+                    opacity: expanded ? 1 : 0,
+                }}
+            >
+                <div className="pb-3">{children}</div>
+            </div>
+        </div>
+    );
+}
+
 function ArrowRight({ color, opacity = 0 }: { color: string; opacity?: number }) {
     return (
         <svg
@@ -98,20 +160,13 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [dropdown, setDropdown] = useState<Section>(null);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [mobileSection, setMobileSection] = useState<Section>("services");
-    const [navHeight, setNavHeight] = useState(64);
+    const [mobileExpanded, setMobileExpanded] = useState<Section>(null);
+    const [mounted, setMounted] = useState(false);
     const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const headerRef = useRef<HTMLElement>(null);
     const { open: openBookCall } = useBookCall();
 
-    // Measure header height so the mobile drawer sits flush against the nav
     useEffect(() => {
-        const measure = () => {
-            if (headerRef.current) setNavHeight(headerRef.current.offsetHeight);
-        };
-        measure();
-        window.addEventListener("resize", measure);
-        return () => window.removeEventListener("resize", measure);
+        setMounted(true);
     }, []);
 
     useEffect(() => {
@@ -120,24 +175,13 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    // iOS-safe scroll lock: position:fixed prevents rubber-band scroll bleeding through
+    // Simple scroll lock while drawer is open
     useEffect(() => {
         if (!mobileOpen) return;
-        const scrollY = window.scrollY;
-        const prevOverflow = document.body.style.overflow;
-        const prevPosition = document.body.style.position;
-        const prevWidth = document.body.style.width;
-        const prevTop = document.body.style.top;
+        const prev = document.body.style.overflow;
         document.body.style.overflow = "hidden";
-        document.body.style.position = "fixed";
-        document.body.style.width = "100%";
-        document.body.style.top = `-${scrollY}px`;
         return () => {
-            document.body.style.overflow = prevOverflow;
-            document.body.style.position = prevPosition;
-            document.body.style.width = prevWidth;
-            document.body.style.top = prevTop;
-            window.scrollTo(0, scrollY);
+            document.body.style.overflow = prev;
         };
     }, [mobileOpen]);
 
@@ -154,9 +198,109 @@ export default function Navbar() {
         openBookCall();
     };
 
+    const drawer = (
+        <div
+            aria-hidden={!mobileOpen}
+            className="md:hidden fixed inset-x-0 bottom-0 top-[64px] z-[60] overflow-hidden transition-opacity duration-200"
+            style={{
+                background: "rgba(7,0,31,0.98)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                borderTop: "1px solid rgba(255,255,255,0.07)",
+                opacity: mobileOpen ? 1 : 0,
+                pointerEvents: mobileOpen ? "auto" : "none",
+                visibility: mobileOpen ? "visible" : "hidden",
+            }}
+        >
+            <div className="flex h-full flex-col overflow-y-auto px-6 pb-8 pt-2">
+                {/* Nav rows */}
+                <nav className="flex flex-col">
+                    {/* Services — expandable */}
+                    <DrawerExpandable
+                        label="Services"
+                        expanded={mobileExpanded === "services"}
+                        onToggle={() => setMobileExpanded(mobileExpanded === "services" ? null : "services")}
+                    >
+                        {SERVICES.map((s) => (
+                            <Link
+                                key={s.label}
+                                href={s.href}
+                                onClick={() => setMobileOpen(false)}
+                                className="flex items-center gap-3 py-3 text-[15px] font-medium text-white/75 transition-colors active:text-white"
+                            >
+                                <span
+                                    className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                                    style={{ background: s.accent, boxShadow: `0 0 8px ${s.accent}99` }}
+                                />
+                                {s.label}
+                            </Link>
+                        ))}
+                    </DrawerExpandable>
+
+                    {/* Products — expandable */}
+                    <DrawerExpandable
+                        label="Products"
+                        expanded={mobileExpanded === "products"}
+                        onToggle={() => setMobileExpanded(mobileExpanded === "products" ? null : "products")}
+                    >
+                        {PRODUCTS.map((p) => (
+                            <Link
+                                key={p.label}
+                                href={p.href}
+                                onClick={() => setMobileOpen(false)}
+                                className="flex items-center gap-3 py-3 text-[15px] font-medium text-white/75 transition-colors active:text-white"
+                            >
+                                <span
+                                    className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                                    style={{ background: p.accent, boxShadow: `0 0 8px ${p.accent}99` }}
+                                />
+                                {p.label}
+                            </Link>
+                        ))}
+                    </DrawerExpandable>
+
+                    {/* About — plain link */}
+                    <DrawerLink href="/about" onClick={() => setMobileOpen(false)}>
+                        About
+                    </DrawerLink>
+
+                    {/* Contact — plain link */}
+                    <DrawerLink href="/contact" onClick={() => setMobileOpen(false)}>
+                        Contact
+                    </DrawerLink>
+                </nav>
+
+                {/* Spacer */}
+                <div className="flex-1" />
+
+                {/* Bottom CTAs */}
+                <div className="mt-8 flex flex-col gap-3">
+                    <Link
+                        href="/products/sales-intelligence-platform"
+                        onClick={() => setMobileOpen(false)}
+                        className="block w-full rounded-full border border-white/15 px-5 py-3.5 text-center text-sm font-semibold text-white/85 transition-colors active:bg-white/[0.04]"
+                    >
+                        Sales Intelligence
+                    </Link>
+                    <button
+                        type="button"
+                        onClick={triggerBookCall}
+                        className="block w-full rounded-full px-5 py-3.5 text-center text-sm font-semibold text-white transition-all duration-200"
+                        style={{
+                            background: "linear-gradient(135deg, rgba(114,200,245,0.18), rgba(155,47,255,0.18))",
+                            boxShadow: "0 0 14px rgba(114,200,245,0.22), 0 0 14px rgba(155,47,255,0.18), inset 0 0 0 1px rgba(114,200,245,0.32)",
+                        }}
+                    >
+                        Book a Strategy Call
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+
     return (
+        <>
         <header
-            ref={headerRef}
             className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
             style={{
                 background: scrolled || mobileOpen ? "rgba(7,0,31,0.95)" : "transparent",
@@ -370,120 +514,8 @@ export default function Navbar() {
                 </div>
             </nav>
 
-            {/* Mobile menu — full-screen drawer */}
-            <AnimatePresence>
-                {mobileOpen && (
-                    <motion.div
-                        key="mobile-menu"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="md:hidden fixed inset-x-0 bottom-0 overflow-hidden"
-                        style={{
-                            top: `${navHeight}px`,
-                            background: "rgba(7,0,31,0.98)",
-                            backdropFilter: "blur(20px)",
-                            WebkitBackdropFilter: "blur(20px)",
-                            borderTop: "1px solid rgba(255,255,255,0.07)",
-                        }}
-                    >
-                        <div className="flex h-full flex-col overflow-y-auto px-5 pb-10 pt-4">
-                            {/* Segmented section tabs */}
-                            <div
-                                className="mb-4 flex items-center gap-1 rounded-full p-1"
-                                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
-                            >
-                                {(["services", "products"] as const).map((sec) => {
-                                    const active = mobileSection === sec;
-                                    return (
-                                        <button
-                                            key={sec}
-                                            type="button"
-                                            onClick={() => setMobileSection(sec)}
-                                            className="flex-1 rounded-full py-2 text-xs font-semibold capitalize tracking-wide transition-all duration-200"
-                                            style={{
-                                                background: active ? "rgba(255,255,255,0.06)" : "transparent",
-                                                color: active ? "#fff" : "rgba(255,255,255,0.55)",
-                                                border: active ? "1px solid rgba(255,255,255,0.1)" : "1px solid transparent",
-                                            }}
-                                        >
-                                            {sec}
-                                        </button>
-                                    );
-                                })}
-                            </div>
-
-                            {/* Active section list */}
-                            <div className="flex flex-col gap-1.5">
-                                {(mobileSection === "services" ? SERVICES : PRODUCTS).map((item) => (
-                                    <Link
-                                        key={item.label}
-                                        href={item.href}
-                                        onClick={() => setMobileOpen(false)}
-                                        className="group/item flex items-start gap-3 rounded-2xl px-4 py-3.5 transition-colors duration-200 active:bg-white/[0.05]"
-                                        style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
-                                    >
-                                        <span
-                                            className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
-                                            style={{ background: item.accent, boxShadow: `0 0 8px ${item.accent}99` }}
-                                        />
-                                        <div className="flex flex-1 flex-col gap-0.5">
-                                            <span className="text-[15px] font-semibold text-white">{item.label}</span>
-                                            <span className="text-xs leading-snug text-white/45">{item.description}</span>
-                                        </div>
-                                        <span className="self-center text-base text-white/40" style={{ color: item.accent }}>
-                                            →
-                                        </span>
-                                    </Link>
-                                ))}
-                            </div>
-
-                            {/* Divider */}
-                            <div className="my-6 h-px bg-white/[0.07]" />
-
-                            {/* Plain links */}
-                            <div className="flex flex-col gap-1">
-                                {TOP_LINKS.map((l) => (
-                                    <Link
-                                        key={l.label}
-                                        href={l.href}
-                                        onClick={() => setMobileOpen(false)}
-                                        className="flex items-center justify-between rounded-xl px-4 py-3 text-[15px] font-medium text-white/80 transition-colors active:bg-white/[0.04]"
-                                    >
-                                        {l.label}
-                                        <span aria-hidden className="text-white/30">→</span>
-                                    </Link>
-                                ))}
-                                <Link
-                                    href="/contact"
-                                    onClick={() => setMobileOpen(false)}
-                                    className="flex items-center justify-between rounded-xl px-4 py-3 text-[15px] font-medium text-white/80 transition-colors active:bg-white/[0.04]"
-                                >
-                                    Contact
-                                    <span aria-hidden className="text-white/30">→</span>
-                                </Link>
-                            </div>
-
-                            {/* Spacer */}
-                            <div className="flex-1" />
-
-                            {/* CTA pinned at bottom */}
-                            <Link
-                                href="/contact"
-                                onClick={() => setMobileOpen(false)}
-                                className="mt-6 block w-full rounded-full px-5 py-3.5 text-center text-sm font-semibold text-white transition-all duration-200"
-                                style={{
-                                    background: "linear-gradient(135deg, rgba(114,200,245,0.14), rgba(155,47,255,0.14))",
-                                    boxShadow: "0 0 14px rgba(114,200,245,0.18), 0 0 14px rgba(155,47,255,0.14), inset 0 0 0 1px rgba(114,200,245,0.28)",
-                                }}
-                            >
-                                Contact Us
-                            </Link>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
         </header>
+        {mounted && createPortal(drawer, document.body)}
+        </>
     );
 }

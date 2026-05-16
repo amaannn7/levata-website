@@ -277,7 +277,7 @@ export default function HomeHero() {
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative w-full rounded-full px-5 py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer sm:w-auto sm:py-2"
+                            className="relative w-full rounded-full px-5 py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer sm:w-auto"
                             style={{
                                 background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
                                 boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",

@@ -969,7 +969,7 @@ export default function HeroSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-14 flex flex-col items-center text-center gap-5"
+                        className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
                     >
                         <SectionLabel text="The problem" />
                         <h2 className="max-w-3xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
@@ -1448,7 +1448,7 @@ export default function HeroSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-14 flex flex-col items-center text-center gap-5"
+                        className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
                     >
                         <SectionLabel text="By the numbers" />
                         <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
@@ -1484,7 +1484,7 @@ export default function HeroSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-14 flex flex-col items-center text-center gap-5"
+                        className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
                     >
                         <SectionLabel text="Why Levata" />
                         <h2 className="max-w-3xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
@@ -1545,7 +1545,7 @@ export default function HeroSection() {
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
                             style={{
                                 background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
                                 boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",

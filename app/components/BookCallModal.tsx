@@ -146,7 +146,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                                 </p>
                                                 <button
                                                     type="submit"
-                                                    className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                                                    className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer sm:py-3"
                                                     style={{
                                                         background: "linear-gradient(135deg, rgba(114,200,245,0.14), rgba(155,47,255,0.14))",
                                                         boxShadow:
