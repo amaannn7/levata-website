@@ -58,41 +58,6 @@ export default function Footer() {
 
             <div className="relative mx-auto max-w-7xl px-5 sm:px-8 md:px-10">
 
-                {/* Top CTA strip */}
-                <div
-                    className="mt-12 flex flex-col items-start gap-5 rounded-2xl p-6 md:flex-row md:items-center md:justify-between md:gap-8 md:p-8"
-                    style={{
-                        background: "rgba(8,1,28,0.6)",
-                        border: "1px solid rgba(255,255,255,0.07)",
-                    }}
-                >
-                    <div className="flex flex-col gap-1.5">
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/45">Let&apos;s build</span>
-                        <h3 className="max-w-xl text-xl font-extrabold leading-tight tracking-tight text-white md:text-2xl">
-                            Ready to architect intelligence into your operations?
-                        </h3>
-                    </div>
-                    <button
-                        type="button"
-                        onClick={openBookCall}
-                        className="relative w-full px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer sm:w-auto"
-                        style={{
-                            background: "linear-gradient(135deg, rgba(114,200,245,0.14), rgba(155,47,255,0.14))",
-                            boxShadow: "0 0 14px rgba(114,200,245,0.18), 0 0 14px rgba(155,47,255,0.14), inset 0 0 0 1px rgba(114,200,245,0.28)",
-                        }}
-                        onMouseEnter={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                "0 0 22px rgba(114,200,245,0.34), 0 0 22px rgba(155,47,255,0.26), inset 0 0 0 1px rgba(114,200,245,0.5)";
-                        }}
-                        onMouseLeave={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                "0 0 14px rgba(114,200,245,0.18), 0 0 14px rgba(155,47,255,0.14), inset 0 0 0 1px rgba(114,200,245,0.28)";
-                        }}
-                    >
-                        Book a Strategy Call
-                    </button>
-                </div>
-
                 {/* Main footer body */}
                 <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:grid-cols-2 md:grid-cols-[1.7fr_1fr_1fr_1fr_1fr] md:gap-8 md:py-14">
 
@@ -172,9 +137,6 @@ export default function Footer() {
                         >
                             hello@levata.io
                         </a>
-                        <p className="text-xs leading-relaxed text-white/30">
-                            Worldwide, async friendly. Reply within 48 hours.
-                        </p>
                     </div>
                 </div>
 

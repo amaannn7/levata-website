@@ -99,8 +99,20 @@ export default function Navbar() {
     const [dropdown, setDropdown] = useState<Section>(null);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [mobileSection, setMobileSection] = useState<Section>("services");
+    const [navHeight, setNavHeight] = useState(64);
     const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const headerRef = useRef<HTMLElement>(null);
     const { open: openBookCall } = useBookCall();
+
+    // Measure header height so the mobile drawer sits flush against the nav
+    useEffect(() => {
+        const measure = () => {
+            if (headerRef.current) setNavHeight(headerRef.current.offsetHeight);
+        };
+        measure();
+        window.addEventListener("resize", measure);
+        return () => window.removeEventListener("resize", measure);
+    }, []);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20);
@@ -108,13 +120,17 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    // Lock body scroll while mobile menu is open
+    // Lock scroll while mobile menu is open — html+body overflow prevents momentum scroll on iOS
     useEffect(() => {
         if (!mobileOpen) return;
-        const prev = document.body.style.overflow;
+        const htmlEl = document.documentElement;
+        const prevBodyOverflow = document.body.style.overflow;
+        const prevHtmlOverflow = htmlEl.style.overflow;
         document.body.style.overflow = "hidden";
+        htmlEl.style.overflow = "hidden";
         return () => {
-            document.body.style.overflow = prev;
+            document.body.style.overflow = prevBodyOverflow;
+            htmlEl.style.overflow = prevHtmlOverflow;
         };
     }, [mobileOpen]);
 
@@ -133,6 +149,7 @@ export default function Navbar() {
 
     return (
         <header
+            ref={headerRef}
             className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
             style={{
                 background: scrolled || mobileOpen ? "rgba(7,0,31,0.95)" : "transparent",
@@ -303,30 +320,30 @@ export default function Navbar() {
 
                 {/* Right — Contact (desktop) + Hamburger (mobile) */}
                 <div className="flex items-center gap-3">
-                    <button
-                        type="button"
-                        onClick={openBookCall}
-                        className="hidden md:block relative px-5 py-2 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                    <Link
+                        href="/contact"
+                        className="hidden md:block relative px-5 py-2 rounded-full text-sm font-semibold text-white transition-all duration-200"
                         style={{
                             background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
                             boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
                         }}
                         onMouseEnter={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                            (e.currentTarget as HTMLAnchorElement).style.boxShadow =
                                 "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
                         }}
                         onMouseLeave={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.boxShadow =
+                            (e.currentTarget as HTMLAnchorElement).style.boxShadow =
                                 "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
                         }}
                     >
-                        Book a Call
-                    </button>
+                        Contact Us
+                    </Link>
 
                     {/* Hamburger — mobile only */}
                     <button
                         type="button"
-                        className="md:hidden flex h-10 w-10 flex-col items-center justify-center gap-[5px] -mr-1.5"
+                        className="md:hidden flex h-11 w-11 flex-col items-center justify-center gap-[5px]"
+                        style={{ touchAction: "manipulation" }}
                         onClick={() => setMobileOpen((v) => !v)}
                         aria-label={mobileOpen ? "Close menu" : "Open menu"}
                         aria-expanded={mobileOpen}
@@ -358,14 +375,14 @@ export default function Navbar() {
                         transition={{ duration: 0.2 }}
                         className="md:hidden fixed inset-x-0 bottom-0 overflow-hidden"
                         style={{
-                            top: "60px",
+                            top: `${navHeight}px`,
                             background: "rgba(7,0,31,0.98)",
                             backdropFilter: "blur(20px)",
                             WebkitBackdropFilter: "blur(20px)",
                             borderTop: "1px solid rgba(255,255,255,0.07)",
                         }}
                     >
-                        <div className="flex h-full flex-col overflow-y-auto px-5 pb-10 pt-4">
+                        <div className="flex h-full flex-col overflow-y-auto px-5 pb-10 pt-4" style={{ overscrollBehavior: "contain" }}>
                             {/* Segmented section tabs */}
                             <div
                                 className="mb-4 flex items-center gap-1 rounded-full p-1"
@@ -446,20 +463,17 @@ export default function Navbar() {
                             <div className="flex-1" />
 
                             {/* CTA pinned at bottom */}
-                            <button
-                                type="button"
-                                onClick={triggerBookCall}
-                                className="mt-6 w-full rounded-full px-5 py-3.5 text-sm font-semibold text-white transition-all duration-200"
+                            <Link
+                                href="/contact"
+                                onClick={() => setMobileOpen(false)}
+                                className="mt-6 block w-full rounded-full px-5 py-3.5 text-center text-sm font-semibold text-white transition-all duration-200"
                                 style={{
                                     background: "linear-gradient(135deg, rgba(114,200,245,0.14), rgba(155,47,255,0.14))",
                                     boxShadow: "0 0 14px rgba(114,200,245,0.18), 0 0 14px rgba(155,47,255,0.14), inset 0 0 0 1px rgba(114,200,245,0.28)",
                                 }}
                             >
-                                Book a Strategy Call
-                            </button>
-                            <p className="mt-3 text-center text-[11px] text-white/35">
-                                We reply within 48 hours.
-                            </p>
+                                Contact Us
+                            </Link>
                         </div>
                     </motion.div>
                 )}

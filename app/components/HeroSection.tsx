@@ -1232,9 +1232,8 @@ export default function HeroSection() {
             {/* ── 5. OUR PROCESS (Tabbed stepper) ──────────────── */}
             <ProcessTabsSection />
 
-            {/* ── 6. CLIENTS MARQUEE (LOCKED) ─────────────────── */}
-            <div className="relative z-10 py-12 md:py-16">
-                <div className="mx-auto mb-8 h-px w-24 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            {/* ── 6. CLIENTS MARQUEE ─────────────────── */}
+            <div className="relative z-10 py-4 md:py-6">
                 <ClientsMarquee />
             </div>
 
@@ -1519,31 +1518,28 @@ export default function HeroSection() {
                 </div>
             </section>
 
-            {/* ── 12. FINAL CTA ────────────────────────────────── */}
-            <section className="relative w-full px-5 py-16 sm:px-6 sm:py-24 md:py-32 overflow-hidden">
-                <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{
+            {/* ── 12. FINAL CTA ──────────────────────────────── */}
+            <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
+                <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(155,47,255,0.18) 0%, transparent 65%)",
                         "radial-gradient(ellipse 40% 50% at 20% 0%, rgba(114,200,245,0.1) 0%, transparent 60%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 0%, rgba(155,47,255,0.08) 0%, transparent 60%)",
                     ].join(", "),
                 }} />
-                <div aria-hidden className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-32"
-                    style={{ background: "linear-gradient(to right, transparent, rgba(155,47,255,0.5), transparent)" }} />
-
+                <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(155,47,255,0.5), transparent)" }} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center gap-8"
+                    className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
                 >
-                    <SectionLabel text="Last call" />
-                    <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-[2.8rem] leading-[1.08]">
-                        Your competitors are building intelligence systems right now.
+                    <SectionLabel text="Get started" />
+                    <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
+                        Ready to build intelligence into your operations?
                     </h2>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-lg">
-                        The question is whether you&apos;ll be leading — or catching up.
+                    <p className="max-w-xl text-sm leading-relaxed text-white/55 md:text-base">
+                        Book a free strategy call. We&apos;ll map out the system your business needs.
                     </p>
                     <div className="flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -1563,11 +1559,13 @@ export default function HeroSection() {
                                     "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
                             }}
                         >
-                            Book Your Free AI Strategy Call
+                            Book a Strategy Call
                         </button>
+
                     </div>
                 </motion.div>
             </section>
+
         </main>
     );
 }

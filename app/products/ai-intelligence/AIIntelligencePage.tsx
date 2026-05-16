@@ -74,11 +74,11 @@ function IconArrowRight() {
 function StepCard({ step }: { step: { num: string; title: string; body: string } }) {
     return (
         <div
-            className="inline-block rounded-xl px-5 py-4 text-left"
+            className="block w-full rounded-xl px-4 py-3.5 text-left sm:inline-block sm:w-auto sm:px-5 sm:py-4"
             style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
         >
             <h3 className="text-base font-bold leading-tight text-white md:text-lg">{step.title}</h3>
-            <p className="mt-1.5 max-w-[280px] text-sm leading-relaxed text-white/55 md:text-[15px]">{step.body}</p>
+            <p className="mt-1.5 text-sm leading-relaxed text-white/55 sm:max-w-[280px] md:text-[15px]">{step.body}</p>
         </div>
     );
 }
@@ -102,10 +102,10 @@ function SalesIntelligenceDashboard() {
             style={{ background: "rgba(8,1,28,0.85)", border: "1px solid rgba(255,255,255,0.08)" }}
         >
             {/* dashboard chrome */}
-            <div className="flex items-center justify-between border-b border-white/[0.07] px-5 py-3.5">
+            <div className="flex items-center justify-between border-b border-white/[0.07] px-3.5 py-3 sm:px-5 sm:py-3.5">
                 <div className="flex items-center gap-2">
                     <span className="flex h-1.5 w-1.5 rounded-full" style={{ background: GREEN, boxShadow: `0 0 6px ${GREEN}` }} />
-                    <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/70">Sales Intelligence</span>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/70 sm:text-[11px]">Sales Intelligence</span>
                 </div>
                 <span
                     className="flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider"
@@ -117,16 +117,16 @@ function SalesIntelligenceDashboard() {
             </div>
 
             {/* KPI tiles */}
-            <div className="grid grid-cols-3 gap-3 px-5 pt-5">
+            <div className="grid grid-cols-3 gap-2 px-3.5 pt-4 sm:gap-3 sm:px-5 sm:pt-5">
                 {tiles.map((t) => (
                     <div
                         key={t.label}
-                        className="rounded-lg p-3"
+                        className="rounded-lg p-2.5 sm:p-3"
                         style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
                     >
                         <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-white/40">{t.label}</span>
                         <div className="mt-1 flex items-baseline gap-1.5">
-                            <span className="text-xl font-extrabold tracking-tight" style={{ color: GREEN }}>{t.value}</span>
+                            <span className="text-base font-extrabold tracking-tight sm:text-xl" style={{ color: GREEN }}>{t.value}</span>
                             {t.sub && <span className="text-[10px] font-medium text-white/45">{t.sub}</span>}
                         </div>
                     </div>
@@ -134,13 +134,13 @@ function SalesIntelligenceDashboard() {
             </div>
 
             {/* Lead table header */}
-            <div className="mt-5 flex items-center gap-3 px-5 pb-2">
+            <div className="mt-4 flex items-center gap-3 px-3.5 pb-2 sm:mt-5 sm:px-5">
                 <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/40">Today&apos;s pipeline</span>
                 <span className="h-px flex-1" style={{ background: "rgba(255,255,255,0.07)" }} />
             </div>
 
             {/* Lead rows */}
-            <div className="flex flex-col gap-1.5 px-3 pb-5">
+            <div className="flex flex-col gap-1.5 px-2.5 pb-4 sm:px-3 sm:pb-5">
                 {leads.map((lead, i) => (
                     <motion.div
                         key={lead.name}
@@ -312,10 +312,10 @@ function KPI({ value, suffix, label, index }: { value: number; suffix: string; l
             transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
             className="flex flex-col items-center gap-3 text-center"
         >
-            <span ref={elRef} className="text-5xl font-extrabold leading-none tracking-tight md:text-7xl" style={{ color: GREEN }}>
+            <span ref={elRef} className="text-4xl font-extrabold leading-none tracking-tight sm:text-5xl md:text-7xl" style={{ color: GREEN }}>
                 {count}{suffix}
             </span>
-            <span className="max-w-[200px] text-sm font-medium leading-snug text-white/55 tracking-wide">{label}</span>
+            <span className="max-w-[140px] text-[13px] font-medium leading-snug text-white/55 tracking-wide sm:max-w-[200px] sm:text-sm">{label}</span>
         </motion.div>
     );
 }
@@ -541,7 +541,7 @@ export default function AIIntelligencePage() {
                         style={{ background: "linear-gradient(135deg,rgba(114,200,245,0.3) 0%,rgba(255,255,255,0.06) 50%,rgba(155,47,255,0.3) 100%)" }}
                     >
                         <div
-                            className="grid grid-cols-1 gap-8 rounded-2xl p-7 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-12 md:p-10"
+                            className="grid grid-cols-1 gap-8 rounded-2xl p-5 sm:p-7 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-12 md:p-10"
                             style={{ background: "rgba(8,1,28,0.92)" }}
                         >
                             {/* Left — copy */}

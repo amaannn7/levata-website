@@ -60,7 +60,7 @@ function KPI({ value, suffix, label, animate = true }: { value: number; suffix: 
             <span ref={elRef} className="text-5xl font-extrabold leading-none tracking-tight md:text-7xl" style={{ color: GREEN }}>
                 {animate ? count : value}{suffix}
             </span>
-            <span className="max-w-[200px] text-sm font-medium leading-snug text-white/55 tracking-wide">{label}</span>
+            <span className="max-w-[140px] text-[13px] font-medium leading-snug text-white/55 tracking-wide sm:max-w-[200px] sm:text-sm">{label}</span>
         </div>
     );
 }
@@ -747,11 +747,7 @@ export default function DigitalProductsPage() {
                         >
                             Book a Strategy Call
                         </button>
-                        <a href="/#services">
-                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-2.5">
-                                Explore Our Services
-                            </NeonButton>
-                        </a>
+
                     </div>
                 </motion.div>
             </section>

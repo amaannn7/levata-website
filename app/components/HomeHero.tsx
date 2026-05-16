@@ -225,15 +225,14 @@ export default function HomeHero() {
             className="relative w-full overflow-hidden"
             style={{
                 background: "radial-gradient(ellipse 120% 90% at 15% 50%, #18004A 0%, #0D0030 55%, #07001F 100%)",
-                minHeight: "min(100vh, 920px)",
             }}
         >
             <HeroBubbles containerRef={heroRef} />
             {/* Content layer (left text / right cards) */}
-            <div className="relative z-20 mx-auto grid min-h-[min(100vh,920px)] w-full max-w-7xl items-center gap-10 px-6 py-24 md:gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-0">
+            <div className="relative z-20 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-20 sm:px-6 sm:py-24 md:gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:min-h-[min(100vh,920px)] lg:py-0">
 
                 {/* Left column — text + CTAs */}
-                <div className="flex flex-col items-start text-left">
+                <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -252,7 +251,8 @@ export default function HomeHero() {
                         style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
                     >
                         Your Business Deserves Intelligence,
-                        <br />
+                        <br className="hidden md:inline" />
+                        {" "}
                         <span className="jakarta-italic">Not Just Software.</span>
                     </motion.h1>
 
@@ -271,12 +271,12 @@ export default function HomeHero() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.46, ease: EASE }}
-                        className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center"
+                        className="mt-8 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:items-start"
                     >
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-5 py-2 rounded-full text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
+                            className="relative w-full rounded-full px-5 py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer sm:w-auto sm:py-2"
                             style={{
                                 background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
                                 boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
@@ -292,13 +292,7 @@ export default function HomeHero() {
                         >
                             Book a Strategy Call
                         </button>
-                        <a
-                            href="#services"
-                            className="inline-flex items-center gap-1.5 text-sm font-medium text-white/55 transition-colors hover:text-white"
-                        >
-                            Explore our services
-                            <span aria-hidden>→</span>
-                        </a>
+
                     </motion.div>
                 </div>
 

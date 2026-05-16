@@ -673,14 +673,23 @@ export default function DigitalServicesPage() {
                     </motion.div>
 
                     <div
-                        className="grid grid-cols-2 gap-y-8 rounded-2xl md:grid-cols-4 md:gap-y-0"
+                        className="grid grid-cols-2 rounded-2xl md:grid-cols-4"
                         style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
                     >
-                        {OUTCOME_METRICS.map((m, i) => (
-                            <div key={m.label} className={`relative ${i > 0 ? "md:border-l md:border-white/8" : ""}`}>
-                                <MetricTile {...m} index={i} />
-                            </div>
-                        ))}
+                        {OUTCOME_METRICS.map((m, i) => {
+                            // mobile (2-col): all but last two get bottom-border; right column also gets a left-border
+                            // desktop (4-col): all but first get a left-border (no bottom borders)
+                            const mobileBottom = i < OUTCOME_METRICS.length - 2 ? "border-b border-white/[0.07]" : "";
+                            const mobileLeft = i % 2 === 1 ? "border-l border-white/[0.07]" : "";
+                            return (
+                                <div
+                                    key={m.label}
+                                    className={`relative ${mobileBottom} ${mobileLeft} md:border-b-0 md:border-l md:border-white/[0.07] md:first:border-l-0`}
+                                >
+                                    <MetricTile {...m} index={i} />
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>

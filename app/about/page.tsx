@@ -294,7 +294,7 @@ export default function AboutPage() {
                             >
                                 <div
                                     aria-hidden
-                                    className="flex h-32 w-32 items-center justify-center rounded-full border-2 border-dashed md:h-36 md:w-36"
+                                    className="flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed sm:h-32 sm:w-32 md:h-36 md:w-36"
                                     style={{
                                         borderColor: "rgba(255,255,255,0.18)",
                                         background: "radial-gradient(circle, rgba(155,47,255,0.08) 0%, rgba(8,1,28,0.5) 70%)",
@@ -409,11 +409,7 @@ export default function AboutPage() {
                         >
                             Book a Free Strategy Call
                         </button>
-                        <a href="/#services">
-                            <NeonButton variant="ghost" size="default" className="text-sm font-semibold tracking-wide px-6 py-2.5">
-                                Explore Our Services
-                            </NeonButton>
-                        </a>
+
                     </div>
                 </motion.div>
             </section>

@@ -240,7 +240,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/30">
                                     Let&apos;s talk
                                 </p>
-                                <h3 className="text-2xl font-extrabold tracking-tight text-white md:text-3xl">
+                                <h3 className="text-xl font-extrabold tracking-tight text-white sm:text-2xl md:text-3xl">
                                     We&apos;d love to hear about your project.
                                 </h3>
                                 <p className="mt-4 text-sm leading-relaxed text-white/45">
