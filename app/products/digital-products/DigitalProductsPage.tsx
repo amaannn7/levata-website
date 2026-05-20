@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
-import PageArcs from "@/app/components/PageArcs";
-import HeroBubbles from "@/app/components/HeroBubbles";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import dynamic from "next/dynamic";
 
-const GREEN = "#3DFD98";
-const BLUE = "#72C8F5";
+const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
+
+const GREEN = "#4B91F7";
+const BLUE = "#4B91F7";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // ── Section label ─────────────────────────────────────────────────────────
@@ -57,7 +58,7 @@ function KPI({ value, suffix, label, animate = true }: { value: number; suffix: 
     const { count, elRef } = useCountUp(animate ? value : 0, 1800);
     return (
         <div className="flex flex-col items-center gap-3 text-center">
-            <span ref={elRef} className="text-5xl font-extrabold leading-none tracking-tight md:text-7xl" style={{ color: GREEN }}>
+            <span ref={elRef} className="text-4xl sm:text-5xl font-bold leading-none tracking-tight md:text-7xl" style={{ color: GREEN }}>
                 {animate ? count : value}{suffix}
             </span>
             <span className="max-w-[140px] text-[13px] font-medium leading-snug text-white/55 tracking-wide sm:max-w-[200px] sm:text-sm">{label}</span>
@@ -124,11 +125,9 @@ function IconChip() {
 
 // ── Data ──────────────────────────────────────────────────────────────────
 const FAILURE_STAGES = [
-    { num: "01", title: "Idea", body: "Loose concept, no validation, no scoping.", Icon: IconLightbulb },
-    { num: "02", title: "Overbuilding", body: "Six months building features nobody asked for.", Icon: IconBlocks },
-    { num: "03", title: "Delay", body: "Launch slips. Runway burns. Confidence cracks.", Icon: IconHourglass },
-    { num: "04", title: "No Validation", body: "Ship to crickets. No proof anyone wants this.", Icon: IconShield },
-    { num: "05", title: "Rebuild", body: "Start over. Two years older, no closer to product-market fit.", Icon: IconRefresh },
+    { num: "01", title: "Too slow", body: "By the time a standard agency delivers your MVP, the market has shifted and your assumptions have changed.", Icon: IconHourglass },
+    { num: "02", title: "Wrong thing first", body: "Without validated scoping, teams build beautiful products nobody wants. Months of dev. Zero traction.", Icon: IconBlocks },
+    { num: "03", title: "Technical debt", body: "Rushed MVPs create infrastructure that can't scale — requiring costly rebuilds just as you gain momentum.", Icon: IconRefresh },
 ];
 
 const FRAMEWORK = [
@@ -148,11 +147,11 @@ const BUILD_TIMELINE = [
 ];
 
 const PROCESS_STEPS = [
-    { num: "01", title: "Discovery & Validation", body: "Lock the problem, the user, the success metric. Validate demand before scoping." },
-    { num: "02", title: "Architecture & Design", body: "System design and product UX. AI orchestration plan defined upfront." },
-    { num: "03", title: "Sprint Build", body: "Two-week sprints, shippable software each cycle. You see progress every fortnight." },
-    { num: "04", title: "AI Orchestration", body: "Models, prompts, and intelligent flows integrated into the product layer." },
-    { num: "05", title: "Launch & Iterate", body: "Production launch with full instrumentation. Measure, learn, compound." },
+    { num: "01", title: "Discovery & Validation", body: "Pressure-test the idea against the market; define core value proposition and success metrics before building anything." },
+    { num: "02", title: "Design Sprint & Prototype", body: "Clickable prototype tested with real target users — before a single line of production code is written." },
+    { num: "03", title: "Agile Build Cycles", body: "2-week sprints, shipping working software continuously so you see real product at every stage." },
+    { num: "04", title: "AI Integration Layer", body: "AI capabilities are architected and integrated during development — native to the product's core experience." },
+    { num: "05", title: "Launch & Post-MVP Roadmap", body: "Managed deployment, analytics activation, and a prioritized roadmap based on real user behaviour." },
 ];
 
 const FOUNDER_CONSIDERATIONS = [
@@ -163,11 +162,10 @@ const FOUNDER_CONSIDERATIONS = [
 ];
 
 const FAQS = [
-    { q: "How long does an MVP take to ship?", a: "Most projects land between 6 and 12 weeks from kickoff to production launch — depending on scope and the depth of AI integration required." },
-    { q: "Do we own the code?", a: "Yes. Full IP ownership, clean repo handover, documentation, and a knowledge-transfer session with your team." },
-    { q: "Can you work with our existing stack?", a: "Yes. We adapt to your stack rather than imposing ours. Common pairings: Next.js, Node/Python services, Postgres/Mongo, AWS/Vercel/GCP." },
-    { q: "What if our requirements change mid-build?", a: "Two-week sprints exist for exactly this. We re-prioritise the backlog at the end of every sprint based on what you've learned." },
-    { q: "Do you offer post-launch support?", a: "Yes — continuous optimisation packages cover monitoring, iteration, AI fine-tuning, and roadmap expansion." },
+    { q: "What's included in an MVP and what's left for later?", a: "We scope collaboratively — the core feature set needed to validate your value proposition. Everything else is clearly documented in a post-MVP roadmap." },
+    { q: "Will the MVP be scalable?", a: "Yes. We architect for scale from day one — infrastructure, codebase, and data architecture designed to support 10× and 100× growth without fundamental rebuilds." },
+    { q: "Who owns the IP and code?", a: "You do — completely. All code, designs, and intellectual property are transferred to you in full at project completion. No lock-in." },
+    { q: "What if we need to pivot after launch?", a: "Pivots happen — that's the nature of early-stage products. We build MVPs that are architecturally flexible and maintain post-launch partnerships to support and guide pivots when data demands them." },
 ];
 
 // ── FAQ item ──────────────────────────────────────────────────────────────
@@ -227,20 +225,16 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
 // ── Page ──────────────────────────────────────────────────────────────────
 export default function DigitalProductsPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
-    const heroRef = useRef<HTMLElement>(null);
     const { open: openBookCall } = useBookCall();
 
     return (
-        <main className="relative min-h-screen bg-[#07001F] overflow-hidden">
-            <PageArcs />
+        <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
             {/* ── 1. HERO ───────────────────────────────────── */}
             <section
-                ref={heroRef}
                 data-hero
                 className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
-                <HeroBubbles containerRef={heroRef} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -248,47 +242,34 @@ export default function DigitalProductsPage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <SectionLabel text="Digital Products" />
-                    <h1
-                        className="text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
-                        style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
-                    >
-                        Ship validated MVPs.<br /><span className="jakarta-italic">Not vanity projects.</span>
+                    <h1 className="display-hero-title max-w-3xl text-center">
+                        <span className="display-muted-line">From concept to market.</span>
+                        <span className="display-strong-line">Faster than you thought.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        AI-native MVP and product development for founders and teams that need to move fast — without
-                        overbuilding, rebuilding, or guessing.
+                        We design and build digital products that validate your market, attract your first users, and create the foundation for scale — without the 18-month timeline or six-figure burn rate.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
-                            Book a Strategy Call
+                            Start Your Product Journey
                         </button>
 
                     </div>
                 </motion.div>
+                <HeroHorizon />
             </section>
 
             {/* ── 2. PROBLEM — Horizontal startup failure timeline ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(155,47,255,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -300,11 +281,12 @@ export default function DigitalProductsPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="The problem" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            How most software products fail.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Why most software</span>
+                            <span className="display-strong-line">products fail to ship.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            A predictable cycle that burns runway and breaks teams. Recognise any of these?
+                            Three patterns we see in every failed build. Each one costs more than the last.
                         </p>
                     </motion.div>
 
@@ -319,7 +301,7 @@ export default function DigitalProductsPage() {
                                 background: `linear-gradient(to right, transparent, ${BLUE}33 6%, ${BLUE}33 94%, transparent)`,
                             }}
                         />
-                        <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
+                        <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-3">
                             {FAILURE_STAGES.map((stage, i) => (
                                 <motion.div
                                     key={stage.num}
@@ -332,9 +314,9 @@ export default function DigitalProductsPage() {
                                     <div
                                         className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full md:h-14 md:w-14"
                                         style={{
-                                            background: "rgba(8,1,28,1)",
+                                            background: "#171A22",
                                             border: `1px solid ${GREEN}80`,
-                                            boxShadow: `0 0 0 4px #07001F, 0 0 20px ${GREEN}25`,
+                                            boxShadow: `0 0 0 4px #0E1014, 0 0 20px ${GREEN}25`,
                                         }}
                                     >
                                         <span className="text-base font-bold md:text-lg" style={{ color: GREEN }}>{stage.num}</span>
@@ -356,7 +338,7 @@ export default function DigitalProductsPage() {
                         transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
                         className="mt-14 text-center text-sm text-white/45 md:text-base"
                     >
-                        <span className="font-bold" style={{ color: GREEN }}>70%</span> of software MVPs fail at one of these stages — usually before a single real user gets value.
+                        <span className="font-bold" style={{ color: GREEN }}>70%</span> of software MVPs fail at one of these stages — usually before a single real user gets value. The fix is validation-first, AI-native development.
                     </motion.p>
                 </div>
             </section>
@@ -364,7 +346,7 @@ export default function DigitalProductsPage() {
             {/* ── 3. APPROACH — Sticky left + scrolling right ─── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.06) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-[0.7fr_1fr] md:gap-16 lg:gap-20 items-start">
@@ -376,11 +358,12 @@ export default function DigitalProductsPage() {
                             className="flex flex-col gap-5 md:sticky md:top-32"
                         >
                             <SectionLabel text="Our approach" />
-                            <h2 className="text-3xl font-extrabold leading-[1.05] tracking-tight text-white md:text-4xl lg:text-[2.6rem]">
-                                We build products that <span className="jakarta-italic">prove themselves.</span>
+                            <h2 className="display-section-title">
+                                <span className="display-muted-line">We build products</span>
+                                <span className="display-strong-line">that prove themselves.</span>
                             </h2>
                             <p className="max-w-md text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                                Five principles that turn a fragile idea into validated, production-ready software.
+                                Lean startup principles combined with AI-accelerated execution — shipping real product in weeks, not months, with AI built into every layer from day one.
                             </p>
                         </motion.div>
 
@@ -394,7 +377,7 @@ export default function DigitalProductsPage() {
                                     transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                                     whileHover={{ y: -4 }}
                                     className="flex items-start gap-5 rounded-2xl p-6 md:p-7 transition-colors duration-300 hover:bg-white/[0.03]"
-                                    style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                                    style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                                 >
                                     <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg" style={{ background: `${GREEN}14`, border: `1px solid ${GREEN}40` }}>
                                         <span className="text-sm font-bold" style={{ color: GREEN }}>{String(i + 1).padStart(2, "0")}</span>
@@ -418,18 +401,13 @@ export default function DigitalProductsPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="grid grid-cols-1 gap-10 md:grid-cols-[auto_1fr_auto] md:gap-12 items-start"
+                        className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_auto] md:gap-12 items-start"
                     >
-                        <span
-                            className="text-[5rem] font-black leading-none tracking-tight md:text-[7rem]"
-                            style={{ color: GREEN }}
-                        >
-                            01
-                        </span>
                         <div className="flex flex-col gap-4">
                             <SectionLabel text="MVP development" />
-                            <h2 className="text-3xl font-extrabold leading-[1.05] tracking-tight text-white md:text-4xl">
-                                Real product. Real users. <span className="jakarta-italic">Six weeks.</span>
+                            <h2 className="display-section-title">
+                                <span className="display-muted-line">Real product. Real users.</span>
+                                <span className="display-strong-line">Six weeks.</span>
                             </h2>
                             <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                                 A focused MVP build that puts working software in front of real users fast — with the
@@ -438,7 +416,7 @@ export default function DigitalProductsPage() {
                         </div>
                         <div
                             className="hidden md:flex h-32 w-32 items-center justify-center rounded-2xl backdrop-blur-sm"
-                            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                         >
                             <IconChip />
                         </div>
@@ -452,11 +430,11 @@ export default function DigitalProductsPage() {
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.6, ease: EASE }}
                             className="flex flex-col gap-4 rounded-2xl p-6 md:p-7 backdrop-blur-sm"
-                            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                         >
                             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Included</span>
                             <ul className="flex flex-col gap-3">
-                                {["Discovery & validation workshop", "Clickable prototype", "Production sprint cycles", "AI integration & orchestration", "Launch + instrumentation"].map((item) => (
+                                {["Product strategy and market validation workshop", "Feature scoping and priority matrix (core vs. post-MVP)", "UX/UI design — research-led and conversion-optimised", "Full-stack development (web and/or mobile)", "AI feature integration baked in from the start", "Analytics and user tracking from day one", "Production deployment, infrastructure setup, and post-launch roadmap"].map((item) => (
                                     <li key={item} className="flex items-start gap-3 text-sm text-white">
                                         <span aria-hidden className="mt-1 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full" style={{ background: `${BLUE}14`, border: `1px solid ${BLUE}40` }}>
                                             <IconCheck />
@@ -474,11 +452,11 @@ export default function DigitalProductsPage() {
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.6, delay: 0.08, ease: EASE }}
                             className="flex flex-col gap-5 rounded-2xl p-7 md:p-8 backdrop-blur-sm md:row-span-1"
-                            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                         >
                             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Outcomes</span>
                             <div className="flex items-baseline gap-3">
-                                <span className="text-5xl font-extrabold leading-none md:text-6xl" style={{ color: GREEN }}>6–12</span>
+                                <span className="text-5xl font-bold leading-none md:text-6xl" style={{ color: GREEN }}>6–12</span>
                                 <span className="text-lg font-medium text-white/55">wk</span>
                             </div>
                             <p className="text-sm leading-relaxed text-white/55">From kickoff to a live, instrumented MVP in front of real users.</p>
@@ -491,7 +469,7 @@ export default function DigitalProductsPage() {
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.6, delay: 0.16, ease: EASE }}
                             className="flex flex-col gap-4 rounded-2xl p-6 md:p-7 backdrop-blur-sm"
-                            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                         >
                             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Support</span>
                             <p className="text-sm leading-relaxed text-white/55">Post-launch optimisation, AI fine-tuning, and roadmap expansion baked into every engagement.</p>
@@ -541,9 +519,9 @@ export default function DigitalProductsPage() {
                                         <div
                                             className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full"
                                             style={{
-                                                background: "rgba(8,1,28,1)",
+                                                background: "#171A22",
                                                 border: `1px solid ${GREEN}80`,
-                                                boxShadow: "0 0 0 4px #07001F",
+                                                boxShadow: "0 0 0 4px #0E1014",
                                             }}
                                         >
                                             <span className="text-xs font-bold" style={{ color: GREEN }}>{s.num}</span>
@@ -561,7 +539,7 @@ export default function DigitalProductsPage() {
             {/* ── 5. OUTCOMES — 2×2 oversized KPI grid ──────── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(61,253,152,0.05) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(75,145,247,0.05) 0%, transparent 65%)",
                 }} />
                 <div className="hero-grid-bg pointer-events-none absolute inset-0 z-0 opacity-30" />
                 <div className="relative z-10 mx-auto max-w-5xl">
@@ -573,15 +551,16 @@ export default function DigitalProductsPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Outcomes" />
-                        <h2 className="max-w-2xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            The numbers founders actually care about.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">The numbers founders</span>
+                            <span className="display-strong-line">actually care about.</span>
                         </h2>
                     </motion.div>
                     <div className="grid grid-cols-2 gap-y-14 gap-x-8 md:gap-x-12">
-                        <KPI value={6} suffix="–12wk" label="From kickoff to live MVP" />
-                        <KPI value={70} suffix="%" label="Less feature waste vs. typical agency builds" />
-                        <KPI value={0} suffix="" label="Rebuilds — architecture scales with you" animate={false} />
-                        <KPI value={3} suffix="×" label="Faster iteration vs. in-house team" />
+                        <KPI value={6} suffix="–12wk" label="Average kick-off to launch" />
+                        <KPI value={70} suffix="%" label="Reduction in time-to-market" />
+                        <KPI value={100} suffix="%" label="Of MVPs built AI-ready" animate={false} />
+                        <KPI value={3} suffix="×" label="Higher retention in AI-native products" />
                     </div>
                 </div>
             </section>
@@ -597,8 +576,9 @@ export default function DigitalProductsPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Delivery process" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            From signed kickoff to shipped product.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">From signed kickoff</span>
+                            <span className="display-strong-line">to shipped product.</span>
                         </h2>
                     </motion.div>
 
@@ -607,7 +587,7 @@ export default function DigitalProductsPage() {
                         <div className="hidden md:flex md:sticky md:top-32 flex-col gap-3">
                             {PROCESS_STEPS.map((s, i) => (
                                 <div key={s.num} className="flex items-center gap-3">
-                                    <div className="flex h-8 w-8 items-center justify-center rounded-full" style={{ background: "rgba(8,1,28,1)", border: `1px solid ${GREEN}80` }}>
+                                    <div className="flex h-8 w-8 items-center justify-center rounded-full" style={{ background: "#171A22", border: `1px solid ${GREEN}80` }}>
                                         <span className="text-[10px] font-bold" style={{ color: GREEN }}>{s.num}</span>
                                     </div>
                                     <span className="text-sm font-medium text-white/65">{s.title}</span>
@@ -628,7 +608,7 @@ export default function DigitalProductsPage() {
                                     viewport={{ once: true, margin: "-60px" }}
                                     transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                                     className="flex flex-col gap-4 rounded-2xl p-7 md:p-8"
-                                    style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                                    style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                                 >
                                     <div className="flex items-baseline gap-4">
                                         <span className="text-3xl font-black leading-none md:text-4xl" style={{ color: GREEN }}>{s.num}</span>
@@ -649,7 +629,7 @@ export default function DigitalProductsPage() {
             </section>
 
             {/* ── 7. FAQ — Accordion + Founder sidebar ───── */}
-            <section className="relative w-full overflow-hidden px-6 py-20 md:py-24">
+            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -659,8 +639,9 @@ export default function DigitalProductsPage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center"
                     >
                         <SectionLabel text="FAQ" />
-                        <h2 className="text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Founder questions, answered.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Founder questions,</span>
+                            <span className="display-strong-line">answered.</span>
                         </h2>
                     </motion.div>
 
@@ -679,7 +660,7 @@ export default function DigitalProductsPage() {
                         </div>
                         <div
                             className="flex flex-col gap-5 rounded-2xl p-7 md:p-8 md:sticky md:top-32 md:self-start"
-                            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                         >
                             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Founder considerations</span>
                             <h3 className="text-lg font-bold text-white md:text-xl">Worth thinking through early.</h3>
@@ -703,12 +684,12 @@ export default function DigitalProductsPage() {
             <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(155,47,255,0.18) 0%, transparent 65%)",
-                        "radial-gradient(ellipse 40% 50% at 20% 0%, rgba(114,200,245,0.1) 0%, transparent 60%)",
+                        "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(75,145,247,0.18) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 40% 50% at 20% 0%, rgba(75,145,247,0.1) 0%, transparent 60%)",
                     ].join(", "),
                 }} />
                 <div className="hero-grid-bg pointer-events-none absolute inset-0 z-0 opacity-30" />
-                <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(155,47,255,0.5), transparent)" }} />
+                <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(75,145,247,0.5), transparent)" }} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -717,31 +698,21 @@ export default function DigitalProductsPage() {
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
                 >
                     <SectionLabel text="Build with us" />
-                    <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl lg:text-[2.8rem] leading-[1.08]">
-                        Stop building features.<br /><span className="jakarta-italic">Start shipping product.</span>
+                    <h2 className="display-section-title max-w-2xl text-center">
+                        <span className="display-muted-line">Your idea deserves better</span>
+                        <span className="display-strong-line">than a long quote.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-lg">
-                        Tell us about the product you want to build. We&apos;ll come back with a scoped MVP plan within 48 hours.
+                        Go from concept to market in weeks — with AI built in from day one.
                     </p>
                     <div className="flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
-                            Book a Strategy Call
+                            Start Your Product Journey
                         </button>
 
                     </div>

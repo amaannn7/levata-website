@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
-import PageArcs from "@/app/components/PageArcs";
-import HeroBubbles from "@/app/components/HeroBubbles";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import dynamic from "next/dynamic";
 
-const GREEN = "#3DFD98";
-const BLUE = "#72C8F5";
+const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
+
+const GREEN = "#4B91F7";
+const BLUE = "#4B91F7";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // ── Section label ─────────────────────────────────────────────────────────
@@ -117,7 +118,7 @@ function BrowserMock() {
     return (
         <div
             className="relative w-full overflow-hidden rounded-2xl"
-            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
+            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
         >
             <div className="flex items-center gap-1.5 border-b border-white/8 px-3 py-2">
                 <span className="h-2 w-2 rounded-full bg-white/15" />
@@ -148,7 +149,7 @@ function ArchitectureMock() {
     return (
         <div
             className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
+            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
         >
             <svg viewBox="0 0 320 180" className="h-full w-full" fill="none">
                 {/* connectors */}
@@ -177,7 +178,7 @@ function StorefrontMock() {
     return (
         <div
             className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
+            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
         >
             <div className="grid h-full grid-cols-3 gap-3">
                 <div className="rounded-md" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }} />
@@ -204,7 +205,7 @@ function BlueprintMock() {
     return (
         <div
             className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
+            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
         >
             <svg viewBox="0 0 320 180" className="h-full w-full" fill="none">
                 {/* grid background */}
@@ -228,9 +229,9 @@ function BlueprintMock() {
 
 // ── Data ──────────────────────────────────────────────────────────────────
 const LEAKAGE = [
-    { num: "01", title: "Passive websites", body: "Pretty brochures that look good and sell nothing. No conversion logic, no instrumentation, no compounding learning loop." },
-    { num: "02", title: "Scaling failures", body: "Stacks that collapse the moment traffic spikes. Slow APIs, runaway costs, downtime during the windows that matter most." },
-    { num: "03", title: "Lost e-commerce revenue", body: "Generic storefronts that don't merchandise, don't recommend, and don't recover abandoned carts. Money walks out the door." },
+    { num: "01", title: "Beautiful but passive websites", body: "They look good and get ignored in the market. No conversion architecture, no intelligence, no measurable revenue impact." },
+    { num: "02", title: "Platforms that can't handle growth", body: "Built for today, not tomorrow. When you scale, performance degrades and the whole thing needs expensive remediation." },
+    { num: "03", title: "E-commerce leaving money on the table", body: "Without AI-driven personalisation and conversion-optimised UX, your store is operating at half capacity." },
 ];
 
 const REVENUE_FLOW = [
@@ -246,49 +247,49 @@ const SUB_SERVICES = [
         num: "01",
         title: "Website Development",
         eyebrow: "Conversion-first",
-        body: "Revenue-engineered sites that earn attention and convert it. Heatmap-driven UX, instrumented funnels, AI-assisted personalisation, and a CMS your team can actually use.",
-        bullets: ["Conversion-rate engineering", "Headless CMS (Sanity / Payload / Strapi)", "Edge rendering & Core Web Vitals", "Built-in experimentation"],
+        body: "We build websites that convert. Every design decision and CTA placement is informed by conversion psychology and AI-driven insights. From landing pages to full brand websites — strategy, UX, design, development, CMS, SEO, and tracking included.",
+        bullets: ["Conversion strategy and UX architecture", "Custom design — no templates", "Performance-optimised development", "CMS integration and team training", "SEO foundations and technical setup", "Analytics, heatmaps, and conversion tracking"],
         visual: "browser",
     },
     {
         num: "02",
         title: "Platform Development",
         eyebrow: "Scale-ready",
-        body: "Multi-tenant SaaS, internal platforms, member portals — built with the auth, observability, and API design you need to scale without rewriting in a year.",
-        bullets: ["Multi-tenant architecture", "RBAC + SSO", "Observability & alerting", "API versioning strategy"],
+        body: "Client portals, SaaS products, internal tools, and multi-sided marketplaces — built with the engineering depth to do it correctly. Performant under load, secure by design, and on a technical foundation that scales with your business model.",
+        bullets: ["Platform architecture and technical scoping", "UX/UI design for complex user flows", "Full-stack development and API design", "Database architecture and optimisation", "Authentication, permissions, and security", "Third-party integrations and performance testing"],
         visual: "architecture",
     },
     {
         num: "03",
         title: "E-commerce Development",
         eyebrow: "Revenue engine",
-        body: "Storefronts that merchandise, recommend, and recover. AI search, smart bundling, abandoned-cart automation, checkout flows tuned to your conversion data.",
-        bullets: ["AI search & recommendations", "Headless commerce (Shopify / Medusa)", "Checkout optimisation", "Subscription & retention loops"],
+        body: "We build e-commerce experiences that sell. Every element — product discovery, merchandising, cart, checkout, and post-purchase — is designed around conversion rate, average order value, and lifetime customer value. AI personalisation and smart search included.",
+        bullets: ["Platform strategy, selection, and custom design", "Checkout optimisation and payment integration", "AI product recommendations and smart search", "Inventory, fulfilment, and ERP integrations", "Email/SMS automation setup", "Analytics and revenue attribution"],
         visual: "storefront",
     },
     {
         num: "04",
         title: "Custom Systems",
         eyebrow: "Bespoke infrastructure",
-        body: "Internal tools, operational dashboards, custom workflows — engineered for the parts of your business off-the-shelf software doesn't fit.",
-        bullets: ["Workflow & approval engines", "Admin & operational dashboards", "Data pipelines & ETL", "Integration layer & APIs"],
+        body: "When your requirements don't fit off-the-shelf software, we build it. Proprietary data management tools, internal operations platforms, client-facing portals, and business intelligence infrastructure — engineered precisely for how your business works.",
+        bullets: ["Requirements analysis and systems design", "Custom database and data architecture", "Business logic and rules engine development", "User interface and admin panel design", "Integration with existing business systems", "Security, compliance, access control, and documentation"],
         visual: "blueprint",
     },
 ];
 
 const OUTCOME_METRICS = [
-    { value: 40, suffix: "%", label: "Avg. conversion lift" },
-    { value: 2.4, suffix: "×", label: "Faster time to launch", decimals: 1 },
-    { value: 99.9, suffix: "%", label: "Platform uptime", decimals: 1 },
-    { value: 2, prefix: "<", suffix: "s", label: "Median page load" },
+    { value: 3, suffix: "×", label: "Avg conversion rate improvement" },
+    { value: 99.9, suffix: "%", label: "Uptime SLA on all platforms", decimals: 1 },
+    { value: 40, suffix: "%", label: "Avg e-commerce revenue lift in 6 months" },
+    { value: 0, symbol: "∞", label: "Scale ceiling — built to grow" },
 ];
 
 const PIPELINE = [
-    { num: "01", title: "Strategy", body: "Revenue thesis, target metrics, scope of work." },
-    { num: "02", title: "UX", body: "Flows, prototype, conversion design." },
-    { num: "03", title: "Build", body: "Production sprints with continuous deploy." },
-    { num: "04", title: "QA", body: "Performance, accessibility, security passes." },
-    { num: "05", title: "Launch", body: "Go-live, instrumentation, and a 30-day stabilisation window." },
+    { num: "01", title: "Strategy & Requirements", body: "Define revenue thesis, scope, and success metrics before a single decision is made." },
+    { num: "02", title: "UX & Design", body: "Flows, prototype, and conversion-optimised design — every screen built for action." },
+    { num: "03", title: "Development & Integration", body: "Production build with continuous deployment and all third-party integrations wired in." },
+    { num: "04", title: "QA & Performance Testing", body: "Performance, accessibility, security, and load testing — nothing ships until it passes." },
+    { num: "05", title: "Launch & Optimisation", body: "Go-live, instrumentation, and ongoing conversion optimisation post-launch." },
 ];
 
 const STACK_BADGES = [
@@ -303,11 +304,10 @@ const UPTIME_BADGES = [
 ];
 
 const FAQS = [
-    { q: "How long does a build take?", a: "Marketing sites land in 4–8 weeks. Platforms and bespoke systems run 10–20 weeks depending on scope and the integration surface." },
-    { q: "Do you migrate from an existing site?", a: "Yes — full redirects mapping, SEO continuity, and content migration. We've moved sites off WordPress, Webflow, Wix, and bespoke legacy stacks." },
-    { q: "Which CMS do you use?", a: "We pair the right CMS to the team. Sanity for editorial-heavy sites, Payload for owned-stack flexibility, Strapi for self-hosted setups, Shopify/Medusa for commerce." },
-    { q: "Do you handle hosting & ops?", a: "Yes. Managed hosting on Vercel/AWS with monitoring, alerting, and a clear SLO. Or we hand off cleanly to your platform team." },
-    { q: "Can AI be added later?", a: "Yes — the architecture is designed for it. Search, recommendations, copilots, and personalisation are common phase-two additions." },
+    { q: "What platforms and technologies do you use?", a: "We choose the stack that fits your business — not our comfort zone. Next.js, Shopify, Medusa, Payload CMS, Sanity, Postgres, Vercel, and AWS are common selections. Every project gets a considered rationale before a line of code is written." },
+    { q: "Can you work with our existing website?", a: "Yes. We handle full migrations, redesigns, and incremental improvements. We map redirects, preserve SEO equity, and migrate content cleanly — whether you're on WordPress, Webflow, Wix, or a custom legacy stack." },
+    { q: "Can we self-manage the platform after launch?", a: "Always. We build for handoff — full CMS control, documentation, and team training are standard. If you want ongoing management or optimisation, we offer that too." },
+    { q: "What are your typical project timelines?", a: "Marketing sites take 4–8 weeks. Platforms and custom systems run 10–20 weeks depending on scope and integration complexity. We scope every project in detail before committing to a timeline." },
 ];
 
 // ── FAQ item ──────────────────────────────────────────────────────────────
@@ -365,10 +365,10 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
 }
 
 // ── Animated metric tile ─────────────────────────────────────────────────
-function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, index }: { value: number; suffix?: string; prefix?: string; decimals?: number; label: string; index: number }) {
+function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, index, symbol }: { value: number; suffix?: string; prefix?: string; decimals?: number; label: string; index: number; symbol?: string }) {
     const intTarget = Math.round(value * Math.pow(10, decimals));
     const { count, elRef } = useCountUp(intTarget, 1800);
-    const display = decimals > 0 ? (count / Math.pow(10, decimals)).toFixed(decimals) : count.toString();
+    const display = symbol ? symbol : (decimals > 0 ? (count / Math.pow(10, decimals)).toFixed(decimals) : count.toString());
     return (
         <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -378,8 +378,8 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
             className="flex flex-col items-center gap-3 px-4 py-8 text-center md:gap-4"
         >
             <IconSpark />
-            <span ref={elRef} className="text-5xl font-extrabold leading-none tracking-tight md:text-6xl" style={{ color: GREEN }}>
-                {prefix}{display}{suffix}
+            <span ref={elRef} className="text-4xl sm:text-5xl font-bold leading-none tracking-tight md:text-6xl" style={{ color: GREEN }}>
+                {symbol ? "" : prefix}{display}{symbol ? "" : suffix}
             </span>
             <span className="text-sm font-medium leading-snug text-white/55">{label}</span>
         </motion.div>
@@ -389,20 +389,16 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
 // ── Page ──────────────────────────────────────────────────────────────────
 export default function DigitalServicesPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
-    const heroRef = useRef<HTMLElement>(null);
     const { open: openBookCall } = useBookCall();
 
     return (
-        <main className="relative min-h-screen bg-[#07001F] overflow-hidden">
-            <PageArcs />
+        <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
             {/* ── 1. HERO ───────────────────────────────────── */}
             <section
-                ref={heroRef}
                 data-hero
                 className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
-                <HeroBubbles containerRef={heroRef} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -410,46 +406,34 @@ export default function DigitalServicesPage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <SectionLabel text="Digital Services" />
-                    <h1
-                        className="text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
-                        style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
-                    >
-                        Revenue-engineered websites.<br /><span className="jakarta-italic">Not brochureware.</span>
+                    <h1 className="display-hero-title max-w-3xl text-center">
+                        <span className="display-muted-line">Digital infrastructure</span>
+                        <span className="display-strong-line">built to work hard.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Websites, platforms, e-commerce, and custom systems — built to convert, scale, and compound.
+                        We don&apos;t build websites. We engineer digital systems — high-performance, AI-integrated platforms designed to generate revenue, qualify leads, and serve customers at a level that separates you from every competitor.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
-                            Book a Strategy Call
+                            Discuss Your Project
                         </button>
 
                     </div>
                 </motion.div>
+                <HeroHorizon />
             </section>
 
             {/* ── 2. PROBLEM — Revenue leakage panels ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(155,47,255,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -461,11 +445,12 @@ export default function DigitalServicesPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="The problem" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Where revenue leaks out of digital.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Where revenue leaks</span>
+                            <span className="display-strong-line">out of digital.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            Three patterns we see in almost every audit. Each one quietly bleeds revenue you've already earned.
+                            Three patterns we see in almost every audit. Each one quietly bleeds revenue you&apos;ve already earned.
                         </p>
                     </motion.div>
 
@@ -479,10 +464,10 @@ export default function DigitalServicesPage() {
                                 transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                                 whileHover={{ y: -4 }}
                                 className="flex flex-col gap-5 rounded-2xl p-7 transition-colors duration-300 hover:bg-white/[0.03]"
-                                style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                                style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                             >
                                 <div className="flex items-center justify-between">
-                                    <span className="text-2xl font-extrabold leading-none" style={{ color: GREEN }}>{item.num}</span>
+                                    <span className="text-2xl font-bold leading-none" style={{ color: GREEN }}>{item.num}</span>
                                     <span className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: `${BLUE}14`, border: `1px solid ${BLUE}40` }}>
                                         <IconDownArrow />
                                     </span>
@@ -509,7 +494,7 @@ export default function DigitalServicesPage() {
             {/* ── 3. APPROACH — Revenue engineering vertical flow ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.06) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -520,8 +505,9 @@ export default function DigitalServicesPage() {
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
                         <SectionLabel text="Our approach" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Revenue engineering, end to end.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Revenue engineering,</span>
+                            <span className="display-strong-line">end to end.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
                             One framework. Five layers. Every decision tied back to a revenue thesis.
@@ -559,9 +545,9 @@ export default function DigitalServicesPage() {
                                         <div
                                             className="flex h-14 w-14 items-center justify-center rounded-full md:h-16 md:w-16"
                                             style={{
-                                                background: "rgba(8,1,28,1)",
+                                                background: "#171A22",
                                                 border: `1.5px solid ${BLUE}`,
-                                                boxShadow: `0 0 0 6px #07001F, 0 0 22px ${BLUE}33`,
+                                                boxShadow: `0 0 0 6px #0E1014, 0 0 22px ${BLUE}33`,
                                             }}
                                         >
                                             <span className="text-base font-bold md:text-lg" style={{ color: GREEN }}>{node.num}</span>
@@ -598,8 +584,9 @@ export default function DigitalServicesPage() {
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
                         <SectionLabel text="What we build" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Four practices. One delivery standard.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Four practices.</span>
+                            <span className="display-strong-line">One delivery standard.</span>
                         </h2>
                     </motion.div>
 
@@ -620,10 +607,10 @@ export default function DigitalServicesPage() {
                                     {/* text */}
                                     <div className="flex flex-col gap-5">
                                         <div className="flex items-center gap-4">
-                                            <span className="text-5xl font-extrabold leading-none md:text-6xl" style={{ color: GREEN }}>{svc.num}</span>
+                                            <span className="text-4xl sm:text-5xl font-bold leading-none md:text-6xl" style={{ color: GREEN }}>{svc.num}</span>
                                             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">{svc.eyebrow}</span>
                                         </div>
-                                        <h3 className="text-2xl font-extrabold leading-tight text-white md:text-3xl">
+                                        <h3 className="text-2xl font-semibold leading-tight text-white md:text-3xl">
                                             {svc.title}
                                         </h3>
                                         <p className="max-w-md text-base leading-relaxed text-white/55 md:text-[1.05rem]">{svc.body}</p>
@@ -663,14 +650,15 @@ export default function DigitalServicesPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Outcomes" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            What the numbers look like.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">What the numbers</span>
+                            <span className="display-strong-line">look like.</span>
                         </h2>
                     </motion.div>
 
                     <div
                         className="grid grid-cols-2 rounded-2xl md:grid-cols-4"
-                        style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                        style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                     >
                         {OUTCOME_METRICS.map((m, i) => {
                             // mobile (2-col): all but last two get bottom-border; right column also gets a left-border
@@ -701,8 +689,9 @@ export default function DigitalServicesPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Delivery process" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            A pipeline, not a sprint.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">A pipeline,</span>
+                            <span className="display-strong-line">not a sprint.</span>
                         </h2>
                     </motion.div>
 
@@ -729,9 +718,9 @@ export default function DigitalServicesPage() {
                                     <div
                                         className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full"
                                         style={{
-                                            background: "rgba(8,1,28,1)",
+                                            background: "#171A22",
                                             border: `1.5px solid ${BLUE}`,
-                                            boxShadow: `0 0 0 6px #07001F, 0 0 22px ${BLUE}33`,
+                                            boxShadow: `0 0 0 6px #0E1014, 0 0 22px ${BLUE}33`,
                                         }}
                                     >
                                         <span className="text-sm font-bold md:text-base" style={{ color: GREEN }}>{step.num}</span>
@@ -756,8 +745,9 @@ export default function DigitalServicesPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="FAQ" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            The common questions.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">The</span>
+                            <span className="display-strong-line">common questions.</span>
                         </h2>
                     </motion.div>
 
@@ -778,7 +768,7 @@ export default function DigitalServicesPage() {
                         <aside className="flex flex-col gap-5">
                             <div
                                 className="flex flex-col gap-4 rounded-2xl p-6"
-                                style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                                style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                             >
                                 <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Stack</span>
                                 <div className="flex flex-wrap gap-2">
@@ -790,7 +780,7 @@ export default function DigitalServicesPage() {
 
                             <div
                                 className="flex flex-col gap-4 rounded-2xl p-6"
-                                style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                                style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                             >
                                 <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Reliability</span>
                                 <ul className="flex flex-col gap-3">
@@ -832,31 +822,21 @@ export default function DigitalServicesPage() {
                     transition={{ duration: 0.8, ease: EASE }}
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 text-center"
                 >
-                    <h2 className="text-3xl font-extrabold leading-[1.05] tracking-tight text-white md:text-5xl">
-                        Build a digital surface that <span className="jakarta-italic">earns revenue.</span>
+                    <h2 className="display-section-title max-w-2xl text-center">
+                        <span className="display-muted-line">Your digital presence</span>
+                        <span className="display-strong-line">is your best team member.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Pretty doesn't move the number. Engineered does. Let's design the system that compounds.
+                        Let&apos;s build the platforms and systems that generate revenue, qualify leads, and serve customers while you sleep.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
-                            Book a Strategy Call
+                            Discuss Your Project
                         </button>
 
                     </div>

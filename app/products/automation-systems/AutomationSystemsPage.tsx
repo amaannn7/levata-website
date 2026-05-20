@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
-import PageArcs from "@/app/components/PageArcs";
-import HeroBubbles from "@/app/components/HeroBubbles";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import dynamic from "next/dynamic";
 
-const GREEN = "#3DFD98";
-const BLUE = "#72C8F5";
+const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
+
+const GREEN = "#4B91F7";
+const BLUE = "#4B91F7";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // ── Section label ─────────────────────────────────────────────────────────
@@ -105,52 +106,73 @@ const ARCH_NODES = [
 const SUB_AUTOMATION = [
     {
         num: "01",
-        title: "Business Automation",
-        eyebrow: "Workflow rails",
-        body: "Replace manual handoffs with audited workflows. Onboarding, invoices, approvals, and reporting routed through a single automation surface.",
-        bullets: ["Onboarding & provisioning", "Invoice & approvals", "Document workflows", "Audit-grade logs"],
+        title: "Eliminate Manual Operations at Scale",
+        eyebrow: "Business automation",
+        body: "We map every repetitive, manual process in your operation and replace it with a reliable automated workflow. Onboarding, invoicing, approvals, reporting, data entry — all systematised, audited, and running without human intervention.",
+        bullets: [
+            "End-to-end onboarding and provisioning workflows",
+            "Invoice generation, approval routing, and payment tracking",
+            "Document creation, distribution, and e-signature automation",
+            "Data entry elimination and cross-system synchronisation",
+            "Compliance reporting and audit trail generation",
+            "Scheduled and event-triggered business process automation",
+        ],
         visual: "workflow",
     },
     {
         num: "02",
-        title: "Workflow Automation — AI Decision Trees",
-        eyebrow: "Intelligent routing",
-        body: "AI decision engines that prioritise, route, and escalate work in real time. Lead scoring, ticket triage, exception handling — all powered by intelligent branching.",
-        bullets: ["Lead scoring & routing", "Smart escalation rules", "SLA-aware triage", "Human-in-the-loop checkpoints"],
+        title: "AI-Powered Process Intelligence",
+        eyebrow: "Workflow automation",
+        body: "AI decision engines that prioritise, route, and escalate work without human input. Lead scoring, support ticket triage, exception handling — all powered by intelligent branching logic that learns from your business rules and outcomes.",
+        bullets: [
+            "AI-powered lead scoring and territory routing",
+            "Support ticket classification and priority triage",
+            "Smart escalation rules with SLA awareness",
+            "Exception detection and automated remediation",
+            "Human-in-the-loop checkpoints for high-stakes decisions",
+            "Continuous model improvement from outcome feedback",
+        ],
         visual: "tree",
     },
     {
         num: "03",
-        title: "Dashboard Systems — Executive Command Center",
-        eyebrow: "Live intelligence",
-        body: "A single pane of glass for the operators who run the business. KPI walls, anomaly alerts, operational graphs, all updating live.",
-        bullets: ["KPI walls & live tiles", "Anomaly alerts", "Cross-system drilldowns", "Role-based views"],
+        title: "Real-Time Intelligence for Every Decision",
+        eyebrow: "Dashboard systems",
+        body: "A single pane of glass for everyone who runs the business. Custom KPI dashboards, live operational metrics, anomaly alerts, and cross-system drilldowns — all updating in real time so decisions are based on facts, not yesterday's report.",
+        bullets: [
+            "Executive and operational KPI dashboards",
+            "Real-time anomaly detection and alerting",
+            "Cross-system data aggregation and normalisation",
+            "Role-based views for teams, managers, and executives",
+            "Mobile-optimised live tile interfaces",
+            "Automated reporting and scheduled data exports",
+        ],
         visual: "dashboard",
     },
 ];
 
 const OPS_METRICS = [
-    { value: 3.5, suffix: "×", label: "Throughput uplift", decimals: 1 },
-    { value: 1200, suffix: "+", label: "Hours saved / month" },
-    { value: 4, suffix: "×", label: "Operations ROI" },
-    { value: 85, suffix: "%", label: "Automation coverage" },
+    { value: 70, suffix: "%", label: "Avg reduction in manual processing time" },
+    { value: 10, suffix: "hrs", label: "Avg hours saved per employee per week" },
+    { value: 3, suffix: "×", label: "Operational throughput increase" },
+    { value: 6, suffix: "mo", label: "Typical time to full ROI" },
 ];
 
 const DEPLOYMENT = [
-    { num: "01", title: "Audit", body: "Process & system inventory." },
-    { num: "02", title: "Design", body: "Automation architecture & guardrails." },
-    { num: "03", title: "Build", body: "Workflows, integrations, AI logic." },
-    { num: "04", title: "Deploy", body: "Phased rollout into production." },
-    { num: "05", title: "Train", body: "Team enablement & runbooks." },
-    { num: "06", title: "Expand", body: "Continuous coverage growth." },
+    { num: "01", title: "Operations Audit", body: "A full inventory of every process, tool, and manual handoff — with bottlenecks ranked by impact and automation potential." },
+    { num: "02", title: "Architecture & Tool Selection", body: "We design the automation architecture and select the right stack, matching tools to your existing systems and scale requirements." },
+    { num: "03", title: "Build & Test in Staging", body: "All workflows, integrations, and AI logic are built and stress-tested in a staging environment before any production exposure." },
+    { num: "04", title: "Phased Production Deployment", body: "We deploy in phases, validating performance and stability at each step before expanding coverage to the next process." },
+    { num: "05", title: "Team Training & Documentation", body: "Full runbooks, training sessions, and documentation so your team owns the system and can extend it independently." },
+    { num: "06", title: "Ongoing Monitoring & Expansion", body: "Continuous monitoring, performance review, and expansion planning to increase automation coverage as your business scales." },
 ];
 
 const FAQS = [
-    { q: "Which tools do you integrate with?", a: "Salesforce, HubSpot, NetSuite, QuickBooks, Slack, Notion, Linear, Zendesk, Intercom, Stripe — plus any system with a REST or GraphQL API. We build connectors where they don't exist." },
-    { q: "How long until we see ROI?", a: "First production workflows ship in 3–6 weeks. Measurable operational ROI typically lands within the first quarter of go-live." },
-    { q: "What about governance and auditability?", a: "Every workflow is versioned, every decision logged, every action attributable. Designed for SOC 2 / ISO 27001 environments." },
-    { q: "Do automations replace headcount?", a: "They replace toil. Teams reinvest the recovered hours into work that compounds — not into doing nothing." },
-    { q: "Can we own and modify the automations?", a: "Yes. Clean handover with documentation, runbooks, and a knowledge-transfer engagement. Your team can extend without us." },
+    { q: "Will this work with our existing tools?", a: "Yes. We integrate with Salesforce, HubSpot, NetSuite, QuickBooks, Slack, Notion, Linear, Zendesk, Stripe, and any system with a REST or GraphQL API. We build custom connectors where native integrations don't exist." },
+    { q: "What happens if an automation encounters an error?", a: "Every workflow has error handling and alerting built in. Critical failures trigger immediate notifications to your team with detailed logs, so nothing fails silently and every issue can be diagnosed and resolved quickly." },
+    { q: "Can you automate processes that require human judgment?", a: "Yes — through human-in-the-loop checkpoints. The automation handles routing, data gathering, and preparation; a human makes the decision at defined escalation points. You get the efficiency without removing the oversight." },
+    { q: "What data sources can you connect to?", a: "Any system with an API, database connector, or webhook. We also work with legacy systems that require custom ETL pipelines, file-based integrations, or screen-capture automation as a last resort." },
+    { q: "How long does implementation typically take?", a: "First production workflows ship in 3–6 weeks. Full operational coverage typically takes 3–6 months, deployed in phases so you see value at every step — not just at the end." },
 ];
 
 // ── FAQ item ──────────────────────────────────────────────────────────────
@@ -234,7 +256,7 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
                 <IconSpark />
                 <span className="flex h-2 w-2 rounded-full" style={{ background: GREEN, boxShadow: `0 0 6px ${GREEN}99` }} />
             </div>
-            <span ref={elRef} className="text-4xl font-extrabold leading-none tracking-tight md:text-5xl" style={{ color: GREEN }}>
+            <span ref={elRef} className="text-4xl font-bold leading-none tracking-tight md:text-5xl" style={{ color: GREEN }}>
                 {prefix}{display}{suffix}
             </span>
             <span className="text-xs font-medium leading-snug text-white/55 md:text-sm">{label}</span>
@@ -248,7 +270,7 @@ function WorkflowMock() {
     return (
         <div
             className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
+            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
         >
             <svg viewBox="0 0 320 180" className="h-full w-full" fill="none">
                 {nodes.map((n, i) => {
@@ -272,7 +294,7 @@ function DecisionTreeMock() {
     return (
         <div
             className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
+            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
         >
             <svg viewBox="0 0 320 180" className="h-full w-full" fill="none">
                 {/* root */}
@@ -301,7 +323,7 @@ function DashboardMock() {
     return (
         <div
             className="relative w-full overflow-hidden rounded-2xl p-5"
-            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
+            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
         >
             <div className="grid h-full grid-cols-3 gap-3">
                 {[
@@ -334,20 +356,16 @@ function DashboardMock() {
 // ── Page ──────────────────────────────────────────────────────────────────
 export default function AutomationSystemsPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
-    const heroRef = useRef<HTMLElement>(null);
     const { open: openBookCall } = useBookCall();
 
     return (
-        <main className="relative min-h-screen bg-[#07001F] overflow-hidden">
-            <PageArcs />
+        <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
             {/* ── 1. HERO ───────────────────────────────────── */}
             <section
-                ref={heroRef}
                 data-hero
                 className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
-                <HeroBubbles containerRef={heroRef} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -355,47 +373,34 @@ export default function AutomationSystemsPage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <SectionLabel text="Automation & Systems" />
-                    <h1
-                        className="text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
-                        style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
-                    >
-                        AI-powered operations.<br /><span className="jakarta-italic">One unified system.</span>
+                    <h1 className="display-hero-title max-w-3xl text-center">
+                        <span className="display-muted-line">Automate the Work.</span>
+                        <span className="display-strong-line">Amplify the People.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Workflow automation, decision systems, and executive dashboards that connect every part of your
-                        business — so the rails run themselves.
+                        Every hour your team spends on manual, repetitive tasks is an hour not spent on strategy, growth, or the work that actually moves the needle. We build the systems that eliminate the manual layer — so your team can operate at their highest value.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
-                            Book a Strategy Call
+                            Map Your Automation Opportunities
                         </button>
 
                     </div>
                 </motion.div>
+                <HeroHorizon />
             </section>
 
             {/* ── 2. PROBLEM — Disconnected systems ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(155,47,255,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -407,18 +412,19 @@ export default function AutomationSystemsPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="The problem" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Five systems pretending to be one business.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Manual operations</span>
+                            <span className="display-strong-line">are a tax on growth.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            CRM doesn't talk to finance. Ops lives in spreadsheets. Reporting is a ritual, not a signal. The work isn't running the business — it's holding it together.
+                            Every hour your team spends on repetitive, manual tasks is an hour not invested in the work that scales. Most businesses are running on spreadsheets, copy-paste, and tribal knowledge — with no automation layer and no system of record.
                         </p>
                     </motion.div>
 
                     {/* Disconnected → connected visualization */}
                     <div
-                        className="relative mx-auto h-[420px] w-full max-w-3xl rounded-2xl md:h-[460px]"
-                        style={{ background: "rgba(8,1,28,0.45)", border: "1px solid rgba(255,255,255,0.07)" }}
+                        className="relative mx-auto h-[260px] sm:h-[340px] w-full max-w-3xl rounded-2xl md:h-[460px]"
+                        style={{ background: "rgba(23,26,34,0.88)", border: "1px solid rgba(255,255,255,0.07)" }}
                     >
                         {/* SVG connection lines */}
                         <motion.svg
@@ -460,9 +466,9 @@ export default function AutomationSystemsPage() {
                             <div
                                 className="flex h-24 w-24 flex-col items-center justify-center gap-1 rounded-full md:h-28 md:w-28"
                                 style={{
-                                    background: "rgba(8,1,28,0.95)",
+                                    background: "rgba(23,26,34,0.98)",
                                     border: `1.5px solid ${GREEN}`,
-                                    boxShadow: `0 0 0 8px #07001F, 0 0 32px ${GREEN}44`,
+                                    boxShadow: `0 0 0 8px #0E1014, 0 0 32px ${GREEN}44`,
                                 }}
                             >
                                 <IconBolt />
@@ -479,7 +485,7 @@ export default function AutomationSystemsPage() {
                                 viewport={{ once: true, margin: "-60px" }}
                                 transition={{ duration: 0.6, delay: card.delay, ease: EASE }}
                                 className="absolute flex items-center gap-2 rounded-xl px-3 py-2"
-                                style={{ ...card.pos, background: "rgba(8,1,28,0.85)", border: `1px solid ${BLUE}55`, backdropFilter: "blur(4px)" }}
+                                style={{ ...card.pos, background: "rgba(23,26,34,0.96)", border: `1px solid ${BLUE}55`, backdropFilter: "blur(4px)" }}
                             >
                                 <card.Icon />
                                 <span className="text-xs font-bold text-white">{card.label}</span>
@@ -492,7 +498,7 @@ export default function AutomationSystemsPage() {
             {/* ── 3. APPROACH — Architecture map ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.06) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -503,11 +509,12 @@ export default function AutomationSystemsPage() {
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
                         <SectionLabel text="Our approach" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            The automation architecture map.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">The five-stage</span>
+                            <span className="display-strong-line">automation blueprint.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            Five stages. Branching decision logic on top. Optimised for the way your business actually runs.
+                            We don&apos;t automate processes in isolation. We design the full automation architecture — from a complete operations audit to AI decision logic on top of every workflow — then deploy in phases so the value compounds.
                         </p>
                     </motion.div>
 
@@ -548,9 +555,9 @@ export default function AutomationSystemsPage() {
                                     <div
                                         className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full md:h-16 md:w-16"
                                         style={{
-                                            background: "rgba(8,1,28,1)",
+                                            background: "#171A22",
                                             border: `1.5px solid ${BLUE}`,
-                                            boxShadow: `0 0 0 6px #07001F, 0 0 22px ${BLUE}33`,
+                                            boxShadow: `0 0 0 6px #0E1014, 0 0 22px ${BLUE}33`,
                                         }}
                                     >
                                         <span className="text-base font-bold md:text-lg" style={{ color: GREEN }}>{node.num}</span>
@@ -575,8 +582,9 @@ export default function AutomationSystemsPage() {
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
                         <SectionLabel text="What we build" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Three layers of operational intelligence.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Three layers of</span>
+                            <span className="display-strong-line">operational intelligence.</span>
                         </h2>
                     </motion.div>
 
@@ -596,10 +604,10 @@ export default function AutomationSystemsPage() {
                                 >
                                     <div className="flex flex-col gap-5">
                                         <div className="flex items-center gap-4">
-                                            <span className="text-5xl font-extrabold leading-none md:text-6xl" style={{ color: GREEN }}>{svc.num}</span>
+                                            <span className="text-4xl sm:text-5xl font-bold leading-none md:text-6xl" style={{ color: GREEN }}>{svc.num}</span>
                                             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">{svc.eyebrow}</span>
                                         </div>
-                                        <h3 className="text-2xl font-extrabold leading-tight text-white md:text-3xl">{svc.title}</h3>
+                                        <h3 className="text-2xl font-semibold leading-tight text-white md:text-3xl">{svc.title}</h3>
                                         <p className="max-w-md text-base leading-relaxed text-white/55 md:text-[1.05rem]">{svc.body}</p>
                                         <ul className="mt-2 flex flex-col gap-2.5">
                                             {svc.bullets.map((b) => (
@@ -636,14 +644,15 @@ export default function AutomationSystemsPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Outcomes" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            What unified automation ships.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">What unified automation</span>
+                            <span className="display-strong-line">ships.</span>
                         </h2>
                     </motion.div>
 
                     <div
                         className="rounded-2xl p-6 md:p-8"
-                        style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                        style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                     >
                         <div className="mb-6 flex items-center justify-between">
                             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Operations dashboard</span>
@@ -672,8 +681,9 @@ export default function AutomationSystemsPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Deployment" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Roadmap to production.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Roadmap to</span>
+                            <span className="display-strong-line">production.</span>
                         </h2>
                     </motion.div>
 
@@ -696,14 +706,14 @@ export default function AutomationSystemsPage() {
                                     <div
                                         className="relative z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full md:h-[72px] md:w-[72px]"
                                         style={{
-                                            background: "rgba(8,1,28,1)",
+                                            background: "#171A22",
                                             border: `1.5px solid ${BLUE}`,
-                                            boxShadow: `0 0 0 6px #07001F, 0 0 22px ${BLUE}33`,
+                                            boxShadow: `0 0 0 6px #0E1014, 0 0 22px ${BLUE}33`,
                                         }}
                                     >
                                         <span className="text-base font-bold md:text-xl" style={{ color: GREEN }}>{step.num}</span>
                                     </div>
-                                    <div className="flex flex-1 flex-col gap-1.5 rounded-xl p-5" style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                                    <div className="flex flex-1 flex-col gap-1.5 rounded-xl p-5" style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}>
                                         <h3 className="text-lg font-bold text-white md:text-xl">{step.title}</h3>
                                         <p className="text-sm leading-relaxed text-white/55 md:text-base">{step.body}</p>
                                     </div>
@@ -725,8 +735,9 @@ export default function AutomationSystemsPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="FAQ" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            From the operations console.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">From the</span>
+                            <span className="display-strong-line">operations console.</span>
                         </h2>
                     </motion.div>
 
@@ -769,31 +780,21 @@ export default function AutomationSystemsPage() {
                     transition={{ duration: 0.8, ease: EASE }}
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 text-center"
                 >
-                    <h2 className="text-3xl font-extrabold leading-[1.05] tracking-tight text-white md:text-5xl">
-                        Let your operations <span className="jakarta-italic">run themselves.</span>
+                    <h2 className="display-section-title max-w-3xl text-center">
+                        <span className="display-muted-line">What if manual operations</span>
+                        <span className="display-strong-line">weren&apos;t a constraint?</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Map the chaos. Architect the spine. Ship the system. Watch the throughput compound.
+                        Map your operation. Eliminate the manual layer. Deploy the systems that let your team scale without scaling the headcount.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
-                            Book a Strategy Call
+                            Book Your Automation Audit
                         </button>
 
                     </div>

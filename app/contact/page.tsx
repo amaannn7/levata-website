@@ -1,6 +1,5 @@
 import ContactCTASection from "@/app/components/ContactCTASection";
 import BookCallSection from "@/app/components/BookCallSection";
-import PageArcs from "@/app/components/PageArcs";
 import ContactHero from "@/app/components/ContactHero";
 import type { Metadata } from "next";
 
@@ -11,8 +10,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
     return (
-        <main className="relative min-h-screen w-full bg-[#07001F] flex flex-col overflow-hidden">
-            <PageArcs />
+        <main className="relative min-h-screen w-full bg-[#0E1014] flex flex-col overflow-hidden page-dividers">
 
             {/* Aurora glow matching home page */}
             <div
@@ -25,8 +23,8 @@ export default function ContactPage() {
                     width: "140vw",
                     height: "520px",
                     background: [
-                        "radial-gradient(ellipse 30% 60% at 35% 80%, rgba(114,200,245,0.14) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 30% 60% at 65% 80%, rgba(155,47,255,0.18) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 30% 60% at 35% 80%, rgba(75,145,247,0.14) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 30% 60% at 65% 80%, rgba(75,145,247,0.18) 0%, transparent 70%)",
                     ].join(", "),
                 }}
             />

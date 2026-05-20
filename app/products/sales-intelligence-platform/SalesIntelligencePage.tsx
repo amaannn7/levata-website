@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
-import PageArcs from "@/app/components/PageArcs";
-import HeroBubbles from "@/app/components/HeroBubbles";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import dynamic from "next/dynamic";
+
+const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
 // ── Image placeholder (matches homepage helper — drop a real <Image> later) ──
 function ImagePlaceholder({
@@ -22,7 +23,7 @@ function ImagePlaceholder({
             className={`relative w-full overflow-hidden rounded-xl ${className}`}
             style={{
                 aspectRatio: aspect,
-                background: "linear-gradient(135deg, rgba(155,47,255,0.10), rgba(114,200,245,0.06))",
+                background: "linear-gradient(135deg, rgba(75,145,247,0.10), rgba(75,145,247,0.06))",
                 border: "1px solid rgba(255,255,255,0.06)",
             }}
             aria-hidden
@@ -31,7 +32,7 @@ function ImagePlaceholder({
             <div
                 className="absolute inset-0"
                 style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.18) 0%, transparent 70%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.18) 0%, transparent 70%)",
                 }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -75,7 +76,7 @@ function IconLeakyFunnel() {
 }
 
 const PAIN_ICONS = [IconResearchClock, IconEnvelopeIgnored, IconLeakyFunnel] as const;
-const PAIN_ACCENTS = ["#9B2FFF", "#BB00FF", "#72C8F5"] as const;
+const PAIN_ACCENTS = ["#4B91F7", "#4B91F7", "#4B91F7"] as const;
 
 // ── Section label helper ───────────────────────────────────────────────────
 function SectionLabel({ text }: { text: string }) {
@@ -143,13 +144,13 @@ function AnimatedStat({
         <div className="flex flex-col items-center gap-3 text-center">
             <span
                 ref={elRef}
-                className="text-5xl font-extrabold leading-none tracking-tight md:text-6xl"
-                style={{ color: "#3DFD98" }}
+                className="text-4xl sm:text-5xl font-bold leading-none tracking-tight md:text-6xl"
+                style={{ color: "#4B91F7" }}
             >
                 {animate ? count : value}
-                <span style={{ color: "#3DFD98" }}>{suffix}</span>
+                <span style={{ color: "#4B91F7" }}>{suffix}</span>
             </span>
-            <span className="max-w-[200px] text-sm font-medium leading-snug text-white/45 tracking-wide">
+            <span className="max-w-[140px] sm:max-w-[200px] text-sm font-medium leading-snug text-white/45 tracking-wide">
                 {label}
             </span>
         </div>
@@ -220,17 +221,17 @@ const PAIN_POINTS = [
     {
         title: "Research is eating your team's time",
         body: "Reps spend hours manually researching prospects before writing a single email. Most of that research never gets used.",
-        accent: "#72C8F5",
+        accent: "#4B91F7",
     },
     {
         title: "Generic outreach gets ignored",
         body: "Mass-blasted emails with no personalization drive low open rates, zero replies, and damaged sender reputation.",
-        accent: "#BB00FF",
+        accent: "#4B91F7",
     },
     {
         title: "Leads fall through without follow-up",
         body: "Without a system, hot prospects cool off, callbacks get missed, and pipeline visibility disappears into spreadsheets.",
-        accent: "#9B2FFF",
+        accent: "#4B91F7",
     },
 ];
 
@@ -244,71 +245,74 @@ const CAPABILITIES: Array<{
         {
             title: "AI Prospect Research",
             description:
-                "Generate structured sales intelligence for any lead in seconds. Company profiles, industry challenges, buying signals, likely pain points, success metrics, opening hooks, and discovery questions.",
+                "Generate structured sales intelligence for any lead in seconds — not hours. Company profiles, industry challenges, buying signals, likely pain points, success metrics, opening hooks, and discovery questions. All the context your rep needs before picking up the phone or hitting send.",
             bullets: [
                 "Company profile and industry landscape",
                 "Pain points, buying power, and success metrics",
                 "Opening hooks, sales angles, and discovery questions",
                 "Objection anticipation and handling guidance",
             ],
-            accent: "#9B2FFF",
+            accent: "#4B91F7",
             icon: "research",
         },
         {
             title: "Lead Scoring & Prioritization",
-            description: "Scores and grades every prospect against your ideal customer profile.",
+            description: "Not all leads deserve equal attention. The platform scores and grades every prospect against your ideal customer profile — by industry, role, company size, geography, and enrichment data — so your reps always know who to contact first.",
             bullets: [
                 "ICP scoring with fit grades and engagement scores",
                 "Lead temperature and activity velocity tracking",
                 "Next-action urgency and recommended actions",
                 "Configurable scoring rules set by admins",
             ],
-            accent: "#72C8F5",
+            accent: "#4B91F7",
             icon: "score",
         },
         {
             title: "Personalized Email & Follow-Up Generation",
-            description: "Generate tailored outreach emails in seconds.",
+            description: "Generate tailored outreach emails in seconds — initial cold email, first follow-up, second follow-up, and breakup email. Every email uses prospect data, research insights, prior email history, and your tone preferences to produce messages that actually get replies.",
             bullets: [
                 "Cold email, follow-up 1 & 2, and breakup email generation",
                 "Tone preferences and custom instruction support",
                 "Social proof and value proposition integration",
                 "Sender context and personalization at scale",
             ],
-            accent: "#BB00FF",
+            accent: "#4B91F7",
             icon: "email",
         },
         {
             title: "Call Script Generation",
-            description: "Structured call scripts tailored to the prospect.",
+            description: "Walk into every call prepared. The platform generates structured call scripts for cold calls, follow-ups, callbacks, discovery calls, and demo introductions — tailored to the specific prospect, role, company, and industry.",
             bullets: [
                 "Scripts for cold call, follow-up, discovery, and demo",
                 "Prospect and industry-specific talking points",
                 "Objection handling built into the script flow",
+                "Adapts based on available research depth",
             ],
-            accent: "#3DFD98",
+            accent: "#4B91F7",
             icon: "call",
         },
         {
             title: "Prioritized Work Queues & Daily Planning",
-            description: "Surfaces exactly who to contact and when.",
+            description: "The platform surfaces exactly who to contact and when — eliminating the daily guesswork of deciding what to work on. Hot leads, stalled prospects, overdue callbacks, and research-ready contacts are all surfaced automatically.",
             bullets: [
-                "Daily call, email, and research targets",
+                "Daily call, email, and research targets with completion streaks",
                 "Hot leads, stalled leads, and overdue callback queues",
+                "Carry-over tasks and commitment tracking",
                 "Command center dashboard with pipeline visibility",
             ],
-            accent: "#72C8F5",
+            accent: "#4B91F7",
             icon: "queue",
         },
         {
             title: "CRM Integration & Sales Workflow Tracking",
-            description: "Push qualified opportunities directly into your CRM.",
+            description: "Push qualified opportunities directly into your CRM with field-mapped sync. Track every stage of the sales workflow — from first research to qualified deal — with full email history, call outcomes, notes, and meeting records stored against each lead.",
             bullets: [
-                "Full CRM integration with OAuth and field mapping",
-                "Lead stages tracking",
+                "Full CRM integration with OAuth, field mapping, and sync history",
+                "Lead stages: new, researched, emailed, called, qualified, disqualified",
                 "Email, call, and meeting outcome logging",
+                "Export CRM-compatible CSV data at any point",
             ],
-            accent: "#9B2FFF",
+            accent: "#4B91F7",
             icon: "crm",
         },
     ];
@@ -317,9 +321,9 @@ const AUDIENCE = [
     "Small to mid-sized B2B sales teams managing outbound prospecting",
     "Founder-led or owner-led businesses running outbound sales themselves",
     "Agencies and consultants running lead generation campaigns for clients",
-    "Sales reps managing cold outreach manually today",
-    "Teams using Zoho CRM seeking a lightweight AI layer",
-    "Businesses that need AI research without enterprise complexity",
+    "Sales reps managing cold outreach and follow-up manually today",
+    "Teams using Zoho CRM seeking a lightweight AI prospecting layer",
+    "Businesses that need AI research and messaging without enterprise complexity",
 ];
 
 const OUTCOMES = [
@@ -330,38 +334,38 @@ const OUTCOMES = [
 ];
 
 const STEPS = [
-    { num: "01", title: "Import or Add Leads", body: "Upload CSV or add individually.", accent: "#9B2FFF" },
-    { num: "02", title: "Run AI Research", body: "Generate complete prospect intelligence brief in seconds.", accent: "#72C8F5" },
-    { num: "03", title: "Score & Prioritize", body: "Grade leads against your ICP.", accent: "#BB00FF" },
-    { num: "04", title: "Generate Outreach", body: "Create personalized emails and call scripts.", accent: "#3DFD98" },
-    { num: "05", title: "Track & Log", body: "Log all activity in one place.", accent: "#72C8F5" },
-    { num: "06", title: "Qualify & Push to CRM", body: "Sync qualified opportunities directly.", accent: "#9B2FFF" },
+    { num: "01", title: "Import or Add Leads", body: "Upload a CSV lead list or add prospects individually. Contact and company data stored in one clean record.", accent: "#4B91F7" },
+    { num: "02", title: "Run AI Research", body: "Generate a complete prospect intelligence brief in seconds — pain points, hooks, buying signals, and discovery questions.", accent: "#4B91F7" },
+    { num: "03", title: "Score & Prioritize", body: "The system grades each lead against your ICP and surfaces the highest-value opportunities first.", accent: "#4B91F7" },
+    { num: "04", title: "Generate Outreach", body: "Create personalized cold emails, follow-ups, and call scripts in one click — tailored to each prospect.", accent: "#4B91F7" },
+    { num: "05", title: "Track & Log", body: "Log emails sent, call outcomes, follow-up dates, and meeting results. Never lose track of where a lead stands.", accent: "#4B91F7" },
+    { num: "06", title: "Qualify & Push to CRM", body: "Move qualified leads directly into your CRM with full data sync. Keep your pipeline clean and current.", accent: "#4B91F7" },
 ];
 
 const FAQS = [
     {
         q: "Is this a CRM replacement?",
-        a: "No — it's a prospecting and outreach layer designed to sit on top of your existing CRM.",
+        a: "No — it's a prospecting and outreach layer designed to sit on top of your existing CRM. We push qualified opportunities into your CRM, not replace it.",
     },
     {
         q: "What CRMs do you integrate with?",
-        a: "Supports most major CRMs via OAuth. Zoho CRM is a primary integration.",
+        a: "The platform supports most major CRM integrations via OAuth and field mapping. Zoho CRM is a primary supported integration with additional platforms in active development.",
     },
     {
         q: "How does the AI research work?",
-        a: "Uses lead and company data to generate structured sales intelligence in seconds.",
+        a: "The system uses the lead's contact and company data to generate structured sales intelligence — covering profile, pain points, buying signals, hooks, and questions — in seconds.",
     },
     {
         q: "Can multiple reps use the platform?",
-        a: "Yes, with multi-user support, admin controls, and team features.",
+        a: "Yes. The platform includes multi-user support with admin controls, user management, configurable ICP settings, and qualification question management.",
     },
     {
         q: "Can I import my existing lead lists?",
-        a: "Yes, via CSV upload with field mapping.",
+        a: "Yes. Upload CSV files directly and the platform maps your existing data fields into the lead record structure. You can also add leads individually or via CRM pull sync.",
     },
     {
         q: "Is there a free trial?",
-        a: "Yes. Contact us to set up a trial or book a live demo.",
+        a: "Yes. Contact us to set up a trial or book a live demo where we'll walk through the platform with your actual prospect data.",
     },
 ];
 
@@ -388,7 +392,7 @@ function FAQItem({
             className="overflow-hidden rounded-2xl"
             style={{
                 background: "rgba(255,255,255,0.02)",
-                border: `1px solid ${isOpen ? "rgba(114,200,245,0.28)" : "rgba(255,255,255,0.06)"}`,
+                border: `1px solid ${isOpen ? "rgba(75,145,247,0.28)" : "rgba(255,255,255,0.06)"}`,
                 transition: "border-color 300ms ease",
             }}
         >
@@ -403,13 +407,13 @@ function FAQItem({
                     aria-hidden
                     className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300"
                     style={{
-                        background: "rgba(114,200,245,0.08)",
-                        border: "1px solid rgba(114,200,245,0.25)",
+                        background: "rgba(75,145,247,0.08)",
+                        border: "1px solid rgba(75,145,247,0.25)",
                         transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
                     }}
                 >
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M6 1v10M1 6h10" stroke="#72C8F5" strokeWidth="1.6" strokeLinecap="round" />
+                        <path d="M6 1v10M1 6h10" stroke="#4B91F7" strokeWidth="1.6" strokeLinecap="round" />
                     </svg>
                 </span>
             </button>
@@ -434,20 +438,16 @@ function FAQItem({
 // ── Page ──────────────────────────────────────────────────────────────────
 export default function SalesIntelligencePage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
-    const heroRef = useRef<HTMLElement>(null);
     const { open: openBookCall } = useBookCall();
 
     return (
-        <main className="relative min-h-screen bg-[#07001F] overflow-hidden">
-            <PageArcs />
+        <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
             {/* ── 1. HERO ───────────────────────────────────── */}
             <section
-                ref={heroRef}
                 data-hero
                 className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
-                <HeroBubbles containerRef={heroRef} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -455,35 +455,20 @@ export default function SalesIntelligencePage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <SectionLabel text="Sales Intelligence Platform" />
-                    <h1
-                        className="text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
-                        style={{
-                            fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif",
-                        }}
-                    >
-                        Turn Your Lead List Into a Qualified Pipeline —<br /><span className="jakarta-italic">In Hours, Not Days.</span>
+                    <h1 className="display-hero-title max-w-3xl text-center">
+                        <span className="display-muted-line">Turn your lead list into</span>
+                        <span className="display-strong-line">a pipeline, in hours.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                         The AI-powered sales workspace for B2B teams. Research prospects, prioritize leads, generate
                         personalized outreach, and push qualified opportunities into your CRM — all from one place.
                     </p>
-                    <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
+                    <div className="mt-2">
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
                             Start Your Free Trial
                         </button>
@@ -493,8 +478,9 @@ export default function SalesIntelligencePage() {
                 <div
                     aria-hidden
                     className="absolute bottom-0 left-1/2 h-px w-32 -translate-x-1/2"
-                    style={{ background: "linear-gradient(to right, transparent, rgba(114,200,245,0.35), transparent)" }}
+                    style={{ background: "linear-gradient(to right, transparent, rgba(75,145,247,0.35), transparent)" }}
                 />
+                <HeroHorizon />
             </section>
 
             {/* ── 2. PROBLEM ────────────────────────────────── */}
@@ -504,8 +490,8 @@ export default function SalesIntelligencePage() {
                     className="pointer-events-none absolute inset-0 z-0"
                     style={{
                         background: [
-                            "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(155,47,255,0.06) 0%, transparent 70%)",
-                            "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                            "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
+                            "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
                         ].join(", "),
                     }}
                 />
@@ -518,8 +504,9 @@ export default function SalesIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="The problem" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Stop wasting time on manual research and scattered outreach.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Stop wasting time</span>
+                            <span className="display-strong-line">on research and outreach tools.</span>
                         </h2>
                     </motion.div>
 
@@ -537,16 +524,16 @@ export default function SalesIntelligencePage() {
                                     whileHover={{ y: -4 }}
                                     className="flex h-full flex-col gap-5 rounded-2xl p-7 md:p-8 transition-colors duration-300 hover:bg-white/[0.03]"
                                     style={{
-                                        background: "rgba(8,1,28,0.55)",
+                                        background: "rgba(23,26,34,0.92)",
                                         border: "1px solid rgba(255,255,255,0.07)",
                                     }}
                                 >
                                     <div
                                         className="flex h-12 w-12 items-center justify-center rounded-xl"
                                         style={{
-                                            background: "rgba(114,200,245,0.08)",
-                                            border: "1px solid rgba(114,200,245,0.25)",
-                                            color: "#72C8F5",
+                                            background: "rgba(75,145,247,0.08)",
+                                            border: "1px solid rgba(75,145,247,0.25)",
+                                            color: "#4B91F7",
                                         }}
                                     >
                                         <Icon />
@@ -568,7 +555,7 @@ export default function SalesIntelligencePage() {
                     aria-hidden
                     className="pointer-events-none absolute inset-0 z-0"
                     style={{
-                        background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                        background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(75,145,247,0.05) 0%, transparent 70%)",
                     }}
                 />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -580,8 +567,9 @@ export default function SalesIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Core capabilities" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Everything your team needs in one intelligent workspace.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Everything your team needs</span>
+                            <span className="display-strong-line">in one intelligent workspace.</span>
                         </h2>
                     </motion.div>
 
@@ -596,18 +584,18 @@ export default function SalesIntelligencePage() {
                                 whileHover={{ y: -4 }}
                                 className="flex h-full flex-col gap-5 rounded-2xl p-7 md:p-8 transition-colors duration-300 hover:bg-white/[0.03]"
                                 style={{
-                                    background: "rgba(8,1,28,0.55)",
+                                    background: "rgba(23,26,34,0.92)",
                                     border: "1px solid rgba(255,255,255,0.07)",
                                 }}
                             >
                                 <div
                                     className="flex h-12 w-12 items-center justify-center rounded-xl"
                                     style={{
-                                        background: "rgba(114,200,245,0.08)",
-                                        border: "1px solid rgba(114,200,245,0.25)",
+                                        background: "rgba(75,145,247,0.08)",
+                                        border: "1px solid rgba(75,145,247,0.25)",
                                     }}
                                 >
-                                    <CapabilityIcon kind={c.icon} accent="#72C8F5" />
+                                    <CapabilityIcon kind={c.icon} accent="#4B91F7" />
                                 </div>
                                 <h3 className="text-[1.2rem] font-bold leading-snug tracking-tight text-white md:text-[1.35rem]">
                                     {c.title}
@@ -619,7 +607,7 @@ export default function SalesIntelligencePage() {
                                             <span
                                                 aria-hidden
                                                 className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rotate-45"
-                                                style={{ background: "#72C8F5" }}
+                                                style={{ background: "#4B91F7" }}
                                             />
                                             <span className="leading-snug">{b}</span>
                                         </li>
@@ -632,14 +620,14 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 4. WHO IT'S FOR ──────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-6 py-20 md:py-24">
+            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 z-0"
                     style={{
                         background: [
-                            "radial-gradient(ellipse 50% 50% at 20% 50%, rgba(155,47,255,0.07) 0%, transparent 70%)",
-                            "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(114,200,245,0.06) 0%, transparent 70%)",
+                            "radial-gradient(ellipse 50% 50% at 20% 50%, rgba(75,145,247,0.07) 0%, transparent 70%)",
+                            "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(75,145,247,0.06) 0%, transparent 70%)",
                         ].join(", "),
                     }}
                 />
@@ -652,8 +640,9 @@ export default function SalesIntelligencePage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center"
                     >
                         <SectionLabel text="Who it's for" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Built for teams that do real outbound sales.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Built for teams that do</span>
+                            <span className="display-strong-line">real outbound sales.</span>
                         </h2>
                     </motion.div>
 
@@ -675,14 +664,14 @@ export default function SalesIntelligencePage() {
                                     aria-hidden
                                     className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full"
                                     style={{
-                                        background: "rgba(114,200,245,0.12)",
-                                        border: "1px solid rgba(114,200,245,0.3)",
+                                        background: "rgba(75,145,247,0.12)",
+                                        border: "1px solid rgba(75,145,247,0.3)",
                                     }}
                                 >
                                     <svg viewBox="0 0 10 10" fill="none" className="h-3 w-3">
                                         <path
                                             d="M2 5l2.5 2.5L8 3"
-                                            stroke="#72C8F5"
+                                            stroke="#4B91F7"
                                             strokeWidth="1.6"
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
@@ -697,12 +686,12 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 5. KEY OUTCOMES ──────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-6 py-24 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-24 md:py-28">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 z-0"
                     style={{
-                        background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.08) 0%, transparent 65%)",
+                        background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.08) 0%, transparent 65%)",
                     }}
                 />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -714,8 +703,9 @@ export default function SalesIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Key outcomes" />
-                        <h2 className="max-w-2xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Real results, not hype.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Real results,</span>
+                            <span className="display-strong-line">not hype.</span>
                         </h2>
                     </motion.div>
 
@@ -740,8 +730,8 @@ export default function SalesIntelligencePage() {
                     className="pointer-events-none absolute inset-0 z-0"
                     style={{
                         background: [
-                            "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(114,200,245,0.05) 0%, transparent 70%)",
-                            "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(155,47,255,0.06) 0%, transparent 70%)",
+                            "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.05) 0%, transparent 70%)",
+                            "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.06) 0%, transparent 70%)",
                         ].join(", "),
                     }}
                 />
@@ -754,8 +744,9 @@ export default function SalesIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="How it works" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            From lead list to closed deal in 6 steps.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">From lead list</span>
+                            <span className="display-strong-line">to closed deal in 6 steps.</span>
                         </h2>
                     </motion.div>
 
@@ -785,14 +776,14 @@ export default function SalesIntelligencePage() {
                                     <div
                                         className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full md:h-14 md:w-14"
                                         style={{
-                                            background: "rgba(8,1,28,1)",
-                                            border: "1px solid #3DFD9880",
-                                            boxShadow: "0 0 0 4px #07001F, 0 0 20px #3DFD9825",
+                                            background: "#171A22",
+                                            border: "1px solid #4B91F780",
+                                            boxShadow: "0 0 0 4px #0E1014, 0 0 20px #4B91F725",
                                         }}
                                     >
                                         <span
                                             className="text-base font-bold tracking-tight md:text-lg"
-                                            style={{ color: "#3DFD98" }}
+                                            style={{ color: "#4B91F7" }}
                                         >
                                             {step.num}
                                         </span>
@@ -811,12 +802,12 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 7. FAQ ───────────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-6 py-20 md:py-24">
+            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 z-0"
                     style={{
-                        background: "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                        background: "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(75,145,247,0.05) 0%, transparent 70%)",
                     }}
                 />
                 <div className="relative z-10 mx-auto max-w-3xl">
@@ -828,8 +819,9 @@ export default function SalesIntelligencePage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center"
                     >
                         <SectionLabel text="FAQ" />
-                        <h2 className="text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Frequently asked questions.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Frequently asked</span>
+                            <span className="display-strong-line">questions.</span>
                         </h2>
                     </motion.div>
 
@@ -855,16 +847,16 @@ export default function SalesIntelligencePage() {
                     className="pointer-events-none absolute inset-0 z-0"
                     style={{
                         background: [
-                            "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(155,47,255,0.18) 0%, transparent 65%)",
-                            "radial-gradient(ellipse 40% 50% at 20% 0%, rgba(114,200,245,0.1) 0%, transparent 60%)",
-                            "radial-gradient(ellipse 40% 50% at 80% 0%, rgba(155,47,255,0.08) 0%, transparent 60%)",
+                            "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(75,145,247,0.18) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 40% 50% at 20% 0%, rgba(75,145,247,0.1) 0%, transparent 60%)",
+                            "radial-gradient(ellipse 40% 50% at 80% 0%, rgba(75,145,247,0.08) 0%, transparent 60%)",
                         ].join(", "),
                     }}
                 />
                 <div
                     aria-hidden
                     className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2"
-                    style={{ background: "linear-gradient(to right, transparent, rgba(155,47,255,0.5), transparent)" }}
+                    style={{ background: "linear-gradient(to right, transparent, rgba(75,145,247,0.5), transparent)" }}
                 />
 
                 <motion.div
@@ -875,29 +867,19 @@ export default function SalesIntelligencePage() {
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
                 >
                     <SectionLabel text="Ship pipeline" />
-                    <h2 className="text-3xl font-extrabold leading-[1.08] tracking-tight text-white md:text-4xl lg:text-[2.8rem]">
-                        Your reps should be closing — not researching.
+                    <h2 className="display-section-title max-w-2xl text-center">
+                        <span className="display-muted-line">Your reps should be</span>
+                        <span className="display-strong-line">closing — not researching.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-lg">
                         Give your team the AI workspace that does the heavy lifting before every email and every call.
                     </p>
-                    <div className="flex flex-col items-center gap-3 sm:flex-row">
+                    <div>
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
                             Book a Demo
                         </button>

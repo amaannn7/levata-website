@@ -8,12 +8,10 @@ import {
     SiSanity, SiContentful, SiStrapi, SiWordpress, SiPayloadcms, SiDirectus,
     SiPostgresql, SiMysql, SiMongodb, SiSupabase, SiFirebase, SiRedis,
 } from "react-icons/si";
-import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import ClientsMarquee from "@/app/components/ClientsMarquee";
 import { CircleArrow } from "@/app/components/ServicesSection";
 import TestimonialsSection from "@/app/components/TestimonialsSection";
 import HomeHero from "@/app/components/HomeHero";
-import ProcessTabsSection from "@/app/components/ProcessTabsSection";
 import { useBookCall } from "@/app/components/BookCallProvider";
 
 // ── Count-up hook ──────────────────────────────────────────────────────────
@@ -58,11 +56,11 @@ function StatCounter({ leadNumber, suffix, label }: { leadNumber: number; suffix
         <div className="flex flex-col items-center gap-3">
             <span
                 ref={elRef}
-                className="text-5xl font-extrabold leading-none tracking-tight md:text-6xl"
-                style={{ color: "#3DFD98" }}
+                className="text-5xl font-bold leading-none tracking-tight md:text-6xl"
+                style={{ color: "var(--text-primary)" }}
             >
                 {count}
-                <span style={{ color: "#3DFD98" }}>{suffix}</span>
+                <span style={{ color: "var(--text-primary)" }}>{suffix}</span>
             </span>
             <span className="max-w-[180px] text-center text-sm font-medium leading-snug text-white/45 tracking-wide">
                 {label}
@@ -80,6 +78,14 @@ function SectionLabel({ text }: { text: string }) {
                 <span className="animate-label-dot" />
             </span>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
+        </div>
+    );
+}
+
+function SectionDivider() {
+    return (
+        <div aria-hidden className="px-6">
+            <div className="section-gradient-divider" />
         </div>
     );
 }
@@ -134,12 +140,12 @@ function TechMarqueeRow({ items, direction, duration }: { items: TechItem[]; dir
                     <div
                         key={`${name}-${i}`}
                         title={name}
-                        className="group flex flex-shrink-0 items-center justify-center"
+                        className="home-tech-icon-wrap group flex flex-shrink-0 items-center justify-center"
                         style={{ width: 44, height: 44 }}
                     >
                         <Icon
                             size={40}
-                            className="[filter:grayscale(1)_brightness(0)_invert(1)_opacity(0.55)] transition-[filter,opacity] duration-300 group-hover:[filter:grayscale(1)_brightness(0)_invert(1)_opacity(1)_drop-shadow(0_0_12px_rgba(255,255,255,0.4))]"
+                            className="home-tech-icon"
                         />
                     </div>
                 ))}
@@ -150,12 +156,21 @@ function TechMarqueeRow({ items, direction, duration }: { items: TechItem[]; dir
 
 function TechStackSection() {
     return (
-        <section className="relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-24 overflow-hidden">
+        <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-24 overflow-hidden">
+            <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+                <div className="absolute inset-0" style={{
+                    background: [
+                        "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(75,145,247,0.07) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 40% 40% at 85% 20%, rgba(75,145,247,0.04) 0%, transparent 60%)",
+                    ].join(", ")
+                }} />
+            </div>
             <div className="relative z-10 mx-auto max-w-6xl">
                 <div className="mb-12 flex flex-col items-center text-center gap-5">
                     <SectionLabel text="Our stack" />
-                    <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
-                        Built on tech that compounds.
+                    <h2 className="display-section-title max-w-2xl text-center">
+                        <span className="display-muted-line">Built on tech that</span>
+                        <span className="display-strong-line">compounds.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/45 md:text-[1.05rem]">
                         Battle-tested infrastructure paired with cutting-edge AI — chosen for longevity, not novelty.
@@ -183,8 +198,8 @@ const PRODUCT_FEATURES = [
 
 // ── Service icons (monochrome line-art glyph + sparkle) ───────────────────
 // `accent` prop kept for backwards compat but ignored — all homepage icons render in white.
-function ServiceIcon({ kind }: { kind: IconKind; accent?: string }) {
-    const ICON_COLOR = "#72C8F5";
+function ServiceIcon({ kind, size = 26 }: { kind: IconKind; accent?: string; size?: number }) {
+    const ICON_COLOR = "var(--home-accent-cyan, #4B91F7)";
     const sparkle = (
         <path
             d="M26 4L27 6L29 7L27 8L26 10L25 8L23 7L25 6Z"
@@ -194,7 +209,7 @@ function ServiceIcon({ kind }: { kind: IconKind; accent?: string }) {
     const stroke = { stroke: ICON_COLOR, strokeWidth: 1.8, fill: "none" as const, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
     if (kind === "ai") {
         return (
-            <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
+            <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
                 <rect x="8" y="8" width="16" height="16" rx="2.5" {...stroke} />
                 <rect x="12" y="12" width="8" height="8" rx="1" {...stroke} />
                 <path d="M14 8V5M18 8V5M14 27V24M18 27V24M5 14H8M5 18H8M27 14H24M27 18H24" {...stroke} />
@@ -204,7 +219,7 @@ function ServiceIcon({ kind }: { kind: IconKind; accent?: string }) {
     }
     if (kind === "sales") {
         return (
-            <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
+            <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
                 <circle cx="14" cy="15" r="7" {...stroke} />
                 <path d="M19.5 20.5L24 25" {...stroke} />
                 {sparkle}
@@ -213,7 +228,7 @@ function ServiceIcon({ kind }: { kind: IconKind; accent?: string }) {
     }
     if (kind === "products") {
         return (
-            <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
+            <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
                 <path d="M16 7L25 11.5V20.5L16 25L7 20.5V11.5L16 7Z" {...stroke} />
                 <path d="M16 7V16M16 16L25 11.5M16 16L7 11.5" {...stroke} />
                 {sparkle}
@@ -222,7 +237,7 @@ function ServiceIcon({ kind }: { kind: IconKind; accent?: string }) {
     }
     if (kind === "services") {
         return (
-            <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
+            <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
                 <circle cx="15" cy="16" r="9" {...stroke} />
                 <ellipse cx="15" cy="16" rx="9" ry="4.5" {...stroke} />
                 <path d="M15 7V25" {...stroke} />
@@ -232,7 +247,7 @@ function ServiceIcon({ kind }: { kind: IconKind; accent?: string }) {
     }
     if (kind === "automation") {
         return (
-            <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
+            <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
                 <circle cx="15" cy="16" r="4" {...stroke} />
                 <path d="M15 7V4M15 28V25M22 16H25M5 16H8M19.9 10.1L22 8M8 24L10.1 21.9M19.9 21.9L22 24M8 8L10.1 10.1" {...stroke} />
                 {sparkle}
@@ -241,7 +256,7 @@ function ServiceIcon({ kind }: { kind: IconKind; accent?: string }) {
     }
     // growth
     return (
-        <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden>
+        <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
             <path d="M6 22L12 16L16 20L24 12" {...stroke} />
             <path d="M19 12H24V17" {...stroke} />
             {sparkle}
@@ -261,34 +276,21 @@ const SERVICE_CARDS: Array<{
     icon: IconKind;
 }> = [
         {
-            title: "AI & Intelligence",
-            description: "AI-native systems and intelligent automation woven into every layer of your business — not bolted on.",
-            subServices: [
-                "AI integration & assistants",
-                "Custom model deployment",
-                "Intelligent automation workflows",
-            ],
-            learnMore: "Explore AI & intelligence",
-            href: "/products/ai-intelligence",
-            accent: "#9B2FFF",
-            icon: "ai",
-        },
-        {
             title: "Digital Products",
-            description: "Validated MVPs and scalable platforms engineered to ship fast and compound value over time.",
+            description: "MVP development with AI built in from day one — validated and launched in weeks.",
             subServices: [
-                "MVP development with AI",
+                "AI-native MVP development",
                 "Validated product launches",
                 "Scalable platform architecture",
             ],
             learnMore: "Build a digital product",
             href: "/products/digital-products",
-            accent: "#BB00FF",
+            accent: "#4B91F7",
             icon: "products",
         },
         {
             title: "Digital Services",
-            description: "Conversion-optimised websites, web platforms, and e-commerce — built to capture and qualify pipeline.",
+            description: "Websites, platforms, and e-commerce engineered to convert and scale.",
             subServices: [
                 "Websites & web platforms",
                 "E-commerce & portals",
@@ -296,12 +298,12 @@ const SERVICE_CARDS: Array<{
             ],
             learnMore: "Explore digital services",
             href: "/products/digital-services",
-            accent: "#3DFD98",
+            accent: "#4B91F7",
             icon: "services",
         },
         {
             title: "Automation & Systems",
-            description: "Operations infrastructure that runs itself — workflows, reporting, and back-office automation that scale with you.",
+            description: "Eliminate manual operations and get real-time visibility across your entire business.",
             subServices: [
                 "Workflow & back-office automation",
                 "Real-time reporting & BI",
@@ -309,8 +311,21 @@ const SERVICE_CARDS: Array<{
             ],
             learnMore: "Automate your operations",
             href: "/products/automation-systems",
-            accent: "#72C8F5",
+            accent: "#4B91F7",
             icon: "automation",
+        },
+        {
+            title: "AI and Intelligence",
+            description: "AI-enhanced acquisition systems that scale without scaling headcount.",
+            subServices: [
+                "AI integration & assistants",
+                "Custom model deployment",
+                "Intelligent automation workflows",
+            ],
+            learnMore: "Explore AI & intelligence",
+            href: "/products/ai-intelligence",
+            accent: "#4B91F7",
+            icon: "ai",
         },
     ];
 
@@ -323,8 +338,8 @@ function ServiceIconSquare({ icon, size = "md" }: { icon: IconKind; accent?: str
         <div
             className={`flex ${dims} items-center justify-center rounded-xl`}
             style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "var(--home-control-bg, rgba(255,255,255,0.03))",
+                border: "1px solid var(--home-control-border, rgba(255,255,255,0.08))",
             }}
         >
             <ServiceIcon kind={icon} />
@@ -455,13 +470,13 @@ function ServicesExplorer() {
                                 aria-hidden
                                 className="absolute left-0 top-0 bottom-0 w-[2px] transition-opacity duration-300"
                                 style={{
-                                    background: "linear-gradient(180deg, #9B2FFF, #72C8F5)",
+                                    background: "linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.55))",
                                     opacity: isActive ? 1 : 0,
                                 }}
                             />
                             <span
                                 className="text-[10px] font-bold uppercase tracking-[0.18em] transition-colors duration-200"
-                                style={{ color: isActive ? s.accent : "rgba(255,255,255,0.4)" }}
+                                style={{ color: isActive ? "rgba(255,255,255,0.65)" : "rgba(255,255,255,0.4)" }}
                             >
                                 {String(i + 1).padStart(2, "0")}
                             </span>
@@ -480,7 +495,7 @@ function ServicesExplorer() {
             <div
                 className="rounded-2xl p-7 md:p-9"
                 style={{
-                    background: "rgba(8,1,28,0.55)",
+                    background: "rgba(23,26,34,0.92)",
                     border: "1px solid rgba(255,255,255,0.07)",
                 }}
             >
@@ -521,7 +536,7 @@ function ServicesExplorer() {
                                     <span
                                         aria-hidden
                                         className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rotate-45"
-                                        style={{ background: card.accent }}
+                                        style={{ background: "rgba(255,255,255,0.55)" }}
                                     />
                                     <span>{s}</span>
                                 </li>
@@ -535,181 +550,106 @@ function ServicesExplorer() {
     );
 }
 
-// ── Services Carousel (canonical §5 layout — horizontal scroll-snap) ─────
-// Section header on top-left, prev/next arrows top-right, cards scroll horizontally.
+// ── Services Grid ─────────────────────────────────────────────────────────
 function ServicesCarousel() {
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const [canPrev, setCanPrev] = useState(false);
-    const [canNext, setCanNext] = useState(true);
-    const { open: openBookCall } = useBookCall();
-
-    useEffect(() => {
-        const el = scrollRef.current;
-        if (!el) return;
-        const update = () => {
-            setCanPrev(el.scrollLeft > 4);
-            setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
-        };
-        update();
-        el.addEventListener("scroll", update, { passive: true });
-        const ro = new ResizeObserver(update);
-        ro.observe(el);
-        return () => {
-            el.removeEventListener("scroll", update);
-            ro.disconnect();
-        };
-    }, []);
-
-    const scrollBy = (dir: 1 | -1) => {
-        const el = scrollRef.current;
-        if (!el) return;
-        const first = el.querySelector("[data-card]") as HTMLElement | null;
-        const step = first ? first.offsetWidth + 16 : el.clientWidth * 0.85;
-        el.scrollBy({ left: step * dir, behavior: "smooth" });
-    };
+    const BLUE = "#4B91F7";
 
     return (
         <div>
-            {/* Header row — title left, arrows right */}
-            <div className="mb-8 flex items-end justify-between gap-6 px-1 md:mb-12">
-                <div className="flex flex-col gap-3">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">
-                        What we do
+            {/* Header */}
+            <div className="mb-12 flex flex-col items-center gap-4 text-center md:mb-16">
+                <div className="inline-flex items-center gap-3">
+                    <span className="flex items-center">
+                        <span className="animate-label-line" />
+                        <span className="animate-label-dot" />
                     </span>
-                    <h2 className="text-3xl font-extrabold leading-[1.05] tracking-tight text-white md:text-4xl">
-                        Four capabilities.<br />One unified system.
-                    </h2>
-                    <button
-                        type="button"
-                        onClick={openBookCall}
-                        className="group mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-white/70 transition-colors hover:text-white md:text-base cursor-pointer"
-                    >
-                        Book a strategy call
-                        <svg
-                            width="14"
-                            height="14"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                            aria-hidden
-                        >
-                            <path d="M7 17L17 7M17 7H8M17 7V16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </button>
+                    <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">What we do</span>
                 </div>
-                <div className="flex flex-shrink-0 items-center gap-2">
-                    <button
-                        type="button"
-                        aria-label="Previous service"
-                        disabled={!canPrev}
-                        onClick={() => scrollBy(-1)}
-                        className="flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 disabled:opacity-30 disabled:pointer-events-auto"
-                        style={{
-                            background: "rgba(255,255,255,0.03)",
-                            border: "1px solid rgba(255,255,255,0.12)",
-                        }}
-                    >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                            <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </button>
-                    <button
-                        type="button"
-                        aria-label="Next service"
-                        disabled={!canNext}
-                        onClick={() => scrollBy(1)}
-                        className="flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 disabled:opacity-30 disabled:pointer-events-auto"
-                        style={{
-                            background: "rgba(255,255,255,0.03)",
-                            border: "1px solid rgba(255,255,255,0.12)",
-                        }}
-                    >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </button>
-                </div>
+                <h2 className="display-section-title max-w-2xl text-center">
+                    <span className="display-muted-line">Four capabilities.</span>
+                    <span className="display-strong-line">One unified system.</span>
+                </h2>
             </div>
 
-            {/* Scroll track */}
-            <div
-                ref={scrollRef}
-                className="-mx-1 flex gap-4 overflow-x-auto pb-4 pt-1 services-carousel-scroll"
-                style={{
-                    scrollSnapType: "x mandatory",
-                    scrollbarWidth: "none",
-                    msOverflowStyle: "none",
-                    WebkitOverflowScrolling: "touch",
-                }}
-            >
+            {/* 2×2 grid */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                 {SERVICE_CARDS.map((card, i) => (
                     <a
                         key={card.title}
-                        data-card
                         href={card.href}
-                        className="group flex flex-shrink-0 flex-col gap-5 rounded-2xl p-6 md:p-7 transition-colors duration-300 hover:bg-white/[0.03]"
+                        className="group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-7 outline-none focus-visible:ring-2 focus-visible:ring-[#4B91F7]/60 md:block md:h-[300px] md:p-0"
                         style={{
-                            background: "rgba(8,1,28,0.55)",
-                            border: "1px solid rgba(255,255,255,0.07)",
-                            scrollSnapAlign: "start",
-                            width: "min(85vw, 360px)",
+                            background: "var(--home-card-bg, rgba(21,24,34,0.94))",
+                            border: "1px solid var(--home-card-border, rgba(255,255,255,0.07))",
+                            transition: "border-color 400ms ease, box-shadow 400ms ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            const el = e.currentTarget as HTMLElement;
+                            el.style.borderColor = "rgba(75,145,247,0.3)";
+                            el.style.boxShadow = "inset 0 0 0 1px rgba(75,145,247,0.08), 0 24px 60px rgba(0,0,0,0.35)";
+                        }}
+                        onMouseLeave={(e) => {
+                            const el = e.currentTarget as HTMLElement;
+                            el.style.borderColor = "var(--home-card-border, rgba(255,255,255,0.07))";
+                            el.style.boxShadow = "";
                         }}
                     >
-                        {/* Image placeholder per service — BLUE tint */}
-                        <ImagePlaceholder
-                            aspect="3 / 2"
-                            label={`${card.title} mockup`}
-                            accent="#72C8F5"
+                        {/* Large watermark number */}
+                        <span
+                            aria-hidden
+                            className="pointer-events-none absolute right-5 top-2 select-none font-bold leading-none text-white transition-opacity duration-500 group-hover:opacity-[0.02]"
+                            style={{ fontSize: "140px", opacity: 0.035, letterSpacing: "-0.06em" }}
+                        >
+                            {String(i + 1).padStart(2, "0")}
+                        </span>
+
+                        {/* Radial glow — fades in on hover */}
+                        <div
+                            aria-hidden
+                            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                            style={{ background: "radial-gradient(ellipse 70% 55% at 30% 100%, rgba(75,145,247,0.09) 0%, transparent 65%)" }}
                         />
 
-                        {/* Per-service number eyebrow + title */}
-                        <div className="flex items-baseline gap-3">
-                            <span
-                                className="text-[10px] font-bold uppercase tracking-[0.22em]"
-                                style={{ color: "#3DFD98" }}
+                        {/* Top bar — icon + number badge */}
+                        <div className="relative z-10 flex items-center justify-between md:absolute md:left-7 md:right-7 md:top-7">
+                            <div
+                                className="flex h-11 w-11 items-center justify-center rounded-xl transition-colors duration-400"
+                                style={{
+                                    background: "rgba(75,145,247,0.09)",
+                                    border: "1px solid rgba(75,145,247,0.2)",
+                                }}
                             >
-                                Service {String(i + 1).padStart(2, "0")}
+                                <ServiceIcon kind={card.icon} size={22} />
+                            </div>
+                            <span className="text-[10px] font-bold tracking-[0.2em] text-white/20">
+                                {String(i + 1).padStart(2, "0")}
                             </span>
                         </div>
-                        <h3 className="text-[1.3rem] font-bold leading-snug tracking-tight text-white md:text-[1.4rem]">
-                            {card.title}
-                        </h3>
-                        <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">
-                            {card.description}
-                        </p>
 
-                        {/* Sub-services (compact bullets) */}
-                        <ul className="mt-auto flex flex-col gap-2.5">
-                            {card.subServices.map((s) => (
-                                <li
-                                    key={s}
-                                    className="flex items-start gap-3 text-sm leading-relaxed text-white"
-                                >
-                                    <span
-                                        aria-hidden
-                                        className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rotate-45"
-                                        style={{ background: "#72C8F5" }}
-                                    />
-                                    <span className="leading-snug">{s}</span>
-                                </li>
-                            ))}
-                        </ul>
-
-                        <span
-                            className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-opacity group-hover:opacity-80"
+                        {/* Title — lifts on hover at md+; in normal flow on mobile */}
+                        <div
+                            className="relative z-10 mt-auto md:absolute md:bottom-7 md:left-7 md:right-7 md:mt-0 md:transition-transform md:duration-[400ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:-translate-y-[76px]"
                         >
-                            Learn more
-                            <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                className="transition-transform duration-300 group-hover:translate-x-0.5"
-                                aria-hidden
+                            <h3 className="text-[1.35rem] font-semibold leading-snug tracking-tight text-white md:text-[1.45rem]">
+                                {card.title}
+                            </h3>
+                        </div>
+
+                        {/* Description + CTA — always visible on mobile; hover-reveal on md+ */}
+                        <div
+                            className="relative z-10 md:absolute md:bottom-7 md:left-7 md:right-7 md:translate-y-3 md:opacity-0 md:transition-all md:duration-[400ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:translate-y-0 md:group-hover:opacity-100"
+                        >
+                            <p className="text-sm leading-relaxed text-white/55">{card.description}</p>
+                            <span
+                                className="mt-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em]"
+                                style={{ color: BLUE }}
                             >
-                                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
+                                Explore
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke={BLUE} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </span>
+                        </div>
                     </a>
                 ))}
             </div>
@@ -725,8 +665,8 @@ const KEY_RESULTS: Array<{ leadNumber: number; suffix: string; label: string }> 
 ];
 
 // ── Why Choose Levata visual hints (monochrome schematic SVGs) ────────────
-const MONO_STROKE = "rgba(255,255,255,0.65)";
-const MONO_FILL = "rgba(255,255,255,0.08)";
+const MONO_STROKE = "var(--home-diagram-stroke, rgba(255,255,255,0.65))";
+const MONO_FILL = "var(--home-diagram-fill, rgba(255,255,255,0.08))";
 
 function IconLayersDiagram() {
     // 3 stacked horizontal layers with embedded nodes — represents AI-native foundation
@@ -747,11 +687,11 @@ function IconE2EDiagram() {
         <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
             <line x1="14" y1="18" x2="40" y2="18" stroke={MONO_STROKE} strokeWidth="1.4" strokeDasharray="3 3" opacity="0.6" />
             <line x1="40" y1="18" x2="66" y2="18" stroke={MONO_STROKE} strokeWidth="1.4" strokeDasharray="3 3" opacity="0.6" />
-            <circle cx="14" cy="18" r="7" fill="rgba(8,1,28,0.95)" stroke={MONO_STROKE} strokeWidth="1.4" />
+            <circle cx="14" cy="18" r="7" fill="rgba(23,26,34,0.98)" stroke={MONO_STROKE} strokeWidth="1.4" />
             <circle cx="14" cy="18" r="2.5" fill={MONO_STROKE} />
-            <circle cx="40" cy="18" r="7" fill="rgba(8,1,28,0.95)" stroke={MONO_STROKE} strokeWidth="1.4" />
+            <circle cx="40" cy="18" r="7" fill="rgba(23,26,34,0.98)" stroke={MONO_STROKE} strokeWidth="1.4" />
             <circle cx="40" cy="18" r="2.5" fill={MONO_STROKE} />
-            <circle cx="66" cy="18" r="7" fill="rgba(8,1,28,0.95)" stroke={MONO_STROKE} strokeWidth="1.4" />
+            <circle cx="66" cy="18" r="7" fill="rgba(23,26,34,0.98)" stroke={MONO_STROKE} strokeWidth="1.4" />
             <circle cx="66" cy="18" r="2.5" fill={MONO_STROKE} />
         </svg>
     );
@@ -780,56 +720,96 @@ function IconBarsDiagram() {
     );
 }
 
-function WhyVisualHint({ title }: { title: string }) {
-    const t = title.toLowerCase();
-    if (t.includes("ai-native")) return <IconLayersDiagram />;
-    if (t.includes("end-to-end")) return <IconE2EDiagram />;
-    if (t.includes("continuous")) return <IconLoopDiagram />;
-    if (t.includes("outcomes")) return <IconBarsDiagram />;
-    return <IconLayersDiagram />;
+function WhyCardIcon({ idx }: { idx: number }) {
+    if (idx === 0) return (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <rect x="2" y="3" width="20" height="5" rx="1.5" />
+            <rect x="2" y="10" width="20" height="5" rx="1.5" />
+            <rect x="2" y="17" width="20" height="5" rx="1.5" />
+        </svg>
+    );
+    if (idx === 1) return (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <circle cx="5" cy="12" r="2.5" />
+            <circle cx="19" cy="12" r="2.5" />
+            <circle cx="12" cy="6" r="2.5" />
+            <line x1="7.2" y1="10.9" x2="10" y2="7.9" />
+            <line x1="14" y1="7.9" x2="16.8" y2="10.9" />
+            <line x1="7.5" y1="12" x2="9.5" y2="12" />
+            <line x1="14.5" y1="12" x2="16.5" y2="12" />
+        </svg>
+    );
+    if (idx === 2) return (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+    );
+    return (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+        </svg>
+    );
 }
 
-const WHY_LEVATA: Array<{ title: string; body: string; icon: IconKind; accent: string; featured?: boolean }> = [
+const WHY_LEVATA: Array<{
+    num: string; title: string; body: string;
+    tags: string[]; featured?: boolean;
+}> = [
     {
-        title: "AI-Native From the Ground Up",
-        body: "Every system we ship is designed with AI at its core — not bolted on as an afterthought. Strategy, architecture, and execution are all informed by what AI can compound over time.",
-        icon: "ai",
-        accent: "#9B2FFF",
+        num: "01",
+        title: "AI-Native From Day One",
+        body: "Every system we build has AI at its core — not bolted on later. Strategy, architecture, and execution all compound over time.",
+        tags: ["INTELLIGENT SYSTEMS", "AI STRATEGY", "NO CODE LIMITS"],
+    },
+    {
+        num: "02",
+        title: "End-to-End, One Team",
+        body: "Strategy, design, engineering, and growth — all under one roof with one shared goal. No handoffs. No gaps.",
+        tags: ["FULL-STACK", "ONE TEAM", "NO HAND-OFFS"],
         featured: true,
     },
     {
-        title: "End-to-End Under One Roof",
-        body: "Strategy, design, engineering, automation, and growth — all coordinated under one accountable team.",
-        icon: "services",
-        accent: "#72C8F5",
-    },
-    {
-        title: "Continuous Optimisation",
-        body: "We don't disappear after launch. We measure, iterate, and compound results month over month.",
-        icon: "automation",
-        accent: "#3DFD98",
-    },
-    {
+        num: "03",
         title: "Outcomes Over Outputs",
-        body: "We commit to measurable business results — pipeline, conversion, ops cost — not deliverables in a Notion doc.",
-        icon: "growth",
-        accent: "#BB00FF",
+        body: "We commit to measurable results — pipeline growth, conversion lift, ops cost reduction. Not deliverables. Not sprints.",
+        tags: ["PIPELINE GROWTH", "ROI-DRIVEN", "ALWAYS-ON"],
+    },
+    {
+        num: "04",
+        title: "Continuous Optimisation",
+        body: "We don't disappear after launch. We measure, iterate, and compound results every month.",
+        tags: ["MONTHLY REVIEW", "COMPOUND GROWTH", "ALWAYS-ON"],
     },
 ];
 
-// ── Problem section: before/after transformation pairs ────────────────────
-const TRANSFORMATIONS: Array<{ pain: string; win: string }> = [
-    { pain: "Manual operations bleeding hours", win: "Automation reclaiming days" },
-    { pain: "Digital presence that doesn't convert", win: "Conversion infrastructure built-in" },
-    { pain: "Disconnected tools, fragmented data", win: "Unified intelligence layer" },
+// ── Problem section: pain points ──────────────────────────────────────────
+const PAIN_POINTS: Array<{ title: string; desc: string }> = [
+    {
+        title: "Manual operations bleeding hours",
+        desc: "Your team spends their best hours on tasks that should run automatically — reporting, data entry, follow-ups.",
+    },
+    {
+        title: "No single source of truth",
+        desc: "Disconnected tools and siloed data mean decisions get made on guesswork and outdated exports.",
+    },
+    {
+        title: "Digital presence that doesn't convert",
+        desc: "Traffic comes in but doesn't qualify. No pipeline infrastructure means no compounding growth.",
+    },
+    {
+        title: "AI adoption without a system",
+        desc: "Off-the-shelf AI tools create more overhead than they remove without proper integration and strategy.",
+    },
 ];
 
 // ── Solution section: 4-node delivery flow ────────────────────────────────
 const FLOW_NODES: Array<{ num: string; title: string; caption: string; icon: IconKind; accent: string }> = [
-    { num: "01", title: "Diagnose", caption: "Map operations, surface friction, identify ROI opportunities.", icon: "sales", accent: "#72C8F5" },
-    { num: "02", title: "Architect", caption: "Design AI-native systems matched to your business model.", icon: "ai", accent: "#9B2FFF" },
-    { num: "03", title: "Build", caption: "Ship integrated products, automation, and intelligence layers.", icon: "products", accent: "#BB00FF" },
-    { num: "04", title: "Compound", caption: "Measure, iterate, and grow returns month over month.", icon: "growth", accent: "#3DFD98" },
+    { num: "01", title: "Diagnose", caption: "Map operations, surface friction, identify ROI opportunities.", icon: "sales", accent: "#4B91F7" },
+    { num: "02", title: "Architect", caption: "Design AI-native systems matched to your business model.", icon: "ai", accent: "#4B91F7" },
+    { num: "03", title: "Build", caption: "Ship integrated products, automation, and intelligence layers.", icon: "products", accent: "#4B91F7" },
+    { num: "04", title: "Compound", caption: "Measure, iterate, and grow returns month over month.", icon: "growth", accent: "#4B91F7" },
 ];
 
 // ── Reusable inline helpers ───────────────────────────────────────────────
@@ -847,11 +827,11 @@ function ImagePlaceholder({
 }) {
     const bg = accent
         ? `linear-gradient(135deg, ${accent}1F, ${accent}08)`
-        : "linear-gradient(135deg, rgba(155,47,255,0.10), rgba(114,200,245,0.06))";
+        : "linear-gradient(135deg, rgba(75,145,247,0.10), rgba(75,145,247,0.06))";
     const border = accent ? `1px solid ${accent}33` : "1px solid rgba(255,255,255,0.06)";
     const glow = accent
         ? `radial-gradient(ellipse 60% 60% at 50% 50%, ${accent}33 0%, transparent 70%)`
-        : "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.18) 0%, transparent 70%)";
+        : "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.18) 0%, transparent 70%)";
     return (
         <div
             className={`relative w-full overflow-hidden rounded-xl ${className}`}
@@ -872,29 +852,31 @@ function ImagePlaceholder({
 // ── §4 SOLUTION: flow node + animated connector ──
 function FlowNode({ num, title, caption, icon, accent }: typeof FLOW_NODES[number]) {
     return (
-        <div className="flex flex-col items-center gap-3 text-center">
+        <div className="flex flex-col items-center gap-4 text-center w-36">
+            {/* Number badge above node */}
+            <span
+                className="text-xs font-bold uppercase tracking-[0.2em]"
+                style={{ color: "rgba(75,145,247,0.6)" }}
+            >
+                {num}
+            </span>
+            {/* Node */}
             <div
                 className="rounded-2xl p-px"
                 style={{
-                    background: `linear-gradient(135deg, #72C8F588, rgba(255,255,255,0.08), rgba(155,47,255,0.4))`,
-                    boxShadow: `0 16px 40px #72C8F51F`,
+                    background: "linear-gradient(135deg, rgba(75,145,247,0.55) 0%, rgba(255,255,255,0.06) 50%, rgba(75,145,247,0.45) 100%)",
+                    boxShadow: "0 12px 36px rgba(75,145,247,0.15)",
                 }}
             >
                 <div
-                    className="relative flex h-20 w-20 items-center justify-center rounded-[15px]"
-                    style={{ background: "rgba(8,1,28,0.95)", border: "1px solid rgba(255,255,255,0.06)" }}
+                    className="flex h-24 w-24 items-center justify-center rounded-[15px]"
+                    style={{ background: "rgba(10,14,28,0.98)" }}
                 >
-                    <span
-                        className="absolute left-3 top-2 text-[9px] font-bold uppercase tracking-[0.18em]"
-                        style={{ color: "#3DFD98" }}
-                    >
-                        {num}
-                    </span>
-                    <ServiceIcon kind={icon} accent={accent} />
+                    <ServiceIcon kind={icon} accent={accent} size={36} />
                 </div>
             </div>
-            <h3 className="text-base font-bold tracking-tight text-white md:text-lg">{title}</h3>
-            <p className="max-w-[180px] text-xs leading-relaxed text-white/50 md:text-sm">{caption}</p>
+            <h3 className="text-sm font-semibold tracking-tight text-white md:text-base">{title}</h3>
+            <p className="text-xs leading-relaxed md:text-sm" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "140px" }}>{caption}</p>
         </div>
     );
 }
@@ -902,46 +884,35 @@ function FlowNode({ num, title, caption, icon, accent }: typeof FLOW_NODES[numbe
 function FlowConnector({ vertical = false }: { vertical?: boolean }) {
     if (vertical) {
         return (
-            <div className="flex justify-center" aria-hidden>
-                <svg width="2" height="48" viewBox="0 0 2 48" fill="none">
-                    <defs>
-                        <linearGradient id="flowConnV" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#9B2FFF" />
-                            <stop offset="100%" stopColor="#72C8F5" />
-                        </linearGradient>
-                    </defs>
-                    <line x1="1" y1="0" x2="1" y2="48" stroke="url(#flowConnV)" strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
-                    <motion.circle
-                        cx="1"
-                        r="2"
-                        fill="#72C8F5"
-                        initial={{ cy: 0 }}
-                        animate={{ cy: 48 }}
-                        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            <div className="flex justify-center py-1" aria-hidden>
+                <div className="relative flex flex-col items-center" style={{ height: "52px", width: "2px" }}>
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(75,145,247,0.15), rgba(75,145,247,0.35), rgba(75,145,247,0.15))" }} />
+                    <motion.div
+                        className="absolute w-2 h-2 rounded-full -left-[3px]"
+                        style={{ background: "rgba(75,145,247,0.9)", boxShadow: "0 0 8px rgba(75,145,247,0.7)" }}
+                        initial={{ top: 0 }}
+                        animate={{ top: "calc(100% - 8px)" }}
+                        transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
                     />
-                </svg>
+                </div>
             </div>
         );
     }
     return (
-        <div className="flex flex-1 items-center px-2" aria-hidden>
-            <svg viewBox="0 0 200 4" preserveAspectRatio="none" className="block h-1 w-full">
-                <defs>
-                    <linearGradient id="flowConnH" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#9B2FFF" />
-                        <stop offset="100%" stopColor="#72C8F5" />
-                    </linearGradient>
-                </defs>
-                <line x1="0" y1="2" x2="200" y2="2" stroke="url(#flowConnH)" strokeWidth="1" strokeDasharray="4 4" opacity="0.55" />
-                <motion.circle
-                    cy="2"
-                    r="2"
-                    fill="#72C8F5"
-                    initial={{ cx: 0 }}
-                    animate={{ cx: 200 }}
-                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+        <div className="flex items-center w-16 flex-shrink-0" aria-hidden style={{ marginTop: "52px" }}>
+            <div className="relative flex w-full items-center">
+                <div className="h-px w-full" style={{ background: "linear-gradient(to right, rgba(75,145,247,0.25), rgba(75,145,247,0.5), rgba(75,145,247,0.25))" }} />
+                <svg className="flex-shrink-0 -ml-px" width="7" height="12" viewBox="0 0 7 12" fill="none">
+                    <path d="M1 1L6 6L1 11" stroke="rgba(75,145,247,0.55)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <motion.div
+                    className="absolute h-1.5 w-1.5 rounded-full"
+                    style={{ top: "50%", marginTop: "-3px", background: "rgba(75,145,247,0.9)", boxShadow: "0 0 6px rgba(75,145,247,0.7)" }}
+                    initial={{ left: 0 }}
+                    animate={{ left: "calc(100% - 8px)" }}
+                    transition={{ duration: 1.6, repeat: Infinity, ease: "linear" }}
                 />
-            </svg>
+            </div>
         </div>
     );
 }
@@ -950,17 +921,18 @@ function FlowConnector({ vertical = false }: { vertical?: boolean }) {
 export default function HeroSection() {
     const { open: openBookCall } = useBookCall();
     return (
-        <main className="relative min-h-screen bg-[#07001F] flex flex-col">
+        <main className="relative min-h-screen bg-[var(--background)] flex flex-col">
 
             {/* ── 1. HERO (cinematic) ──────────────────────────── */}
             <HomeHero />
+            <SectionDivider />
 
-            {/* ── 2. THE PROBLEM (Before / After split) ────────── */}
-            <section id="problem" className="relative w-full px-6 pt-20 pb-10 md:pt-32 md:pb-14">
+            {/* ── 2. THE PROBLEM ────────── */}
+            <section id="problem" className="home-theme-dark relative w-full px-6 py-20 md:py-28 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(155,47,255,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -969,191 +941,106 @@ export default function HeroSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
+                        className="mb-14 flex flex-col items-center text-center gap-5"
                     >
                         <SectionLabel text="The problem" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
-                            Most businesses are running on <span className="jakarta-italic">duct tape and spreadsheets.</span>
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Most businesses run on</span>
+                            <span className="display-strong-line">duct tape and spreadsheets.</span>
                         </h2>
                         <p className="max-w-xl text-base text-white/45 md:text-lg leading-relaxed">
                             Levata replaces the chaos with infrastructure.
                         </p>
                     </motion.div>
 
-                    {/* Before / After split */}
-                    <div className="relative grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-                        {/* BEFORE card */}
+                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-14 items-center">
+                        {/* Left: Pain points list */}
                         <motion.div
-                            initial={{ opacity: 0, x: -24 }}
+                            initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                            className="flex flex-col gap-5 rounded-2xl p-7 md:p-8"
-                            style={{
-                                background: "rgba(8,1,28,0.7)",
-                                border: "1px solid rgba(255,255,255,0.07)",
-                            }}
+                            className="flex flex-col divide-y"
+                            style={{ borderColor: "rgba(255,255,255,0.06)" }}
                         >
-                            {/* Header row */}
-                            <div className="flex items-center gap-3">
-                                <div className="flex items-center gap-1.5">
-                                    <span className="h-2.5 w-2.5 rounded-full" style={{ background: "rgba(255,60,60,0.7)" }} />
-                                    <span className="h-2.5 w-2.5 rounded-full" style={{ background: "rgba(255,180,0,0.55)" }} />
-                                    <span className="h-2.5 w-2.5 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
-                                </div>
-                                <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/30">Before Levata</span>
-                            </div>
-
-                            <h3 className="text-xl font-bold leading-snug tracking-tight text-white/60 md:text-2xl">
-                                Operating in the fog
-                            </h3>
-
-                            <ul className="flex flex-col gap-2.5">
-                                {TRANSFORMATIONS.map(({ pain }) => (
-                                    <li key={pain} className="flex items-start gap-3 text-sm leading-relaxed text-white/40 md:text-[15px]">
-                                        <span
-                                            aria-hidden
-                                            className="mt-[6px] flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full"
-                                            style={{ background: "rgba(255,60,60,0.08)", border: "1px solid rgba(255,60,60,0.25)" }}
-                                        >
-                                            <svg viewBox="0 0 8 8" fill="none" className="h-2 w-2">
-                                                <line x1="2" y1="2" x2="6" y2="6" stroke="rgba(255,100,100,0.7)" strokeWidth="1.4" strokeLinecap="round" />
-                                                <line x1="6" y1="2" x2="2" y2="6" stroke="rgba(255,100,100,0.7)" strokeWidth="1.4" strokeLinecap="round" />
-                                            </svg>
-                                        </span>
-                                        <span>{pain}</span>
-                                    </li>
-                                ))}
-                            </ul>
-
-                            {/* Fake error terminal */}
-                            <div
-                                className="mt-auto rounded-xl p-4 font-mono"
-                                style={{
-                                    background: "rgba(0,0,0,0.4)",
-                                    border: "1px solid rgba(255,255,255,0.05)",
-                                }}
-                            >
-                                <p className="text-[10px] text-white/20 mb-2">system_log.txt</p>
-                                {[
-                                    { tag: "ERR", msg: "Data sync failed — 3 sources disconnected", color: "rgba(255,80,80,0.75)" },
-                                    { tag: "WARN", msg: "Manual export overdue by 4 days", color: "rgba(255,180,0,0.65)" },
-                                    { tag: "ERR", msg: "Pipeline report: incomplete data", color: "rgba(255,80,80,0.75)" },
-                                ].map(({ tag, msg, color }) => (
-                                    <div key={msg} className="flex items-start gap-2 py-0.5">
-                                        <span className="mt-px flex-shrink-0 text-[9px] font-bold" style={{ color }}>[{tag}]</span>
-                                        <span className="text-[10px] leading-relaxed text-white/30">{msg}</span>
+                            {PAIN_POINTS.map((p, i) => (
+                                <div key={i} className="flex items-start gap-5 py-5 first:pt-0 last:pb-0">
+                                    <span
+                                        className="flex-shrink-0 mt-0.5 flex h-7 w-7 items-center justify-center rounded-lg text-[11px] font-bold tabular-nums"
+                                        style={{
+                                            background: "rgba(255,255,255,0.04)",
+                                            border: "1px solid rgba(255,255,255,0.08)",
+                                            color: "rgba(255,255,255,0.3)",
+                                        }}
+                                    >
+                                        {String(i + 1).padStart(2, "0")}
+                                    </span>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-semibold text-white mb-1.5 md:text-base">{p.title}</p>
+                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.42)" }}>{p.desc}</p>
                                     </div>
-                                ))}
-                            </div>
+                                    <span
+                                        aria-hidden
+                                        className="flex-shrink-0 mt-1 flex h-5 w-5 items-center justify-center rounded-full"
+                                        style={{ background: "rgba(255,60,60,0.08)", border: "1px solid rgba(255,60,60,0.22)" }}
+                                    >
+                                        <svg viewBox="0 0 8 8" fill="none" className="h-2 w-2">
+                                            <line x1="2" y1="2" x2="6" y2="6" stroke="rgba(255,90,90,0.7)" strokeWidth="1.5" strokeLinecap="round" />
+                                            <line x1="6" y1="2" x2="2" y2="6" stroke="rgba(255,90,90,0.7)" strokeWidth="1.5" strokeLinecap="round" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            ))}
                         </motion.div>
 
-                        {/* Connector arrow (md+ only) */}
-                        <div
-                            aria-hidden
-                            className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block"
-                            style={{ zIndex: 1 }}
-                        >
-                            <div
-                                className="flex h-10 w-10 items-center justify-center rounded-full"
-                                style={{
-                                    background: "rgba(7,0,31,0.95)",
-                                    border: "1px solid rgba(155,47,255,0.45)",
-                                    boxShadow: "0 0 24px rgba(155,47,255,0.4)",
-                                }}
-                            >
-                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                                    <path
-                                        d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5"
-                                        stroke="#9B2FFF"
-                                        strokeWidth="1.6"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
-                            </div>
-                        </div>
-
-                        {/* AFTER card */}
+                        {/* Right: Placeholder visual */}
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.7, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                            className="rounded-2xl p-px"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.5) 0%, rgba(255,255,255,0.08) 50%, rgba(155,47,255,0.5) 100%)",
-                                boxShadow: "0 20px 60px rgba(155,47,255,0.18)",
-                            }}
+                            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                         >
-                            <div
-                                className="flex h-full flex-col gap-6 rounded-[15px] p-7 md:p-9"
-                                style={{ background: "rgba(8,1,28,0.96)", border: "1px solid rgba(255,255,255,0.06)" }}
-                            >
-                                <div className="flex items-center gap-2.5">
-                                    <span
-                                        className="h-2 w-2 rounded-full"
-                                        style={{ background: "#3DFD98", boxShadow: "0 0 12px #3DFD98" }}
-                                    />
-                                    <span className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: "#3DFD98" }}>
-                                        After
-                                    </span>
-                                </div>
-                                <h3 className="text-xl font-bold leading-snug text-white md:text-2xl">
-                                    Operating as infrastructure
-                                </h3>
-                                <ul className="flex flex-col gap-3">
-                                    {TRANSFORMATIONS.map(({ win }) => (
-                                        <li key={win} className="flex items-start gap-3 text-sm leading-relaxed text-white md:text-base">
-                                            <span
-                                                aria-hidden
-                                                className="mt-[6px] flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full"
-                                                style={{
-                                                    background: "rgba(61,253,152,0.14)",
-                                                    border: "1px solid rgba(61,253,152,0.45)",
-                                                }}
-                                            >
-                                                <svg viewBox="0 0 10 10" fill="none" className="h-2.5 w-2.5">
-                                                    <path d="M2 5l2.2 2.2L8 3.2" stroke="#3DFD98" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
-                                            </span>
-                                            <span>{win}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                {/* Live metric mini-dashboard */}
-                                <div className="mt-auto grid grid-cols-3 gap-2.5">
-                                    {[
-                                        { label: "Ops automated", value: "84%", color: "#3DFD98" },
-                                        { label: "Pipeline CVR", value: "+3.2×", color: "#72C8F5" },
-                                        { label: "Manual hrs", value: "−61%", color: "#3DFD98" },
-                                    ].map(({ label, value, color }) => (
-                                        <div
-                                            key={label}
-                                            className="flex flex-col items-center gap-1 rounded-xl py-3 px-2"
-                                            style={{
-                                                background: "rgba(255,255,255,0.03)",
-                                                border: "1px solid rgba(255,255,255,0.06)",
-                                            }}
-                                        >
-                                            <span className="text-lg font-bold leading-none tracking-tight" style={{ color }}>{value}</span>
-                                            <span className="text-center text-[9px] leading-tight text-white/35">{label}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            <ImagePlaceholder aspect="4/3" label="Operations before Levata" accent="#4B91F7" className="min-h-[300px]" />
                         </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* ── §2 → §3 vertical connector ────────────────────── */}
-            <div aria-hidden className="relative flex justify-center" style={{ height: "80px" }}>
-                <FlowConnector vertical />
+            {/* ── Problem → Solution editorial break ──────────── */}
+            <div className="home-theme-dark w-full px-6 py-16 md:py-24 flex items-center justify-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-center"
+                >
+                    <p
+                        className="text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-6xl"
+                        style={{ color: "var(--text-muted)" }}
+                    >
+                        So we built
+                    </p>
+                    <p
+                        className="text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-6xl"
+                        style={{ color: "var(--text-primary)" }}
+                    >
+                        the fix.
+                    </p>
+                </motion.div>
             </div>
 
             {/* ── 3. OUR SOLUTION (with 4-node flow diagram) ───── */}
-            <section className="relative w-full px-6 pt-10 pb-24 md:pt-14 md:pb-28">
+            <section id="solution" className="home-theme-dark relative w-full px-6 pt-10 pb-24 md:pt-14 md:pb-28 overflow-hidden">
+                <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+                    <div className="absolute inset-0" style={{
+                        background: [
+                            "radial-gradient(ellipse 55% 50% at 50% 25%, rgba(75,145,247,0.08) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 40% 45% at 15% 75%, rgba(75,145,247,0.05) 0%, transparent 60%)",
+                        ].join(", ")
+                    }} />
+                </div>
+                <div aria-hidden className="pointer-events-none absolute inset-0 home-ai-grid opacity-[0.3]" />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -1163,11 +1050,12 @@ export default function HeroSection() {
                         className="mx-auto mb-16 flex max-w-4xl flex-col items-center text-center gap-5"
                     >
                         <SectionLabel text="Our solution" />
-                        <p className="text-sm italic text-white/45 md:text-base">
+                        <p className="text-sm text-white/45 md:text-base">
                             This is the system that replaces the duct tape.
                         </p>
-                        <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
-                            We don&apos;t sell services. <span className="jakarta-italic">We build intelligence infrastructure.</span>
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">We don&apos;t sell services.</span>
+                            <span className="display-strong-line">We build infrastructure.</span>
                         </h2>
                         <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-lg">
                             Levata designs and operates integrated AI systems built specifically for your business model
@@ -1183,23 +1071,19 @@ export default function HeroSection() {
                         viewport={{ once: true, margin: "-60px" }}
                         transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        {/* Desktop: horizontal */}
-                        <div className="hidden md:flex items-start justify-between gap-2">
+                        {/* Desktop: horizontal centered */}
+                        <div className="hidden md:flex items-start justify-center gap-0">
                             {FLOW_NODES.map((node, i) => (
-                                <div key={node.num} className="flex flex-1 items-start">
+                                <div key={node.num} className="flex items-start">
                                     <FlowNode {...node} />
-                                    {i < FLOW_NODES.length - 1 && (
-                                        <div className="mt-10 flex-1">
-                                            <FlowConnector />
-                                        </div>
-                                    )}
+                                    {i < FLOW_NODES.length - 1 && <FlowConnector />}
                                 </div>
                             ))}
                         </div>
                         {/* Mobile: vertical */}
-                        <div className="flex flex-col items-center gap-3 md:hidden">
+                        <div className="flex flex-col items-center gap-2 md:hidden">
                             {FLOW_NODES.map((node, i) => (
-                                <div key={node.num} className="flex flex-col items-center gap-3">
+                                <div key={node.num} className="flex flex-col items-center">
                                     <FlowNode {...node} />
                                     {i < FLOW_NODES.length - 1 && <FlowConnector vertical />}
                                 </div>
@@ -1209,12 +1093,14 @@ export default function HeroSection() {
                 </div>
             </section>
 
+            <SectionDivider />
+
             {/* §5 Featured Product moved to §7 — see below */}
 
             {/* ── 4. SERVICE CATEGORIES (Horizontal carousel) ──── */}
-            <section id="services" className="relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-28 overflow-hidden">
+            <section id="services" className="home-theme-dark relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-28 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                    background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(75,145,247,0.05) 0%, transparent 70%)",
                 }} />
 
                 <div className="relative z-10 mx-auto max-w-7xl">
@@ -1229,16 +1115,67 @@ export default function HeroSection() {
                 </div>
             </section>
 
-            {/* ── 5. OUR PROCESS (Tabbed stepper) ──────────────── */}
-            <ProcessTabsSection />
+            <SectionDivider />
+
+            {/* ── 5. MID-PAGE CTA ──────────────────────────────── */}
+            <section className="home-theme-dark relative w-full px-5 py-16 sm:px-6 sm:py-20 overflow-hidden">
+                <div className="pointer-events-none absolute inset-0 z-0" style={{
+                    background: "radial-gradient(ellipse 55% 65% at 50% 100%, rgba(75,145,247,0.07) 0%, transparent 65%)",
+                }} />
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-7 text-center"
+                >
+                    <h2 className="display-section-title max-w-2xl text-center">
+                        <span className="display-muted-line">See how it all fits</span>
+                        <span className="display-strong-line">into your business.</span>
+                    </h2>
+                    <p className="max-w-xl text-sm leading-relaxed text-white/55 md:text-base">
+                        Book a free strategy call. We&apos;ll map out exactly what your business needs — no commitment required.
+                    </p>
+                    <div className="flex flex-col items-center gap-3 sm:flex-row">
+                        <button
+                            type="button"
+                            onClick={openBookCall}
+                            className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                        >
+                            Book a Strategy Call
+                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                        </button>
+                        <a
+                            href="/contact"
+                            className="text-sm font-medium text-white/50 transition-colors duration-200 hover:text-white/80"
+                        >
+                            Or send us a message →
+                        </a>
+                    </div>
+                </motion.div>
+            </section>
+
+            <SectionDivider />
 
             {/* ── 6. CLIENTS MARQUEE ─────────────────── */}
-            <div className="relative z-10 py-4 md:py-6">
+            <div className="relative z-10">
                 <ClientsMarquee />
             </div>
 
+            <SectionDivider />
+
             {/* ── 7. FEATURED PRODUCT — Sales Intelligence Platform ── */}
-            <section className="relative w-full px-6 pt-20 pb-10 md:pt-24 md:pb-14">
+            <section className="home-theme-dark relative w-full px-6 pt-20 pb-10 md:pt-24 md:pb-14 overflow-hidden">
+                <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+                    <div className="absolute inset-0" style={{
+                        background: [
+                            "radial-gradient(ellipse 65% 55% at 50% 30%, rgba(75,145,247,0.09) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 40% 50% at 85% 70%, rgba(123,85,234,0.07) 0%, transparent 60%)",
+                        ].join(", ")
+                    }} />
+                </div>
+                <div aria-hidden className="pointer-events-none absolute inset-0 home-ai-grid opacity-[0.25]" />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -1247,10 +1184,11 @@ export default function HeroSection() {
                     className="relative z-10 mx-auto mb-12 flex max-w-3xl flex-col items-center text-center gap-5"
                 >
                     <SectionLabel text="Featured product" />
-                    <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.12]">
-                        Introducing: The AI Sales Workspace<br /><span className="jakarta-italic">Built for B2B Teams.</span>
+                    <h2 className="display-section-title max-w-2xl text-center">
+                        <span className="display-muted-line">The AI Sales Workspace</span>
+                        <span className="display-strong-line">Built for B2B Teams.</span>
                     </h2>
-                    <p className="max-w-xl text-sm leading-relaxed text-white/45 md:text-base">
+                    <p className="max-w-2xl text-sm leading-relaxed text-white/45 md:text-base">
                         Turn your raw lead list into a researched, prioritized, and actionable pipeline — in hours,
                         not days.
                     </p>
@@ -1264,8 +1202,8 @@ export default function HeroSection() {
                     className="mx-auto w-full max-w-5xl"
                 >
                     <div className="rounded-3xl p-px" style={{
-                        background: "linear-gradient(105deg, rgba(61,253,152,0.45) 0%, rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.06) 60%, rgba(160,80,255,0.4) 100%)",
-                        boxShadow: "-8px 0 40px rgba(61,253,152,0.12), 8px 0 40px rgba(160,80,255,0.12)",
+                        background: "linear-gradient(105deg, rgba(75,145,247,0.45) 0%, rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.06) 60%, rgba(75,145,247,0.4) 100%)",
+                        boxShadow: "-8px 0 40px rgba(75,145,247,0.12), 8px 0 40px rgba(75,145,247,0.12)",
                     }}>
                         <div
                             className="relative rounded-3xl overflow-hidden"
@@ -1276,12 +1214,12 @@ export default function HeroSection() {
                                     <div className="flex items-center gap-2">
                                         <span
                                             className="rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest"
-                                            style={{ background: "rgba(155,47,255,0.08)", color: "rgba(155,47,255,0.8)", border: "1px solid rgba(155,47,255,0.22)" }}
+                                            style={{ background: "rgba(75,145,247,0.08)", color: "rgba(75,145,247,0.8)", border: "1px solid rgba(75,145,247,0.22)" }}
                                         >
                                             Sales Intelligence Platform
                                         </span>
                                     </div>
-                                    <h3 className="text-2xl font-extrabold tracking-tight text-white md:text-3xl leading-tight">
+                                    <h3 className="text-2xl font-semibold tracking-tight text-white md:text-3xl leading-tight">
                                         Pipeline that builds itself.
                                     </h3>
                                     <p className="text-sm text-white/50 leading-relaxed">
@@ -1292,9 +1230,9 @@ export default function HeroSection() {
                                         {PRODUCT_FEATURES.map((feat) => (
                                             <li key={feat} className="flex items-start gap-3 text-sm text-white/65">
                                                 <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center"
-                                                    style={{ background: "rgba(114,200,245,0.15)", border: "1px solid rgba(114,200,245,0.3)" }}>
+                                                    style={{ background: "rgba(75,145,247,0.15)", border: "1px solid rgba(75,145,247,0.3)" }}>
                                                     <svg viewBox="0 0 10 10" fill="none" className="w-2.5 h-2.5" aria-hidden="true">
-                                                        <path d="M2 5l2.5 2.5L8 3" stroke="#72C8F5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                        <path d="M2 5l2.5 2.5L8 3" stroke="#4B91F7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
                                                 </span>
                                                 <span className="leading-snug">{feat}</span>
@@ -1312,8 +1250,8 @@ export default function HeroSection() {
                                     <div className="pointer-events-none absolute inset-0"
                                         style={{
                                             background: [
-                                                "radial-gradient(ellipse 55% 55% at 10% 85%, rgba(61,253,152,0.22) 0%, transparent 65%)",
-                                                "radial-gradient(ellipse 45% 50% at 90% 20%, rgba(160,80,255,0.18) 0%, transparent 65%)",
+                                                "radial-gradient(ellipse 55% 55% at 10% 85%, rgba(75,145,247,0.22) 0%, transparent 65%)",
+                                                "radial-gradient(ellipse 45% 50% at 90% 20%, rgba(75,145,247,0.18) 0%, transparent 65%)",
                                             ].join(", ")
                                         }} />
                                     <div className="absolute inset-0 p-5 flex gap-3 text-[10px]">
@@ -1331,10 +1269,10 @@ export default function HeroSection() {
                                                 { label: "Settings", active: false },
                                             ].map(({ label, active }) => (
                                                 <div key={label} className="flex items-center gap-2 rounded-md px-2 py-1.5"
-                                                    style={{ background: active ? "rgba(114,200,245,0.08)" : "transparent" }}>
+                                                    style={{ background: active ? "rgba(75,145,247,0.08)" : "transparent" }}>
                                                     <div className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
-                                                        style={{ background: active ? "rgba(114,200,245,0.5)" : "rgba(255,255,255,0.12)" }} />
-                                                    <span style={{ color: active ? "rgba(114,200,245,0.9)" : "rgba(255,255,255,0.3)", fontSize: "9px", fontWeight: active ? 600 : 400 }}>{label}</span>
+                                                        style={{ background: active ? "rgba(75,145,247,0.5)" : "rgba(255,255,255,0.12)" }} />
+                                                    <span style={{ color: active ? "rgba(75,145,247,0.9)" : "rgba(255,255,255,0.3)", fontSize: "9px", fontWeight: active ? 600 : 400 }}>{label}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -1342,8 +1280,8 @@ export default function HeroSection() {
                                         <div className="flex flex-col gap-3 flex-1 min-w-0">
                                             <div className="grid grid-cols-3 gap-2">
                                                 {[
-                                                    { label: "Pipeline Value", value: "$284k", sub: "+12% this month", c: "#72C8F5" },
-                                                    { label: "Leads Scored", value: "1,048", sub: "94 high-intent", c: "#9B2FFF" },
+                                                    { label: "Pipeline Value", value: "$284k", sub: "+12% this month", c: "#4B91F7" },
+                                                    { label: "Leads Scored", value: "1,048", sub: "94 high-intent", c: "#4B91F7" },
                                                     { label: "Deals Closed", value: "37", sub: "↑ 8 from last mo.", c: "#3ECF8E" },
                                                 ].map(({ label, value, sub, c }) => (
                                                     <div key={label} className="rounded-xl p-2.5"
@@ -1362,7 +1300,7 @@ export default function HeroSection() {
                                                     <div className="flex gap-2">
                                                         {["Actual", "Forecast"].map((l, i) => (
                                                             <div key={l} className="flex items-center gap-1">
-                                                                <div className="w-2 h-0.5 rounded" style={{ background: i === 0 ? "#72C8F5" : "rgba(155,47,255,0.5)" }} />
+                                                                <div className="w-2 h-0.5 rounded" style={{ background: i === 0 ? "#4B91F7" : "rgba(75,145,247,0.5)" }} />
                                                                 <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "8px" }}>{l}</span>
                                                             </div>
                                                         ))}
@@ -1375,7 +1313,7 @@ export default function HeroSection() {
                                                     ))}
                                                     <polyline
                                                         points="0,55 40,50 80,45 120,42 160,38 200,35 240,33 280,30"
-                                                        fill="none" stroke="rgba(155,47,255,0.35)" strokeWidth="1.5" strokeDasharray="4 3"
+                                                        fill="none" stroke="rgba(75,145,247,0.35)" strokeWidth="1.5" strokeDasharray="4 3"
                                                     />
                                                     <polygon
                                                         points="0,70 0,58 40,52 80,40 120,48 160,35 200,28 240,32 280,22 280,70"
@@ -1383,14 +1321,14 @@ export default function HeroSection() {
                                                     />
                                                     <polyline
                                                         points="0,58 40,52 80,40 120,48 160,35 200,28 240,32 280,22"
-                                                        fill="none" stroke="#72C8F5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                                        fill="none" stroke="#4B91F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                                                     />
-                                                    <circle cx="200" cy="28" r="3" fill="#72C8F5" />
-                                                    <circle cx="200" cy="28" r="5" fill="rgba(114,200,245,0.2)" />
+                                                    <circle cx="200" cy="28" r="3" fill="#4B91F7" />
+                                                    <circle cx="200" cy="28" r="5" fill="rgba(75,145,247,0.2)" />
                                                     <defs>
                                                         <linearGradient id="chartFillFeatured" x1="0" y1="0" x2="0" y2="1">
-                                                            <stop offset="0%" stopColor="#72C8F5" />
-                                                            <stop offset="100%" stopColor="#72C8F5" stopOpacity="0" />
+                                                            <stop offset="0%" stopColor="#4B91F7" />
+                                                            <stop offset="100%" stopColor="#4B91F7" stopOpacity="0" />
                                                         </linearGradient>
                                                     </defs>
                                                 </svg>
@@ -1411,7 +1349,7 @@ export default function HeroSection() {
                                                 </div>
                                                 {[
                                                     { lead: "Acme Corp", score: "94", stage: "Proposal", value: "$42k", sc: "#3ECF8E" },
-                                                    { lead: "Vertex AI", score: "87", stage: "Discovery", value: "$18k", sc: "#72C8F5" },
+                                                    { lead: "Vertex AI", score: "87", stage: "Discovery", value: "$18k", sc: "#4B91F7" },
                                                     { lead: "Nexus Ltd", score: "71", stage: "Qualified", value: "$29k", sc: "#FFD21E" },
                                                 ].map((row, i) => (
                                                     <div key={i} className="grid grid-cols-4 px-3 py-1.5"
@@ -1432,15 +1370,13 @@ export default function HeroSection() {
                 </motion.div>
             </section>
 
-            {/* §6 ↔ §7 horizontal divider — bridges Featured Product into the numbers */}
-            <div aria-hidden className="relative mx-auto h-px w-32"
-                style={{ background: "linear-gradient(to right, transparent, rgba(155,47,255,0.5), transparent)" }} />
+            <SectionDivider />
 
             {/* ── 8. BY THE NUMBERS (clean 4-counter row) ──────── */}
-            <section className="relative w-full px-6 pt-10 pb-20 md:pt-14 md:pb-24">
+            <section id="numbers" className="home-theme-dark relative w-full px-6 pt-10 pb-20 md:pt-14 md:pb-24">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background:
-                        "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(155,47,255,0.06) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -1451,8 +1387,9 @@ export default function HeroSection() {
                         className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
                     >
                         <SectionLabel text="By the numbers" />
-                        <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
-                            The outcomes speak for themselves.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">The outcomes speak</span>
+                            <span className="display-strong-line">for themselves.</span>
                         </h2>
                     </motion.div>
 
@@ -1464,18 +1401,24 @@ export default function HeroSection() {
                 </div>
             </section>
 
+            <SectionDivider />
+
             {/* ── 9. TESTIMONIALS ─────────────────────────────── */}
             <TestimonialsSection />
+
+            <SectionDivider />
 
             {/* ── 10. TECH STACK (LOCKED) ──────────────────────── */}
             <TechStackSection />
 
-            {/* ── 11. WHY CHOOSE LEVATA (flat 2×2 equal-cards grid) ── */}
-            <section className="relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-24">
+            <SectionDivider />
+
+            {/* ── 11. WHY CHOOSE LEVATA (3-column feature cards) ── */}
+            <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-24 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 50%, rgba(155,47,255,0.07) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(114,200,245,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 50%, rgba(75,145,247,0.07) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(75,145,247,0.06) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -1487,46 +1430,87 @@ export default function HeroSection() {
                         className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
                     >
                         <SectionLabel text="Why Levata" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
-                            AI-native. End-to-end. Always-on.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">AI-native.</span>
+                            <span className="display-strong-line">End-to-end. Always-on.</span>
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:auto-rows-fr">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-5">
                         {WHY_LEVATA.map((w, i) => (
                             <motion.div
-                                key={w.title}
+                                key={w.num}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: (i % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                whileHover={{ y: -4 }}
-                                className="flex h-full flex-col gap-6 rounded-2xl p-7 md:p-9 transition-colors duration-300 hover:bg-white/[0.03]"
-                                style={{
-                                    background: "rgba(8,1,28,0.55)",
-                                    border: "1px solid rgba(255,255,255,0.07)",
+                                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                                className="relative flex flex-col rounded-2xl p-8 md:p-9 overflow-hidden"
+                                style={w.featured ? {
+                                    background: "rgba(10,14,28,0.98)",
+                                    border: "1px solid rgba(75,145,247,0.22)",
+                                } : {
+                                    background: "var(--home-card-bg)",
+                                    border: "1px solid var(--home-card-border)",
                                 }}
                             >
-                                <WhyVisualHint title={w.title} />
-                                <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
-                                    {w.title}
-                                </h3>
-                                <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">{w.body}</p>
+                                {w.featured && (
+                                    <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl" style={{
+                                        background: "radial-gradient(ellipse 80% 45% at 50% -5%, rgba(75,145,247,0.16) 0%, transparent 70%)",
+                                    }} />
+                                )}
+
+                                {/* Icon + number row */}
+                                <div className="relative flex items-start justify-between mb-8">
+                                    <div className="flex items-center justify-center rounded-xl w-11 h-11" style={{
+                                        background: "rgba(255,255,255,0.04)",
+                                        border: "1px solid rgba(255,255,255,0.08)",
+                                        color: "rgba(255,255,255,0.55)",
+                                    }}>
+                                        <WhyCardIcon idx={i} />
+                                    </div>
+                                    <span className="text-sm font-semibold tabular-nums" style={{ color: "rgba(255,255,255,0.18)" }}>{w.num}</span>
+                                </div>
+
+                                {/* Title + body */}
+                                <div className="relative flex flex-col gap-3 flex-1 mb-8">
+                                    <h3 className="text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">{w.title}</h3>
+                                    <p className="text-sm leading-relaxed md:text-[15px]" style={{ color: "rgba(255,255,255,0.5)" }}>{w.body}</p>
+                                </div>
+
+                                {/* Tags */}
+                                <div className="relative flex flex-wrap gap-2">
+                                    {w.tags.map(tag => (
+                                        <span
+                                            key={tag}
+                                            className="rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em]"
+                                            style={{
+                                                border: "1px solid rgba(255,255,255,0.1)",
+                                                background: "rgba(255,255,255,0.03)",
+                                                color: "rgba(255,255,255,0.4)",
+                                            }}
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
+            <SectionDivider />
+
             {/* ── 12. FINAL CTA ──────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
+            <section className="home-theme-dark relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(155,47,255,0.18) 0%, transparent 65%)",
-                        "radial-gradient(ellipse 40% 50% at 20% 0%, rgba(114,200,245,0.1) 0%, transparent 60%)",
+                        "radial-gradient(ellipse 80% 70% at 50% 110%, rgba(75,145,247,0.22) 0%, rgba(75,145,247,0.1) 45%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 40% at 50% 0%, rgba(75,145,247,0.06) 0%, transparent 60%)",
                     ].join(", "),
                 }} />
-                <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(155,47,255,0.5), transparent)" }} />
+                <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(75,145,247,0.5), transparent)" }} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -1535,33 +1519,23 @@ export default function HeroSection() {
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
                 >
                     <SectionLabel text="Get started" />
-                    <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl leading-[1.1]">
-                        Ready to build intelligence into your operations?
+                    <h2 className="display-section-title max-w-2xl text-center">
+                        <span className="display-muted-line">Ready to build intelligence</span>
+                        <span className="display-strong-line">into your operations?</span>
                     </h2>
                     <p className="max-w-xl text-sm leading-relaxed text-white/55 md:text-base">
                         Book a free strategy call. We&apos;ll map out the system your business needs.
                     </p>
-                    <div className="flex flex-col items-center gap-2.5 sm:flex-row">
+                    <div className="flex flex-col items-center gap-3 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="group inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer sm:py-3.5"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
                             Book a Strategy Call
+                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                         </button>
-
                     </div>
                 </motion.div>
             </section>

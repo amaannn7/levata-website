@@ -60,10 +60,19 @@ export default function TestimonialsSection() {
     return (
         <section
             ref={sectionRef}
-            className="relative w-full px-6 py-20 md:py-28 overflow-hidden"
+            className="home-theme-dark relative w-full px-6 py-20 md:py-28 overflow-hidden"
+            style={{ background: "#0D0F17", color: "#F0F0F2" }}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
         >
+            <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+                <div className="absolute inset-0" style={{
+                    background: [
+                        "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 40% 45% at 80% 20%, rgba(75,145,247,0.04) 0%, transparent 60%)",
+                    ].join(", ")
+                }} />
+            </div>
             <div className="relative z-10 mx-auto max-w-4xl">
                 {/* Label */}
                 <div className="mb-12 flex flex-col items-center text-center gap-4">
@@ -92,12 +101,12 @@ export default function TestimonialsSection() {
                                     transition: "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
                                 }}
                             >
-                                <blockquote className="text-2xl md:text-3xl font-medium leading-snug tracking-tight text-white max-w-3xl">
+                                <blockquote className="text-2xl md:text-3xl font-medium leading-snug tracking-tight max-w-3xl" style={{ color: "#F0F0F2" }}>
                                     &ldquo;{t.quote}&rdquo;
                                 </blockquote>
                                 <div className="mt-10 flex flex-col items-center gap-1">
-                                    <p className="text-sm font-semibold text-white/85">{t.author}</p>
-                                    <p className="text-xs text-white/40">{t.role}</p>
+                                    <p className="text-sm font-semibold" style={{ color: "rgba(240,240,242,0.85)" }}>{t.author}</p>
+                                    <p className="text-xs" style={{ color: "rgba(240,240,242,0.4)" }}>{t.role}</p>
                                 </div>
                             </div>
                         );
@@ -109,7 +118,12 @@ export default function TestimonialsSection() {
                     <button
                         onClick={goPrev}
                         aria-label="Previous testimonial"
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all duration-500 hover:border-white/40 hover:text-white"
+                        className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-500 hover:opacity-80"
+                        style={{
+                            background: "var(--home-control-bg, transparent)",
+                            border: "1px solid var(--home-control-border, rgba(255,255,255,0.15))",
+                            color: "var(--home-control-color, rgba(255,255,255,0.72))",
+                        }}
                     >
                         <ChevronArrow dir="prev" />
                     </button>
@@ -126,7 +140,7 @@ export default function TestimonialsSection() {
                                     className="h-px transition-all duration-500"
                                     style={{
                                         width: isActive ? "32px" : "16px",
-                                        background: isActive ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.18)",
+                                        background: isActive ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.24)",
                                     }}
                                 />
                             );
@@ -136,7 +150,12 @@ export default function TestimonialsSection() {
                     <button
                         onClick={goNext}
                         aria-label="Next testimonial"
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all duration-500 hover:border-white/40 hover:text-white"
+                        className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-500 hover:opacity-80"
+                        style={{
+                            background: "var(--home-control-bg, transparent)",
+                            border: "1px solid var(--home-control-border, rgba(255,255,255,0.15))",
+                            color: "var(--home-control-color, rgba(255,255,255,0.72))",
+                        }}
                     >
                         <ChevronArrow dir="next" />
                     </button>

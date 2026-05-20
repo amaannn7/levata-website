@@ -37,13 +37,13 @@ export default function Footer() {
     const { open: openBookCall } = useBookCall();
 
     return (
-        <footer className="relative w-full overflow-hidden bg-[#07001F]">
+        <footer className="relative w-full overflow-hidden bg-[var(--background)]">
 
             {/* Top gradient border */}
             <div
                 aria-hidden
                 className="absolute inset-x-0 top-0 h-px"
-                style={{ background: "linear-gradient(90deg, transparent 0%, rgba(114,200,245,0.5) 30%, rgba(155,47,255,0.5) 70%, transparent 100%)" }}
+                style={{ background: "linear-gradient(90deg, transparent 0%, rgba(75,145,247,0.5) 30%, rgba(75,145,247,0.5) 70%, transparent 100%)" }}
             />
 
             {/* Subtle ambient glow */}
@@ -52,7 +52,7 @@ export default function Footer() {
                 className="pointer-events-none absolute inset-0"
                 style={{
                     backgroundImage:
-                        "radial-gradient(ellipse 60% 50% at 10% 100%, rgba(155,47,255,0.07), transparent 60%), radial-gradient(ellipse 40% 40% at 90% 100%, rgba(114,200,245,0.06), transparent 60%)",
+                        "radial-gradient(ellipse 60% 50% at 10% 100%, rgba(75,145,247,0.07), transparent 60%), radial-gradient(ellipse 40% 40% at 90% 100%, rgba(75,145,247,0.06), transparent 60%)",
                 }}
             />
 

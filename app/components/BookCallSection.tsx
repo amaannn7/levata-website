@@ -10,7 +10,7 @@ export default function BookCallSection() {
         <section
             ref={sectionRef}
             id="book-call"
-            className="relative w-full bg-[#07001F] px-6 pb-16"
+            className="relative w-full bg-[var(--background)] px-6 pb-16"
         >
             <div className="mx-auto max-w-5xl">
 
@@ -30,7 +30,7 @@ export default function BookCallSection() {
                                 </span>
                                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">Prefer a call?</p>
                             </div>
-                            <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl">
+                            <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
                                 Book a{" "}
                                 <span className="text-white">
                                     30-minute call.
@@ -51,9 +51,9 @@ export default function BookCallSection() {
                             <span className="text-sm font-semibold uppercase tracking-[0.22em] text-white/80 transition-colors group-hover/cta:text-white">
                                 {open ? "Close" : "Pick a Time"}
                             </span>
-                            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-all duration-300 group-hover/cta:border-[#72C8F5]/60 group-hover/cta:shadow-[0_0_14px_rgba(114,200,245,0.35)]">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-all duration-300 group-hover/cta:border-[#4B91F7]/60 group-hover/cta:shadow-[0_0_14px_rgba(75,145,247,0.35)]">
                                 <span
-                                    className="transition-transform duration-300 group-hover/cta:drop-shadow-[0_0_6px_#72C8F5]"
+                                    className="transition-transform duration-300 group-hover/cta:drop-shadow-[0_0_6px_#4B91F7]"
                                     style={{ transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
                                 >
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>

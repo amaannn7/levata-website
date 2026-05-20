@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { Button as NeonButton } from "@/app/components/ui/neon-button";
-import HeroBubbles from "@/app/components/HeroBubbles";
 import { useBookCall } from "@/app/components/BookCallProvider";
+
+const AIGlobe = dynamic(() => import("@/app/components/AIGlobe"), { ssr: false });
+const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -28,7 +30,7 @@ function GradientBorder({ children }: { children: React.ReactNode }) {
             className="rounded-2xl p-px"
             style={{
                 background:
-                    "linear-gradient(135deg, rgba(114,200,245,0.5) 0%, rgba(255,255,255,0.08) 50%, rgba(155,47,255,0.5) 100%)",
+                    "linear-gradient(135deg, rgba(75,145,247,0.5) 0%, rgba(255,255,255,0.08) 50%, rgba(75,145,247,0.5) 100%)",
             }}
         >
             <div
@@ -56,7 +58,7 @@ function CardAIMetrics() {
                     <span className="flex items-center gap-1.5">
                         <span
                             className="h-1.5 w-1.5 rounded-full"
-                            style={{ background: "#3DFD98" }}
+                            style={{ background: "rgba(255,255,255,0.45)" }}
                         />
                         <span className="text-[9px] font-medium text-white/40">LIVE</span>
                     </span>
@@ -64,7 +66,7 @@ function CardAIMetrics() {
 
                 <div className="mt-2.5 flex items-end justify-between gap-2">
                     <div>
-                        <p className="text-[20px] font-extrabold leading-none tracking-tight text-white">12</p>
+                        <p className="text-[20px] font-bold leading-none tracking-tight text-white">12</p>
                         <p className="mt-1 text-[10px] text-white/40">Active models</p>
                     </div>
                     <p className="text-[10px] text-white/40 text-right leading-tight">
@@ -78,12 +80,12 @@ function CardAIMetrics() {
                     <svg viewBox="0 0 200 60" className="block w-full" style={{ height: 44 }} aria-hidden>
                         <defs>
                             <linearGradient id="card1Stroke" x1="0" y1="0" x2="1" y2="0">
-                                <stop offset="0%" stopColor="#9B2FFF" />
-                                <stop offset="100%" stopColor="#72C8F5" />
+                                <stop offset="0%" stopColor="rgba(255,255,255,0.75)" />
+                                <stop offset="100%" stopColor="rgba(255,255,255,0.75)" />
                             </linearGradient>
                             <linearGradient id="card1Fill" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#72C8F5" stopOpacity="0.22" />
-                                <stop offset="100%" stopColor="#72C8F5" stopOpacity="0" />
+                                <stop offset="0%" stopColor="rgba(255,255,255,0.18)" stopOpacity="1" />
+                                <stop offset="100%" stopColor="rgba(255,255,255,0)" stopOpacity="0" />
                             </linearGradient>
                         </defs>
                         <line x1="0" y1="50" x2="200" y2="50" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" strokeDasharray="2 3" />
@@ -107,7 +109,7 @@ function CardAIMetrics() {
                             transition={{ duration: 1.2, delay: 0.85, ease: EASE }}
                         />
                         <motion.circle
-                            cx="200" cy="8" r="2.5" fill="#72C8F5"
+                            cx="200" cy="8" r="2.5" fill="rgba(255,255,255,0.85)"
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.4, delay: 1.95, ease: "easeOut" }}
@@ -133,9 +135,9 @@ function CardWorkflow() {
                     <span
                         className="rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.14em]"
                         style={{
-                            background: "rgba(61,253,152,0.12)",
-                            border: "1px solid rgba(61,253,152,0.25)",
-                            color: "rgba(61,253,152,0.9)",
+                            background: "rgba(75,145,247,0.12)",
+                            border: "1px solid rgba(75,145,247,0.25)",
+                            color: "rgba(75,145,247,0.9)",
                         }}
                     >
                         3/3 LIVE
@@ -158,12 +160,12 @@ function CardWorkflow() {
                         >
                             <span
                                 className="absolute right-1.5 top-1.5 h-1 w-1 rounded-full"
-                                style={{ background: "#3DFD98", boxShadow: "0 0 4px #3DFD98" }}
+                                style={{ background: "rgba(255,255,255,0.55)", boxShadow: "0 0 4px rgba(255,255,255,0.3)" }}
                             />
                             <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/40">
                                 {box.label}
                             </span>
-                            <span className="mt-0.5 text-[15px] font-extrabold leading-none tracking-tight text-white">
+                            <span className="mt-0.5 text-[15px] font-bold leading-none tracking-tight text-white">
                                 {box.value}
                             </span>
                             <span className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.18em] text-white/35">
@@ -187,7 +189,7 @@ function CardRevenue() {
                 </p>
                 <div className="mt-2.5 flex items-center justify-between gap-3">
                     <motion.p
-                        className="text-[24px] font-extrabold leading-none tracking-tight text-white"
+                        className="text-[24px] font-bold leading-none tracking-tight text-white"
                         initial={{ opacity: 0, scale: 0.92 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.55, delay: 1.05, ease: EASE }}
@@ -197,7 +199,7 @@ function CardRevenue() {
                     <motion.div
                         className="h-8 w-8 rounded-lg flex-shrink-0"
                         style={{
-                            background: "linear-gradient(135deg, #9B2FFF 0%, #72C8F5 55%, #3DFD98 100%)",
+                            background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)",
                         }}
                         initial={{ opacity: 0, x: 12 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -222,15 +224,16 @@ export default function HomeHero() {
             ref={heroRef}
             data-hero
             aria-labelledby="hero-heading"
-            className="relative w-full overflow-hidden"
-            style={{
-                background: "radial-gradient(ellipse 120% 90% at 15% 50%, #18004A 0%, #0D0030 55%, #07001F 100%)",
-                minHeight: "min(100vh, 920px)",
-            }}
+            className="home-theme-dark relative w-full overflow-hidden"
+            style={{ minHeight: "min(100vh, 880px)" }}
         >
-            <HeroBubbles containerRef={heroRef} />
+            {/* Subtle top-center accent glow */}
+            <div
+                className="pointer-events-none absolute inset-0 z-0"
+                style={{ background: "radial-gradient(ellipse 70% 55% at 50% -5%, rgba(75,145,247,0.06) 0%, transparent 60%)" }}
+            />
             {/* Content layer (left text / right cards) */}
-            <div className="relative z-20 mx-auto grid min-h-[min(100vh,920px)] w-full max-w-7xl items-center gap-10 px-5 py-16 sm:px-6 sm:py-24 md:gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-0">
+            <div className="relative z-20 mx-auto grid min-h-[min(100vh,880px)] w-full max-w-[1440px] items-center gap-10 px-6 pb-16 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:gap-14 md:pt-32 lg:grid-cols-[1fr_400px] lg:gap-20 lg:px-16 lg:py-0 xl:px-20">
 
                 {/* Left column — text + CTAs */}
                 <div className="flex flex-col items-start text-left">
@@ -241,7 +244,7 @@ export default function HomeHero() {
                         className="mb-5 md:mb-6"
                     >
                         {/* Mobile eyebrow — plain uppercase */}
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55 md:hidden">
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50 md:hidden">
                             Digital Solutions &amp; Software
                         </p>
                         {/* Desktop eyebrow — animated SectionLabel */}
@@ -255,39 +258,20 @@ export default function HomeHero() {
                         initial={{ opacity: 0, y: 18 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.85, delay: 0.18, ease: EASE }}
-                        className="max-w-2xl text-balance text-[2.1rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
-                        style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
+                        className="display-hero-title max-w-2xl"
                     >
-                        {/* Mobile headline — same copy as desktop */}
-                        <span className="md:hidden">
-                            Your Business Deserves Intelligence,{" "}
-                            <span className="jakarta-italic">Not Just Software.</span>
-                        </span>
-                        {/* Desktop headline */}
-                        <span className="hidden md:inline">
-                            Your Business Deserves Intelligence,
-                            <br />
-                            <span className="jakarta-italic">Not Just Software.</span>
-                        </span>
+                        <span className="display-muted-line">Your Business Deserves</span>
+                        <span className="display-strong-line">AI, not just software.</span>
                     </motion.h1>
 
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, delay: 0.32, ease: EASE }}
-                        className="mt-5 max-w-xl"
+                        className="mt-5 max-w-[560px]"
                     >
-                        {/* Mobile subhead — same copy as desktop */}
-                        <p className="text-sm leading-relaxed text-white/55 md:hidden">
-                            Levata builds AI-powered systems, platforms, and automation that don&apos;t just support
-                            your business — they transform it. We are the infrastructure partner for companies ready
-                            to operate, compete, and grow at a different level.
-                        </p>
-                        {/* Desktop subhead */}
-                        <p className="hidden text-sm leading-relaxed text-white/55 md:block md:text-base">
-                            Levata builds AI-powered systems, platforms, and automation that don&apos;t just support
-                            your business — they transform it. We are the infrastructure partner for companies ready
-                            to operate, compete, and grow at a different level.
+                        <p className="text-sm leading-relaxed text-white/55 md:text-base">
+                            Levata builds AI systems and automation that transform how your business operates — not just supports it.
                         </p>
                     </motion.div>
 
@@ -295,24 +279,13 @@ export default function HomeHero() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.46, ease: EASE }}
-                        className="mt-8"
+                        className="mt-6"
                     >
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="group relative inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer sm:py-3.5"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.10), rgba(155,47,255,0.10))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.12), 0 0 10px rgba(155,47,255,0.10), inset 0 0 0 1px rgba(114,200,245,0.22)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 24px rgba(114,200,245,0.34), 0 0 24px rgba(155,47,255,0.26), inset 0 0 0 1px rgba(114,200,245,0.5)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.12), 0 0 10px rgba(155,47,255,0.10), inset 0 0 0 1px rgba(114,200,245,0.22)";
-                            }}
+                            className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer hover:opacity-90 sm:py-3.5"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
                             <span>Book a Strategy Call</span>
                             <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
@@ -320,39 +293,21 @@ export default function HomeHero() {
                     </motion.div>
                 </div>
 
-                {/* Right column — 3 stat cards compact floating panel */}
-                <div className="relative hidden md:flex md:items-center w-full lg:max-w-[340px]" aria-hidden>
+                {/* Right column — AI Intelligence Globe */}
+                <div className="relative hidden md:flex md:items-center justify-center w-full lg:max-w-[360px]" aria-hidden>
                     <motion.div
-                        className="flex flex-col gap-2 w-full"
-                        animate={{ y: [0, -10, 0] }}
-                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                        className="w-full"
+                        style={{ height: "380px" }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
                     >
-                        <motion.div
-                            initial={{ opacity: 0, x: 24 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
-                        >
-                            <CardAIMetrics />
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: 24 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.55, ease: EASE }}
-                        >
-                            <CardWorkflow />
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: 24 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
-                        >
-                            <CardRevenue />
-                        </motion.div>
+                        <AIGlobe />
                     </motion.div>
                 </div>
             </div>
+
+            <HeroHorizon />
         </section>
     );
 }

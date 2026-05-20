@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useRef } from "react";
 import Image from "next/image";
@@ -199,7 +199,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
     const selected = COUNTRIES.find((c) => c.code === country) ?? COUNTRIES[0];
 
     return (
-        <section ref={sectionRef} id="contact-cta" className="relative w-full bg-[#07001F] px-5 py-8 sm:px-6 md:py-14">
+        <section ref={sectionRef} id="contact-cta" className="relative w-full bg-[#0E1014] px-5 py-8 sm:px-6 md:py-14">
             <div className="mx-auto max-w-6xl">
 
                 {showHeading && (
@@ -211,11 +211,9 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                             </span>
                             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">Get in touch</p>
                         </div>
-                        <h2 className="text-3xl font-extrabold tracking-tight text-white md:text-4xl">
-                            Drop Us a{" "}
-                            <span className="text-white">
-                                Message
-                            </span>
+                        <h2 className="display-section-title">
+                            <span className="display-muted-line">Drop us a</span>
+                            <span className="display-strong-line">message.</span>
                         </h2>
                         <p className="mt-4 max-w-md text-sm leading-relaxed text-white/45">
                             Fill in the form and we&apos;ll get back within 48 hours.
@@ -227,20 +225,20 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                 <div
                     data-no-reveal
                     className="overflow-hidden rounded-2xl p-px"
-                    style={{ background: "linear-gradient(135deg,rgba(114,200,245,0.3) 0%,rgba(255,255,255,0.06) 50%,rgba(155,47,255,0.3) 100%)" }}
+                    style={{ background: "linear-gradient(135deg,rgba(75,145,247,0.3) 0%,rgba(255,255,255,0.06) 50%,rgba(75,145,247,0.3) 100%)" }}
                 >
                     <div className="grid grid-cols-1 overflow-hidden rounded-2xl lg:grid-cols-[340px_1fr]" data-form>
 
                         {/* Left info panel */}
                         <div
                             className="flex flex-col justify-between gap-5 border-b border-white/8 p-6 sm:gap-8 sm:p-8 md:gap-10 md:p-10 lg:border-b-0 lg:border-r"
-                            style={{ background: "linear-gradient(160deg,rgba(155,47,255,0.15) 0%,rgba(7,0,31,0.98) 100%)" }}
+                            style={{ background: "linear-gradient(160deg,rgba(75,145,247,0.15) 0%,rgba(23,26,34,0.98) 100%)" }}
                         >
                             <div>
                                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/30">
                                     Let&apos;s talk
                                 </p>
-                                <h3 className="text-xl font-extrabold tracking-tight text-white sm:text-2xl md:text-3xl">
+                                <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl md:text-3xl">
                                     We&apos;d love to hear about your project.
                                 </h3>
                                 <p className="mt-4 text-sm leading-relaxed text-white/45">
@@ -264,7 +262,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                         </div>
 
                         {/* Right form panel */}
-                        <div className="bg-[#07001F] p-6 sm:p-8 md:p-10">
+                        <div className="bg-[#0E1014] p-6 sm:p-8 md:p-10">
                             <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-5">
 
                                 {/* Name + Email */}
@@ -296,7 +294,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                                 onChange={(e) => setCountry(e.target.value)}
                                                 className="absolute inset-0 cursor-pointer opacity-0"
                                                 aria-label="Country dial code"
-                                                style={{ background: "#07001F", color: "#fff" }}
+                                                style={{ background: "#0E1014", color: "#fff" }}
                                             >
                                                 {COUNTRIES.map((c) => (
                                                     <option key={c.code} value={c.code}>
@@ -321,7 +319,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                     </label>
                                     <textarea
                                         className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-white placeholder:text-white/25 transition-colors focus:border-white/22 focus:outline-none"
-                                        placeholder="Tell us about your project: scope, timeline, goals…"
+                                        placeholder="Tell us about your project: scope, timeline, goals..."
                                         rows={5}
                                     />
                                 </div>
@@ -344,19 +342,8 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                     <p className="text-xs text-white/25">All fields marked * are required</p>
                                     <button
                                         type="submit"
-                                        className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:shadow-lg sm:px-6 sm:py-3"
-                                        style={{
-                                            background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                            boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            const target = e.currentTarget as HTMLButtonElement;
-                                            target.style.boxShadow = "0 0 20px rgba(114,200,245,0.15), 0 0 20px rgba(155,47,255,0.12), inset 0 0 0 1px rgba(114,200,245,0.25)";
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            const target = e.currentTarget as HTMLButtonElement;
-                                            target.style.boxShadow = "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                                        }}
+                                        className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 sm:px-6 sm:py-3"
+                                        style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                                     >
                                         Send Request
                                     </button>

@@ -21,7 +21,6 @@ export default function TextReveal() {
         gsap.registerPlugin(SplitText, ScrollTrigger);
 
         const splits: InstanceType<typeof SplitText>[] = [];
-        let frame: number;
 
         const animateEl = (el: HTMLElement) => {
             // Split into lines; each line gets an overflow:clip wrapper via mask
@@ -45,7 +44,7 @@ export default function TextReveal() {
             });
         };
 
-        frame = requestAnimationFrame(() => {
+        const frame = requestAnimationFrame(() => {
             const textEls = gsap.utils.toArray<HTMLElement>("h2, h3, p").filter(
                 (el) =>
                     !el.closest("[data-hero]") &&

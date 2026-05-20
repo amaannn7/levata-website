@@ -1,11 +1,11 @@
-﻿"use client";
+"use client";
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// ── Step data ──────────────────────────────────────────────────────────────
+// -- Step data --------------------------------------------------------------
 
 interface Step {
     num: string;
@@ -20,7 +20,7 @@ interface Step {
 const STEPS: Step[] = [
     {
         num: "01",
-        accent: "#9B2FFF",
+        accent: "#4B91F7",
         accentRgb: "155,47,255",
         label: "Discovery & Audit",
         description: "Before we write a single line of code, we audit your systems, data flows, and commercial model to find the highest-leverage AI and automation opportunities.",
@@ -29,11 +29,11 @@ const STEPS: Step[] = [
             "Identify highest-leverage AI and automation opportunities",
             "Align technical capability with your commercial goals",
         ],
-        result: "A clear opportunity map and prioritised roadmap — before a single line of code is written.",
+        result: "A clear opportunity map and prioritised roadmap before a single line of code is written.",
     },
     {
         num: "02",
-        accent: "#72C8F5",
+        accent: "#4B91F7",
         accentRgb: "114,200,245",
         label: "Architecture & Strategy",
         description: "We design the architecture: how every system connects, where data flows, and which KPIs prove the strategy is working.",
@@ -46,37 +46,38 @@ const STEPS: Step[] = [
     },
     {
         num: "03",
-        accent: "#3DFD98",
+        accent: "#4B91F7",
         accentRgb: "61,253,152",
         label: "Build, Launch & Optimise",
-        description: "We ship in focused sprints, launch with full support, and measure everything — so your system gets smarter and more valuable over time.",
+        description: "We ship in focused sprints, launch with full support, and measure everything so your system gets smarter and more valuable over time.",
         bullets: [
             "Ship in focused engineering sprints with full progress visibility",
             "Managed launch with onboarding, documentation, and support",
             "Continuous iteration: measure results and compound improvements",
         ],
-        result: "A system that keeps getting smarter — delivering increasing ROI month over month.",
+        result: "A system that keeps getting smarter, delivering increasing ROI month over month.",
     },
 ];
 
-// ── Step card (plain text, no visuals) ───────────────────────────────────
+// -- Step card (plain text, no visuals) -----------------------------------
 
 function StepCard({ step }: { step: Step }) {
     return (
         <div
             className="flex flex-col gap-6 rounded-2xl p-8 md:p-10"
             style={{
-                background: "rgba(8,1,28,0.7)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "var(--home-card-bg, rgba(23,26,34,0.94))",
+                border: "1px solid var(--home-card-border, rgba(255,255,255,0.08))",
+                boxShadow: "var(--home-card-shadow, none)",
             }}
         >
             <div className="flex items-center gap-2.5">
-                <span className="h-2 w-2 rounded-full" style={{ background: "#72C8F5" }} />
+                <span className="h-2 w-2 rounded-full" style={{ background: "#4B91F7" }} />
                 <span
                     className="text-[10px] font-bold uppercase tracking-[0.22em]"
-                    style={{ color: "#72C8F5" }}
+                    style={{ color: "#4B91F7" }}
                 >
-                    Phase {step.num} — {step.label}
+                    Phase {step.num} / {step.label}
                 </span>
             </div>
             <p className="text-sm leading-relaxed text-white/50">{step.description}</p>
@@ -85,7 +86,7 @@ function StepCard({ step }: { step: Step }) {
                     <li key={b} className="flex items-start gap-3 text-sm leading-relaxed text-white/70 md:text-[15px]">
                         <span
                             className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full"
-                            style={{ background: "#72C8F5", opacity: 0.7 }}
+                            style={{ background: "#4B91F7", opacity: 0.7 }}
                         />
                         {b}
                     </li>
@@ -94,8 +95,8 @@ function StepCard({ step }: { step: Step }) {
             <div
                 className="rounded-xl px-4 py-3"
                 style={{
-                    background: "rgba(114,200,245,0.05)",
-                    border: "1px solid rgba(114,200,245,0.14)",
+                    background: "var(--home-card-muted-bg, rgba(75,145,247,0.05))",
+                    border: "1px solid var(--home-card-muted-border, rgba(75,145,247,0.14))",
                 }}
             >
                 <p className="text-xs leading-relaxed text-white/50">
@@ -106,7 +107,7 @@ function StepCard({ step }: { step: Step }) {
     );
 }
 
-// ── Section label ──────────────────────────────────────────────────────────
+// -- Section label ----------------------------------------------------------
 
 function SectionLabel({ text }: { text: string }) {
     return (
@@ -120,7 +121,7 @@ function SectionLabel({ text }: { text: string }) {
     );
 }
 
-// ── Main component ─────────────────────────────────────────────────────────
+// -- Main component ---------------------------------------------------------
 
 export default function ProcessTabsSection() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -137,30 +138,31 @@ export default function ProcessTabsSection() {
     });
 
     return (
-        <section id="process" className="relative w-full">
-            {/* ── Desktop sticky scroll (lg+) ─────────────────────────── */}
+        <section id="process" className="home-theme-dark relative w-full">
+            {/* -- Desktop sticky scroll (lg+) --------------------------- */}
             <div ref={containerRef} className="relative hidden lg:block" style={{ height: "300vh" }}>
                 <div
                     className="pointer-events-none absolute inset-0"
                     style={{
                         background: [
-                            "radial-gradient(ellipse 50% 70% at 15% 40%, rgba(155,47,255,0.07) 0%, transparent 65%)",
-                            "radial-gradient(ellipse 45% 55% at 85% 60%, rgba(114,200,245,0.05) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 50% 70% at 15% 40%, rgba(75,145,247,0.07) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 45% 55% at 85% 60%, rgba(75,145,247,0.05) 0%, transparent 65%)",
                         ].join(", "),
                     }}
                 />
 
-                <div className="sticky top-0 h-screen overflow-hidden">
+                <div className="sticky top-0 h-screen overflow-clip">
                     <div className="mx-auto flex h-full w-full max-w-7xl items-center gap-10 px-10 xl:px-16">
 
-                        {/* ── Left panel ── */}
+                        {/* -- Left panel -- */}
                         <div className="flex w-[42%] flex-col gap-8">
                             <SectionLabel text="How we work" />
-                            <h2 className="text-3xl font-extrabold leading-[1.08] tracking-tight text-white xl:text-4xl">
-                                From strategy to<br />compounding success.
+                            <h2 className="display-section-title">
+                                <span className="display-muted-line">From strategy to</span>
+                                <span className="display-strong-line">compounding success.</span>
                             </h2>
-                            <p className="text-base leading-relaxed text-white/50 xl:text-[1.05rem]">
-                                A repeatable system that turns strategic clarity into measurable outcomes — fast.
+                            <p className="text-[15px] leading-[1.65] text-white/50">
+                                A repeatable system that turns strategic clarity into measurable outcomes fast.
                             </p>
                             {/* Step progress */}
                             <div className="flex flex-col gap-3">
@@ -170,21 +172,21 @@ export default function ProcessTabsSection() {
                                             className="h-0.5 rounded-full transition-all duration-500"
                                             style={{
                                                 width: i === activeStep ? 32 : 16,
-                                                background: i === activeStep ? "#3DFD98" : "rgba(255,255,255,0.12)",
+                                                background: i === activeStep ? "#4B91F7" : "rgba(148,163,184,0.28)",
                                             }}
                                         />
                                         <span
                                             className="text-xs font-medium transition-colors duration-500"
-                                            style={{ color: i === activeStep ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.22)" }}
+                                            style={{ color: i === activeStep ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.42)" }}
                                         >
-                                            {s.num} — {s.label}
+                                            {s.num} / {s.label}
                                         </span>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        {/* ── Right panel — one card at a time ── */}
+                        {/* -- Right panel, one card at a time -- */}
                         <div className="flex w-[58%] items-center">
                             <AnimatePresence mode="wait">
                                 <motion.div
@@ -204,9 +206,9 @@ export default function ProcessTabsSection() {
                 </div>
             </div>
 
-            {/* ── Mobile / tablet fallback (<lg) ─────────────────────────── */}
+            {/* -- Mobile / tablet fallback (<lg) --------------------------- */}
             <div className="relative px-6 py-20 lg:hidden">
-                <div className="pointer-events-none absolute inset-0" style={{ background: ["radial-gradient(ellipse 40% 60% at 20% 30%, rgba(155,47,255,0.06) 0%, transparent 70%)", "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(114,200,245,0.05) 0%, transparent 70%)"].join(", ") }} />
+                <div className="pointer-events-none absolute inset-0" style={{ background: ["radial-gradient(ellipse 40% 60% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)", "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)"].join(", ") }} />
                 <div className="relative mx-auto max-w-2xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -216,12 +218,15 @@ export default function ProcessTabsSection() {
                         className="mb-12 flex flex-col items-center gap-4 text-center"
                     >
                         <SectionLabel text="How we work" />
-                        <h2 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white leading-[1.1]">From strategy to compounding success.</h2>
-                        <p className="max-w-xl text-base leading-relaxed text-white/50">A repeatable system that turns strategic clarity into measurable outcomes — fast.</p>
+                        <h2 className="display-section-title max-w-xl text-center">
+                            <span className="display-muted-line">From strategy to</span>
+                            <span className="display-strong-line">compounding success.</span>
+                        </h2>
+                        <p className="max-w-xl text-base leading-relaxed text-white/50">A repeatable system that turns strategic clarity into measurable outcomes fast.</p>
                     </motion.div>
 
                     <div className="relative">
-                        <div className="pointer-events-none absolute left-6 top-8 bottom-8 w-px" style={{ background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.15) 12%, rgba(255,255,255,0.15) 88%, transparent 100%)" }} />
+                        <div className="pointer-events-none absolute left-6 top-8 bottom-8 w-px" style={{ background: "linear-gradient(to bottom, transparent 0%, rgba(148,163,184,0.3) 12%, rgba(148,163,184,0.3) 88%, transparent 100%)" }} />
                         <div className="flex flex-col gap-12">
                             {STEPS.map((step, i) => (
                                 <motion.div
@@ -232,8 +237,8 @@ export default function ProcessTabsSection() {
                                     transition={{ duration: 0.7, delay: i * 0.12, ease: EASE }}
                                     className="relative flex items-start gap-6"
                                 >
-                                    <div className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl" style={{ background: "rgba(8,1,28,0.95)", border: "1px solid #3DFD9880", boxShadow: "0 0 0 6px rgba(7,0,31,1), 0 0 20px #3DFD9825" }}>
-                                        <span className="text-sm font-extrabold" style={{ color: "#3DFD98" }}>{step.num}</span>
+                                    <div className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl" style={{ background: "rgba(23,26,34,0.98)", border: "1px solid #4B91F780", boxShadow: "0 0 0 6px rgba(7,0,31,1), 0 0 20px #4B91F725" }}>
+                                        <span className="text-sm font-bold" style={{ color: "#4B91F7" }}>{step.num}</span>
                                     </div>
                                     <div className="flex flex-1 flex-col gap-4 pt-1">
                                         <div>
@@ -243,12 +248,12 @@ export default function ProcessTabsSection() {
                                         <ul className="flex flex-col gap-2.5">
                                             {step.bullets.map((b) => (
                                                 <li key={b} className="flex items-start gap-3 text-sm leading-relaxed text-white/60">
-                                                    <span className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ background: "rgba(255,255,255,0.45)" }} />
+                                                    <span className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ background: "rgba(91,100,119,0.4)" }} />
                                                     {b}
                                                 </li>
                                             ))}
                                         </ul>
-                                        <p className="rounded-lg px-4 py-3 text-sm leading-relaxed text-white/50" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                        <p className="rounded-lg px-4 py-3 text-sm leading-relaxed text-white/50" style={{ background: "var(--home-card-muted-bg, rgba(255,255,255,0.02))", border: "1px solid var(--home-card-muted-border, rgba(255,255,255,0.06))" }}>
                                             <span className="font-semibold text-white/75">Result: </span>{step.result}
                                         </p>
                                     </div>

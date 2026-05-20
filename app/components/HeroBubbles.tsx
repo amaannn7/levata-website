@@ -38,7 +38,7 @@ export default function HeroBubbles({
             const isCyan = Math.random() > 0.55;
             const borderOpacity = 0.18 + Math.random() * 0.18;
             const borderColor = isCyan
-                ? `rgba(114,200,245,${borderOpacity})`
+                ? `rgba(75,145,247,${borderOpacity})`
                 : `rgba(255,255,255,${borderOpacity})`;
 
             setRings((prev) => [

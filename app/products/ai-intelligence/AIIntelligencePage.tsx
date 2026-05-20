@@ -4,12 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
-import PageArcs from "@/app/components/PageArcs";
-import HeroBubbles from "@/app/components/HeroBubbles";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import dynamic from "next/dynamic";
 
-const GREEN = "#3DFD98";
-const BLUE = "#72C8F5";
+const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
+
+const GREEN = "#4B91F7";
+const BLUE = "#4B91F7";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // ── Section label ─────────────────────────────────────────────────────────
@@ -75,7 +76,7 @@ function StepCard({ step }: { step: { num: string; title: string; body: string }
     return (
         <div
             className="block w-full rounded-xl px-4 py-3.5 text-left sm:inline-block sm:w-auto sm:px-5 sm:py-4"
-            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
         >
             <h3 className="text-base font-bold leading-tight text-white md:text-lg">{step.title}</h3>
             <p className="mt-1.5 text-sm leading-relaxed text-white/55 sm:max-w-[280px] md:text-[15px]">{step.body}</p>
@@ -89,7 +90,7 @@ function SalesIntelligenceDashboard() {
         { name: "Acme Corp", score: 92, status: "Hot", color: GREEN },
         { name: "Globex Inc.", score: 78, status: "Warm", color: BLUE },
         { name: "Initech", score: 64, status: "Warm", color: BLUE },
-        { name: "Stark Industries", score: 51, status: "Nurture", color: "#9B2FFF" },
+        { name: "Stark Industries", score: 51, status: "Nurture", color: "#4B91F7" },
     ];
     const tiles = [
         { label: "Leads", value: "248" },
@@ -99,7 +100,7 @@ function SalesIntelligenceDashboard() {
     return (
         <div
             className="w-full overflow-hidden rounded-2xl"
-            style={{ background: "rgba(8,1,28,0.85)", border: "1px solid rgba(255,255,255,0.08)" }}
+            style={{ background: "rgba(23,26,34,0.96)", border: "1px solid rgba(255,255,255,0.08)" }}
         >
             {/* dashboard chrome */}
             <div className="flex items-center justify-between border-b border-white/[0.07] px-3.5 py-3 sm:px-5 sm:py-3.5">
@@ -126,7 +127,7 @@ function SalesIntelligenceDashboard() {
                     >
                         <span className="block text-[9px] font-bold uppercase tracking-[0.18em] text-white/40">{t.label}</span>
                         <div className="mt-1 flex items-baseline gap-1.5">
-                            <span className="text-base font-extrabold tracking-tight sm:text-xl" style={{ color: GREEN }}>{t.value}</span>
+                            <span className="text-base font-bold tracking-tight sm:text-xl" style={{ color: GREEN }}>{t.value}</span>
                             {t.sub && <span className="text-[10px] font-medium text-white/45">{t.sub}</span>}
                         </div>
                     </div>
@@ -312,7 +313,7 @@ function KPI({ value, suffix, label, index }: { value: number; suffix: string; l
             transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
             className="flex flex-col items-center gap-3 text-center"
         >
-            <span ref={elRef} className="text-4xl font-extrabold leading-none tracking-tight sm:text-5xl md:text-7xl" style={{ color: GREEN }}>
+            <span ref={elRef} className="text-4xl font-bold leading-none tracking-tight sm:text-5xl md:text-7xl" style={{ color: GREEN }}>
                 {count}{suffix}
             </span>
             <span className="max-w-[140px] text-[13px] font-medium leading-snug text-white/55 tracking-wide sm:max-w-[200px] sm:text-sm">{label}</span>
@@ -323,20 +324,16 @@ function KPI({ value, suffix, label, index }: { value: number; suffix: string; l
 // ── Page ──────────────────────────────────────────────────────────────────
 export default function AIIntelligencePage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
-    const heroRef = useRef<HTMLElement>(null);
     const { open: openBookCall } = useBookCall();
 
     return (
-        <main className="relative min-h-screen bg-[#07001F] overflow-hidden">
-            <PageArcs />
+        <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
             {/* ── 1. HERO ───────────────────────────────────── */}
             <section
-                ref={heroRef}
                 data-hero
                 className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
-                <HeroBubbles containerRef={heroRef} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -344,11 +341,9 @@ export default function AIIntelligencePage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <SectionLabel text="AI & Intelligence" />
-                    <h1
-                        className="text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3rem]"
-                        style={{ fontFamily: "var(--font-space-grotesk), 'Space Grotesk', sans-serif" }}
-                    >
-                        Intelligence becomes <span className="jakarta-italic">infrastructure.</span>
+                    <h1 className="display-hero-title max-w-3xl text-center">
+                        <span className="display-muted-line">Intelligence becomes</span>
+                        <span className="display-strong-line">infrastructure.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                         We architect AI as a layer in your business, not a tool on the shelf. Data, decisions, and
@@ -358,33 +353,23 @@ export default function AIIntelligencePage() {
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
                             Book a Strategy Call
                         </button>
 
                     </div>
                 </motion.div>
+                <HeroHorizon />
             </section>
 
             {/* ── 2. PROBLEM — 3 failure modes (clean cards, no icons) ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(155,47,255,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(114,200,245,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -396,8 +381,9 @@ export default function AIIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="The problem" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Three patterns that quietly break AI investments.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Three patterns that quietly</span>
+                            <span className="display-strong-line">break AI investments.</span>
                         </h2>
                     </motion.div>
 
@@ -411,9 +397,9 @@ export default function AIIntelligencePage() {
                                 transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                                 whileHover={{ y: -4 }}
                                 className="flex flex-col gap-5 rounded-2xl p-7 transition-colors duration-300 hover:bg-white/[0.03]"
-                                style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                                style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                             >
-                                <span className="text-3xl font-extrabold leading-none" style={{ color: GREEN }}>{f.num}</span>
+                                <span className="text-3xl font-bold leading-none" style={{ color: GREEN }}>{f.num}</span>
                                 <h3 className="text-xl font-bold leading-tight text-white">{f.title}</h3>
                                 <p className="text-sm leading-relaxed text-white/55">{f.body}</p>
                             </motion.div>
@@ -425,7 +411,7 @@ export default function AIIntelligencePage() {
             {/* ── 3. APPROACH — Centered statement + 5-row inline list ── */}
             <section id="approach" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(155,47,255,0.06) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-4xl">
                     <motion.div
@@ -436,8 +422,9 @@ export default function AIIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Our approach" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            We architect AI as <span className="jakarta-italic">infrastructure, not tools.</span>
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">We architect AI as</span>
+                            <span className="display-strong-line">infrastructure, not tools.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
                             Five layers that turn AI from scattered experiments into a system that earns trust and compounds.
@@ -455,7 +442,7 @@ export default function AIIntelligencePage() {
                                 className="grid grid-cols-[auto_1fr] items-baseline gap-x-6 gap-y-1 border-b border-white/[0.07] py-6 md:grid-cols-[auto_minmax(180px,0.5fr)_1fr] md:py-8"
                                 style={{ borderBottom: i === LAYERS.length - 1 ? "none" : undefined }}
                             >
-                                <span className="text-2xl font-extrabold tabular-nums leading-none md:text-3xl" style={{ color: GREEN }}>{l.num}</span>
+                                <span className="text-2xl font-bold tabular-nums leading-none md:text-3xl" style={{ color: GREEN }}>{l.num}</span>
                                 <h3 className="col-span-2 text-lg font-bold leading-tight text-white md:col-span-1 md:text-xl">{l.title}</h3>
                                 <p className="col-span-2 text-sm leading-relaxed text-white/55 md:col-span-1 md:text-[15px]">{l.body}</p>
                             </motion.div>
@@ -475,8 +462,9 @@ export default function AIIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="The AI stack" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Four capability layers. One coherent system.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Four capability layers.</span>
+                            <span className="display-strong-line">One coherent system.</span>
                         </h2>
                     </motion.div>
 
@@ -490,13 +478,13 @@ export default function AIIntelligencePage() {
                                 transition={{ duration: 0.6, delay: (i % 2) * 0.08, ease: EASE }}
                                 whileHover={{ y: -4 }}
                                 className="flex h-full flex-col gap-5 rounded-2xl p-7 md:p-8 transition-colors duration-300 hover:bg-white/[0.03]"
-                                style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                                style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                             >
                                 <div className="flex items-center gap-4">
-                                    <span className="text-4xl font-extrabold leading-none md:text-5xl" style={{ color: GREEN }}>{svc.num}</span>
+                                    <span className="text-4xl font-bold leading-none md:text-5xl" style={{ color: GREEN }}>{svc.num}</span>
                                     <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">{svc.eyebrow}</span>
                                 </div>
-                                <h3 className="text-xl font-extrabold leading-tight text-white md:text-2xl">{svc.title}</h3>
+                                <h3 className="text-xl font-semibold leading-tight text-white md:text-2xl">{svc.title}</h3>
                                 <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">{svc.body}</p>
                                 <ul className="mt-auto flex flex-col gap-2.5 pt-2">
                                     {svc.bullets.map((b) => (
@@ -523,8 +511,9 @@ export default function AIIntelligencePage() {
                         className="mb-10 flex flex-col items-center gap-5 text-center"
                     >
                         <SectionLabel text="Featured product" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            Intelligence, shipped as a workspace.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">Intelligence,</span>
+                            <span className="display-strong-line">shipped as a workspace.</span>
                         </h2>
                     </motion.div>
 
@@ -534,15 +523,15 @@ export default function AIIntelligencePage() {
                         viewport={{ once: true, margin: "-60px" }}
                         transition={{ duration: 0.7, ease: EASE }}
                         className="rounded-2xl p-px"
-                        style={{ background: "linear-gradient(135deg,rgba(114,200,245,0.3) 0%,rgba(255,255,255,0.06) 50%,rgba(155,47,255,0.3) 100%)" }}
+                        style={{ background: "linear-gradient(135deg,rgba(75,145,247,0.3) 0%,rgba(255,255,255,0.06) 50%,rgba(75,145,247,0.3) 100%)" }}
                     >
                         <div
                             className="grid grid-cols-1 gap-8 rounded-2xl p-5 sm:p-7 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-12 md:p-10"
-                            style={{ background: "rgba(8,1,28,0.92)" }}
+                            style={{ background: "rgba(23,26,34,0.98)" }}
                         >
                             {/* Left — copy */}
                             <div className="flex flex-col gap-5">
-                                <h3 className="text-2xl font-extrabold leading-tight text-white md:text-3xl">
+                                <h3 className="text-2xl font-semibold leading-tight text-white md:text-3xl">
                                     Sales Intelligence Platform
                                 </h3>
                                 <p className="max-w-md text-base leading-relaxed text-white/55 md:text-[1.05rem]">
@@ -586,8 +575,9 @@ export default function AIIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="Outcomes" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            What intelligence ships.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">What intelligence</span>
+                            <span className="display-strong-line">ships.</span>
                         </h2>
                     </motion.div>
 
@@ -610,8 +600,9 @@ export default function AIIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
                         <SectionLabel text="Delivery process" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            The AI lifecycle, end to end.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">The AI lifecycle,</span>
+                            <span className="display-strong-line">end to end.</span>
                         </h2>
                     </motion.div>
 
@@ -645,9 +636,9 @@ export default function AIIntelligencePage() {
                                         <div
                                             className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full md:order-2 md:h-14 md:w-14"
                                             style={{
-                                                background: "rgba(8,1,28,1)",
+                                                background: "#171A22",
                                                 border: `1.5px solid ${BLUE}`,
-                                                boxShadow: `0 0 0 6px #07001F, 0 0 22px ${BLUE}33`,
+                                                boxShadow: `0 0 0 6px #0E1014, 0 0 22px ${BLUE}33`,
                                             }}
                                         >
                                             <span className="text-sm font-bold md:text-base" style={{ color: GREEN }}>{step.num}</span>
@@ -679,8 +670,9 @@ export default function AIIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel text="FAQ" />
-                        <h2 className="max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-white md:text-4xl">
-                            The common questions.
+                        <h2 className="display-section-title max-w-2xl text-center">
+                            <span className="display-muted-line">The</span>
+                            <span className="display-strong-line">common questions.</span>
                         </h2>
                     </motion.div>
 
@@ -700,7 +692,7 @@ export default function AIIntelligencePage() {
 
                         <aside
                             className="flex h-fit flex-col gap-5 rounded-2xl p-6"
-                            style={{ background: "rgba(8,1,28,0.55)", border: "1px solid rgba(255,255,255,0.07)" }}
+                            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
                         >
                             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">AI system notes</span>
                             <ul className="flex flex-col gap-4">
@@ -733,29 +725,19 @@ export default function AIIntelligencePage() {
                     transition={{ duration: 0.8, ease: EASE }}
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 text-center"
                 >
-                    <h2 className="text-3xl font-extrabold leading-[1.05] tracking-tight text-white md:text-5xl">
-                        Intelligence becomes infrastructure — <span className="jakarta-italic">not a toolset.</span>
+                    <h2 className="display-section-title max-w-2xl text-center">
+                        <span className="display-muted-line">Intelligence becomes</span>
+                        <span className="display-strong-line">infrastructure, not a toolset.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        The companies treating AI as a layer — not a feature — are the ones compounding. Let's design yours.
+                        The companies treating AI as a layer — not a feature — are the ones compounding. Let&apos;s design yours.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer"
-                            style={{
-                                background: "linear-gradient(135deg, rgba(114,200,245,0.08), rgba(155,47,255,0.08))",
-                                boxShadow: "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)",
-                            }}
-                            onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 20px rgba(114,200,245,0.28), 0 0 20px rgba(155,47,255,0.22), inset 0 0 0 1px rgba(114,200,245,0.4)";
-                            }}
-                            onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                                    "0 0 10px rgba(114,200,245,0.1), 0 0 10px rgba(155,47,255,0.08), inset 0 0 0 1px rgba(114,200,245,0.18)";
-                            }}
+                            className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
+                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
                         >
                             Book Your AI Strategy Session
                         </button>
