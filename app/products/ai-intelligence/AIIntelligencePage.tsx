@@ -241,12 +241,6 @@ const FAQS = [
     { q: "What happens after launch?", a: "Continuous-optimisation packages cover monitoring, drift detection, prompt + model iteration, and expansion of coverage into adjacent workflows. AI systems compound, we keep them compounding." },
 ];
 
-const SYSTEM_NOTES = [
-    { label: "Integration compatibility", body: "REST / GraphQL APIs, webhooks, native CRM + warehouse connectors." },
-    { label: "Data requirements", body: "Structured + unstructured. We build the retrieval layer when one doesn't exist." },
-    { label: "Security model", body: "Private deployment, isolated retrieval, no provider training on your inputs." },
-    { label: "Deployment timelines", body: "First production workflow in 4–6 weeks. Full intelligence layer in 8–14 weeks." },
-];
 
 // ── FAQ item ──────────────────────────────────────────────────────────────
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
@@ -676,37 +670,17 @@ export default function AIIntelligencePage() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.4fr_1fr] md:gap-14">
-                        <div className="flex flex-col gap-3">
-                            {FAQS.map((f, i) => (
-                                <FAQItem
-                                    key={f.q}
-                                    q={f.q}
-                                    a={f.a}
-                                    index={i}
-                                    isOpen={openFaq === i}
-                                    onToggle={() => setOpenFaq(openFaq === i ? null : i)}
-                                />
-                            ))}
-                        </div>
-
-                        <aside
-                            className="flex h-fit flex-col gap-5 rounded-2xl p-6"
-                            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
-                        >
-                            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">AI system notes</span>
-                            <ul className="flex flex-col gap-4">
-                                {SYSTEM_NOTES.map((n) => (
-                                    <li key={n.label} className="flex flex-col gap-1.5">
-                                        <div className="flex items-center gap-2.5">
-                                            <span className="h-1.5 w-1.5 rounded-full" style={{ background: GREEN }} />
-                                            <span className="text-sm font-semibold text-white">{n.label}</span>
-                                        </div>
-                                        <p className="pl-[16px] text-xs leading-relaxed text-white/55">{n.body}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </aside>
+                    <div className="flex flex-col gap-3 max-w-3xl mx-auto w-full">
+                        {FAQS.map((f, i) => (
+                            <FAQItem
+                                key={f.q}
+                                q={f.q}
+                                a={f.a}
+                                index={i}
+                                isOpen={openFaq === i}
+                                onToggle={() => setOpenFaq(openFaq === i ? null : i)}
+                            />
+                        ))}
                     </div>
                 </div>
             </section>
