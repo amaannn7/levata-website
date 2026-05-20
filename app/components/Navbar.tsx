@@ -83,7 +83,7 @@ const drawerContainerVariants = {
 };
 
 const drawerItemVariants = {
-    open: { opacity: 1, y: 0, transition: { duration: 0.32, ease: [0.16, 1, 0.3, 1] } },
+    open: { opacity: 1, y: 0, transition: { duration: 0.32, ease: EASE } },
     closed: { opacity: 0, y: 10 },
 };
 
@@ -146,7 +146,7 @@ function DrawerExpandable({
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ height: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }, opacity: { duration: 0.2, ease: "easeOut" } }}
+                        transition={{ height: { duration: 0.3, ease: EASE }, opacity: { duration: 0.2, ease: "easeOut" } }}
                         style={{ overflow: "hidden" }}
                     >
                         <div className="pb-4 pl-1">{children}</div>
@@ -451,7 +451,7 @@ export default function Navbar() {
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
                             transition={{
-                                height: { duration: 0.42, ease: [0.16, 1, 0.3, 1] },
+                                height: { duration: 0.42, ease: EASE },
                                 opacity: { duration: 0.22, ease: "easeOut" },
                             }}
                             style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
