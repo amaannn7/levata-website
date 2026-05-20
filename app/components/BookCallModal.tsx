@@ -165,7 +165,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
 
 function FormField({ field }: { field: Field }) {
     const baseInput =
-        "w-full rounded-lg bg-white/[0.03] px-3.5 py-2.5 text-sm text-white placeholder:text-white/30 transition-colors focus:outline-none";
+        "w-full rounded-lg bg-white/[0.03] px-3.5 py-2.5 text-base text-white placeholder:text-white/30 transition-colors focus:outline-none";
     const styleInput: React.CSSProperties = {
         border: "1px solid rgba(255,255,255,0.10)",
     };

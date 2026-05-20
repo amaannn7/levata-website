@@ -306,7 +306,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                         {/* Number input */}
                                         <input
                                             type="tel"
-                                            className="w-full bg-transparent px-4 py-3.5 text-sm text-white placeholder:text-white/25 focus:outline-none"
+                                            className="w-full bg-transparent px-4 py-3.5 text-base text-white placeholder:text-white/25 focus:outline-none"
                                             placeholder="512 345 6789"
                                         />
                                     </div>
@@ -318,7 +318,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                         Message <span className="text-white/25">*</span>
                                     </label>
                                     <textarea
-                                        className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-white placeholder:text-white/25 transition-colors focus:border-white/22 focus:outline-none"
+                                        className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-base text-white placeholder:text-white/25 transition-colors focus:border-white/22 focus:outline-none"
                                         placeholder="Tell us about your project: scope, timeline, goals..."
                                         rows={5}
                                     />
@@ -370,7 +370,7 @@ function Field({ label, required = false, placeholder, type = "text" }: {
             </label>
             <input
                 type={type}
-                className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-white placeholder:text-white/25 transition-colors focus:border-white/22 focus:outline-none"
+                className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-base text-white placeholder:text-white/25 transition-colors focus:border-white/22 focus:outline-none"
                 placeholder={placeholder}
             />
         </div>
