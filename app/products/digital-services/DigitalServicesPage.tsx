@@ -236,9 +236,9 @@ const LEAKAGE = [
 
 const REVENUE_FLOW = [
     { num: "01", title: "Strategy", body: "Define the revenue thesis before a single pixel is drawn." },
-    { num: "02", title: "UX", body: "Flows engineered for action — not aesthetics for their own sake." },
+    { num: "02", title: "UX", body: "Flows engineered for action, not aesthetics for their own sake." },
     { num: "03", title: "Development", body: "Production-grade build on a stack that scales without surprises." },
-    { num: "04", title: "AI", body: "Search, recommendations, personalisation — intelligence in the user path." },
+    { num: "04", title: "AI", body: "Search, recommendations, personalisation, intelligence in the user path." },
     { num: "05", title: "Optimisation", body: "Continuous experimentation against revenue metrics." },
 ];
 
@@ -247,15 +247,15 @@ const SUB_SERVICES = [
         num: "01",
         title: "Website Development",
         eyebrow: "Conversion-first",
-        body: "We build websites that convert. Every design decision and CTA placement is informed by conversion psychology and AI-driven insights. From landing pages to full brand websites — strategy, UX, design, development, CMS, SEO, and tracking included.",
-        bullets: ["Conversion strategy and UX architecture", "Custom design — no templates", "Performance-optimised development", "CMS integration and team training", "SEO foundations and technical setup", "Analytics, heatmaps, and conversion tracking"],
+        body: "We build websites that convert. Every design decision and CTA placement is informed by conversion psychology and AI-driven insights. From landing pages to full brand websites, strategy, UX, design, development, CMS, SEO, and tracking included.",
+        bullets: ["Conversion strategy and UX architecture", "Custom design, no templates", "Performance-optimised development", "CMS integration and team training", "SEO foundations and technical setup", "Analytics, heatmaps, and conversion tracking"],
         visual: "browser",
     },
     {
         num: "02",
         title: "Platform Development",
         eyebrow: "Scale-ready",
-        body: "Client portals, SaaS products, internal tools, and multi-sided marketplaces — built with the engineering depth to do it correctly. Performant under load, secure by design, and on a technical foundation that scales with your business model.",
+        body: "Client portals, SaaS products, internal tools, and multi-sided marketplaces, built with the engineering depth to do it correctly. Performant under load, secure by design, and on a technical foundation that scales with your business model.",
         bullets: ["Platform architecture and technical scoping", "UX/UI design for complex user flows", "Full-stack development and API design", "Database architecture and optimisation", "Authentication, permissions, and security", "Third-party integrations and performance testing"],
         visual: "architecture",
     },
@@ -263,7 +263,7 @@ const SUB_SERVICES = [
         num: "03",
         title: "E-commerce Development",
         eyebrow: "Revenue engine",
-        body: "We build e-commerce experiences that sell. Every element — product discovery, merchandising, cart, checkout, and post-purchase — is designed around conversion rate, average order value, and lifetime customer value. AI personalisation and smart search included.",
+        body: "We build e-commerce experiences that sell. Every element, product discovery, merchandising, cart, checkout, and post-purchase, is designed around conversion rate, average order value, and lifetime customer value. AI personalisation and smart search included.",
         bullets: ["Platform strategy, selection, and custom design", "Checkout optimisation and payment integration", "AI product recommendations and smart search", "Inventory, fulfilment, and ERP integrations", "Email/SMS automation setup", "Analytics and revenue attribution"],
         visual: "storefront",
     },
@@ -271,7 +271,7 @@ const SUB_SERVICES = [
         num: "04",
         title: "Custom Systems",
         eyebrow: "Bespoke infrastructure",
-        body: "When your requirements don't fit off-the-shelf software, we build it. Proprietary data management tools, internal operations platforms, client-facing portals, and business intelligence infrastructure — engineered precisely for how your business works.",
+        body: "When your requirements don't fit off-the-shelf software, we build it. Proprietary data management tools, internal operations platforms, client-facing portals, and business intelligence infrastructure, engineered precisely for how your business works.",
         bullets: ["Requirements analysis and systems design", "Custom database and data architecture", "Business logic and rules engine development", "User interface and admin panel design", "Integration with existing business systems", "Security, compliance, access control, and documentation"],
         visual: "blueprint",
     },
@@ -281,14 +281,14 @@ const OUTCOME_METRICS = [
     { value: 3, suffix: "×", label: "Avg conversion rate improvement" },
     { value: 99.9, suffix: "%", label: "Uptime SLA on all platforms", decimals: 1 },
     { value: 40, suffix: "%", label: "Avg e-commerce revenue lift in 6 months" },
-    { value: 0, symbol: "∞", label: "Scale ceiling — built to grow" },
+    { value: 0, symbol: "∞", label: "Scale ceiling, built to grow" },
 ];
 
 const PIPELINE = [
     { num: "01", title: "Strategy & Requirements", body: "Define revenue thesis, scope, and success metrics before a single decision is made." },
-    { num: "02", title: "UX & Design", body: "Flows, prototype, and conversion-optimised design — every screen built for action." },
+    { num: "02", title: "UX & Design", body: "Flows, prototype, and conversion-optimised design, every screen built for action." },
     { num: "03", title: "Development & Integration", body: "Production build with continuous deployment and all third-party integrations wired in." },
-    { num: "04", title: "QA & Performance Testing", body: "Performance, accessibility, security, and load testing — nothing ships until it passes." },
+    { num: "04", title: "QA & Performance Testing", body: "Performance, accessibility, security, and load testing, nothing ships until it passes." },
     { num: "05", title: "Launch & Optimisation", body: "Go-live, instrumentation, and ongoing conversion optimisation post-launch." },
 ];
 
@@ -304,9 +304,9 @@ const UPTIME_BADGES = [
 ];
 
 const FAQS = [
-    { q: "What platforms and technologies do you use?", a: "We choose the stack that fits your business — not our comfort zone. Next.js, Shopify, Medusa, Payload CMS, Sanity, Postgres, Vercel, and AWS are common selections. Every project gets a considered rationale before a line of code is written." },
-    { q: "Can you work with our existing website?", a: "Yes. We handle full migrations, redesigns, and incremental improvements. We map redirects, preserve SEO equity, and migrate content cleanly — whether you're on WordPress, Webflow, Wix, or a custom legacy stack." },
-    { q: "Can we self-manage the platform after launch?", a: "Always. We build for handoff — full CMS control, documentation, and team training are standard. If you want ongoing management or optimisation, we offer that too." },
+    { q: "What platforms and technologies do you use?", a: "We choose the stack that fits your business, not our comfort zone. Next.js, Shopify, Medusa, Payload CMS, Sanity, Postgres, Vercel, and AWS are common selections. Every project gets a considered rationale before a line of code is written." },
+    { q: "Can you work with our existing website?", a: "Yes. We handle full migrations, redesigns, and incremental improvements. We map redirects, preserve SEO equity, and migrate content cleanly, whether you're on WordPress, Webflow, Wix, or a custom legacy stack." },
+    { q: "Can we self-manage the platform after launch?", a: "Always. We build for handoff, full CMS control, documentation, and team training are standard. If you want ongoing management or optimisation, we offer that too." },
     { q: "What are your typical project timelines?", a: "Marketing sites take 4–8 weeks. Platforms and custom systems run 10–20 weeks depending on scope and integration complexity. We scope every project in detail before committing to a timeline." },
 ];
 
@@ -411,7 +411,7 @@ export default function DigitalServicesPage() {
                         <span className="display-strong-line">built to work hard.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        We don&apos;t build websites. We engineer digital systems — high-performance, AI-integrated platforms designed to generate revenue, qualify leads, and serve customers at a level that separates you from every competitor.
+                        We don&apos;t build websites. We engineer digital systems, high-performance, AI-integrated platforms designed to generate revenue, qualify leads, and serve customers at a level that separates you from every competitor.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -428,7 +428,7 @@ export default function DigitalServicesPage() {
                 <HeroHorizon />
             </section>
 
-            {/* ── 2. PROBLEM — Revenue leakage panels ── */}
+            {/* ── 2. PROBLEM, Revenue leakage panels ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -491,7 +491,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* ── 3. APPROACH — Revenue engineering vertical flow ── */}
+            {/* ── 3. APPROACH, Revenue engineering vertical flow ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
@@ -573,7 +573,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* ── 4. SUB-SERVICES — Alternating enterprise sections ── */}
+            {/* ── 4. SUB-SERVICES, Alternating enterprise sections ── */}
             <section id="sub-services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -639,7 +639,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* ── 5. OUTCOMES — Horizontal metrics strip ── */}
+            {/* ── 5. OUTCOMES, Horizontal metrics strip ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -678,7 +678,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* ── 6. DELIVERY PROCESS — Pipeline ── */}
+            {/* ── 6. DELIVERY PROCESS, Pipeline ── */}
             <section id="process" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -734,7 +734,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* ── 7. FAQ — 2-column with stack badges ── */}
+            {/* ── 7. FAQ, 2-column with stack badges ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div

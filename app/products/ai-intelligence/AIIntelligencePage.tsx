@@ -180,10 +180,10 @@ const FAILURES = [
 ];
 
 const LAYERS = [
-    { num: "01", title: "Data Mapping", body: "Inventory the signals, sources, and structures that matter — before any model touches them." },
+    { num: "01", title: "Data Mapping", body: "Inventory the signals, sources, and structures that matter, before any model touches them." },
     { num: "02", title: "Decision Design", body: "Define the decisions AI should make, the ones humans keep, and the audit trail between them." },
     { num: "03", title: "AI Integration Layer", body: "Models, prompts, and guardrails wired into the systems your team already operates in." },
-    { num: "04", title: "Workflow Intelligence", body: "Intelligent routing across the work itself — prioritisation, escalation, summarisation, action." },
+    { num: "04", title: "Workflow Intelligence", body: "Intelligent routing across the work itself, prioritisation, escalation, summarisation, action." },
     { num: "05", title: "Continuous Optimisation", body: "Feedback loops that improve precision, cost, and coverage over time. Intelligence as infrastructure, not a one-time install." },
 ];
 
@@ -192,7 +192,7 @@ const SUB_SERVICES = [
         num: "01",
         title: "AI Integration",
         eyebrow: "Connected intelligence",
-        body: "Wire AI into the systems your team already runs in — CRM, database, workflow tools — without rebuilding the stack underneath.",
+        body: "Wire AI into the systems your team already runs in, CRM, database, workflow tools, without rebuilding the stack underneath.",
         bullets: ["CRM + AI orchestration", "Database-aware retrieval", "Workflow trigger automation", "Audit-grade observability"],
     },
     {
@@ -213,7 +213,7 @@ const SUB_SERVICES = [
         num: "04",
         title: "Custom AI Solutions",
         eyebrow: "Bespoke models",
-        body: "Fine-tuned models, custom data pipelines, predictive systems — built when off-the-shelf intelligence isn't enough.",
+        body: "Fine-tuned models, custom data pipelines, predictive systems, built when off-the-shelf intelligence isn't enough.",
         bullets: ["Fine-tuning on proprietary data", "Custom data pipelines", "Predictive & forecasting systems", "Private deployment"],
     },
 ];
@@ -234,11 +234,11 @@ const LIFECYCLE = [
 ];
 
 const FAQS = [
-    { q: "Do we need to be \"AI-ready\" to start?", a: "No. The Readiness Assessment is designed to surface gaps and quick wins simultaneously — most engagements ship a usable AI workflow in the first 4–6 weeks while the longer-horizon foundation is built in parallel." },
-    { q: "Which models do you use?", a: "Frontier (Claude, GPT, Gemini) for general reasoning. Fine-tuned open-source (Llama, Mistral) when latency, cost, or data residency demand it. We pick the model that fits the job — not the other way around." },
+    { q: "Do we need to be \"AI-ready\" to start?", a: "No. The Readiness Assessment is designed to surface gaps and quick wins simultaneously, most engagements ship a usable AI workflow in the first 4–6 weeks while the longer-horizon foundation is built in parallel." },
+    { q: "Which models do you use?", a: "Frontier (Claude, GPT, Gemini) for general reasoning. Fine-tuned open-source (Llama, Mistral) when latency, cost, or data residency demand it. We pick the model that fits the job, not the other way around." },
     { q: "Where does our data live?", a: "Your infrastructure by default. Private deployment, isolated retrieval, no model-provider training on your inputs. SOC 2 / ISO 27001 alignment available on request." },
     { q: "How do you measure AI success?", a: "Decision quality, time-to-decision, automation coverage, and ROI against the baseline you defined in the assessment. Vanity metrics like \"messages generated\" don't count." },
-    { q: "What happens after launch?", a: "Continuous-optimisation packages cover monitoring, drift detection, prompt + model iteration, and expansion of coverage into adjacent workflows. AI systems compound — we keep them compounding." },
+    { q: "What happens after launch?", a: "Continuous-optimisation packages cover monitoring, drift detection, prompt + model iteration, and expansion of coverage into adjacent workflows. AI systems compound, we keep them compounding." },
 ];
 
 const SYSTEM_NOTES = [
@@ -364,7 +364,7 @@ export default function AIIntelligencePage() {
                 <HeroHorizon />
             </section>
 
-            {/* ── 2. PROBLEM — 3 failure modes (clean cards, no icons) ── */}
+            {/* ── 2. PROBLEM, 3 failure modes (clean cards, no icons) ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -408,7 +408,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ── 3. APPROACH — Centered statement + 5-row inline list ── */}
+            {/* ── 3. APPROACH, Centered statement + 5-row inline list ── */}
             <section id="approach" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
@@ -451,7 +451,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ── 4. AI STACK — 2×2 capability grid, no mock visuals ── */}
+            {/* ── 4. AI STACK, 2×2 capability grid, no mock visuals ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -500,7 +500,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ── 5. FEATURED PRODUCT — Sales Intelligence dashboard spotlight ── */}
+            {/* ── 5. FEATURED PRODUCT, Sales Intelligence dashboard spotlight ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -529,14 +529,14 @@ export default function AIIntelligencePage() {
                             className="grid grid-cols-1 gap-8 rounded-2xl p-5 sm:p-7 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-12 md:p-10"
                             style={{ background: "rgba(23,26,34,0.98)" }}
                         >
-                            {/* Left — copy */}
+                            {/* Left, copy */}
                             <div className="flex flex-col gap-5">
                                 <h3 className="text-2xl font-semibold leading-tight text-white md:text-3xl">
                                     Sales Intelligence Platform
                                 </h3>
                                 <p className="max-w-md text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                                     Turn leads into qualified pipeline in hours, not days. AI research, lead scoring,
-                                    and outreach — wired into the workspace your team runs in.
+                                    and outreach, wired into the workspace your team runs in.
                                 </p>
                                 <ul className="flex flex-col gap-2.5">
                                     {["AI prospect research", "Lead prioritisation", "Automated outreach"].map((b) => (
@@ -555,7 +555,7 @@ export default function AIIntelligencePage() {
                                 </Link>
                             </div>
 
-                            {/* Right — dashboard */}
+                            {/* Right, dashboard */}
                             <div>
                                 <SalesIntelligenceDashboard />
                             </div>
@@ -564,7 +564,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ── 6. OUTCOMES — KPI strip ── */}
+            {/* ── 6. OUTCOMES, KPI strip ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -589,7 +589,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ── 7. DELIVERY PROCESS — Zig-zag rail with alternating steps ── */}
+            {/* ── 7. DELIVERY PROCESS, Zig-zag rail with alternating steps ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-5xl">
                     <motion.div
@@ -607,13 +607,13 @@ export default function AIIntelligencePage() {
                     </motion.div>
 
                     <div className="relative">
-                        {/* Mobile spine — left edge */}
+                        {/* Mobile spine, left edge */}
                         <div
                             aria-hidden
                             className="pointer-events-none absolute left-6 top-2 bottom-2 w-px md:hidden"
                             style={{ background: `linear-gradient(to bottom, transparent, ${BLUE}55 6%, ${BLUE}55 94%, transparent)` }}
                         />
-                        {/* Desktop spine — center */}
+                        {/* Desktop spine, center */}
                         <div
                             aria-hidden
                             className="pointer-events-none absolute left-1/2 top-2 bottom-2 hidden -translate-x-1/2 md:block"
@@ -632,7 +632,7 @@ export default function AIIntelligencePage() {
                                         transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
                                         className="relative flex items-start gap-4 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-8"
                                     >
-                                        {/* Node — mobile left, desktop center */}
+                                        {/* Node, mobile left, desktop center */}
                                         <div
                                             className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full md:order-2 md:h-14 md:w-14"
                                             style={{
@@ -644,7 +644,7 @@ export default function AIIntelligencePage() {
                                             <span className="text-sm font-bold md:text-base" style={{ color: GREEN }}>{step.num}</span>
                                         </div>
 
-                                        {/* Content card — mobile right of node; desktop alternates left/right */}
+                                        {/* Content card, mobile right of node; desktop alternates left/right */}
                                         <div className={`flex-1 md:order-${isLeft ? "1" : "3"} ${isLeft ? "md:text-right" : "md:text-left"}`}>
                                             <StepCard step={step} />
                                         </div>
@@ -659,7 +659,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ── 8. FAQ — Split with simplified sidebar ── */}
+            {/* ── 8. FAQ, Split with simplified sidebar ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -711,7 +711,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ── 9. FINAL CTA — Clean centered, gradient divider ── */}
+            {/* ── 9. FINAL CTA, Clean centered, gradient divider ── */}
             <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
                 <div
                     aria-hidden
@@ -730,7 +730,7 @@ export default function AIIntelligencePage() {
                         <span className="display-strong-line">infrastructure, not a toolset.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        The companies treating AI as a layer — not a feature — are the ones compounding. Let&apos;s design yours.
+                        The companies treating AI as a layer, not a feature, are the ones compounding. Let&apos;s design yours.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button

@@ -259,7 +259,7 @@ export default function Navbar() {
                         </span>
                     </Link>
 
-                    {/* Center links — desktop only */}
+                    {/* Center links, desktop only */}
                     <div className="hidden md:flex items-center gap-8">
 
                         {/* Services dropdown trigger */}
@@ -407,7 +407,7 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    {/* Right — Contact (desktop) + Hamburger (mobile) */}
+                    {/* Right, Contact (desktop) + Hamburger (mobile) */}
                     <div className="flex items-center gap-3">
                         <Link
                             href="/contact"
@@ -417,7 +417,7 @@ export default function Navbar() {
                             Contact Us
                         </Link>
 
-                        {/* Hamburger — mobile only, animates to X */}
+                        {/* Hamburger, mobile only, animates to X */}
                         <button
                             type="button"
                             className="md:hidden flex h-10 w-10 flex-col items-center justify-center gap-[5px] -mr-1.5"
@@ -441,7 +441,7 @@ export default function Navbar() {
                     </div>
                 </nav>
 
-                {/* ── Mobile menu — drops down inside the pill ── */}
+                {/* ── Mobile menu, drops down inside the pill ── */}
                 <AnimatePresence initial={false}>
                     {mobileOpen && (
                         <motion.div
@@ -466,7 +466,7 @@ export default function Navbar() {
                                 initial="closed"
                                 animate="open"
                             >
-                                {/* Services — expandable */}
+                                {/* Services, expandable */}
                                 <motion.div variants={drawerItemVariants}>
                                     <DrawerExpandable
                                         label="Services"
@@ -489,7 +489,7 @@ export default function Navbar() {
                                     </DrawerExpandable>
                                 </motion.div>
 
-                                {/* Products — expandable */}
+                                {/* Products, expandable */}
                                 <motion.div variants={drawerItemVariants}>
                                     <DrawerExpandable
                                         label="Products"

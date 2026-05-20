@@ -7,9 +7,9 @@ import BookCallProvider from "./components/BookCallProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Levata — Digital Solutions & Software",
+  title: "Levata, Digital Solutions & Software",
   description:
-    "Levata builds digital products, platforms, and automation that move ambitious businesses forward — engineered to compound, not just ship.",
+    "Levata builds digital products, platforms, and automation that move ambitious businesses forward, engineered to compound, not just ship.",
 };
 
 export default function RootLayout({

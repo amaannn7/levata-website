@@ -87,7 +87,7 @@ const WHY_ITEMS = [
     {
         Icon: IconLayersDiagram,
         title: "AI-native from the ground up",
-        body: "Intelligence is designed into everything — not bolted on.",
+        body: "Intelligence is designed into everything, not bolted on.",
     },
     {
         Icon: IconE2EDiagram,
@@ -97,7 +97,7 @@ const WHY_ITEMS = [
     {
         Icon: IconLoopDiagram,
         title: "Continuous partnership model",
-        body: "We monitor, optimise, and improve after delivery — always.",
+        body: "We monitor, optimise, and improve after delivery, always.",
     },
     {
         Icon: IconBarsDiagram,
@@ -192,7 +192,7 @@ export default function AboutPage() {
                         className="mx-auto max-w-2xl text-center text-base leading-relaxed text-white/55 md:text-[1.05rem]"
                     >
                         We founded Levata to close the gap between powerful AI technology and the businesses
-                        that need it most. Not through software subscriptions or one-off projects — but as a
+                        that need it most. Not through software subscriptions or one-off projects, but as a
                         genuine systems partner with end-to-end accountability for every outcome we promise.
                     </motion.p>
 
@@ -250,7 +250,7 @@ export default function AboutPage() {
                         </h2>
                         <p className="max-w-xl text-base text-white/45 leading-relaxed md:text-[1.05rem]">
                             A focused team of strategists, engineers, and AI specialists obsessed with shipping
-                            outcomes — not deliverables.
+                            outcomes, not deliverables.
                         </p>
                     </motion.div>
 

@@ -7,7 +7,7 @@ import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
- * Cinematic text reveal — lines slide up from behind overflow-hidden clip masks.
+ * Cinematic text reveal, lines slide up from behind overflow-hidden clip masks.
  * Each line is a masked wrapper; words inside stagger for a cascading effect.
  * Lenis smooth scroll is handled in SmoothScrollProvider (already wired).
  *
@@ -57,7 +57,7 @@ export default function TextReveal() {
                     !!el.textContent?.trim()
             );
 
-            // FAQ question spans — always visible in DOM, safe to split
+            // FAQ question spans, always visible in DOM, safe to split
             const faqSpans = Array.from(
                 document.querySelectorAll<HTMLElement>("[data-faq-item] button > span:first-child")
             );

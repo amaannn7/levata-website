@@ -90,7 +90,7 @@ function SectionDivider() {
     );
 }
 
-// ── Two-row opposing marquee — Tech Stack (replaces the old tab grid) ─────
+// ── Two-row opposing marquee, Tech Stack (replaces the old tab grid) ─────
 type TechItem = { name: string; Icon: React.ComponentType<{ size?: number; className?: string }> };
 
 const TECH_ROW_TOP: TechItem[] = [
@@ -173,7 +173,7 @@ function TechStackSection() {
                         <span className="display-strong-line">compounds.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/45 md:text-[1.05rem]">
-                        Battle-tested infrastructure paired with cutting-edge AI — chosen for longevity, not novelty.
+                        Battle-tested infrastructure paired with cutting-edge AI, chosen for longevity, not novelty.
                     </p>
                 </div>
 
@@ -193,11 +193,11 @@ const PRODUCT_FEATURES = [
     "Personalized cold email and follow-up generation in seconds",
     "Call scripts tailored to prospect, role, and industry",
     "Work queues that surface the right leads at the right time",
-    "CRM sync — push qualified opportunities directly into your pipeline",
+    "CRM sync, push qualified opportunities directly into your pipeline",
 ];
 
 // ── Service icons (monochrome line-art glyph + sparkle) ───────────────────
-// `accent` prop kept for backwards compat but ignored — all homepage icons render in white.
+// `accent` prop kept for backwards compat but ignored, all homepage icons render in white.
 function ServiceIcon({ kind, size = 26 }: { kind: IconKind; accent?: string; size?: number }) {
     const ICON_COLOR = "var(--home-accent-cyan, #4B91F7)";
     const sparkle = (
@@ -277,7 +277,7 @@ const SERVICE_CARDS: Array<{
 }> = [
         {
             title: "Digital Products",
-            description: "MVP development with AI built in from day one — validated and launched in weeks.",
+            description: "MVP development with AI built in from day one, validated and launched in weeks.",
             subServices: [
                 "AI-native MVP development",
                 "Validated product launches",
@@ -330,7 +330,7 @@ const SERVICE_CARDS: Array<{
     ];
 
 // ── Service card primitives (icon square + sub-services + learn-more) ────
-// Monochrome icon square — no accent color, no radial-glow halo, no boxShadow.
+// Monochrome icon square, no accent color, no radial-glow halo, no boxShadow.
 // `accent` prop kept for backwards compat but ignored.
 function ServiceIconSquare({ icon, size = "md" }: { icon: IconKind; accent?: string; size?: "sm" | "md" }) {
     const dims = size === "sm" ? "h-11 w-11" : "h-14 w-14";
@@ -361,7 +361,7 @@ function ServiceLearnMore({ label, href }: { label: string; href: string }) {
     );
 }
 
-// Featured 2×2 card — split content (text left, image placeholder right on lg+)
+// Featured 2×2 card, split content (text left, image placeholder right on lg+)
 // ── Services accordion (Joidy-style: image left, expandable list right) ──
 function ServicesAccordion() {
     const [active, setActive] = useState<number | null>(0);
@@ -450,7 +450,7 @@ function ServicesExplorer() {
     const card = SERVICE_CARDS[active];
     return (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[0.7fr_1.3fr] md:gap-12 lg:gap-16 items-start">
-            {/* LEFT — clickable list */}
+            {/* LEFT, clickable list */}
             <div className="flex flex-col">
                 {SERVICE_CARDS.map((s, i) => {
                     const isActive = active === i;
@@ -491,7 +491,7 @@ function ServicesExplorer() {
                 })}
             </div>
 
-            {/* RIGHT — active detail panel */}
+            {/* RIGHT, active detail panel */}
             <div
                 className="rounded-2xl p-7 md:p-9"
                 style={{
@@ -603,14 +603,14 @@ function ServicesCarousel() {
                             {String(i + 1).padStart(2, "0")}
                         </span>
 
-                        {/* Radial glow — fades in on hover */}
+                        {/* Radial glow, fades in on hover */}
                         <div
                             aria-hidden
                             className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                             style={{ background: "radial-gradient(ellipse 70% 55% at 30% 100%, rgba(75,145,247,0.09) 0%, transparent 65%)" }}
                         />
 
-                        {/* Top bar — icon + number badge */}
+                        {/* Top bar, icon + number badge */}
                         <div className="relative z-10 flex items-center justify-between md:absolute md:left-7 md:right-7 md:top-7">
                             <div
                                 className="flex h-11 w-11 items-center justify-center rounded-xl transition-colors duration-400"
@@ -626,7 +626,7 @@ function ServicesCarousel() {
                             </span>
                         </div>
 
-                        {/* Title — lifts on hover at md+; in normal flow on mobile */}
+                        {/* Title, lifts on hover at md+; in normal flow on mobile */}
                         <div
                             className="relative z-10 mt-auto md:absolute md:bottom-7 md:left-7 md:right-7 md:mt-0 md:transition-transform md:duration-[400ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:-translate-y-[76px]"
                         >
@@ -635,7 +635,7 @@ function ServicesCarousel() {
                             </h3>
                         </div>
 
-                        {/* Description + CTA — always visible on mobile; hover-reveal on md+ */}
+                        {/* Description + CTA, always visible on mobile; hover-reveal on md+ */}
                         <div
                             className="relative z-10 md:absolute md:bottom-7 md:left-7 md:right-7 md:translate-y-3 md:opacity-0 md:transition-all md:duration-[400ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:translate-y-0 md:group-hover:opacity-100"
                         >
@@ -669,7 +669,7 @@ const MONO_STROKE = "var(--home-diagram-stroke, rgba(255,255,255,0.65))";
 const MONO_FILL = "var(--home-diagram-fill, rgba(255,255,255,0.08))";
 
 function IconLayersDiagram() {
-    // 3 stacked horizontal layers with embedded nodes — represents AI-native foundation
+    // 3 stacked horizontal layers with embedded nodes, represents AI-native foundation
     return (
         <svg width="80" height="36" viewBox="0 0 80 36" fill="none" aria-hidden>
             <rect x="10" y="6" width="60" height="6" rx="2" fill={MONO_FILL} stroke={MONO_STROKE} strokeWidth="1.2" />
@@ -760,20 +760,20 @@ const WHY_LEVATA: Array<{
     {
         num: "01",
         title: "AI-Native From Day One",
-        body: "Every system we build has AI at its core — not bolted on later. Strategy, architecture, and execution all compound over time.",
+        body: "Every system we build has AI at its core, not bolted on later. Strategy, architecture, and execution all compound over time.",
         tags: ["INTELLIGENT SYSTEMS", "AI STRATEGY", "NO CODE LIMITS"],
     },
     {
         num: "02",
         title: "End-to-End, One Team",
-        body: "Strategy, design, engineering, and growth — all under one roof with one shared goal. No handoffs. No gaps.",
+        body: "Strategy, design, engineering, and growth, all under one roof with one shared goal. No handoffs. No gaps.",
         tags: ["FULL-STACK", "ONE TEAM", "NO HAND-OFFS"],
         featured: true,
     },
     {
         num: "03",
         title: "Outcomes Over Outputs",
-        body: "We commit to measurable results — pipeline growth, conversion lift, ops cost reduction. Not deliverables. Not sprints.",
+        body: "We commit to measurable results, pipeline growth, conversion lift, ops cost reduction. Not deliverables. Not sprints.",
         tags: ["PIPELINE GROWTH", "ROI-DRIVEN", "ALWAYS-ON"],
     },
     {
@@ -788,7 +788,7 @@ const WHY_LEVATA: Array<{
 const PAIN_POINTS: Array<{ title: string; desc: string }> = [
     {
         title: "Manual operations bleeding hours",
-        desc: "Your team spends their best hours on tasks that should run automatically — reporting, data entry, follow-ups.",
+        desc: "Your team spends their best hours on tasks that should run automatically, reporting, data entry, follow-ups.",
     },
     {
         title: "No single source of truth",
@@ -1059,12 +1059,12 @@ export default function HeroSection() {
                         </h2>
                         <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-lg">
                             Levata designs and operates integrated AI systems built specifically for your business model
-                            and growth trajectory. Strategy, technology, automation, and digital experience — all
+                            and growth trajectory. Strategy, technology, automation, and digital experience, all
                             coordinated under one team, one vision, and one accountability structure.
                         </p>
                     </motion.div>
 
-                    {/* Flow diagram — horizontal on md+, vertical on mobile */}
+                    {/* Flow diagram, horizontal on md+, vertical on mobile */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -1095,7 +1095,7 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* §5 Featured Product moved to §7 — see below */}
+            {/* §5 Featured Product moved to §7, see below */}
 
             {/* ── 4. SERVICE CATEGORIES (Horizontal carousel) ──── */}
             <section id="services" className="home-theme-dark relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-28 overflow-hidden">
@@ -1134,7 +1134,7 @@ export default function HeroSection() {
                         <span className="display-strong-line">into your business.</span>
                     </h2>
                     <p className="max-w-xl text-sm leading-relaxed text-white/55 md:text-base">
-                        Book a free strategy call. We&apos;ll map out exactly what your business needs — no commitment required.
+                        Book a free strategy call. We&apos;ll map out exactly what your business needs, no commitment required.
                     </p>
                     <div className="flex flex-col items-center gap-3 sm:flex-row">
                         <button
@@ -1165,7 +1165,7 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* ── 7. FEATURED PRODUCT — Sales Intelligence Platform ── */}
+            {/* ── 7. FEATURED PRODUCT, Sales Intelligence Platform ── */}
             <section className="home-theme-dark relative w-full px-6 pt-20 pb-10 md:pt-24 md:pb-14 overflow-hidden">
                 <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0" style={{
@@ -1189,7 +1189,7 @@ export default function HeroSection() {
                         <span className="display-strong-line">Built for B2B Teams.</span>
                     </h2>
                     <p className="max-w-2xl text-sm leading-relaxed text-white/45 md:text-base">
-                        Turn your raw lead list into a researched, prioritized, and actionable pipeline — in hours,
+                        Turn your raw lead list into a researched, prioritized, and actionable pipeline, in hours,
                         not days.
                     </p>
                 </motion.div>

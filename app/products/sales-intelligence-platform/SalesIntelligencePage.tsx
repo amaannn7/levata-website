@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
-// ── Image placeholder (matches homepage helper — drop a real <Image> later) ──
+// ── Image placeholder (matches homepage helper, drop a real <Image> later) ──
 function ImagePlaceholder({
     aspect = "16 / 9",
     label = "Image placeholder",
@@ -44,7 +44,7 @@ function ImagePlaceholder({
     );
 }
 
-// ── §2 Problem — line-art icons (one per pain) ────────────────────────────
+// ── §2 Problem, line-art icons (one per pain) ────────────────────────────
 function IconResearchClock() {
     return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -245,7 +245,7 @@ const CAPABILITIES: Array<{
         {
             title: "AI Prospect Research",
             description:
-                "Generate structured sales intelligence for any lead in seconds — not hours. Company profiles, industry challenges, buying signals, likely pain points, success metrics, opening hooks, and discovery questions. All the context your rep needs before picking up the phone or hitting send.",
+                "Generate structured sales intelligence for any lead in seconds, not hours. Company profiles, industry challenges, buying signals, likely pain points, success metrics, opening hooks, and discovery questions. All the context your rep needs before picking up the phone or hitting send.",
             bullets: [
                 "Company profile and industry landscape",
                 "Pain points, buying power, and success metrics",
@@ -257,7 +257,7 @@ const CAPABILITIES: Array<{
         },
         {
             title: "Lead Scoring & Prioritization",
-            description: "Not all leads deserve equal attention. The platform scores and grades every prospect against your ideal customer profile — by industry, role, company size, geography, and enrichment data — so your reps always know who to contact first.",
+            description: "Not all leads deserve equal attention. The platform scores and grades every prospect against your ideal customer profile, by industry, role, company size, geography, and enrichment data, so your reps always know who to contact first.",
             bullets: [
                 "ICP scoring with fit grades and engagement scores",
                 "Lead temperature and activity velocity tracking",
@@ -269,7 +269,7 @@ const CAPABILITIES: Array<{
         },
         {
             title: "Personalized Email & Follow-Up Generation",
-            description: "Generate tailored outreach emails in seconds — initial cold email, first follow-up, second follow-up, and breakup email. Every email uses prospect data, research insights, prior email history, and your tone preferences to produce messages that actually get replies.",
+            description: "Generate tailored outreach emails in seconds, initial cold email, first follow-up, second follow-up, and breakup email. Every email uses prospect data, research insights, prior email history, and your tone preferences to produce messages that actually get replies.",
             bullets: [
                 "Cold email, follow-up 1 & 2, and breakup email generation",
                 "Tone preferences and custom instruction support",
@@ -281,7 +281,7 @@ const CAPABILITIES: Array<{
         },
         {
             title: "Call Script Generation",
-            description: "Walk into every call prepared. The platform generates structured call scripts for cold calls, follow-ups, callbacks, discovery calls, and demo introductions — tailored to the specific prospect, role, company, and industry.",
+            description: "Walk into every call prepared. The platform generates structured call scripts for cold calls, follow-ups, callbacks, discovery calls, and demo introductions, tailored to the specific prospect, role, company, and industry.",
             bullets: [
                 "Scripts for cold call, follow-up, discovery, and demo",
                 "Prospect and industry-specific talking points",
@@ -293,7 +293,7 @@ const CAPABILITIES: Array<{
         },
         {
             title: "Prioritized Work Queues & Daily Planning",
-            description: "The platform surfaces exactly who to contact and when — eliminating the daily guesswork of deciding what to work on. Hot leads, stalled prospects, overdue callbacks, and research-ready contacts are all surfaced automatically.",
+            description: "The platform surfaces exactly who to contact and when, eliminating the daily guesswork of deciding what to work on. Hot leads, stalled prospects, overdue callbacks, and research-ready contacts are all surfaced automatically.",
             bullets: [
                 "Daily call, email, and research targets with completion streaks",
                 "Hot leads, stalled leads, and overdue callback queues",
@@ -305,7 +305,7 @@ const CAPABILITIES: Array<{
         },
         {
             title: "CRM Integration & Sales Workflow Tracking",
-            description: "Push qualified opportunities directly into your CRM with field-mapped sync. Track every stage of the sales workflow — from first research to qualified deal — with full email history, call outcomes, notes, and meeting records stored against each lead.",
+            description: "Push qualified opportunities directly into your CRM with field-mapped sync. Track every stage of the sales workflow, from first research to qualified deal, with full email history, call outcomes, notes, and meeting records stored against each lead.",
             bullets: [
                 "Full CRM integration with OAuth, field mapping, and sync history",
                 "Lead stages: new, researched, emailed, called, qualified, disqualified",
@@ -335,9 +335,9 @@ const OUTCOMES = [
 
 const STEPS = [
     { num: "01", title: "Import or Add Leads", body: "Upload a CSV lead list or add prospects individually. Contact and company data stored in one clean record.", accent: "#4B91F7" },
-    { num: "02", title: "Run AI Research", body: "Generate a complete prospect intelligence brief in seconds — pain points, hooks, buying signals, and discovery questions.", accent: "#4B91F7" },
+    { num: "02", title: "Run AI Research", body: "Generate a complete prospect intelligence brief in seconds, pain points, hooks, buying signals, and discovery questions.", accent: "#4B91F7" },
     { num: "03", title: "Score & Prioritize", body: "The system grades each lead against your ICP and surfaces the highest-value opportunities first.", accent: "#4B91F7" },
-    { num: "04", title: "Generate Outreach", body: "Create personalized cold emails, follow-ups, and call scripts in one click — tailored to each prospect.", accent: "#4B91F7" },
+    { num: "04", title: "Generate Outreach", body: "Create personalized cold emails, follow-ups, and call scripts in one click, tailored to each prospect.", accent: "#4B91F7" },
     { num: "05", title: "Track & Log", body: "Log emails sent, call outcomes, follow-up dates, and meeting results. Never lose track of where a lead stands.", accent: "#4B91F7" },
     { num: "06", title: "Qualify & Push to CRM", body: "Move qualified leads directly into your CRM with full data sync. Keep your pipeline clean and current.", accent: "#4B91F7" },
 ];
@@ -345,7 +345,7 @@ const STEPS = [
 const FAQS = [
     {
         q: "Is this a CRM replacement?",
-        a: "No — it's a prospecting and outreach layer designed to sit on top of your existing CRM. We push qualified opportunities into your CRM, not replace it.",
+        a: "No, it's a prospecting and outreach layer designed to sit on top of your existing CRM. We push qualified opportunities into your CRM, not replace it.",
     },
     {
         q: "What CRMs do you integrate with?",
@@ -353,7 +353,7 @@ const FAQS = [
     },
     {
         q: "How does the AI research work?",
-        a: "The system uses the lead's contact and company data to generate structured sales intelligence — covering profile, pain points, buying signals, hooks, and questions — in seconds.",
+        a: "The system uses the lead's contact and company data to generate structured sales intelligence, covering profile, pain points, buying signals, hooks, and questions, in seconds.",
     },
     {
         q: "Can multiple reps use the platform?",
@@ -461,7 +461,7 @@ export default function SalesIntelligencePage() {
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                         The AI-powered sales workspace for B2B teams. Research prospects, prioritize leads, generate
-                        personalized outreach, and push qualified opportunities into your CRM — all from one place.
+                        personalized outreach, and push qualified opportunities into your CRM, all from one place.
                     </p>
                     <div className="mt-2">
                         <button
@@ -752,7 +752,7 @@ export default function SalesIntelligencePage() {
 
                     {/* Horizontal stepped flow */}
                     <div className="relative">
-                        {/* Connecting line — lg+ only, behind the badge row */}
+                        {/* Connecting line, lg+ only, behind the badge row */}
                         <div
                             aria-hidden
                             className="pointer-events-none absolute hidden lg:block lg:left-0 lg:right-0"
@@ -869,7 +869,7 @@ export default function SalesIntelligencePage() {
                     <SectionLabel text="Ship pipeline" />
                     <h2 className="display-section-title max-w-2xl text-center">
                         <span className="display-muted-line">Your reps should be</span>
-                        <span className="display-strong-line">closing — not researching.</span>
+                        <span className="display-strong-line">closing, not researching.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-lg">
                         Give your team the AI workspace that does the heavy lifting before every email and every call.

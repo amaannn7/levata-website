@@ -29,7 +29,7 @@ export default function ContactPage() {
                 }}
             />
 
-            {/* Hero — cursor-reactive orbs + Lyzr typography */}
+            {/* Hero, cursor-reactive orbs + Lyzr typography */}
             <ContactHero />
 
             {/* Form */}

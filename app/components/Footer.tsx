@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaLinkedinIn, FaInstagram, FaFacebookF, FaXTwitter } from "react-icons/fa6";
+import { FaLinkedinIn, FaInstagram, FaFacebookF } from "react-icons/fa6";
 import { useBookCall } from "@/app/components/BookCallProvider";
 
 const SERVICES = [
@@ -28,7 +28,6 @@ const LEGAL = [
 
 const SOCIALS = [
     { icon: <FaLinkedinIn size={13} />, href: "https://www.linkedin.com/company/levatahq/", label: "LinkedIn" },
-    { icon: <FaXTwitter size={13} />, href: "https://x.com/levatahq", label: "X" },
     { icon: <FaInstagram size={13} />, href: "https://instagram.com/levatahq", label: "Instagram" },
     { icon: <FaFacebookF size={13} />, href: "https://www.facebook.com/levatahq", label: "Facebook" },
 ];
@@ -61,7 +60,7 @@ export default function Footer() {
                 {/* Main footer body */}
                 <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:grid-cols-2 md:grid-cols-[1.7fr_1fr_1fr_1fr_1fr] md:gap-8 md:py-14">
 
-                    {/* Brand column — full width on mobile */}
+                    {/* Brand column, full width on mobile */}
                     <div className="col-span-2 flex flex-col gap-5 md:col-span-1">
                         <Link href="/" className="flex items-center gap-2.5 w-fit">
                             <div className="overflow-hidden rounded-lg flex-shrink-0" style={{ width: 36, height: 36 }}>

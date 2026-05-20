@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const BLUE = "#4B91F7";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// ── Kept exports — used by HeroSection ────────────────────────────────────
+// ── Kept exports, used by HeroSection ────────────────────────────────────
 export function ArrowIcon() {
     return (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -30,7 +30,7 @@ export function CircleArrow({ label = "Learn More", prominent = false }: { accen
     );
 }
 
-// ── Kept mockup exports — used by HeroSection ─────────────────────────────
+// ── Kept mockup exports, used by HeroSection ─────────────────────────────
 export function DashboardMockup({ accent }: { accent: string }) {
     return (
         <div className="relative h-full w-full">
@@ -171,14 +171,14 @@ const SERVICES = [
     {
         num: "02",
         name: "Sales Intelligence Platform",
-        description: "The AI sales workspace for B2B teams — research, prioritize, outreach, and close.",
+        description: "The AI sales workspace for B2B teams, research, prioritize, outreach, and close.",
         href: "/products/sales-intelligence-platform",
         Icon: IconTarget,
     },
     {
         num: "03",
         name: "Digital Products",
-        description: "MVP development with AI built in from day one — validated and launched in weeks.",
+        description: "MVP development with AI built in from day one, validated and launched in weeks.",
         href: "/products/digital-products",
         Icon: IconBox,
     },
@@ -238,7 +238,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
                     style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(75,145,247,0.07) 0%, transparent 70%)" }}
                 />
 
-                {/* Default view — fades out on hover */}
+                {/* Default view, fades out on hover */}
                 <div className="relative z-10 flex flex-1 flex-col transition-opacity duration-300 group-hover:opacity-0">
                     <div className="flex items-start justify-between">
                         <span
@@ -254,7 +254,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
                     </div>
                 </div>
 
-                {/* Reveal panel — slides up from bottom on hover */}
+                {/* Reveal panel, slides up from bottom on hover */}
                 <div
                     aria-hidden={false}
                     className="absolute inset-0 z-20 flex translate-y-full flex-col justify-between rounded-2xl p-7 transition-transform duration-[380ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0"

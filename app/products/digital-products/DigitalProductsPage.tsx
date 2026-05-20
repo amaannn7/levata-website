@@ -127,15 +127,15 @@ function IconChip() {
 const FAILURE_STAGES = [
     { num: "01", title: "Too slow", body: "By the time a standard agency delivers your MVP, the market has shifted and your assumptions have changed.", Icon: IconHourglass },
     { num: "02", title: "Wrong thing first", body: "Without validated scoping, teams build beautiful products nobody wants. Months of dev. Zero traction.", Icon: IconBlocks },
-    { num: "03", title: "Technical debt", body: "Rushed MVPs create infrastructure that can't scale — requiring costly rebuilds just as you gain momentum.", Icon: IconRefresh },
+    { num: "03", title: "Technical debt", body: "Rushed MVPs create infrastructure that can't scale, requiring costly rebuilds just as you gain momentum.", Icon: IconRefresh },
 ];
 
 const FRAMEWORK = [
     { title: "Validation-first", body: "We test demand before we write code. Real signal, real users." },
-    { title: "AI-native architecture", body: "Intelligence woven into every layer — not bolted on as an afterthought." },
+    { title: "AI-native architecture", body: "Intelligence woven into every layer, not bolted on as an afterthought." },
     { title: "Agile build cycles", body: "Two-week sprints, working software in your hands every fortnight." },
     { title: "Analytics integration", body: "Instrumented from day one. Every action measured, every funnel mapped." },
-    { title: "Scale readiness", body: "Architecture built to compound — handles 10× growth without a rewrite." },
+    { title: "Scale readiness", body: "Architecture built to compound, handles 10× growth without a rewrite." },
 ];
 
 const BUILD_TIMELINE = [
@@ -148,9 +148,9 @@ const BUILD_TIMELINE = [
 
 const PROCESS_STEPS = [
     { num: "01", title: "Discovery & Validation", body: "Pressure-test the idea against the market; define core value proposition and success metrics before building anything." },
-    { num: "02", title: "Design Sprint & Prototype", body: "Clickable prototype tested with real target users — before a single line of production code is written." },
+    { num: "02", title: "Design Sprint & Prototype", body: "Clickable prototype tested with real target users, before a single line of production code is written." },
     { num: "03", title: "Agile Build Cycles", body: "2-week sprints, shipping working software continuously so you see real product at every stage." },
-    { num: "04", title: "AI Integration Layer", body: "AI capabilities are architected and integrated during development — native to the product's core experience." },
+    { num: "04", title: "AI Integration Layer", body: "AI capabilities are architected and integrated during development, native to the product's core experience." },
     { num: "05", title: "Launch & Post-MVP Roadmap", body: "Managed deployment, analytics activation, and a prioritized roadmap based on real user behaviour." },
 ];
 
@@ -162,10 +162,10 @@ const FOUNDER_CONSIDERATIONS = [
 ];
 
 const FAQS = [
-    { q: "What's included in an MVP and what's left for later?", a: "We scope collaboratively — the core feature set needed to validate your value proposition. Everything else is clearly documented in a post-MVP roadmap." },
-    { q: "Will the MVP be scalable?", a: "Yes. We architect for scale from day one — infrastructure, codebase, and data architecture designed to support 10× and 100× growth without fundamental rebuilds." },
-    { q: "Who owns the IP and code?", a: "You do — completely. All code, designs, and intellectual property are transferred to you in full at project completion. No lock-in." },
-    { q: "What if we need to pivot after launch?", a: "Pivots happen — that's the nature of early-stage products. We build MVPs that are architecturally flexible and maintain post-launch partnerships to support and guide pivots when data demands them." },
+    { q: "What's included in an MVP and what's left for later?", a: "We scope collaboratively, the core feature set needed to validate your value proposition. Everything else is clearly documented in a post-MVP roadmap." },
+    { q: "Will the MVP be scalable?", a: "Yes. We architect for scale from day one, infrastructure, codebase, and data architecture designed to support 10× and 100× growth without fundamental rebuilds." },
+    { q: "Who owns the IP and code?", a: "You do, completely. All code, designs, and intellectual property are transferred to you in full at project completion. No lock-in." },
+    { q: "What if we need to pivot after launch?", a: "Pivots happen, that's the nature of early-stage products. We build MVPs that are architecturally flexible and maintain post-launch partnerships to support and guide pivots when data demands them." },
 ];
 
 // ── FAQ item ──────────────────────────────────────────────────────────────
@@ -247,7 +247,7 @@ export default function DigitalProductsPage() {
                         <span className="display-strong-line">Faster than you thought.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        We design and build digital products that validate your market, attract your first users, and create the foundation for scale — without the 18-month timeline or six-figure burn rate.
+                        We design and build digital products that validate your market, attract your first users, and create the foundation for scale, without the 18-month timeline or six-figure burn rate.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -264,7 +264,7 @@ export default function DigitalProductsPage() {
                 <HeroHorizon />
             </section>
 
-            {/* ── 2. PROBLEM — Horizontal startup failure timeline ── */}
+            {/* ── 2. PROBLEM, Horizontal startup failure timeline ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -338,12 +338,12 @@ export default function DigitalProductsPage() {
                         transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
                         className="mt-14 text-center text-sm text-white/45 md:text-base"
                     >
-                        <span className="font-bold" style={{ color: GREEN }}>70%</span> of software MVPs fail at one of these stages — usually before a single real user gets value. The fix is validation-first, AI-native development.
+                        <span className="font-bold" style={{ color: GREEN }}>70%</span> of software MVPs fail at one of these stages, usually before a single real user gets value. The fix is validation-first, AI-native development.
                     </motion.p>
                 </div>
             </section>
 
-            {/* ── 3. APPROACH — Sticky left + scrolling right ─── */}
+            {/* ── 3. APPROACH, Sticky left + scrolling right ─── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
@@ -363,7 +363,7 @@ export default function DigitalProductsPage() {
                                 <span className="display-strong-line">that prove themselves.</span>
                             </h2>
                             <p className="max-w-md text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                                Lean startup principles combined with AI-accelerated execution — shipping real product in weeks, not months, with AI built into every layer from day one.
+                                Lean startup principles combined with AI-accelerated execution, shipping real product in weeks, not months, with AI built into every layer from day one.
                             </p>
                         </motion.div>
 
@@ -393,7 +393,7 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* ── 4. MVP DEVELOPMENT — Editorial split layout ── */}
+            {/* ── 4. MVP DEVELOPMENT, Editorial split layout ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -410,7 +410,7 @@ export default function DigitalProductsPage() {
                                 <span className="display-strong-line">Six weeks.</span>
                             </h2>
                             <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                                A focused MVP build that puts working software in front of real users fast — with the
+                                A focused MVP build that puts working software in front of real users fast, with the
                                 architecture and instrumentation to scale once you have signal.
                             </p>
                         </div>
@@ -434,7 +434,7 @@ export default function DigitalProductsPage() {
                         >
                             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Included</span>
                             <ul className="flex flex-col gap-3">
-                                {["Product strategy and market validation workshop", "Feature scoping and priority matrix (core vs. post-MVP)", "UX/UI design — research-led and conversion-optimised", "Full-stack development (web and/or mobile)", "AI feature integration baked in from the start", "Analytics and user tracking from day one", "Production deployment, infrastructure setup, and post-launch roadmap"].map((item) => (
+                                {["Product strategy and market validation workshop", "Feature scoping and priority matrix (core vs. post-MVP)", "UX/UI design, research-led and conversion-optimised", "Full-stack development (web and/or mobile)", "AI feature integration baked in from the start", "Analytics and user tracking from day one", "Production deployment, infrastructure setup, and post-launch roadmap"].map((item) => (
                                     <li key={item} className="flex items-start gap-3 text-sm text-white">
                                         <span aria-hidden className="mt-1 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full" style={{ background: `${BLUE}14`, border: `1px solid ${BLUE}40` }}>
                                             <IconCheck />
@@ -445,7 +445,7 @@ export default function DigitalProductsPage() {
                             </ul>
                         </motion.div>
 
-                        {/* OUTCOMES — bigger card */}
+                        {/* OUTCOMES, bigger card */}
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -536,7 +536,7 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* ── 5. OUTCOMES — 2×2 oversized KPI grid ──────── */}
+            {/* ── 5. OUTCOMES, 2×2 oversized KPI grid ──────── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(75,145,247,0.05) 0%, transparent 65%)",
@@ -565,7 +565,7 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* ── 6. DELIVERY PROCESS — Vertical process journey ── */}
+            {/* ── 6. DELIVERY PROCESS, Vertical process journey ── */}
             <section id="process" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -628,7 +628,7 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* ── 7. FAQ — Accordion + Founder sidebar ───── */}
+            {/* ── 7. FAQ, Accordion + Founder sidebar ───── */}
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -703,7 +703,7 @@ export default function DigitalProductsPage() {
                         <span className="display-strong-line">than a long quote.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-lg">
-                        Go from concept to market in weeks — with AI built in from day one.
+                        Go from concept to market in weeks, with AI built in from day one.
                     </p>
                     <div className="flex flex-col items-center gap-2.5 sm:flex-row">
                         <button

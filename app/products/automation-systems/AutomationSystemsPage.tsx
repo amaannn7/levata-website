@@ -108,7 +108,7 @@ const SUB_AUTOMATION = [
         num: "01",
         title: "Eliminate Manual Operations at Scale",
         eyebrow: "Business automation",
-        body: "We map every repetitive, manual process in your operation and replace it with a reliable automated workflow. Onboarding, invoicing, approvals, reporting, data entry — all systematised, audited, and running without human intervention.",
+        body: "We map every repetitive, manual process in your operation and replace it with a reliable automated workflow. Onboarding, invoicing, approvals, reporting, data entry, all systematised, audited, and running without human intervention.",
         bullets: [
             "End-to-end onboarding and provisioning workflows",
             "Invoice generation, approval routing, and payment tracking",
@@ -123,7 +123,7 @@ const SUB_AUTOMATION = [
         num: "02",
         title: "AI-Powered Process Intelligence",
         eyebrow: "Workflow automation",
-        body: "AI decision engines that prioritise, route, and escalate work without human input. Lead scoring, support ticket triage, exception handling — all powered by intelligent branching logic that learns from your business rules and outcomes.",
+        body: "AI decision engines that prioritise, route, and escalate work without human input. Lead scoring, support ticket triage, exception handling, all powered by intelligent branching logic that learns from your business rules and outcomes.",
         bullets: [
             "AI-powered lead scoring and territory routing",
             "Support ticket classification and priority triage",
@@ -138,7 +138,7 @@ const SUB_AUTOMATION = [
         num: "03",
         title: "Real-Time Intelligence for Every Decision",
         eyebrow: "Dashboard systems",
-        body: "A single pane of glass for everyone who runs the business. Custom KPI dashboards, live operational metrics, anomaly alerts, and cross-system drilldowns — all updating in real time so decisions are based on facts, not yesterday's report.",
+        body: "A single pane of glass for everyone who runs the business. Custom KPI dashboards, live operational metrics, anomaly alerts, and cross-system drilldowns, all updating in real time so decisions are based on facts, not yesterday's report.",
         bullets: [
             "Executive and operational KPI dashboards",
             "Real-time anomaly detection and alerting",
@@ -159,7 +159,7 @@ const OPS_METRICS = [
 ];
 
 const DEPLOYMENT = [
-    { num: "01", title: "Operations Audit", body: "A full inventory of every process, tool, and manual handoff — with bottlenecks ranked by impact and automation potential." },
+    { num: "01", title: "Operations Audit", body: "A full inventory of every process, tool, and manual handoff, with bottlenecks ranked by impact and automation potential." },
     { num: "02", title: "Architecture & Tool Selection", body: "We design the automation architecture and select the right stack, matching tools to your existing systems and scale requirements." },
     { num: "03", title: "Build & Test in Staging", body: "All workflows, integrations, and AI logic are built and stress-tested in a staging environment before any production exposure." },
     { num: "04", title: "Phased Production Deployment", body: "We deploy in phases, validating performance and stability at each step before expanding coverage to the next process." },
@@ -170,9 +170,9 @@ const DEPLOYMENT = [
 const FAQS = [
     { q: "Will this work with our existing tools?", a: "Yes. We integrate with Salesforce, HubSpot, NetSuite, QuickBooks, Slack, Notion, Linear, Zendesk, Stripe, and any system with a REST or GraphQL API. We build custom connectors where native integrations don't exist." },
     { q: "What happens if an automation encounters an error?", a: "Every workflow has error handling and alerting built in. Critical failures trigger immediate notifications to your team with detailed logs, so nothing fails silently and every issue can be diagnosed and resolved quickly." },
-    { q: "Can you automate processes that require human judgment?", a: "Yes — through human-in-the-loop checkpoints. The automation handles routing, data gathering, and preparation; a human makes the decision at defined escalation points. You get the efficiency without removing the oversight." },
+    { q: "Can you automate processes that require human judgment?", a: "Yes, through human-in-the-loop checkpoints. The automation handles routing, data gathering, and preparation; a human makes the decision at defined escalation points. You get the efficiency without removing the oversight." },
     { q: "What data sources can you connect to?", a: "Any system with an API, database connector, or webhook. We also work with legacy systems that require custom ETL pipelines, file-based integrations, or screen-capture automation as a last resort." },
-    { q: "How long does implementation typically take?", a: "First production workflows ship in 3–6 weeks. Full operational coverage typically takes 3–6 months, deployed in phases so you see value at every step — not just at the end." },
+    { q: "How long does implementation typically take?", a: "First production workflows ship in 3–6 weeks. Full operational coverage typically takes 3–6 months, deployed in phases so you see value at every step, not just at the end." },
 ];
 
 // ── FAQ item ──────────────────────────────────────────────────────────────
@@ -378,7 +378,7 @@ export default function AutomationSystemsPage() {
                         <span className="display-strong-line">Amplify the People.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Every hour your team spends on manual, repetitive tasks is an hour not spent on strategy, growth, or the work that actually moves the needle. We build the systems that eliminate the manual layer — so your team can operate at their highest value.
+                        Every hour your team spends on manual, repetitive tasks is an hour not spent on strategy, growth, or the work that actually moves the needle. We build the systems that eliminate the manual layer, so your team can operate at their highest value.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -395,7 +395,7 @@ export default function AutomationSystemsPage() {
                 <HeroHorizon />
             </section>
 
-            {/* ── 2. PROBLEM — Disconnected systems ── */}
+            {/* ── 2. PROBLEM, Disconnected systems ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -417,7 +417,7 @@ export default function AutomationSystemsPage() {
                             <span className="display-strong-line">are a tax on growth.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            Every hour your team spends on repetitive, manual tasks is an hour not invested in the work that scales. Most businesses are running on spreadsheets, copy-paste, and tribal knowledge — with no automation layer and no system of record.
+                            Every hour your team spends on repetitive, manual tasks is an hour not invested in the work that scales. Most businesses are running on spreadsheets, copy-paste, and tribal knowledge, with no automation layer and no system of record.
                         </p>
                     </motion.div>
 
@@ -495,7 +495,7 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 3. APPROACH — Architecture map ── */}
+            {/* ── 3. APPROACH, Architecture map ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
@@ -514,7 +514,7 @@ export default function AutomationSystemsPage() {
                             <span className="display-strong-line">automation blueprint.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            We don&apos;t automate processes in isolation. We design the full automation architecture — from a complete operations audit to AI decision logic on top of every workflow — then deploy in phases so the value compounds.
+                            We don&apos;t automate processes in isolation. We design the full automation architecture, from a complete operations audit to AI decision logic on top of every workflow, then deploy in phases so the value compounds.
                         </p>
                     </motion.div>
 
@@ -571,7 +571,7 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 4. SUB-SERVICES — Alternating ── */}
+            {/* ── 4. SUB-SERVICES, Alternating ── */}
             <section id="sub-services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -633,7 +633,7 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 5. OUTCOMES — Real-time dashboard ── */}
+            {/* ── 5. OUTCOMES, Real-time dashboard ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -670,7 +670,7 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 6. DELIVERY PROCESS — Deployment roadmap ── */}
+            {/* ── 6. DELIVERY PROCESS, Deployment roadmap ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
@@ -724,7 +724,7 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 7. FAQ — Console style ── */}
+            {/* ── 7. FAQ, Console style ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div

@@ -5,7 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 
-// ── Fibonacci sphere — even node distribution ──────────────────────────────
+// ── Fibonacci sphere, even node distribution ──────────────────────────────
 function fibSphere(n: number): THREE.Vector3[] {
     const pts: THREE.Vector3[] = [];
     const phi = Math.PI * (3 - Math.sqrt(5));
@@ -47,7 +47,7 @@ const STREAM_DATA = (() => {
 const NODE_COLORS = ["#4B91F7", "#4B91F7", "#4B91F7", "#4B91F7", "#4B91F7",
     "#4B91F7", "#4B91F7", "#7B55EA", "#7B55EA", "#7B55EA"] as const;
 
-// ── GlobeGrid — lat/long digital-earth grid lines (progressive reveal) ────
+// ── GlobeGrid, lat/long digital-earth grid lines (progressive reveal) ────
 const GRID_SEG = 96;
 const GRID_LAT_COUNT = 5;
 const GRID_LNG_COUNT = 8;
@@ -113,7 +113,7 @@ function GlobeGrid() {
     );
 }
 
-// ── EnergyCore — pulsing AI processing core ───────────────────────────────
+// ── EnergyCore, pulsing AI processing core ───────────────────────────────
 function EnergyCore() {
     const innerRef = useRef<THREE.Mesh>(null);
     const outerRef = useRef<THREE.Mesh>(null);
@@ -145,7 +145,7 @@ function EnergyCore() {
     );
 }
 
-// ── NeuralNodes — 80 instanced pulsing nodes ──────────────────────────────
+// ── NeuralNodes, 80 instanced pulsing nodes ──────────────────────────────
 function NeuralNodes() {
     const geo = useMemo(() => new THREE.SphereGeometry(0.014, 6, 6), []);
     const mat = useMemo(() => new THREE.MeshBasicMaterial({ vertexColors: true }), []);
@@ -188,7 +188,7 @@ function NeuralNodes() {
     return <instancedMesh ref={meshRef} args={[geo, mat, 80]} />;
 }
 
-// ── ConnectionLines — single LineSegments buffer ──────────────────────────
+// ── ConnectionLines, single LineSegments buffer ──────────────────────────
 function ConnectionLines() {
     const geo = useMemo(() => {
         const verts: number[] = [];
@@ -212,7 +212,7 @@ function ConnectionLines() {
     );
 }
 
-// ── DataStreams — 8 animated glowing packets ──────────────────────────────
+// ── DataStreams, 8 animated glowing packets ──────────────────────────────
 function DataStreams() {
     const meshRefs = useRef<(THREE.Mesh | null)[]>([]);
 
@@ -240,7 +240,7 @@ function DataStreams() {
     );
 }
 
-// ── OrbitalRings — 3 rings, each carrying a wireframe satellite ───────────
+// ── OrbitalRings, 3 rings, each carrying a wireframe satellite ───────────
 const RING_CONFIGS = [
     { tilt: [1.2, 0, 0] as const, radius: 1.42, tube: 0.006, color: "#4B91F7", opacity: 0.6, spin: 0.003 },
     { tilt: [0.5, 0.6, Math.PI / 3] as const, radius: 1.58, tube: 0.005, color: "#7B55EA", opacity: 0.45, spin: -0.0022 },
@@ -272,12 +272,12 @@ function OrbitalRings() {
                     ref={(el) => { groupRefs.current[i] = el; }}
                     rotation={cfg.tilt}
                 >
-                    {/* Ring torus — lies in local XY plane */}
+                    {/* Ring torus, lies in local XY plane */}
                     <mesh>
                         <torusGeometry args={[cfg.radius, cfg.tube, 12, 160]} />
                         <meshBasicMaterial color={cfg.color} transparent opacity={cfg.opacity} />
                     </mesh>
-                    {/* Satellite — sits on the ring at local +X, rides with the ring's Z spin */}
+                    {/* Satellite, sits on the ring at local +X, rides with the ring's Z spin */}
                     <mesh
                         ref={(el) => { satRefs.current[i] = el; }}
                         position={[cfg.radius, 0, 0]}
@@ -291,7 +291,7 @@ function OrbitalRings() {
     );
 }
 
-// ── Starfield — distant constellation backdrop (back hemisphere only) ─────
+// ── Starfield, distant constellation backdrop (back hemisphere only) ─────
 function Starfield() {
     const geo = useMemo(() => {
         const N = 140;
@@ -317,7 +317,7 @@ function Starfield() {
     );
 }
 
-// ── GlobeScene — master group: auto-spin + mouse parallax ─────────────────
+// ── GlobeScene, master group: auto-spin + mouse parallax ─────────────────
 function GlobeScene() {
     const groupRef = useRef<THREE.Group>(null);
     const mouse = useRef({ x: 0, y: 0 });
@@ -359,7 +359,7 @@ function GlobeScene() {
     );
 }
 
-// ── AIGlobe — main export ──────────────────────────────────────────────────
+// ── AIGlobe, main export ──────────────────────────────────────────────────
 export default function AIGlobe() {
     return (
         <Canvas

@@ -234,7 +234,7 @@ export default function HomeHero() {
             {/* Content layer (left text / right cards) */}
             <div className="relative z-20 mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 pb-20 pt-28 sm:px-10 sm:pb-24 md:gap-14 md:pt-32 lg:grid-cols-[1fr_400px] lg:gap-20 lg:min-h-[min(100vh,880px)] lg:px-16 lg:py-0 xl:px-20">
 
-                {/* Left column — text + CTAs */}
+                {/* Left column, text + CTAs */}
                 <div className="flex flex-col items-start text-left">
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
@@ -242,11 +242,11 @@ export default function HomeHero() {
                         transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
                         className="mb-5 md:mb-6"
                     >
-                        {/* Mobile eyebrow — plain uppercase */}
+                        {/* Mobile eyebrow, plain uppercase */}
                         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50 md:hidden">
                             Digital Solutions &amp; Software
                         </p>
-                        {/* Desktop eyebrow — animated SectionLabel */}
+                        {/* Desktop eyebrow, animated SectionLabel */}
                         <div className="hidden md:block">
                             <SectionLabel text="Digital Solutions & Software" />
                         </div>
@@ -270,7 +270,7 @@ export default function HomeHero() {
                         className="mt-5 max-w-[560px]"
                     >
                         <p className="text-sm leading-relaxed text-white/55 md:text-base">
-                            Levata builds AI systems and automation that transform how your business operates — not just supports it.
+                            Levata builds AI systems and automation that transform how your business operates, not just supports it.
                         </p>
                     </motion.div>
 
@@ -292,7 +292,7 @@ export default function HomeHero() {
                     </motion.div>
                 </div>
 
-                {/* Right column — AI Intelligence Globe */}
+                {/* Right column, AI Intelligence Globe */}
                 <div className="relative hidden md:flex md:items-center justify-center w-full lg:max-w-[360px]" aria-hidden>
                     <motion.div
                         className="w-full"

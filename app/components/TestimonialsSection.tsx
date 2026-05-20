@@ -6,7 +6,7 @@ const TESTIMONIALS = [
     {
         company: "SaaS",
         quote:
-            "Levata didn't build us a website — they built a client acquisition system. Qualified leads tripled in 90 days.",
+            "Levata didn't build us a website, they built a client acquisition system. Qualified leads tripled in 90 days.",
         author: "CEO",
         role: "SaaS Company",
     },
