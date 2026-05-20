@@ -232,7 +232,7 @@ export default function HomeHero() {
                 style={{ background: "radial-gradient(ellipse 70% 55% at 50% -5%, rgba(75,145,247,0.06) 0%, transparent 60%)" }}
             />
             {/* Content layer (left text / right cards) */}
-            <div className="relative z-20 mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 pb-14 pt-[calc(60px+9.5vw)] sm:px-10 sm:pb-20 md:gap-14 md:pt-32 lg:grid-cols-[1fr_400px] lg:gap-20 lg:min-h-[min(100vh,880px)] lg:px-16 lg:py-0 xl:px-20">
+            <div className="relative z-20 mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 pb-20 pt-28 sm:px-10 sm:pb-24 md:gap-14 md:pt-32 lg:grid-cols-[1fr_400px] lg:gap-20 lg:min-h-[min(100vh,880px)] lg:px-16 lg:py-0 xl:px-20">
 
                 {/* Left column — text + CTAs */}
                 <div className="flex flex-col items-start text-left">
