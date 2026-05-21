@@ -1,7 +1,10 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
+import { COUNTRIES } from "@/app/lib/countries";
+
+type Status = "idle" | "loading" | "success" | "error";
 
 // Icons
 function ChevronIcon() {
@@ -19,144 +22,6 @@ function PlusIcon() {
         </svg>
     );
 }
-
-// Countries
-const COUNTRIES = [
-    { code: "af", dial: "+93", name: "Afghanistan" },
-    { code: "al", dial: "+355", name: "Albania" },
-    { code: "dz", dial: "+213", name: "Algeria" },
-    { code: "ao", dial: "+244", name: "Angola" },
-    { code: "ar", dial: "+54", name: "Argentina" },
-    { code: "am", dial: "+374", name: "Armenia" },
-    { code: "au", dial: "+61", name: "Australia" },
-    { code: "at", dial: "+43", name: "Austria" },
-    { code: "az", dial: "+994", name: "Azerbaijan" },
-    { code: "bh", dial: "+973", name: "Bahrain" },
-    { code: "bd", dial: "+880", name: "Bangladesh" },
-    { code: "by", dial: "+375", name: "Belarus" },
-    { code: "be", dial: "+32", name: "Belgium" },
-    { code: "bz", dial: "+501", name: "Belize" },
-    { code: "bo", dial: "+591", name: "Bolivia" },
-    { code: "ba", dial: "+387", name: "Bosnia and Herzegovina" },
-    { code: "bw", dial: "+267", name: "Botswana" },
-    { code: "br", dial: "+55", name: "Brazil" },
-    { code: "bn", dial: "+673", name: "Brunei" },
-    { code: "bg", dial: "+359", name: "Bulgaria" },
-    { code: "kh", dial: "+855", name: "Cambodia" },
-    { code: "cm", dial: "+237", name: "Cameroon" },
-    { code: "ca", dial: "+1", name: "Canada" },
-    { code: "cl", dial: "+56", name: "Chile" },
-    { code: "cn", dial: "+86", name: "China" },
-    { code: "co", dial: "+57", name: "Colombia" },
-    { code: "cd", dial: "+243", name: "Congo (DRC)" },
-    { code: "cr", dial: "+506", name: "Costa Rica" },
-    { code: "hr", dial: "+385", name: "Croatia" },
-    { code: "cu", dial: "+53", name: "Cuba" },
-    { code: "cy", dial: "+357", name: "Cyprus" },
-    { code: "cz", dial: "+420", name: "Czech Republic" },
-    { code: "dk", dial: "+45", name: "Denmark" },
-    { code: "do", dial: "+1", name: "Dominican Republic" },
-    { code: "ec", dial: "+593", name: "Ecuador" },
-    { code: "eg", dial: "+20", name: "Egypt" },
-    { code: "sv", dial: "+503", name: "El Salvador" },
-    { code: "ee", dial: "+372", name: "Estonia" },
-    { code: "et", dial: "+251", name: "Ethiopia" },
-    { code: "fi", dial: "+358", name: "Finland" },
-    { code: "fr", dial: "+33", name: "France" },
-    { code: "ge", dial: "+995", name: "Georgia" },
-    { code: "de", dial: "+49", name: "Germany" },
-    { code: "gh", dial: "+233", name: "Ghana" },
-    { code: "gr", dial: "+30", name: "Greece" },
-    { code: "gt", dial: "+502", name: "Guatemala" },
-    { code: "hn", dial: "+504", name: "Honduras" },
-    { code: "hk", dial: "+852", name: "Hong Kong" },
-    { code: "hu", dial: "+36", name: "Hungary" },
-    { code: "is", dial: "+354", name: "Iceland" },
-    { code: "in", dial: "+91", name: "India" },
-    { code: "id", dial: "+62", name: "Indonesia" },
-    { code: "ir", dial: "+98", name: "Iran" },
-    { code: "iq", dial: "+964", name: "Iraq" },
-    { code: "ie", dial: "+353", name: "Ireland" },
-    { code: "il", dial: "+972", name: "Israel" },
-    { code: "it", dial: "+39", name: "Italy" },
-    { code: "jm", dial: "+1", name: "Jamaica" },
-    { code: "jp", dial: "+81", name: "Japan" },
-    { code: "jo", dial: "+962", name: "Jordan" },
-    { code: "kz", dial: "+7", name: "Kazakhstan" },
-    { code: "ke", dial: "+254", name: "Kenya" },
-    { code: "kw", dial: "+965", name: "Kuwait" },
-    { code: "kg", dial: "+996", name: "Kyrgyzstan" },
-    { code: "lv", dial: "+371", name: "Latvia" },
-    { code: "lb", dial: "+961", name: "Lebanon" },
-    { code: "ly", dial: "+218", name: "Libya" },
-    { code: "lt", dial: "+370", name: "Lithuania" },
-    { code: "lu", dial: "+352", name: "Luxembourg" },
-    { code: "mg", dial: "+261", name: "Madagascar" },
-    { code: "my", dial: "+60", name: "Malaysia" },
-    { code: "mv", dial: "+960", name: "Maldives" },
-    { code: "mt", dial: "+356", name: "Malta" },
-    { code: "mu", dial: "+230", name: "Mauritius" },
-    { code: "mx", dial: "+52", name: "Mexico" },
-    { code: "md", dial: "+373", name: "Moldova" },
-    { code: "mn", dial: "+976", name: "Mongolia" },
-    { code: "ma", dial: "+212", name: "Morocco" },
-    { code: "mz", dial: "+258", name: "Mozambique" },
-    { code: "mm", dial: "+95", name: "Myanmar" },
-    { code: "na", dial: "+264", name: "Namibia" },
-    { code: "np", dial: "+977", name: "Nepal" },
-    { code: "nl", dial: "+31", name: "Netherlands" },
-    { code: "nz", dial: "+64", name: "New Zealand" },
-    { code: "ni", dial: "+505", name: "Nicaragua" },
-    { code: "ng", dial: "+234", name: "Nigeria" },
-    { code: "no", dial: "+47", name: "Norway" },
-    { code: "om", dial: "+968", name: "Oman" },
-    { code: "pk", dial: "+92", name: "Pakistan" },
-    { code: "pa", dial: "+507", name: "Panama" },
-    { code: "py", dial: "+595", name: "Paraguay" },
-    { code: "pe", dial: "+51", name: "Peru" },
-    { code: "ph", dial: "+63", name: "Philippines" },
-    { code: "pl", dial: "+48", name: "Poland" },
-    { code: "pt", dial: "+351", name: "Portugal" },
-    { code: "qa", dial: "+974", name: "Qatar" },
-    { code: "ro", dial: "+40", name: "Romania" },
-    { code: "ru", dial: "+7", name: "Russia" },
-    { code: "rw", dial: "+250", name: "Rwanda" },
-    { code: "sa", dial: "+966", name: "Saudi Arabia" },
-    { code: "sn", dial: "+221", name: "Senegal" },
-    { code: "rs", dial: "+381", name: "Serbia" },
-    { code: "sg", dial: "+65", name: "Singapore" },
-    { code: "sk", dial: "+421", name: "Slovakia" },
-    { code: "si", dial: "+386", name: "Slovenia" },
-    { code: "so", dial: "+252", name: "Somalia" },
-    { code: "za", dial: "+27", name: "South Africa" },
-    { code: "kr", dial: "+82", name: "South Korea" },
-    { code: "ss", dial: "+211", name: "South Sudan" },
-    { code: "es", dial: "+34", name: "Spain" },
-    { code: "lk", dial: "+94", name: "Sri Lanka" },
-    { code: "sd", dial: "+249", name: "Sudan" },
-    { code: "se", dial: "+46", name: "Sweden" },
-    { code: "ch", dial: "+41", name: "Switzerland" },
-    { code: "sy", dial: "+963", name: "Syria" },
-    { code: "tw", dial: "+886", name: "Taiwan" },
-    { code: "tj", dial: "+992", name: "Tajikistan" },
-    { code: "tz", dial: "+255", name: "Tanzania" },
-    { code: "th", dial: "+66", name: "Thailand" },
-    { code: "tn", dial: "+216", name: "Tunisia" },
-    { code: "tr", dial: "+90", name: "Turkey" },
-    { code: "tm", dial: "+993", name: "Turkmenistan" },
-    { code: "ug", dial: "+256", name: "Uganda" },
-    { code: "ua", dial: "+380", name: "Ukraine" },
-    { code: "ae", dial: "+971", name: "United Arab Emirates" },
-    { code: "gb", dial: "+44", name: "United Kingdom" },
-    { code: "us", dial: "+1", name: "United States" },
-    { code: "uy", dial: "+598", name: "Uruguay" },
-    { code: "uz", dial: "+998", name: "Uzbekistan" },
-    { code: "ve", dial: "+58", name: "Venezuela" },
-    { code: "vn", dial: "+84", name: "Vietnam" },
-    { code: "ye", dial: "+967", name: "Yemen" },
-    { code: "zm", dial: "+260", name: "Zambia" },
-    { code: "zw", dial: "+263", name: "Zimbabwe" },
-];
 
 const INFO_ITEMS = [
     {
@@ -191,12 +56,55 @@ const INFO_ITEMS = [
     },
 ];
 
-// Component
 export default function ContactCTASection({ showHeading = true }: { showHeading?: boolean }) {
     const [country, setCountry] = useState("us");
+    const [status, setStatus] = useState<Status>("idle");
+    const [errorMsg, setErrorMsg] = useState("");
+    const formRef = useRef<HTMLFormElement>(null);
     const sectionRef = useRef<HTMLDivElement>(null);
 
     const selected = COUNTRIES.find((c) => c.code === country) ?? COUNTRIES[0];
+    const isLoading = status === "loading";
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (isLoading) return;
+
+        const data = new FormData(e.currentTarget);
+        const phoneNumber = (data.get("phone") as string | null)?.trim() ?? "";
+        const phone = phoneNumber ? `${selected.dial} ${phoneNumber}` : "";
+
+        const payload = {
+            name: (data.get("name") as string).trim(),
+            email: (data.get("email") as string).trim(),
+            phone: phone || undefined,
+            message: (data.get("message") as string).trim(),
+            source: "Contact Form",
+        };
+
+        setStatus("loading");
+        setErrorMsg("");
+
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+            const json = await res.json() as { success?: boolean; error?: string };
+            if (!res.ok || !json.success) {
+                setErrorMsg(json.error ?? "Something went wrong. Please try again.");
+                setStatus("error");
+            } else {
+                setStatus("success");
+                formRef.current?.reset();
+                setCountry("us");
+            }
+        } catch {
+            setErrorMsg("Network error. Please check your connection and try again.");
+            setStatus("error");
+        }
+    };
 
     return (
         <section ref={sectionRef} id="contact-cta" className="relative w-full bg-[#0E1014] px-5 py-8 sm:px-6 md:py-14">
@@ -263,93 +171,141 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
                         {/* Right form panel */}
                         <div className="bg-[#0E1014] p-6 sm:p-8 md:p-10">
-                            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-5">
-
-                                {/* Name + Email */}
-                                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2" data-form-field>
-                                    <Field label="Full Name" required placeholder="John Smith" />
-                                    <Field label="Email" required type="email" placeholder="hello@company.com" />
-                                </div>
-
-                                {/* Phone with country flag */}
-                                <div data-form-field>
-                                    <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
-                                        Phone
-                                    </label>
-                                    <div className="flex overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition-colors focus-within:border-white/22">
-                                        {/* Country trigger */}
-                                        <div className="relative flex shrink-0 cursor-pointer items-center gap-2 border-r border-white/10 px-2.5 py-3 hover:bg-white/[0.03] sm:px-3 sm:py-3.5">
-                                            <Image
-                                                src={`https://flagcdn.com/w20/${selected.code}.png`}
-                                                alt={selected.name}
-                                                width={20}
-                                                height={14}
-                                                className="rounded-[2px] object-cover"
-                                                unoptimized
-                                            />
-                                            <span className="text-sm font-medium text-white/70">{selected.dial}</span>
-                                            <span className="text-white/30"><ChevronIcon /></span>
-                                            <select
-                                                value={country}
-                                                onChange={(e) => setCountry(e.target.value)}
-                                                className="absolute inset-0 cursor-pointer opacity-0"
-                                                aria-label="Country dial code"
-                                                style={{ background: "#0E1014", color: "#fff" }}
-                                            >
-                                                {COUNTRIES.map((c) => (
-                                                    <option key={c.code} value={c.code}>
-                                                        {c.name} ({c.dial})
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                        {/* Number input */}
-                                        <input
-                                            type="tel"
-                                            className="w-full bg-transparent px-4 py-3.5 text-base text-white placeholder:text-white/25 focus:outline-none"
-                                            placeholder="512 345 6789"
-                                        />
+                            {status === "success" ? (
+                                <div className="flex h-full min-h-[320px] flex-col items-center justify-center gap-5 text-center">
+                                    <span
+                                        className="flex h-14 w-14 items-center justify-center rounded-full"
+                                        style={{ background: "rgba(75,145,247,0.10)", border: "1px solid rgba(75,145,247,0.28)" }}
+                                    >
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                            <path d="M5 12l4.5 4.5L19 7" stroke="#4B91F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <div className="flex flex-col gap-2">
+                                        <h3 className="text-xl font-semibold tracking-tight text-white">Inquiry received.</h3>
+                                        <p className="max-w-xs text-sm leading-relaxed text-white/50">
+                                            We&apos;ll get back to you within 48 hours at the email you provided.
+                                        </p>
                                     </div>
-                                </div>
-
-                                {/* Message */}
-                                <div data-form-field>
-                                    <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
-                                        Message <span className="text-white/25">*</span>
-                                    </label>
-                                    <textarea
-                                        className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-base text-white placeholder:text-white/25 transition-colors focus:border-white/22 focus:outline-none"
-                                        placeholder="Tell us about your project: scope, timeline, goals..."
-                                        rows={5}
-                                    />
-                                </div>
-
-                                {/* Extras */}
-                                <div className="flex flex-wrap items-center gap-x-7 gap-y-3 pt-1" data-form-field>
                                     <button
                                         type="button"
-                                        className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40 transition-colors hover:text-white/70"
+                                        onClick={() => setStatus("idle")}
+                                        className="mt-1 text-sm font-medium text-white/40 transition-colors hover:text-white/70"
                                     >
-                                        <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-white/30">
-                                            <PlusIcon />
-                                        </span>
-                                        Attach File
+                                        Send another message
                                     </button>
                                 </div>
+                            ) : (
+                                <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-5">
 
-                                {/* Submit */}
-                                <div className="mt-2 flex items-center justify-between border-t border-white/8 pt-5" data-form-field>
-                                    <p className="text-xs text-white/25">All fields marked * are required</p>
-                                    <button
-                                        type="submit"
-                                        className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 sm:px-6 sm:py-3"
-                                        style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
-                                    >
-                                        Send Request
-                                    </button>
-                                </div>
+                                    {/* Name + Email */}
+                                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2" data-form-field>
+                                        <Field name="name" label="Full Name" required placeholder="John Smith" disabled={isLoading} />
+                                        <Field name="email" label="Email" required type="email" placeholder="hello@company.com" disabled={isLoading} />
+                                    </div>
 
-                            </form>
+                                    {/* Phone with country flag */}
+                                    <div data-form-field>
+                                        <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
+                                            Phone
+                                        </label>
+                                        <div className="flex overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition-colors focus-within:border-white/22">
+                                            <div className="relative flex shrink-0 cursor-pointer items-center gap-1.5 border-r border-white/10 px-2 py-3 hover:bg-white/[0.03] sm:gap-2 sm:px-3 sm:py-3.5">
+                                                <Image
+                                                    src={`https://flagcdn.com/w20/${selected.code}.png`}
+                                                    alt={selected.name}
+                                                    width={20}
+                                                    height={14}
+                                                    className="rounded-[2px] object-cover"
+                                                    unoptimized
+                                                />
+                                                <span className="hidden sm:inline text-sm font-medium text-white/70">{selected.dial}</span>
+                                                <span className="text-white/30"><ChevronIcon /></span>
+                                                <select
+                                                    value={country}
+                                                    onChange={(e) => setCountry(e.target.value)}
+                                                    className="absolute inset-0 cursor-pointer opacity-0"
+                                                    aria-label="Country dial code"
+                                                    disabled={isLoading}
+                                                    style={{ background: "#0E1014", color: "#fff" }}
+                                                >
+                                                    {COUNTRIES.map((c) => (
+                                                        <option key={c.code} value={c.code}>
+                                                            {c.name} ({c.dial})
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                disabled={isLoading}
+                                                className="w-full bg-transparent px-4 py-3.5 text-base text-white placeholder:text-white/25 focus:outline-none disabled:opacity-50"
+                                                placeholder="512 345 6789"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Message */}
+                                    <div data-form-field>
+                                        <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
+                                            Message <span className="text-white/25">*</span>
+                                        </label>
+                                        <textarea
+                                            name="message"
+                                            required
+                                            disabled={isLoading}
+                                            className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-base text-white placeholder:text-white/25 transition-colors focus:border-white/22 focus:outline-none disabled:opacity-50"
+                                            placeholder="Tell us about your project: scope, timeline, goals..."
+                                            rows={5}
+                                        />
+                                    </div>
+
+                                    {/* Attach file (decorative, no backend) */}
+                                    <div className="flex flex-wrap items-center gap-x-7 gap-y-3 pt-1" data-form-field>
+                                        <button
+                                            type="button"
+                                            disabled={isLoading}
+                                            className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40 transition-colors hover:text-white/70 disabled:opacity-40"
+                                        >
+                                            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-white/30">
+                                                <PlusIcon />
+                                            </span>
+                                            Attach File
+                                        </button>
+                                    </div>
+
+                                    {/* Error message */}
+                                    {status === "error" && errorMsg && (
+                                        <p className="rounded-lg px-3 py-2.5 text-sm text-red-400"
+                                            style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
+                                            {errorMsg}
+                                        </p>
+                                    )}
+
+                                    {/* Submit */}
+                                    <div className="mt-2 flex items-center justify-between border-t border-white/8 pt-5" data-form-field>
+                                        <p className="text-xs text-white/25">All fields marked * are required</p>
+                                        <button
+                                            type="submit"
+                                            disabled={isLoading}
+                                            className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 sm:px-6 sm:py-3 disabled:opacity-60 disabled:cursor-not-allowed"
+                                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                                        >
+                                            {isLoading ? (
+                                                <span className="flex items-center gap-2">
+                                                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                                                    </svg>
+                                                    Sending…
+                                                </span>
+                                            ) : "Send Request"}
+                                        </button>
+                                    </div>
+
+                                </form>
+                            )}
                         </div>
 
                     </div>
@@ -359,9 +315,8 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
     );
 }
 
-// Field
-function Field({ label, required = false, placeholder, type = "text" }: {
-    label: string; required?: boolean; placeholder?: string; type?: string;
+function Field({ name, label, required = false, placeholder, type = "text", disabled }: {
+    name: string; label: string; required?: boolean; placeholder?: string; type?: string; disabled?: boolean;
 }) {
     return (
         <div>
@@ -369,13 +324,13 @@ function Field({ label, required = false, placeholder, type = "text" }: {
                 {label} {required && <span className="text-white/25">*</span>}
             </label>
             <input
+                name={name}
                 type={type}
-                className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-base text-white placeholder:text-white/25 transition-colors focus:border-white/22 focus:outline-none"
+                required={required}
+                disabled={disabled}
+                className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-base text-white placeholder:text-white/25 transition-colors focus:border-white/22 focus:outline-none disabled:opacity-50"
                 placeholder={placeholder}
             />
         </div>
     );
 }
-
-
-
