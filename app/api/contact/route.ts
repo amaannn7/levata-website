@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 // TODO: Replace "onboarding@resend.dev" with "hello@levata.ai" once the
 // levata.ai domain is verified inside the Resend dashboard.
-const FROM_ADDRESS = "Levata <onboarding@resend.dev>";
+const FROM_ADDRESS = "Levata amaan@levatahq.com";
 const TO_ADDRESS = "amaan.yusuf4522@gmail.com";
 
 function buildHtml(fields: {
@@ -15,8 +15,8 @@ function buildHtml(fields: {
     source?: string;
     timestamp: string;
 }): string {
-    const BG     = "#F4F6F9";
-    const CARD   = "#FFFFFF";
+    const BG = "#F4F6F9";
+    const CARD = "#FFFFFF";
     const FOOTER = "#F4F6F9";
     const BORDER = "#E2E5EC";
 
@@ -40,7 +40,7 @@ function buildHtml(fields: {
 
     const optionalFields = [
         fields.company ? field("Company", fields.company) : "",
-        fields.phone   ? field("Phone",   fields.phone)   : "",
+        fields.phone ? field("Phone", fields.phone) : "",
     ].join("");
 
     return `<!DOCTYPE html>
