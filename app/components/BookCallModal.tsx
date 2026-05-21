@@ -187,15 +187,15 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                         {/* Form */}
                                         <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-3 sm:gap-4">
 
-                                            {/* Name + Email */}
-                                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                            {/* Name + Email — always 2 columns to save vertical space */}
+                                            <div className="grid grid-cols-2 gap-2 sm:gap-4">
                                                 <ModalField label="Full Name" name="name" placeholder="John Smith" required disabled={status === "loading"} />
                                                 <ModalField label="Work Email" name="email" type="email" placeholder="hello@company.com" required disabled={status === "loading"} />
                                             </div>
 
                                             {/* Phone with country picker */}
                                             <div>
-                                                <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">
+                                                <label className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40 sm:mb-1.5">
                                                     Phone
                                                 </label>
                                                 <div
@@ -244,7 +244,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
 
                                             {/* Message */}
                                             <div>
-                                                <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">
+                                                <label className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40 sm:mb-1.5">
                                                     What can we help with? <span className="text-white/50">*</span>
                                                 </label>
                                                 <textarea
@@ -265,7 +265,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                                 </p>
                                             )}
 
-                                            <div className="mt-2 flex items-center justify-between gap-3 border-t border-white/[0.07] pt-4">
+                                            <div className="mt-1 flex items-center justify-between gap-3 border-t border-white/[0.07] pt-3 sm:mt-2 sm:pt-4">
                                                 <p className="text-[11px] text-white/35">
                                                     <span className="text-white/55">*</span> required
                                                 </p>
@@ -303,7 +303,7 @@ function ModalField({ label, name, type = "text", placeholder, required, disable
 }) {
     return (
         <div>
-            <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">
+            <label className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40 sm:mb-1.5">
                 {label}{required && <span className="ml-1 text-white/50">*</span>}
             </label>
             <input
@@ -312,7 +312,7 @@ function ModalField({ label, name, type = "text", placeholder, required, disable
                 required={required}
                 placeholder={placeholder}
                 disabled={disabled}
-                className="w-full rounded-lg bg-white/[0.03] px-3.5 py-2.5 text-base text-white placeholder:text-white/30 transition-colors focus:outline-none focus:border-white/25 disabled:opacity-50"
+                className="w-full rounded-lg bg-white/[0.03] px-3 py-2 text-base text-white placeholder:text-white/30 transition-colors focus:outline-none focus:border-white/25 disabled:opacity-50 sm:px-3.5 sm:py-2.5"
                 style={{ border: "1px solid rgba(255,255,255,0.10)" }}
             />
         </div>
