@@ -78,7 +78,7 @@ export default function Footer() {
                         </p>
 
                         <a
-                            href="mailto:hello@levata.io"
+                            href="mailto:hello@levatahq.com"
                             className="inline-flex items-center gap-2 text-sm font-medium text-white/70 transition-colors hover:text-white"
                         >
                             <span className="flex h-4 w-4 items-center justify-center" aria-hidden>
@@ -91,7 +91,7 @@ export default function Footer() {
                                     <path d="M2 6L12 13L22 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                                 </svg>
                             </span>
-                            hello@levata.io
+                            hello@levatahq.com
                         </a>
 
                         {/* Socials */}
@@ -131,10 +131,10 @@ export default function Footer() {
                             Book a strategy call
                         </button>
                         <a
-                            href="mailto:hello@levata.io"
+                            href="mailto:hello@levatahq.com"
                             className="text-sm text-white/55 transition-colors hover:text-white"
                         >
-                            hello@levata.io
+                            hello@levatahq.com
                         </a>
                     </div>
                 </div>

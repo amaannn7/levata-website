@@ -32,7 +32,7 @@ const INFO_ITEMS = [
             </svg>
         ),
         label: "Email us",
-        value: "hello@levata.io",
+        value: "hello@levatahq.com",
     },
     {
         icon: (
