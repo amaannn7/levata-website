@@ -653,15 +653,15 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ── 8. FAQ, Split with simplified sidebar ── */}
+            {/* ── 8. FAQ ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
+                        className="mb-10 flex flex-col items-center gap-5 text-center md:mb-14"
                     >
                         <SectionLabel text="FAQ" />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -670,7 +670,7 @@ export default function AIIntelligencePage() {
                         </h2>
                     </motion.div>
 
-                    <div className="flex flex-col gap-3 max-w-3xl mx-auto w-full">
+                    <div className="flex flex-col gap-3">
                         {FAQS.map((f, i) => (
                             <FAQItem
                                 key={f.q}
@@ -691,6 +691,16 @@ export default function AIIntelligencePage() {
                     aria-hidden
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"
                     style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }}
+                />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 z-0"
+                    style={{
+                        background: [
+                            "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(75,145,247,0.18) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 40% 50% at 50% 0%, rgba(123,85,234,0.08) 0%, transparent 60%)",
+                        ].join(", "),
+                    }}
                 />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

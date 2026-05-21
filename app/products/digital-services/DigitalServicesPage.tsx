@@ -247,32 +247,32 @@ const SUB_SERVICES = [
         num: "01",
         title: "Website Development",
         eyebrow: "Conversion-first",
-        body: "We build websites that convert. Every design decision and CTA placement is informed by conversion psychology and AI-driven insights. From landing pages to full brand websites, strategy, UX, design, development, CMS, SEO, and tracking included.",
-        bullets: ["Conversion strategy and UX architecture", "Custom design, no templates", "Performance-optimised development", "CMS integration and team training", "SEO foundations and technical setup", "Analytics, heatmaps, and conversion tracking"],
+        body: "Conversion-first websites with strategy, UX, design, development, CMS, SEO, and tracking built in.",
+        bullets: ["Conversion strategy and UX architecture", "Performance-optimised development", "Analytics and conversion tracking"],
         visual: "browser",
     },
     {
         num: "02",
         title: "Platform Development",
         eyebrow: "Scale-ready",
-        body: "Client portals, SaaS products, internal tools, and multi-sided marketplaces, built with the engineering depth to do it correctly. Performant under load, secure by design, and on a technical foundation that scales with your business model.",
-        bullets: ["Platform architecture and technical scoping", "UX/UI design for complex user flows", "Full-stack development and API design", "Database architecture and optimisation", "Authentication, permissions, and security", "Third-party integrations and performance testing"],
+        body: "Client portals, SaaS products, and internal tools built to perform under load and scale with your model.",
+        bullets: ["Full-stack development and API design", "Authentication, permissions, and security", "Third-party integrations"],
         visual: "architecture",
     },
     {
         num: "03",
         title: "E-commerce Development",
         eyebrow: "Revenue engine",
-        body: "We build e-commerce experiences that sell. Every element, product discovery, merchandising, cart, checkout, and post-purchase, is designed around conversion rate, average order value, and lifetime customer value. AI personalisation and smart search included.",
-        bullets: ["Platform strategy, selection, and custom design", "Checkout optimisation and payment integration", "AI product recommendations and smart search", "Inventory, fulfilment, and ERP integrations", "Email/SMS automation setup", "Analytics and revenue attribution"],
+        body: "E-commerce built around conversion rate, average order value, and lifetime customer value. AI search included.",
+        bullets: ["Checkout optimisation and payment integration", "AI product recommendations and smart search", "Analytics and revenue attribution"],
         visual: "storefront",
     },
     {
         num: "04",
         title: "Custom Systems",
         eyebrow: "Bespoke infrastructure",
-        body: "When your requirements don't fit off-the-shelf software, we build it. Proprietary data management tools, internal operations platforms, client-facing portals, and business intelligence infrastructure, engineered precisely for how your business works.",
-        bullets: ["Requirements analysis and systems design", "Custom database and data architecture", "Business logic and rules engine development", "User interface and admin panel design", "Integration with existing business systems", "Security, compliance, access control, and documentation"],
+        body: "When off-the-shelf software doesn't fit, we build it. Proprietary tools, portals, and BI infrastructure.",
+        bullets: ["Custom database and data architecture", "Business logic and rules engine development", "Security, compliance, and documentation"],
         visual: "blueprint",
     },
 ];
@@ -734,15 +734,15 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* ── 7. FAQ, 2-column with stack badges ── */}
+            {/* ── 7. FAQ ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
+                        className="mb-10 flex flex-col items-center gap-5 text-center md:mb-14"
                     >
                         <SectionLabel text="FAQ" />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -751,50 +751,17 @@ export default function DigitalServicesPage() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.4fr_1fr] md:gap-14">
-                        <div className="flex flex-col gap-3">
-                            {FAQS.map((f, i) => (
-                                <FAQItem
-                                    key={f.q}
-                                    q={f.q}
-                                    a={f.a}
-                                    index={i}
-                                    isOpen={openFaq === i}
-                                    onToggle={() => setOpenFaq(openFaq === i ? null : i)}
-                                />
-                            ))}
-                        </div>
-
-                        <aside className="flex flex-col gap-5">
-                            <div
-                                className="flex flex-col gap-4 rounded-2xl p-6"
-                                style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
-                            >
-                                <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Stack</span>
-                                <div className="flex flex-wrap gap-2">
-                                    {STACK_BADGES.map((s) => (
-                                        <span key={s} className="rounded-full px-3 py-1 text-xs font-medium text-white/70" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>{s}</span>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div
-                                className="flex flex-col gap-4 rounded-2xl p-6"
-                                style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
-                            >
-                                <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Reliability</span>
-                                <ul className="flex flex-col gap-3">
-                                    {UPTIME_BADGES.map((b) => (
-                                        <li key={b.label} className="flex items-center gap-3 text-sm text-white">
-                                            <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full" style={{ background: `${GREEN}18`, border: `1px solid ${GREEN}55` }}>
-                                                <span className="h-1.5 w-1.5 rounded-full" style={{ background: GREEN }} />
-                                            </span>
-                                            {b.label}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </aside>
+                    <div className="flex flex-col gap-3">
+                        {FAQS.map((f, i) => (
+                            <FAQItem
+                                key={f.q}
+                                q={f.q}
+                                a={f.a}
+                                index={i}
+                                isOpen={openFaq === i}
+                                onToggle={() => setOpenFaq(openFaq === i ? null : i)}
+                            />
+                        ))}
                     </div>
                 </div>
             </section>
@@ -805,6 +772,16 @@ export default function DigitalServicesPage() {
                     aria-hidden
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"
                     style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }}
+                />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 z-0"
+                    style={{
+                        background: [
+                            "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(75,145,247,0.18) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 40% 50% at 50% 0%, rgba(123,85,234,0.08) 0%, transparent 60%)",
+                        ].join(", "),
+                    }}
                 />
                 <div className="pointer-events-none absolute inset-0 opacity-30">
                     <svg viewBox="0 0 1200 400" className="h-full w-full" fill="none" preserveAspectRatio="xMidYMid slice">

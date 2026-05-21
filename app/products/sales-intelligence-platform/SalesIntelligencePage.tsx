@@ -803,13 +803,6 @@ export default function SalesIntelligencePage() {
 
             {/* ── 7. FAQ ───────────────────────────────────── */}
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
-                <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 z-0"
-                    style={{
-                        background: "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(75,145,247,0.05) 0%, transparent 70%)",
-                    }}
-                />
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

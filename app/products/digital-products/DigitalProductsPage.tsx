@@ -628,9 +628,9 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* ── 7. FAQ, Accordion + Founder sidebar ───── */}
+            {/* ── 7. FAQ ── */}
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -645,37 +645,17 @@ export default function DigitalProductsPage() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr] md:gap-12">
-                        <div className="flex flex-col gap-3">
-                            {FAQS.map((f, i) => (
-                                <FAQItem
-                                    key={f.q}
-                                    q={f.q}
-                                    a={f.a}
-                                    index={i}
-                                    isOpen={openFaq === i}
-                                    onToggle={() => setOpenFaq(openFaq === i ? null : i)}
-                                />
-                            ))}
-                        </div>
-                        <div
-                            className="flex flex-col gap-5 rounded-2xl p-7 md:p-8 md:sticky md:top-32 md:self-start"
-                            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
-                        >
-                            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Founder considerations</span>
-                            <h3 className="text-lg font-bold text-white md:text-xl">Worth thinking through early.</h3>
-                            <ul className="flex flex-col gap-3">
-                                {FOUNDER_CONSIDERATIONS.map((c) => (
-                                    <li key={c} className="flex items-start gap-3 text-sm leading-relaxed text-white">
-                                        <span aria-hidden className="mt-1 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full" style={{ background: `${BLUE}14`, border: `1px solid ${BLUE}40` }}>
-                                            <IconCheck />
-                                        </span>
-                                        <span>{c}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                            <p className="text-xs leading-relaxed text-white/45">We unpack each of these in the first strategy call so you have a clear path before signing on.</p>
-                        </div>
+                    <div className="flex flex-col gap-3">
+                        {FAQS.map((f, i) => (
+                            <FAQItem
+                                key={f.q}
+                                q={f.q}
+                                a={f.a}
+                                index={i}
+                                isOpen={openFaq === i}
+                                onToggle={() => setOpenFaq(openFaq === i ? null : i)}
+                            />
+                        ))}
                     </div>
                 </div>
             </section>

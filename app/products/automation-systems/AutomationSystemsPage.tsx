@@ -763,6 +763,16 @@ export default function AutomationSystemsPage() {
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"
                     style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }}
                 />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 z-0"
+                    style={{
+                        background: [
+                            "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(75,145,247,0.18) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 40% 50% at 50% 0%, rgba(123,85,234,0.08) 0%, transparent 60%)",
+                        ].join(", "),
+                    }}
+                />
                 <div className="pointer-events-none absolute inset-0 opacity-30">
                     <svg viewBox="0 0 1200 400" className="h-full w-full" fill="none" preserveAspectRatio="xMidYMid slice">
                         <path d="M0 150 Q400 50 800 150 T1600 150" stroke={`${BLUE}33`} strokeWidth="1" />
