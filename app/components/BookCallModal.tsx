@@ -99,12 +99,13 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto px-4 py-8"
+                    className="fixed inset-0 z-[100] overflow-y-auto"
                     style={{ background: "rgba(14,16,20,0.78)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
                     onClick={handleClose}
                     aria-modal="true"
                     role="dialog"
                 >
+                    <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
                     <motion.div
                         key="book-panel"
                         initial={{ opacity: 0, scale: 0.96, y: 8 }}
@@ -112,7 +113,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                         exit={{ opacity: 0, scale: 0.96, y: 8 }}
                         transition={{ duration: 0.22, ease: EASE }}
                         onClick={(e) => e.stopPropagation()}
-                        className="accent-frame relative w-full max-w-md overflow-hidden rounded-2xl p-px"
+                        className="accent-frame relative w-full max-w-sm overflow-hidden rounded-2xl p-px sm:max-w-md"
                     >
                         <div className="relative overflow-hidden rounded-2xl bg-[#0E1014]">
                             {/* subtle glow accent */}
@@ -138,7 +139,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                 </svg>
                             </button>
 
-                            <div className="relative z-10 p-7 md:p-8">
+                            <div className="relative z-10 p-5 sm:p-7 md:p-8">
                                 {status === "success" ? (
                                     <div className="flex flex-col items-center gap-4 py-6 text-center">
                                         <span
@@ -167,7 +168,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                 ) : (
                                     <>
                                         {/* Header */}
-                                        <div className="mb-6 flex flex-col gap-2 pr-8">
+                                        <div className="mb-4 flex flex-col gap-1.5 pr-8 sm:mb-6 sm:gap-2">
                                             <div className="inline-flex items-center gap-3">
                                                 <span className="flex items-center">
                                                     <span className="animate-label-line" />
@@ -184,7 +185,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                         </div>
 
                                         {/* Form */}
-                                        <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-4">
+                                        <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-3 sm:gap-4">
 
                                             {/* Name + Email */}
                                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -250,7 +251,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                                     name="message"
                                                     required
                                                     disabled={status === "loading"}
-                                                    rows={4}
+                                                    rows={3}
                                                     className={`${baseInput} resize-none focus:border-white/25`}
                                                     style={styleInput}
                                                     placeholder="A short note on the problem you're trying to solve…"
@@ -290,6 +291,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                             </div>
                         </div>
                     </motion.div>
+                    </div>
                 </motion.div>
             )}
         </AnimatePresence>
