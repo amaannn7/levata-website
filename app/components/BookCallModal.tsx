@@ -202,7 +202,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                                     style={{ border: "1px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.03)" }}
                                                 >
                                                     {/* Country trigger */}
-                                                    <div className="relative flex shrink-0 cursor-pointer items-center gap-1 border-r border-white/10 px-2 py-2.5 hover:bg-white/[0.03] sm:gap-1.5 sm:px-2.5">
+                                                    <div className="relative flex shrink-0 cursor-pointer items-center gap-1.5 border-r border-white/10 px-2.5 py-2.5 hover:bg-white/[0.03]">
                                                         <Image
                                                             src={`https://flagcdn.com/w20/${selected.code}.png`}
                                                             alt={selected.name}

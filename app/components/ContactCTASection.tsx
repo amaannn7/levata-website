@@ -210,7 +210,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                             Phone
                                         </label>
                                         <div className="flex overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition-colors focus-within:border-white/22">
-                                            <div className="relative flex shrink-0 cursor-pointer items-center gap-1.5 border-r border-white/10 px-2 py-3 hover:bg-white/[0.03] sm:gap-2 sm:px-3 sm:py-3.5">
+                                            <div className="relative flex shrink-0 cursor-pointer items-center gap-2 border-r border-white/10 px-2.5 py-3 hover:bg-white/[0.03] sm:px-3 sm:py-3.5">
                                                 <Image
                                                     src={`https://flagcdn.com/w20/${selected.code}.png`}
                                                     alt={selected.name}
@@ -219,7 +219,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                                     className="rounded-[2px] object-cover"
                                                     unoptimized
                                                 />
-                                                <span className="hidden sm:inline text-sm font-medium text-white/70">{selected.dial}</span>
+                                                <span className="text-sm font-medium text-white/70">{selected.dial}</span>
                                                 <span className="text-white/30"><ChevronIcon /></span>
                                                 <select
                                                     value={country}
