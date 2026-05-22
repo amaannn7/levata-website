@@ -352,17 +352,17 @@ export default function DigitalServicesPage() {
                                 viewport={{ once: true, margin: "-60px" }}
                                 transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
                                 className={`relative flex flex-col gap-5 ${
-                                    i === 1 ? "md:mt-16" : i === 2 ? "md:mt-32" : ""
+                                    i === 1 ? "lg:mt-16" : i === 2 ? "lg:mt-32" : ""
                                 }`}
                             >
                                 {/* Huge background watermark numeral */}
                                 <span
                                     aria-hidden
-                                    className="pointer-events-none absolute -top-6 -left-2 select-none leading-none"
+                                    className="pointer-events-none absolute -top-4 -left-1 select-none leading-none"
                                     style={{
                                         fontFamily: MONO,
                                         fontWeight: 700,
-                                        fontSize: "clamp(5rem, 10vw, 8rem)",
+                                        fontSize: "clamp(4rem, 8vw, 7rem)",
                                         color: "rgba(255,255,255,0.04)",
                                         letterSpacing: "-0.04em",
                                     }}

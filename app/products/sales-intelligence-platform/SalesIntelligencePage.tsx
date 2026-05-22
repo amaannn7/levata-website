@@ -654,7 +654,7 @@ export default function SalesIntelligencePage() {
                                         {/* Title + chevron */}
                                         <span className="flex flex-1 items-center justify-between gap-2 min-w-0">
                                             <span
-                                                className="truncate text-sm font-semibold leading-snug transition-colors duration-300 md:text-[15px]"
+                                                className="text-sm font-semibold leading-snug transition-colors duration-300 md:text-[15px]"
                                                 style={{ color: active ? "#FFFFFF" : "rgba(255,255,255,0.62)" }}
                                             >
                                                 {c.title}

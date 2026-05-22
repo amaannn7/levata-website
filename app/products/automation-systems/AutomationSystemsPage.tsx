@@ -343,15 +343,15 @@ export default function AutomationSystemsPage() {
                         >
                             {(() => {
                                 const HUB = { cx: 300, cy: 190 };
-                                const HUB_R = 50;
-                                const PILL_W = 96;
-                                const PILL_H = 32;
+                                const HUB_R = 64;
+                                const PILL_W = 140;
+                                const PILL_H = 44;
                                 const pills = [
-                                    { cx: 90, cy: 70, label: "CRM", delay: 0.1 },
-                                    { cx: 510, cy: 70, label: "Finance", delay: 0.18 },
-                                    { cx: 60, cy: 310, label: "Ops", delay: 0.26 },
-                                    { cx: 540, cy: 310, label: "Support", delay: 0.34 },
-                                    { cx: 300, cy: 340, label: "Reporting", delay: 0.42 },
+                                    { cx: 95, cy: 70, label: "CRM", delay: 0.1 },
+                                    { cx: 505, cy: 70, label: "Finance", delay: 0.18 },
+                                    { cx: 95, cy: 310, label: "Ops", delay: 0.26 },
+                                    { cx: 505, cy: 310, label: "Support", delay: 0.34 },
+                                    { cx: 300, cy: 348, label: "Reporting", delay: 0.42 },
                                 ];
 
                                 return (
@@ -406,15 +406,15 @@ export default function AutomationSystemsPage() {
                                             />
                                             {/* bolt glyph */}
                                             <path
-                                                d={`M${HUB.cx + 1} ${HUB.cy - 18} L${HUB.cx - 9} ${HUB.cy + 2} L${HUB.cx} ${HUB.cy + 2} L${HUB.cx - 2} ${HUB.cy + 16} L${HUB.cx + 11} ${HUB.cy - 4} L${HUB.cx + 2} ${HUB.cy - 4} L${HUB.cx + 5} ${HUB.cy - 18} Z`}
-                                                stroke={BLUE} strokeWidth="1.4" strokeLinejoin="round" fill="none"
+                                                d={`M${HUB.cx + 2} ${HUB.cy - 22} L${HUB.cx - 11} ${HUB.cy + 2} L${HUB.cx} ${HUB.cy + 2} L${HUB.cx - 2} ${HUB.cy + 20} L${HUB.cx + 14} ${HUB.cy - 5} L${HUB.cx + 3} ${HUB.cy - 5} L${HUB.cx + 6} ${HUB.cy - 22} Z`}
+                                                stroke={BLUE} strokeWidth="1.6" strokeLinejoin="round" fill="none"
                                             />
                                             <text
-                                                x={HUB.cx} y={HUB.cy + 30}
+                                                x={HUB.cx} y={HUB.cy + 40}
                                                 textAnchor="middle"
                                                 fontFamily={MONO}
-                                                fontSize="9" fontWeight="700"
-                                                letterSpacing="0.2em"
+                                                fontSize="13" fontWeight="700"
+                                                letterSpacing="0.22em"
                                                 fill={GREEN}
                                             >
                                                 HUB
@@ -435,25 +435,25 @@ export default function AutomationSystemsPage() {
                                                     y={p.cy - PILL_H / 2}
                                                     width={PILL_W}
                                                     height={PILL_H}
-                                                    rx="8"
+                                                    rx="10"
                                                     fill="rgba(23,26,34,0.98)"
                                                     stroke={BLUE}
                                                     strokeOpacity="0.4"
-                                                    strokeWidth="1.1"
+                                                    strokeWidth="1.2"
                                                 />
                                                 <circle
-                                                    cx={p.cx - PILL_W / 2 + 12}
+                                                    cx={p.cx - PILL_W / 2 + 16}
                                                     cy={p.cy}
-                                                    r="3"
+                                                    r="4"
                                                     fill={BLUE}
-                                                    fillOpacity="0.7"
+                                                    fillOpacity="0.75"
                                                 />
                                                 <text
-                                                    x={p.cx + 4}
-                                                    y={p.cy + 4}
+                                                    x={p.cx + 8}
+                                                    y={p.cy + 5}
                                                     textAnchor="middle"
                                                     fontFamily={MONO}
-                                                    fontSize="11" fontWeight="700"
+                                                    fontSize="15" fontWeight="700"
                                                     letterSpacing="0.08em"
                                                     fill="white"
                                                 >
