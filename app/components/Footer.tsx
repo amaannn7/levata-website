@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { FaLinkedinIn, FaInstagram, FaFacebookF } from "react-icons/fa6";
@@ -20,12 +20,6 @@ const COMPANY = [
     { label: "Contact", href: "/contact" },
 ];
 
-const LEGAL = [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-    { label: "Cookie Policy", href: "#" },
-];
-
 const SOCIALS = [
     { icon: <FaLinkedinIn size={13} />, href: "https://www.linkedin.com/company/levatahq/", label: "LinkedIn" },
     { icon: <FaInstagram size={13} />, href: "https://instagram.com/levatahq", label: "Instagram" },
@@ -42,7 +36,7 @@ export default function Footer() {
             <div
                 aria-hidden
                 className="absolute inset-x-0 top-0 h-px"
-                style={{ background: "linear-gradient(90deg, transparent 0%, rgba(75,145,247,0.5) 30%, rgba(75,145,247,0.5) 70%, transparent 100%)" }}
+                style={{ background: "linear-gradient(90deg, transparent 0%, rgba(123, 85, 234,0.5) 30%, rgba(123, 85, 234,0.5) 70%, transparent 100%)" }}
             />
 
             {/* Subtle ambient glow */}
@@ -51,7 +45,7 @@ export default function Footer() {
                 className="pointer-events-none absolute inset-0"
                 style={{
                     backgroundImage:
-                        "radial-gradient(ellipse 60% 50% at 10% 100%, rgba(75,145,247,0.07), transparent 60%), radial-gradient(ellipse 40% 40% at 90% 100%, rgba(75,145,247,0.06), transparent 60%)",
+                        "radial-gradient(ellipse 60% 50% at 10% 100%, rgba(123, 85, 234,0.07), transparent 60%), radial-gradient(ellipse 40% 40% at 90% 100%, rgba(123, 85, 234,0.06), transparent 60%)",
                 }}
             />
 
@@ -140,21 +134,10 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="flex flex-col items-start gap-4 border-t border-white/[0.07] py-6 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center justify-center border-t border-white/[0.07] py-6">
                     <p className="text-xs text-white/30">
                         &copy; {new Date().getFullYear()} Levata. All rights reserved.
                     </p>
-                    <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-                        {LEGAL.map((l) => (
-                            <a
-                                key={l.label}
-                                href={l.href}
-                                className="text-xs text-white/30 transition-colors hover:text-white/60"
-                            >
-                                {l.label}
-                            </a>
-                        ))}
-                    </div>
                 </div>
 
             </div>

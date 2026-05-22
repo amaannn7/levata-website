@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useMemo, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -29,7 +29,7 @@ function Grid() {
 
     return (
         <lineSegments ref={ref} geometry={geo}>
-            <lineBasicMaterial color="#4B91F7" transparent opacity={0.35} />
+            <lineBasicMaterial color="#7B55EA" transparent opacity={0.35} />
         </lineSegments>
     );
 }
@@ -81,7 +81,7 @@ export default function HeroHorizon() {
                 className="absolute inset-0"
                 style={{
                     background:
-                        "linear-gradient(to top, transparent 0%, #0D0F17 95%), linear-gradient(to right, #0D0F17 0%, transparent 18%, transparent 82%, #0D0F17 100%)",
+                        "linear-gradient(to top, transparent 0%, transparent 55%, #07080F 100%), linear-gradient(to right, #07080F 0%, transparent 18%, transparent 82%, #07080F 100%)",
                 }}
             />
         </div>

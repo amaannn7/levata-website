@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef } from "react";
 import dynamic from "next/dynamic";
@@ -30,7 +30,7 @@ function GradientBorder({ children }: { children: React.ReactNode }) {
             className="rounded-2xl p-px"
             style={{
                 background:
-                    "linear-gradient(135deg, rgba(75,145,247,0.5) 0%, rgba(255,255,255,0.08) 50%, rgba(75,145,247,0.5) 100%)",
+                    "linear-gradient(135deg, rgba(123, 85, 234,0.5) 0%, rgba(255,255,255,0.08) 50%, rgba(123, 85, 234,0.5) 100%)",
             }}
         >
             <div
@@ -135,9 +135,9 @@ function CardWorkflow() {
                     <span
                         className="rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.14em]"
                         style={{
-                            background: "rgba(75,145,247,0.12)",
-                            border: "1px solid rgba(75,145,247,0.25)",
-                            color: "rgba(75,145,247,0.9)",
+                            background: "rgba(123, 85, 234,0.12)",
+                            border: "1px solid rgba(123, 85, 234,0.25)",
+                            color: "rgba(123, 85, 234,0.9)",
                         }}
                     >
                         3/3 LIVE
@@ -199,7 +199,7 @@ function CardRevenue() {
                     <motion.div
                         className="h-8 w-8 rounded-lg flex-shrink-0"
                         style={{
-                            background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)",
+                            background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)",
                         }}
                         initial={{ opacity: 0, x: 12 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -229,7 +229,7 @@ export default function HomeHero() {
             {/* Subtle top-center accent glow */}
             <div
                 className="pointer-events-none absolute inset-0 z-0"
-                style={{ background: "radial-gradient(ellipse 70% 55% at 50% -5%, rgba(75,145,247,0.06) 0%, transparent 60%)" }}
+                style={{ background: "radial-gradient(ellipse 70% 55% at 50% -5%, rgba(123, 85, 234,0.06) 0%, transparent 60%)" }}
             />
             {/* Content layer (left text / right cards) */}
             <div className="relative z-20 mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 pb-20 pt-28 sm:px-10 sm:pb-24 md:gap-14 md:pt-32 lg:grid-cols-[1fr_400px] lg:gap-20 lg:min-h-[min(100vh,880px)] lg:px-16 lg:py-0 xl:px-20">
@@ -284,7 +284,7 @@ export default function HomeHero() {
                             type="button"
                             onClick={openBookCall}
                             className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer hover:opacity-90 sm:py-3.5"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             <span>Book a Strategy Call</span>
                             <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>

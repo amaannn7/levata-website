@@ -1,16 +1,17 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import CTAAurora from "@/app/components/CTAAurora";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
-const GREEN = "#4B91F7";
-const BLUE = "#4B91F7";
+const GREEN = "#FFFFFF";
+const BLUE = "#FFFFFF";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // ── Section label ─────────────────────────────────────────────────────────
@@ -90,7 +91,7 @@ function SalesIntelligenceDashboard() {
         { name: "Acme Corp", score: 92, status: "Hot", color: GREEN },
         { name: "Globex Inc.", score: 78, status: "Warm", color: BLUE },
         { name: "Initech", score: 64, status: "Warm", color: BLUE },
-        { name: "Stark Industries", score: 51, status: "Nurture", color: "#4B91F7" },
+        { name: "Stark Industries", score: 51, status: "Nurture", color: "#7B55EA" },
     ];
     const tiles = [
         { label: "Leads", value: "248" },
@@ -348,7 +349,7 @@ export default function AIIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Book a Strategy Call
                         </button>
@@ -362,8 +363,8 @@ export default function AIIntelligencePage() {
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -405,7 +406,7 @@ export default function AIIntelligencePage() {
             {/* ── 3. APPROACH, Centered statement + 5-row inline list ── */}
             <section id="approach" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-4xl">
                     <motion.div
@@ -517,7 +518,7 @@ export default function AIIntelligencePage() {
                         viewport={{ once: true, margin: "-60px" }}
                         transition={{ duration: 0.7, ease: EASE }}
                         className="rounded-2xl p-px"
-                        style={{ background: "linear-gradient(135deg,rgba(75,145,247,0.3) 0%,rgba(255,255,255,0.06) 50%,rgba(75,145,247,0.3) 100%)" }}
+                        style={{ background: "linear-gradient(135deg,rgba(123, 85, 234,0.3) 0%,rgba(255,255,255,0.06) 50%,rgba(123, 85, 234,0.3) 100%)" }}
                     >
                         <div
                             className="grid grid-cols-1 gap-8 rounded-2xl p-5 sm:p-7 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-12 md:p-10"
@@ -692,16 +693,7 @@ export default function AIIntelligencePage() {
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"
                     style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }}
                 />
-                <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 z-0"
-                    style={{
-                        background: [
-                            "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(75,145,247,0.18) 0%, transparent 65%)",
-                            "radial-gradient(ellipse 40% 50% at 50% 0%, rgba(123,85,234,0.08) 0%, transparent 60%)",
-                        ].join(", "),
-                    }}
-                />
+                <CTAAurora />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -721,7 +713,7 @@ export default function AIIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Book Your AI Strategy Session
                         </button>

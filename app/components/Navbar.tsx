@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -12,25 +12,25 @@ const SERVICES = [
         label: "AI & Intelligence",
         description: "AI integration, assistants, intelligent automation",
         href: "/products/ai-intelligence",
-        accent: "#4B91F7",
+        accent: "#7B55EA",
     },
     {
         label: "Digital Products",
         description: "Validated MVPs and scalable platforms",
         href: "/products/digital-products",
-        accent: "#4B91F7",
+        accent: "#7B55EA",
     },
     {
         label: "Digital Services",
         description: "Websites, platforms, e-commerce, custom systems",
         href: "/products/digital-services",
-        accent: "#4B91F7",
+        accent: "#7B55EA",
     },
     {
         label: "Automation & Systems",
         description: "Workflow automation, decision systems, dashboards",
         href: "/products/automation-systems",
-        accent: "#4B91F7",
+        accent: "#7B55EA",
     },
 ];
 
@@ -39,7 +39,7 @@ const PRODUCTS = [
         label: "Sales Intelligence Platform",
         description: "AI-powered B2B prospecting & outreach workspace",
         href: "/products/sales-intelligence-platform",
-        accent: "#4B91F7",
+        accent: "#7B55EA",
         meta: "Featured",
     },
 ];
@@ -274,7 +274,7 @@ export default function Navbar() {
                                 <ChevronIcon open={dropdown === "services"} />
                                 <span
                                     aria-hidden
-                                    className="pointer-events-none absolute -bottom-1.5 left-0 h-px w-0 bg-[#4B91F7] transition-all duration-300 group-hover:w-[calc(100%-14px)]"
+                                    className="pointer-events-none absolute -bottom-1.5 left-0 h-px w-0 bg-[#7B55EA] transition-all duration-300 group-hover:w-[calc(100%-14px)]"
                                 />
                             </button>
                             <AnimatePresence>
@@ -340,7 +340,7 @@ export default function Navbar() {
                                 <ChevronIcon open={dropdown === "products"} />
                                 <span
                                     aria-hidden
-                                    className="pointer-events-none absolute -bottom-1.5 left-0 h-px w-0 bg-[#4B91F7] transition-all duration-300 group-hover:w-[calc(100%-14px)]"
+                                    className="pointer-events-none absolute -bottom-1.5 left-0 h-px w-0 bg-[#7B55EA] transition-all duration-300 group-hover:w-[calc(100%-14px)]"
                                 />
                             </button>
                             <AnimatePresence>
@@ -372,7 +372,7 @@ export default function Navbar() {
                                                                 </span>
                                                                 <span
                                                                     className="rounded-full px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em]"
-                                                                    style={{ background: "rgba(75,145,247,0.12)", border: "1px solid rgba(75,145,247,0.35)", color: p.accent }}
+                                                                    style={{ background: "rgba(123, 85, 234,0.12)", border: "1px solid rgba(123, 85, 234,0.35)", color: p.accent }}
                                                                 >
                                                                     {p.meta}
                                                                 </span>
@@ -401,7 +401,7 @@ export default function Navbar() {
                                 <span>{l.label}</span>
                                 <span
                                     aria-hidden
-                                    className="pointer-events-none absolute -bottom-1.5 left-0 h-px w-0 bg-[#4B91F7] transition-all duration-300 group-hover:w-full"
+                                    className="pointer-events-none absolute -bottom-1.5 left-0 h-px w-0 bg-[#7B55EA] transition-all duration-300 group-hover:w-full"
                                 />
                             </Link>
                         ))}
@@ -412,7 +412,7 @@ export default function Navbar() {
                         <Link
                             href="/contact"
                             className="hidden md:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Contact Us
                         </Link>
@@ -507,7 +507,7 @@ export default function Navbar() {
                                                     {p.label}
                                                     <span
                                                         className="rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em]"
-                                                        style={{ background: "rgba(75,145,247,0.12)", border: "1px solid rgba(75,145,247,0.3)", color: "#4B91F7" }}
+                                                        style={{ background: "rgba(123, 85, 234,0.12)", border: "1px solid rgba(123, 85, 234,0.3)", color: "#7B55EA" }}
                                                     >
                                                         {p.meta}
                                                     </span>
@@ -540,7 +540,7 @@ export default function Navbar() {
                                         type="button"
                                         onClick={triggerBookCall}
                                         className="w-full rounded-2xl py-4 text-center text-[15px] font-semibold text-white transition-opacity hover:opacity-90"
-                                        style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                                        style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                                     >
                                         Book a Strategy Call
                                     </button>

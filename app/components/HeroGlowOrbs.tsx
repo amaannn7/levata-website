@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, type RefObject } from "react";
 import {
@@ -29,7 +29,7 @@ type Orb = {
 
 const FULL_ORBS: Orb[] = [
     {
-        color: "rgba(75,145,247,0.42)",
+        color: "rgba(123, 85, 234,0.42)",
         size: "clamp(420px, 50vw, 720px)",
         blur: 80,
         pos: { top: "-15%", left: "-12%" },
@@ -39,7 +39,7 @@ const FULL_ORBS: Orb[] = [
         idleDuration: 9,
     },
     {
-        color: "rgba(75,145,247,0.36)",
+        color: "rgba(123, 85, 234,0.36)",
         size: "clamp(360px, 44vw, 620px)",
         blur: 70,
         pos: { bottom: "-18%", right: "-10%" },
@@ -62,7 +62,7 @@ const FULL_ORBS: Orb[] = [
 
 const SUBTLE_ORBS: Orb[] = [
     {
-        color: "rgba(75,145,247,0.42)",
+        color: "rgba(123, 85, 234,0.42)",
         size: "clamp(420px, 50vw, 720px)",
         blur: 70,
         pos: { top: "-12%", left: "-10%" },
@@ -72,7 +72,7 @@ const SUBTLE_ORBS: Orb[] = [
         idleDuration: 10,
     },
     {
-        color: "rgba(75,145,247,0.36)",
+        color: "rgba(123, 85, 234,0.36)",
         size: "clamp(360px, 44vw, 620px)",
         blur: 60,
         pos: { bottom: "-14%", right: "-8%" },

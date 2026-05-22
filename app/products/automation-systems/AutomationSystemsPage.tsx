@@ -1,15 +1,18 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import CTAAurora from "@/app/components/CTAAurora";
+import AutomationVisual from "@/app/components/AutomationVisual";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
-const GREEN = "#4B91F7";
-const BLUE = "#4B91F7";
+const GREEN = "#FFFFFF";
+const BLUE = "#FFFFFF";
+const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // ── Section label ─────────────────────────────────────────────────────────
@@ -108,46 +111,37 @@ const SUB_AUTOMATION = [
         num: "01",
         title: "Eliminate Manual Operations at Scale",
         eyebrow: "Business automation",
-        body: "We map every repetitive, manual process in your operation and replace it with a reliable automated workflow. Onboarding, invoicing, approvals, reporting, data entry, all systematised, audited, and running without human intervention.",
+        body: "Every repetitive process — onboarding, invoicing, approvals, reporting — replaced with a reliable automated workflow that runs without human touch.",
         bullets: [
-            "End-to-end onboarding and provisioning workflows",
-            "Invoice generation, approval routing, and payment tracking",
-            "Document creation, distribution, and e-signature automation",
-            "Data entry elimination and cross-system synchronisation",
-            "Compliance reporting and audit trail generation",
-            "Scheduled and event-triggered business process automation",
+            "End-to-end onboarding and approval workflows",
+            "Cross-system data sync, no copy-paste",
+            "Compliance reporting + audit trails",
         ],
-        visual: "workflow",
+        visual: "workflow" as const,
     },
     {
         num: "02",
         title: "AI-Powered Process Intelligence",
-        eyebrow: "Workflow automation",
-        body: "AI decision engines that prioritise, route, and escalate work without human input. Lead scoring, support ticket triage, exception handling, all powered by intelligent branching logic that learns from your business rules and outcomes.",
+        eyebrow: "Decision automation",
+        body: "AI decision engines that prioritise, route, and escalate work — lead scoring, ticket triage, exception handling — using your business rules.",
         bullets: [
-            "AI-powered lead scoring and territory routing",
-            "Support ticket classification and priority triage",
-            "Smart escalation rules with SLA awareness",
-            "Exception detection and automated remediation",
-            "Human-in-the-loop checkpoints for high-stakes decisions",
-            "Continuous model improvement from outcome feedback",
+            "Lead scoring + territory routing",
+            "Ticket triage with SLA-aware escalation",
+            "Human-in-the-loop on high-stakes calls",
         ],
-        visual: "tree",
+        visual: "decision" as const,
     },
     {
         num: "03",
         title: "Real-Time Intelligence for Every Decision",
-        eyebrow: "Dashboard systems",
-        body: "A single pane of glass for everyone who runs the business. Custom KPI dashboards, live operational metrics, anomaly alerts, and cross-system drilldowns, all updating in real time so decisions are based on facts, not yesterday's report.",
+        eyebrow: "Live operations",
+        body: "A single pane of glass for the whole business — live KPIs, anomaly alerts, and cross-system drilldowns updating in real time.",
         bullets: [
-            "Executive and operational KPI dashboards",
-            "Real-time anomaly detection and alerting",
-            "Cross-system data aggregation and normalisation",
-            "Role-based views for teams, managers, and executives",
-            "Mobile-optimised live tile interfaces",
-            "Automated reporting and scheduled data exports",
+            "Custom KPI views per team and role",
+            "Real-time anomaly detection + alerts",
+            "Cross-system aggregation, mobile-ready",
         ],
-        visual: "dashboard",
+        visual: "intel" as const,
     },
 ];
 
@@ -159,12 +153,12 @@ const OPS_METRICS = [
 ];
 
 const DEPLOYMENT = [
-    { num: "01", title: "Operations Audit", body: "A full inventory of every process, tool, and manual handoff, with bottlenecks ranked by impact and automation potential." },
-    { num: "02", title: "Architecture & Tool Selection", body: "We design the automation architecture and select the right stack, matching tools to your existing systems and scale requirements." },
-    { num: "03", title: "Build & Test in Staging", body: "All workflows, integrations, and AI logic are built and stress-tested in a staging environment before any production exposure." },
-    { num: "04", title: "Phased Production Deployment", body: "We deploy in phases, validating performance and stability at each step before expanding coverage to the next process." },
-    { num: "05", title: "Team Training & Documentation", body: "Full runbooks, training sessions, and documentation so your team owns the system and can extend it independently." },
-    { num: "06", title: "Ongoing Monitoring & Expansion", body: "Continuous monitoring, performance review, and expansion planning to increase automation coverage as your business scales." },
+    { num: "01", title: "Operations Audit", body: "Process inventory + bottlenecks ranked by automation impact." },
+    { num: "02", title: "Architecture & Stack", body: "Automation architecture designed; tools picked to fit your systems." },
+    { num: "03", title: "Build in Staging", body: "Workflows, integrations, and AI logic stress-tested before prod." },
+    { num: "04", title: "Phased Rollout", body: "Deploy in stages — validate each before expanding coverage." },
+    { num: "05", title: "Training & Handoff", body: "Runbooks, docs, and training so your team owns and extends it." },
+    { num: "06", title: "Monitor & Expand", body: "Continuous monitoring and expansion as your business scales." },
 ];
 
 const FAQS = [
@@ -264,95 +258,6 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
     );
 }
 
-// ── Workflow mini ──────────────────────────────────────────────────────────
-function WorkflowMock() {
-    const nodes = ["Onboarding", "Invoices", "Approvals", "Reporting"];
-    return (
-        <div
-            className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
-        >
-            <svg viewBox="0 0 320 180" className="h-full w-full" fill="none">
-                {nodes.map((n, i) => {
-                    const x = 30 + i * 75;
-                    return (
-                        <g key={n}>
-                            <rect x={x} y="70" width="60" height="40" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                            <text x={x + 30} y="95" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="9" fontWeight="600">{n.toUpperCase()}</text>
-                            {i < nodes.length - 1 && (
-                                <path d={`M${x + 60} 90 L${x + 75} 90`} stroke={`${BLUE}88`} strokeWidth="1.2" strokeDasharray="3 3" />
-                            )}
-                        </g>
-                    );
-                })}
-            </svg>
-        </div>
-    );
-}
-
-function DecisionTreeMock() {
-    return (
-        <div
-            className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
-        >
-            <svg viewBox="0 0 320 180" className="h-full w-full" fill="none">
-                {/* root */}
-                <rect x="20" y="75" width="70" height="34" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                <text x="55" y="96" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="9" fontWeight="600">LEAD</text>
-                {/* diamond decision */}
-                <path d="M140 92 L160 72 L180 92 L160 112 Z" stroke={BLUE} strokeWidth="1.4" />
-                <text x="160" y="95" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="8" fontWeight="600">SCORE</text>
-                <path d="M90 92 L140 92" stroke={`${BLUE}88`} strokeWidth="1.2" strokeDasharray="3 3" />
-                {/* branches */}
-                <path d="M180 80 L240 40" stroke={`${BLUE}88`} strokeWidth="1.2" strokeDasharray="3 3" />
-                <path d="M180 92 L240 92" stroke={`${BLUE}88`} strokeWidth="1.2" strokeDasharray="3 3" />
-                <path d="M180 104 L240 144" stroke={`${BLUE}88`} strokeWidth="1.2" strokeDasharray="3 3" />
-                <rect x="240" y="22" width="60" height="32" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                <text x="270" y="42" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="8">PRIORITY</text>
-                <rect x="240" y="76" width="60" height="32" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                <text x="270" y="96" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="8">NURTURE</text>
-                <rect x="240" y="130" width="60" height="32" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                <text x="270" y="150" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="8">ESCALATE</text>
-            </svg>
-        </div>
-    );
-}
-
-function DashboardMock() {
-    return (
-        <div
-            className="relative w-full overflow-hidden rounded-2xl p-5"
-            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
-        >
-            <div className="grid h-full grid-cols-3 gap-3">
-                {[
-                    { v: "98%", l: "Uptime" },
-                    { v: "1.2k", l: "Active" },
-                    { v: "+24%", l: "Δ Today" },
-                ].map((t) => (
-                    <div key={t.l} className="flex flex-col justify-between rounded-md p-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
-                        <span className="text-lg font-bold" style={{ color: GREEN }}>{t.v}</span>
-                        <span className="text-[10px] text-white/55">{t.l}</span>
-                    </div>
-                ))}
-                <div className="col-span-3 rounded-md p-3" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)" }}>
-                    <svg viewBox="0 0 280 50" className="h-full w-full" fill="none">
-                        <path d="M0 35 L40 25 L80 30 L120 18 L160 22 L200 10 L240 14 L280 6" stroke={BLUE} strokeWidth="1.5" fill="none" />
-                        <circle cx="200" cy="10" r="3" fill={GREEN} />
-                    </svg>
-                </div>
-            </div>
-            <div
-                className="absolute right-4 top-4 flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-semibold"
-                style={{ background: `${GREEN}18`, border: `1px solid ${GREEN}55`, color: GREEN }}
-            >
-                LIVE
-            </div>
-        </div>
-    );
-}
-
 // ── Page ──────────────────────────────────────────────────────────────────
 export default function AutomationSystemsPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -378,14 +283,14 @@ export default function AutomationSystemsPage() {
                         <span className="display-strong-line">Amplify the People.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Every hour your team spends on manual, repetitive tasks is an hour not spent on strategy, growth, or the work that actually moves the needle. We build the systems that eliminate the manual layer, so your team can operate at their highest value.
+                        We build the systems that eliminate the manual layer — so your team works on what actually moves the business.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Map Your Automation Opportunities
                         </button>
@@ -399,8 +304,8 @@ export default function AutomationSystemsPage() {
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -417,88 +322,157 @@ export default function AutomationSystemsPage() {
                             <span className="display-strong-line">are a tax on growth.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            Every hour your team spends on repetitive, manual tasks is an hour not invested in the work that scales. Most businesses are running on spreadsheets, copy-paste, and tribal knowledge, with no automation layer and no system of record.
+                            Most businesses run on spreadsheets, copy-paste, and tribal knowledge. No automation layer, no system of record.
                         </p>
                     </motion.div>
 
-                    {/* Disconnected → connected visualization */}
-                    <div
-                        className="relative mx-auto h-[260px] sm:h-[340px] w-full max-w-3xl rounded-2xl md:h-[460px]"
-                        style={{ background: "rgba(23,26,34,0.88)", border: "1px solid rgba(255,255,255,0.07)" }}
+                    {/* Disconnected systems orbiting a central hub — all in viewBox coords so lines actually meet the cards */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ duration: 0.55, ease: EASE }}
+                        className="relative mx-auto w-full max-w-3xl"
+                        style={{ aspectRatio: "16 / 10" }}
                     >
-                        {/* SVG connection lines */}
-                        <motion.svg
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: "-60px" }}
+                        <svg
+                            viewBox="0 0 600 380"
                             className="absolute inset-0 h-full w-full"
-                            viewBox="0 0 600 460"
                             fill="none"
-                            preserveAspectRatio="none"
+                            preserveAspectRatio="xMidYMid meet"
                         >
-                            {[
-                                "M75 50 L300 230",
-                                "M520 70 L300 230",
-                                "M45 280 L300 230",
-                                "M520 400 L300 230",
-                                "M220 410 L300 230",
-                            ].map((d, i) => (
-                                <motion.path
-                                    key={d}
-                                    d={d}
-                                    stroke={BLUE}
-                                    strokeWidth="1"
-                                    strokeDasharray="4 4"
-                                    variants={{ hidden: { pathLength: 0, opacity: 0 }, visible: { pathLength: 1, opacity: 0.55 } }}
-                                    transition={{ duration: 1.2, delay: 0.4 + i * 0.15, ease: EASE }}
-                                />
-                            ))}
-                        </motion.svg>
+                            {(() => {
+                                const HUB = { cx: 300, cy: 190 };
+                                const HUB_R = 50;
+                                const PILL_W = 96;
+                                const PILL_H = 32;
+                                const pills = [
+                                    { cx: 90, cy: 70, label: "CRM", delay: 0.1 },
+                                    { cx: 510, cy: 70, label: "Finance", delay: 0.18 },
+                                    { cx: 60, cy: 310, label: "Ops", delay: 0.26 },
+                                    { cx: 540, cy: 310, label: "Support", delay: 0.34 },
+                                    { cx: 300, cy: 340, label: "Reporting", delay: 0.42 },
+                                ];
 
-                        {/* central hub */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.6 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.7, delay: 1.0, ease: EASE }}
-                            className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
-                        >
-                            <div
-                                className="flex h-24 w-24 flex-col items-center justify-center gap-1 rounded-full md:h-28 md:w-28"
-                                style={{
-                                    background: "rgba(23,26,34,0.98)",
-                                    border: `1.5px solid ${GREEN}`,
-                                    boxShadow: `0 0 0 8px #0E1014, 0 0 32px ${GREEN}44`,
-                                }}
-                            >
-                                <IconBolt />
-                                <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: GREEN }}>Hub</span>
-                            </div>
-                        </motion.div>
+                                return (
+                                    <>
+                                        {/* Dashed connector lines: from each card edge toward the hub edge */}
+                                        {pills.map((p) => {
+                                            const dx = HUB.cx - p.cx;
+                                            const dy = HUB.cy - p.cy;
+                                            const len = Math.hypot(dx, dy);
+                                            const ux = dx / len;
+                                            const uy = dy / len;
+                                            // Start near pill edge (offset from center along the line toward hub)
+                                            const x1 = p.cx + ux * (PILL_W / 2 - 4);
+                                            const y1 = p.cy + uy * (PILL_H / 2 - 4);
+                                            // End at hub edge
+                                            const x2 = HUB.cx - ux * HUB_R;
+                                            const y2 = HUB.cy - uy * HUB_R;
+                                            return (
+                                                <motion.line
+                                                    key={`l-${p.label}`}
+                                                    x1={x1} y1={y1} x2={x2} y2={y2}
+                                                    stroke={BLUE}
+                                                    strokeOpacity="0.5"
+                                                    strokeWidth="1"
+                                                    strokeDasharray="4 5"
+                                                    initial={{ pathLength: 0, opacity: 0 }}
+                                                    whileInView={{ pathLength: 1, opacity: 0.6 }}
+                                                    viewport={{ once: true, margin: "-60px" }}
+                                                    transition={{ duration: 0.9, delay: 0.5 + p.delay, ease: EASE }}
+                                                />
+                                            );
+                                        })}
 
-                        {/* floating cards */}
-                        {DISCONNECTED.map((card) => (
-                            <motion.div
-                                key={card.label}
-                                initial={{ opacity: 0, y: 8 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: card.delay, ease: EASE }}
-                                className="absolute flex items-center gap-2 rounded-xl px-3 py-2"
-                                style={{ ...card.pos, background: "rgba(23,26,34,0.96)", border: `1px solid ${BLUE}55`, backdropFilter: "blur(4px)" }}
-                            >
-                                <card.Icon />
-                                <span className="text-xs font-bold text-white">{card.label}</span>
-                            </motion.div>
-                        ))}
-                    </div>
+                                        {/* Central hub */}
+                                        <motion.g
+                                            initial={{ opacity: 0, scale: 0.6 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
+                                            viewport={{ once: true, margin: "-60px" }}
+                                            transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
+                                            style={{ transformOrigin: `${HUB.cx}px ${HUB.cy}px` }}
+                                        >
+                                            {/* dark ring around hub to mask line ends */}
+                                            <circle
+                                                cx={HUB.cx} cy={HUB.cy} r={HUB_R + 6}
+                                                fill="#0E1014"
+                                            />
+                                            <circle
+                                                cx={HUB.cx} cy={HUB.cy} r={HUB_R}
+                                                fill="rgba(23,26,34,0.98)"
+                                                stroke={GREEN}
+                                                strokeWidth="1.5"
+                                            />
+                                            {/* bolt glyph */}
+                                            <path
+                                                d={`M${HUB.cx + 1} ${HUB.cy - 18} L${HUB.cx - 9} ${HUB.cy + 2} L${HUB.cx} ${HUB.cy + 2} L${HUB.cx - 2} ${HUB.cy + 16} L${HUB.cx + 11} ${HUB.cy - 4} L${HUB.cx + 2} ${HUB.cy - 4} L${HUB.cx + 5} ${HUB.cy - 18} Z`}
+                                                stroke={BLUE} strokeWidth="1.4" strokeLinejoin="round" fill="none"
+                                            />
+                                            <text
+                                                x={HUB.cx} y={HUB.cy + 30}
+                                                textAnchor="middle"
+                                                fontFamily={MONO}
+                                                fontSize="9" fontWeight="700"
+                                                letterSpacing="0.2em"
+                                                fill={GREEN}
+                                            >
+                                                HUB
+                                            </text>
+                                        </motion.g>
+
+                                        {/* Floating system pills */}
+                                        {pills.map((p) => (
+                                            <motion.g
+                                                key={p.label}
+                                                initial={{ opacity: 0, y: 8 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: true, margin: "-60px" }}
+                                                transition={{ duration: 0.5, delay: p.delay, ease: EASE }}
+                                            >
+                                                <rect
+                                                    x={p.cx - PILL_W / 2}
+                                                    y={p.cy - PILL_H / 2}
+                                                    width={PILL_W}
+                                                    height={PILL_H}
+                                                    rx="8"
+                                                    fill="rgba(23,26,34,0.98)"
+                                                    stroke={BLUE}
+                                                    strokeOpacity="0.4"
+                                                    strokeWidth="1.1"
+                                                />
+                                                <circle
+                                                    cx={p.cx - PILL_W / 2 + 12}
+                                                    cy={p.cy}
+                                                    r="3"
+                                                    fill={BLUE}
+                                                    fillOpacity="0.7"
+                                                />
+                                                <text
+                                                    x={p.cx + 4}
+                                                    y={p.cy + 4}
+                                                    textAnchor="middle"
+                                                    fontFamily={MONO}
+                                                    fontSize="11" fontWeight="700"
+                                                    letterSpacing="0.08em"
+                                                    fill="white"
+                                                >
+                                                    {p.label}
+                                                </text>
+                                            </motion.g>
+                                        ))}
+                                    </>
+                                );
+                            })()}
+                        </svg>
+                    </motion.div>
                 </div>
             </section>
 
             {/* ── 3. APPROACH, Architecture map ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -514,33 +488,23 @@ export default function AutomationSystemsPage() {
                             <span className="display-strong-line">automation blueprint.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            We don&apos;t automate processes in isolation. We design the full automation architecture, from a complete operations audit to AI decision logic on top of every workflow, then deploy in phases so the value compounds.
+                            Full architecture, not isolated automations — audit, design, build, intelligence, optimise.
                         </p>
                     </motion.div>
 
                     <div className="relative">
-                        {/* spine */}
+                        {/* Horizontal spine — passes through the center of the circles (h-16 = 64px tall, center at 32px) */}
                         <div
                             aria-hidden
-                            className="pointer-events-none absolute hidden lg:block lg:left-0 lg:right-0"
+                            className="pointer-events-none absolute hidden lg:block"
                             style={{
-                                top: "60px",
+                                top: "32px",
+                                left: "6%",
+                                right: "6%",
                                 height: "1px",
-                                background: `linear-gradient(to right, transparent, ${BLUE}66 6%, ${BLUE}66 94%, transparent)`,
+                                background: `linear-gradient(to right, transparent, ${BLUE}55 8%, ${BLUE}55 92%, transparent)`,
                             }}
                         />
-                        {/* sub-branches (decorative) */}
-                        <svg aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hidden h-32 w-full lg:block" viewBox="0 0 1000 120" fill="none" preserveAspectRatio="none">
-                            <path d="M250 60 L300 20" stroke={`${BLUE}55`} strokeWidth="1" strokeDasharray="3 3" />
-                            <path d="M250 60 L200 100" stroke={`${BLUE}55`} strokeWidth="1" strokeDasharray="3 3" />
-                            <path d="M550 60 L600 20" stroke={`${BLUE}55`} strokeWidth="1" strokeDasharray="3 3" />
-                            <path d="M750 60 L800 100" stroke={`${BLUE}55`} strokeWidth="1" strokeDasharray="3 3" />
-                            {/* diamond decision nodes */}
-                            <path d="M295 12 L305 22 L295 32 L285 22 Z" stroke={BLUE} strokeWidth="1.2" />
-                            <path d="M195 92 L205 102 L195 112 L185 102 Z" stroke={BLUE} strokeWidth="1.2" />
-                            <path d="M595 12 L605 22 L595 32 L585 22 Z" stroke={BLUE} strokeWidth="1.2" />
-                            <path d="M795 92 L805 102 L795 112 L785 102 Z" stroke={BLUE} strokeWidth="1.2" />
-                        </svg>
 
                         <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
                             {ARCH_NODES.map((node, i) => (
@@ -591,7 +555,6 @@ export default function AutomationSystemsPage() {
                     <div className="flex flex-col gap-20 md:gap-28">
                         {SUB_AUTOMATION.map((svc, i) => {
                             const isOdd = i % 2 === 1;
-                            const Visual = svc.visual === "workflow" ? WorkflowMock : svc.visual === "tree" ? DecisionTreeMock : DashboardMock;
                             const IconForRow = i === 0 ? IconGrid : i === 1 ? IconBranch : IconReport;
                             return (
                                 <motion.div
@@ -624,7 +587,7 @@ export default function AutomationSystemsPage() {
                                         </div>
                                     </div>
                                     <div>
-                                        <Visual />
+                                        <AutomationVisual kind={svc.visual} />
                                     </div>
                                 </motion.div>
                             );
@@ -650,29 +613,17 @@ export default function AutomationSystemsPage() {
                         </h2>
                     </motion.div>
 
-                    <div
-                        className="rounded-2xl p-6 md:p-8"
-                        style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
-                    >
-                        <div className="mb-6 flex items-center justify-between">
-                            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Operations dashboard</span>
-                            <div className="flex items-center gap-2 rounded-full px-2.5 py-1 text-[10px] font-semibold" style={{ background: `${GREEN}18`, border: `1px solid ${GREEN}55`, color: GREEN }}>
-                                <span className="h-1.5 w-1.5 rounded-full" style={{ background: GREEN }} />
-                                LIVE
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                            {OPS_METRICS.map((m, i) => (
-                                <MetricTile key={m.label} {...m} index={i} />
-                            ))}
-                        </div>
+                    <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+                        {OPS_METRICS.map((m, i) => (
+                            <MetricTile key={m.label} {...m} index={i} />
+                        ))}
                     </div>
                 </div>
             </section>
 
             {/* ── 6. DELIVERY PROCESS, Deployment roadmap ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-3xl">
+                <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -687,39 +638,49 @@ export default function AutomationSystemsPage() {
                         </h2>
                     </motion.div>
 
-                    <div className="relative">
-                        <div
-                            aria-hidden
-                            className="absolute left-7 top-2 bottom-2 w-px md:left-9"
-                            style={{ background: `linear-gradient(to bottom, transparent, ${BLUE}55 8%, ${BLUE}55 92%, transparent)` }}
-                        />
-                        <div className="flex flex-col gap-6">
-                            {DEPLOYMENT.map((step, i) => (
-                                <motion.div
-                                    key={step.num}
-                                    initial={{ opacity: 0, x: -16 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true, margin: "-60px" }}
-                                    transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
-                                    className="relative flex items-start gap-6 md:gap-8"
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+                        {DEPLOYMENT.map((step, i) => (
+                            <motion.div
+                                key={step.num}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-60px" }}
+                                transition={{ duration: 0.5, delay: (i % 3) * 0.08, ease: EASE }}
+                                className="relative flex flex-col gap-3 overflow-hidden rounded-2xl p-6"
+                                style={{
+                                    background: "rgba(23,26,34,0.92)",
+                                    border: "1px solid rgba(255,255,255,0.07)",
+                                }}
+                            >
+                                {/* Background numeral watermark */}
+                                <span
+                                    aria-hidden
+                                    className="pointer-events-none absolute right-3 top-0 select-none leading-none"
+                                    style={{
+                                        fontFamily: MONO,
+                                        fontWeight: 700,
+                                        fontSize: "3.4rem",
+                                        color: "rgba(255,255,255,0.04)",
+                                        letterSpacing: "-0.04em",
+                                    }}
                                 >
-                                    <div
-                                        className="relative z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full md:h-[72px] md:w-[72px]"
-                                        style={{
-                                            background: "#171A22",
-                                            border: `1.5px solid ${BLUE}`,
-                                            boxShadow: `0 0 0 6px #0E1014, 0 0 22px ${BLUE}33`,
-                                        }}
-                                    >
-                                        <span className="text-base font-bold md:text-xl" style={{ color: GREEN }}>{step.num}</span>
-                                    </div>
-                                    <div className="flex flex-1 flex-col gap-1.5 rounded-xl p-5" style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}>
-                                        <h3 className="text-lg font-bold text-white md:text-xl">{step.title}</h3>
-                                        <p className="text-sm leading-relaxed text-white/55 md:text-base">{step.body}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
+                                    {step.num}
+                                </span>
+                                <div className="relative flex items-center gap-3">
+                                    <span
+                                        className="h-px w-6"
+                                        style={{ background: `linear-gradient(to right, ${BLUE}, transparent)` }}
+                                    />
+                                    <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/45" style={{ fontFamily: MONO }}>
+                                        Stage {step.num}
+                                    </span>
+                                </div>
+                                <h3 className="relative text-lg font-semibold leading-snug tracking-tight text-white md:text-[1.15rem]">
+                                    {step.title}
+                                </h3>
+                                <p className="relative text-sm leading-relaxed text-white/55">{step.body}</p>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
@@ -763,26 +724,7 @@ export default function AutomationSystemsPage() {
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"
                     style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }}
                 />
-                <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 z-0"
-                    style={{
-                        background: [
-                            "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(75,145,247,0.18) 0%, transparent 65%)",
-                            "radial-gradient(ellipse 40% 50% at 50% 0%, rgba(123,85,234,0.08) 0%, transparent 60%)",
-                        ].join(", "),
-                    }}
-                />
-                <div className="pointer-events-none absolute inset-0 opacity-30">
-                    <svg viewBox="0 0 1200 400" className="h-full w-full" fill="none" preserveAspectRatio="xMidYMid slice">
-                        <path d="M0 150 Q400 50 800 150 T1600 150" stroke={`${BLUE}33`} strokeWidth="1" />
-                        <path d="M0 220 Q400 320 800 220 T1600 220" stroke={`${BLUE}22`} strokeWidth="1" />
-                        <path d="M0 280 Q400 180 800 280 T1600 280" stroke={`${BLUE}22`} strokeWidth="1" />
-                        {[150, 350, 550, 750, 950].map((x) => (
-                            <circle key={x} cx={x} cy="150" r="3" fill={GREEN} opacity="0.5" />
-                        ))}
-                    </svg>
-                </div>
+                <CTAAurora />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -802,7 +744,7 @@ export default function AutomationSystemsPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Book Your Automation Audit
                         </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,6 +12,8 @@ import ClientsMarquee from "@/app/components/ClientsMarquee";
 import { CircleArrow } from "@/app/components/ServicesSection";
 import TestimonialsSection from "@/app/components/TestimonialsSection";
 import HomeHero from "@/app/components/HomeHero";
+import OperationsBeforeTerminal from "@/app/components/OperationsBeforeTerminal";
+import CTAAurora from "@/app/components/CTAAurora";
 import { useBookCall } from "@/app/components/BookCallProvider";
 
 // ── Count-up hook ──────────────────────────────────────────────────────────
@@ -160,8 +162,8 @@ function TechStackSection() {
             <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                 <div className="absolute inset-0" style={{
                     background: [
-                        "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(75,145,247,0.07) 0%, transparent 65%)",
-                        "radial-gradient(ellipse 40% 40% at 85% 20%, rgba(75,145,247,0.04) 0%, transparent 60%)",
+                        "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(123, 85, 234,0.07) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 40% 40% at 85% 20%, rgba(123, 85, 234,0.04) 0%, transparent 60%)",
                     ].join(", ")
                 }} />
             </div>
@@ -199,7 +201,7 @@ const PRODUCT_FEATURES = [
 // ── Service icons (monochrome line-art glyph + sparkle) ───────────────────
 // `accent` prop kept for backwards compat but ignored, all homepage icons render in white.
 function ServiceIcon({ kind, size = 26 }: { kind: IconKind; accent?: string; size?: number }) {
-    const ICON_COLOR = "var(--home-accent-cyan, #4B91F7)";
+    const ICON_COLOR = "var(--home-accent-cyan, #7B55EA)";
     const sparkle = (
         <path
             d="M26 4L27 6L29 7L27 8L26 10L25 8L23 7L25 6Z"
@@ -285,7 +287,7 @@ const SERVICE_CARDS: Array<{
             ],
             learnMore: "Build a digital product",
             href: "/products/digital-products",
-            accent: "#4B91F7",
+            accent: "#7B55EA",
             icon: "products",
         },
         {
@@ -298,7 +300,7 @@ const SERVICE_CARDS: Array<{
             ],
             learnMore: "Explore digital services",
             href: "/products/digital-services",
-            accent: "#4B91F7",
+            accent: "#7B55EA",
             icon: "services",
         },
         {
@@ -311,7 +313,7 @@ const SERVICE_CARDS: Array<{
             ],
             learnMore: "Automate your operations",
             href: "/products/automation-systems",
-            accent: "#4B91F7",
+            accent: "#7B55EA",
             icon: "automation",
         },
         {
@@ -324,7 +326,7 @@ const SERVICE_CARDS: Array<{
             ],
             learnMore: "Explore AI & intelligence",
             href: "/products/ai-intelligence",
-            accent: "#4B91F7",
+            accent: "#7B55EA",
             icon: "ai",
         },
     ];
@@ -550,9 +552,182 @@ function ServicesExplorer() {
     );
 }
 
+// ── Services card background visuals (white-only, subtle continuous motion) ─
+function CubeVisual() {
+    return (
+        <svg width="180" height="180" viewBox="0 0 200 200" fill="none" aria-hidden>
+            <motion.g
+                animate={{ y: [0, -4, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            >
+                {/* Top face */}
+                <path d="M100 50 L150 75 L100 100 L50 75 Z" stroke="rgba(255,255,255,0.45)" strokeWidth="1.2" fill="none" strokeLinejoin="round" />
+                {/* Front-left face */}
+                <path d="M50 75 L50 135 L100 160 L100 100 Z" stroke="rgba(255,255,255,0.38)" strokeWidth="1.2" fill="none" strokeLinejoin="round" />
+                {/* Front-right face */}
+                <path d="M150 75 L150 135 L100 160 L100 100 Z" stroke="rgba(255,255,255,0.32)" strokeWidth="1.2" fill="none" strokeLinejoin="round" />
+                {/* Vertical edges (back) */}
+                <line x1="50" y1="75" x2="50" y2="135" stroke="rgba(255,255,255,0.4)" strokeWidth="1.2" />
+                <line x1="150" y1="75" x2="150" y2="135" stroke="rgba(255,255,255,0.4)" strokeWidth="1.2" />
+                <line x1="100" y1="100" x2="100" y2="160" stroke="rgba(255,255,255,0.35)" strokeWidth="1.2" />
+                {/* Corner dots */}
+                {[
+                    { cx: 100, cy: 50, delay: 0 },
+                    { cx: 150, cy: 75, delay: 0.6 },
+                    { cx: 50, cy: 75, delay: 1.2 },
+                    { cx: 100, cy: 160, delay: 1.8 },
+                ].map((d, i) => (
+                    <motion.circle
+                        key={i}
+                        cx={d.cx}
+                        cy={d.cy}
+                        r="2.5"
+                        fill="rgba(255,255,255,0.85)"
+                        animate={{ opacity: [0.45, 0.95, 0.45] }}
+                        transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: d.delay }}
+                    />
+                ))}
+            </motion.g>
+        </svg>
+    );
+}
+
+function OrbitVisual() {
+    return (
+        <svg width="180" height="180" viewBox="0 0 200 200" fill="none" aria-hidden>
+            {/* Center node */}
+            <circle cx="100" cy="100" r="3.5" fill="rgba(255,255,255,0.9)" />
+            <circle cx="100" cy="100" r="7" stroke="rgba(255,255,255,0.32)" strokeWidth="1" fill="none" />
+
+            {/* Three rotating dashed orbits */}
+            <motion.circle
+                cx="100" cy="100" r="36"
+                stroke="rgba(255,255,255,0.32)" strokeWidth="1" fill="none"
+                strokeDasharray="50 30"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+                style={{ transformOrigin: "100px 100px" }}
+            />
+            <motion.circle
+                cx="100" cy="100" r="54"
+                stroke="rgba(255,255,255,0.22)" strokeWidth="1" fill="none"
+                strokeDasharray="40 90"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                style={{ transformOrigin: "100px 100px" }}
+            />
+            <motion.circle
+                cx="100" cy="100" r="74"
+                stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="none"
+                strokeDasharray="20 70"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
+                style={{ transformOrigin: "100px 100px" }}
+            />
+
+            {/* Traveling satellite on outer orbit */}
+            <motion.g
+                animate={{ rotate: 360 }}
+                transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+                style={{ transformOrigin: "100px 100px" }}
+            >
+                <circle cx="174" cy="100" r="3" fill="rgba(255,255,255,0.95)" />
+            </motion.g>
+        </svg>
+    );
+}
+
+function GearsVisual() {
+    const gearTeeth = (cx: number, cy: number, count: number, innerR: number, outerR: number) =>
+        Array.from({ length: count }).map((_, i) => {
+            const angle = (i / count) * Math.PI * 2;
+            const x1 = cx + Math.cos(angle) * innerR;
+            const y1 = cy + Math.sin(angle) * innerR;
+            const x2 = cx + Math.cos(angle) * outerR;
+            const y2 = cy + Math.sin(angle) * outerR;
+            return (
+                <line
+                    key={i}
+                    x1={x1} y1={y1} x2={x2} y2={y2}
+                    stroke="rgba(255,255,255,0.4)"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                />
+            );
+        });
+
+    return (
+        <svg width="180" height="180" viewBox="0 0 200 200" fill="none" aria-hidden>
+            {/* Big gear (lower-left) */}
+            <motion.g
+                animate={{ rotate: 360 }}
+                transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+                style={{ transformOrigin: "78px 112px" }}
+            >
+                <circle cx="78" cy="112" r="32" stroke="rgba(255,255,255,0.4)" strokeWidth="1.3" fill="none" />
+                <circle cx="78" cy="112" r="14" stroke="rgba(255,255,255,0.35)" strokeWidth="1" fill="none" />
+                <circle cx="78" cy="112" r="3" fill="rgba(255,255,255,0.55)" />
+                {gearTeeth(78, 112, 12, 32, 39)}
+            </motion.g>
+            {/* Small gear (upper-right) */}
+            <motion.g
+                animate={{ rotate: -360 }}
+                transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+                style={{ transformOrigin: "138px 76px" }}
+            >
+                <circle cx="138" cy="76" r="22" stroke="rgba(255,255,255,0.4)" strokeWidth="1.3" fill="none" />
+                <circle cx="138" cy="76" r="9" stroke="rgba(255,255,255,0.35)" strokeWidth="1" fill="none" />
+                <circle cx="138" cy="76" r="2.5" fill="rgba(255,255,255,0.55)" />
+                {gearTeeth(138, 76, 8, 22, 28)}
+            </motion.g>
+        </svg>
+    );
+}
+
+function NeuralVisual() {
+    const lineProps = { stroke: "rgba(255,255,255,0.22)", strokeWidth: 1 };
+    const nodeAnim = (delay: number, base: number, peak: number) => ({
+        animate: { r: [base, peak, base] },
+        transition: { duration: 1.9, repeat: Infinity, ease: "easeInOut" as const, delay },
+    });
+
+    return (
+        <svg width="180" height="180" viewBox="0 0 200 200" fill="none" aria-hidden>
+            {/* Connections L1→L2 */}
+            <line x1="50" y1="55" x2="100" y2="85" {...lineProps} />
+            <line x1="50" y1="55" x2="100" y2="125" {...lineProps} />
+            <line x1="50" y1="100" x2="100" y2="85" {...lineProps} />
+            <line x1="50" y1="100" x2="100" y2="125" {...lineProps} />
+            <line x1="50" y1="145" x2="100" y2="85" {...lineProps} />
+            <line x1="50" y1="145" x2="100" y2="125" {...lineProps} />
+            {/* Connections L2→L3 */}
+            <line x1="100" y1="85" x2="150" y2="105" {...lineProps} stroke="rgba(255,255,255,0.3)" />
+            <line x1="100" y1="125" x2="150" y2="105" {...lineProps} stroke="rgba(255,255,255,0.3)" />
+
+            {/* Layer 1: 3 input nodes */}
+            <motion.circle cx="50" cy="55" fill="rgba(255,255,255,0.75)" {...nodeAnim(0, 4, 5.5)} />
+            <motion.circle cx="50" cy="100" fill="rgba(255,255,255,0.75)" {...nodeAnim(0.2, 4, 5.5)} />
+            <motion.circle cx="50" cy="145" fill="rgba(255,255,255,0.75)" {...nodeAnim(0.4, 4, 5.5)} />
+            {/* Layer 2: 2 hidden nodes */}
+            <motion.circle cx="100" cy="85" fill="rgba(255,255,255,0.88)" {...nodeAnim(0.7, 4.5, 6)} />
+            <motion.circle cx="100" cy="125" fill="rgba(255,255,255,0.88)" {...nodeAnim(0.9, 4.5, 6)} />
+            {/* Layer 3: output node */}
+            <motion.circle cx="150" cy="105" fill="rgba(255,255,255,0.95)" {...nodeAnim(1.2, 5, 7)} />
+        </svg>
+    );
+}
+
+function CardVisual({ kind }: { kind: IconKind }) {
+    if (kind === "products") return <CubeVisual />;
+    if (kind === "services") return <OrbitVisual />;
+    if (kind === "automation") return <GearsVisual />;
+    if (kind === "ai") return <NeuralVisual />;
+    return null;
+}
+
 // ── Services Grid ─────────────────────────────────────────────────────────
 function ServicesCarousel() {
-    const BLUE = "#4B91F7";
+    const BLUE = "#7B55EA";
 
     return (
         <div>
@@ -577,7 +752,7 @@ function ServicesCarousel() {
                     <a
                         key={card.title}
                         href={card.href}
-                        className="group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-7 outline-none focus-visible:ring-2 focus-visible:ring-[#4B91F7]/60 md:block md:h-[300px] md:p-0"
+                        className="group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-7 outline-none focus-visible:ring-2 focus-visible:ring-[#7B55EA]/60 md:block md:h-[300px] md:p-0"
                         style={{
                             background: "var(--home-card-bg, rgba(21,24,34,0.94))",
                             border: "1px solid var(--home-card-border, rgba(255,255,255,0.07))",
@@ -585,8 +760,8 @@ function ServicesCarousel() {
                         }}
                         onMouseEnter={(e) => {
                             const el = e.currentTarget as HTMLElement;
-                            el.style.borderColor = "rgba(75,145,247,0.3)";
-                            el.style.boxShadow = "inset 0 0 0 1px rgba(75,145,247,0.08), 0 24px 60px rgba(0,0,0,0.35)";
+                            el.style.borderColor = "rgba(123, 85, 234,0.3)";
+                            el.style.boxShadow = "inset 0 0 0 1px rgba(123, 85, 234,0.08), 0 24px 60px rgba(0,0,0,0.35)";
                         }}
                         onMouseLeave={(e) => {
                             const el = e.currentTarget as HTMLElement;
@@ -607,7 +782,7 @@ function ServicesCarousel() {
                         <div
                             aria-hidden
                             className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                            style={{ background: "radial-gradient(ellipse 70% 55% at 30% 100%, rgba(75,145,247,0.09) 0%, transparent 65%)" }}
+                            style={{ background: "radial-gradient(ellipse 70% 55% at 30% 100%, rgba(123, 85, 234,0.09) 0%, transparent 65%)" }}
                         />
 
                         {/* Top bar, icon + number badge */}
@@ -615,8 +790,8 @@ function ServicesCarousel() {
                             <div
                                 className="flex h-11 w-11 items-center justify-center rounded-xl transition-colors duration-400"
                                 style={{
-                                    background: "rgba(75,145,247,0.09)",
-                                    border: "1px solid rgba(75,145,247,0.2)",
+                                    background: "rgba(123, 85, 234,0.09)",
+                                    border: "1px solid rgba(123, 85, 234,0.2)",
                                 }}
                             >
                                 <ServiceIcon kind={card.icon} size={22} />
@@ -806,10 +981,10 @@ const PAIN_POINTS: Array<{ title: string; desc: string }> = [
 
 // ── Solution section: 4-node delivery flow ────────────────────────────────
 const FLOW_NODES: Array<{ num: string; title: string; caption: string; icon: IconKind; accent: string }> = [
-    { num: "01", title: "Diagnose", caption: "Map operations, surface friction, identify ROI opportunities.", icon: "sales", accent: "#4B91F7" },
-    { num: "02", title: "Architect", caption: "Design AI-native systems matched to your business model.", icon: "ai", accent: "#4B91F7" },
-    { num: "03", title: "Build", caption: "Ship integrated products, automation, and intelligence layers.", icon: "products", accent: "#4B91F7" },
-    { num: "04", title: "Compound", caption: "Measure, iterate, and grow returns month over month.", icon: "growth", accent: "#4B91F7" },
+    { num: "01", title: "Diagnose", caption: "Map operations, surface friction, identify ROI opportunities.", icon: "sales", accent: "#7B55EA" },
+    { num: "02", title: "Architect", caption: "Design AI-native systems matched to your business model.", icon: "ai", accent: "#7B55EA" },
+    { num: "03", title: "Build", caption: "Ship integrated products, automation, and intelligence layers.", icon: "products", accent: "#7B55EA" },
+    { num: "04", title: "Compound", caption: "Measure, iterate, and grow returns month over month.", icon: "growth", accent: "#7B55EA" },
 ];
 
 // ── Reusable inline helpers ───────────────────────────────────────────────
@@ -827,11 +1002,11 @@ function ImagePlaceholder({
 }) {
     const bg = accent
         ? `linear-gradient(135deg, ${accent}1F, ${accent}08)`
-        : "linear-gradient(135deg, rgba(75,145,247,0.10), rgba(75,145,247,0.06))";
+        : "linear-gradient(135deg, rgba(123, 85, 234,0.10), rgba(123, 85, 234,0.06))";
     const border = accent ? `1px solid ${accent}33` : "1px solid rgba(255,255,255,0.06)";
     const glow = accent
         ? `radial-gradient(ellipse 60% 60% at 50% 50%, ${accent}33 0%, transparent 70%)`
-        : "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.18) 0%, transparent 70%)";
+        : "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 85, 234,0.18) 0%, transparent 70%)";
     return (
         <div
             className={`relative w-full overflow-hidden rounded-xl ${className}`}
@@ -856,7 +1031,7 @@ function FlowNode({ num, title, caption, icon, accent }: typeof FLOW_NODES[numbe
             {/* Number badge above node */}
             <span
                 className="text-xs font-bold uppercase tracking-[0.2em]"
-                style={{ color: "rgba(75,145,247,0.6)" }}
+                style={{ color: "rgba(123, 85, 234,0.6)" }}
             >
                 {num}
             </span>
@@ -864,8 +1039,8 @@ function FlowNode({ num, title, caption, icon, accent }: typeof FLOW_NODES[numbe
             <div
                 className="rounded-2xl p-px"
                 style={{
-                    background: "linear-gradient(135deg, rgba(75,145,247,0.55) 0%, rgba(255,255,255,0.06) 50%, rgba(75,145,247,0.45) 100%)",
-                    boxShadow: "0 12px 36px rgba(75,145,247,0.15)",
+                    background: "linear-gradient(135deg, rgba(123, 85, 234,0.55) 0%, rgba(255,255,255,0.06) 50%, rgba(123, 85, 234,0.45) 100%)",
+                    boxShadow: "0 12px 36px rgba(123, 85, 234,0.15)",
                 }}
             >
                 <div
@@ -886,10 +1061,10 @@ function FlowConnector({ vertical = false }: { vertical?: boolean }) {
         return (
             <div className="flex justify-center py-1" aria-hidden>
                 <div className="relative flex flex-col items-center" style={{ height: "52px", width: "2px" }}>
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(75,145,247,0.15), rgba(75,145,247,0.35), rgba(75,145,247,0.15))" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(123, 85, 234,0.15), rgba(123, 85, 234,0.35), rgba(123, 85, 234,0.15))" }} />
                     <motion.div
                         className="absolute w-2 h-2 rounded-full -left-[3px]"
-                        style={{ background: "rgba(75,145,247,0.9)", boxShadow: "0 0 8px rgba(75,145,247,0.7)" }}
+                        style={{ background: "rgba(123, 85, 234,0.9)", boxShadow: "0 0 8px rgba(123, 85, 234,0.7)" }}
                         initial={{ top: 0 }}
                         animate={{ top: "calc(100% - 8px)" }}
                         transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
@@ -901,13 +1076,13 @@ function FlowConnector({ vertical = false }: { vertical?: boolean }) {
     return (
         <div className="flex items-center w-16 flex-shrink-0" aria-hidden style={{ marginTop: "52px" }}>
             <div className="relative flex w-full items-center">
-                <div className="h-px w-full" style={{ background: "linear-gradient(to right, rgba(75,145,247,0.25), rgba(75,145,247,0.5), rgba(75,145,247,0.25))" }} />
+                <div className="h-px w-full" style={{ background: "linear-gradient(to right, rgba(123, 85, 234,0.25), rgba(123, 85, 234,0.5), rgba(123, 85, 234,0.25))" }} />
                 <svg className="flex-shrink-0 -ml-px" width="7" height="12" viewBox="0 0 7 12" fill="none">
-                    <path d="M1 1L6 6L1 11" stroke="rgba(75,145,247,0.55)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M1 1L6 6L1 11" stroke="rgba(123, 85, 234,0.55)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <motion.div
                     className="absolute h-1.5 w-1.5 rounded-full"
-                    style={{ top: "50%", marginTop: "-3px", background: "rgba(75,145,247,0.9)", boxShadow: "0 0 6px rgba(75,145,247,0.7)" }}
+                    style={{ top: "50%", marginTop: "-3px", background: "rgba(123, 85, 234,0.9)", boxShadow: "0 0 6px rgba(123, 85, 234,0.7)" }}
                     initial={{ left: 0 }}
                     animate={{ left: "calc(100% - 8px)" }}
                     transition={{ duration: 1.6, repeat: Infinity, ease: "linear" }}
@@ -931,8 +1106,8 @@ export default function HeroSection() {
             <section id="problem" className="home-theme-dark relative w-full px-6 py-20 md:py-28 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -993,14 +1168,14 @@ export default function HeroSection() {
                             ))}
                         </motion.div>
 
-                        {/* Right: Placeholder visual */}
+                        {/* Right: Terminal — Operations Before Levata */}
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                         >
-                            <ImagePlaceholder aspect="4/3" label="Operations before Levata" accent="#4B91F7" className="min-h-[300px]" />
+                            <OperationsBeforeTerminal />
                         </motion.div>
                     </div>
                 </div>
@@ -1035,8 +1210,8 @@ export default function HeroSection() {
                 <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0" style={{
                         background: [
-                            "radial-gradient(ellipse 55% 50% at 50% 25%, rgba(75,145,247,0.08) 0%, transparent 65%)",
-                            "radial-gradient(ellipse 40% 45% at 15% 75%, rgba(75,145,247,0.05) 0%, transparent 60%)",
+                            "radial-gradient(ellipse 55% 50% at 50% 25%, rgba(123, 85, 234,0.08) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 40% 45% at 15% 75%, rgba(123, 85, 234,0.05) 0%, transparent 60%)",
                         ].join(", ")
                     }} />
                 </div>
@@ -1100,7 +1275,7 @@ export default function HeroSection() {
             {/* ── 4. SERVICE CATEGORIES (Horizontal carousel) ──── */}
             <section id="services" className="home-theme-dark relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-28 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(75,145,247,0.05) 0%, transparent 70%)",
+                    background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                 }} />
 
                 <div className="relative z-10 mx-auto max-w-7xl">
@@ -1119,9 +1294,7 @@ export default function HeroSection() {
 
             {/* ── 5. MID-PAGE CTA ──────────────────────────────── */}
             <section className="home-theme-dark relative w-full px-5 py-16 sm:px-6 sm:py-20 overflow-hidden">
-                <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 55% 65% at 50% 100%, rgba(75,145,247,0.07) 0%, transparent 65%)",
-                }} />
+                <CTAAurora />
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -1141,17 +1314,11 @@ export default function HeroSection() {
                             type="button"
                             onClick={openBookCall}
                             className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Book a Strategy Call
                             <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                         </button>
-                        <a
-                            href="/contact"
-                            className="text-sm font-medium text-white/50 transition-colors duration-200 hover:text-white/80"
-                        >
-                            Or send us a message →
-                        </a>
                     </div>
                 </motion.div>
             </section>
@@ -1170,7 +1337,7 @@ export default function HeroSection() {
                 <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0" style={{
                         background: [
-                            "radial-gradient(ellipse 65% 55% at 50% 30%, rgba(75,145,247,0.09) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 65% 55% at 50% 30%, rgba(123, 85, 234,0.09) 0%, transparent 65%)",
                             "radial-gradient(ellipse 40% 50% at 85% 70%, rgba(123,85,234,0.07) 0%, transparent 60%)",
                         ].join(", ")
                     }} />
@@ -1202,8 +1369,8 @@ export default function HeroSection() {
                     className="mx-auto w-full max-w-5xl"
                 >
                     <div className="rounded-3xl p-px" style={{
-                        background: "linear-gradient(105deg, rgba(75,145,247,0.45) 0%, rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.06) 60%, rgba(75,145,247,0.4) 100%)",
-                        boxShadow: "-8px 0 40px rgba(75,145,247,0.12), 8px 0 40px rgba(75,145,247,0.12)",
+                        background: "linear-gradient(105deg, rgba(123, 85, 234,0.45) 0%, rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.06) 60%, rgba(123, 85, 234,0.4) 100%)",
+                        boxShadow: "-8px 0 40px rgba(123, 85, 234,0.12), 8px 0 40px rgba(123, 85, 234,0.12)",
                     }}>
                         <div
                             className="relative rounded-3xl overflow-hidden"
@@ -1214,7 +1381,7 @@ export default function HeroSection() {
                                     <div className="flex items-center gap-2">
                                         <span
                                             className="rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest"
-                                            style={{ background: "rgba(75,145,247,0.08)", color: "rgba(75,145,247,0.8)", border: "1px solid rgba(75,145,247,0.22)" }}
+                                            style={{ background: "rgba(123, 85, 234,0.08)", color: "rgba(123, 85, 234,0.8)", border: "1px solid rgba(123, 85, 234,0.22)" }}
                                         >
                                             Sales Intelligence Platform
                                         </span>
@@ -1230,9 +1397,9 @@ export default function HeroSection() {
                                         {PRODUCT_FEATURES.map((feat) => (
                                             <li key={feat} className="flex items-start gap-3 text-sm text-white/65">
                                                 <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center"
-                                                    style={{ background: "rgba(75,145,247,0.15)", border: "1px solid rgba(75,145,247,0.3)" }}>
+                                                    style={{ background: "rgba(123, 85, 234,0.15)", border: "1px solid rgba(123, 85, 234,0.3)" }}>
                                                     <svg viewBox="0 0 10 10" fill="none" className="w-2.5 h-2.5" aria-hidden="true">
-                                                        <path d="M2 5l2.5 2.5L8 3" stroke="#4B91F7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                        <path d="M2 5l2.5 2.5L8 3" stroke="#7B55EA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
                                                 </span>
                                                 <span className="leading-snug">{feat}</span>
@@ -1250,8 +1417,8 @@ export default function HeroSection() {
                                     <div className="pointer-events-none absolute inset-0"
                                         style={{
                                             background: [
-                                                "radial-gradient(ellipse 55% 55% at 10% 85%, rgba(75,145,247,0.22) 0%, transparent 65%)",
-                                                "radial-gradient(ellipse 45% 50% at 90% 20%, rgba(75,145,247,0.18) 0%, transparent 65%)",
+                                                "radial-gradient(ellipse 55% 55% at 10% 85%, rgba(123, 85, 234,0.22) 0%, transparent 65%)",
+                                                "radial-gradient(ellipse 45% 50% at 90% 20%, rgba(123, 85, 234,0.18) 0%, transparent 65%)",
                                             ].join(", ")
                                         }} />
                                     <div className="absolute inset-0 p-5 flex gap-3 text-[10px]">
@@ -1269,10 +1436,10 @@ export default function HeroSection() {
                                                 { label: "Settings", active: false },
                                             ].map(({ label, active }) => (
                                                 <div key={label} className="flex items-center gap-2 rounded-md px-2 py-1.5"
-                                                    style={{ background: active ? "rgba(75,145,247,0.08)" : "transparent" }}>
+                                                    style={{ background: active ? "rgba(123, 85, 234,0.08)" : "transparent" }}>
                                                     <div className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
-                                                        style={{ background: active ? "rgba(75,145,247,0.5)" : "rgba(255,255,255,0.12)" }} />
-                                                    <span style={{ color: active ? "rgba(75,145,247,0.9)" : "rgba(255,255,255,0.3)", fontSize: "9px", fontWeight: active ? 600 : 400 }}>{label}</span>
+                                                        style={{ background: active ? "rgba(123, 85, 234,0.5)" : "rgba(255,255,255,0.12)" }} />
+                                                    <span style={{ color: active ? "rgba(123, 85, 234,0.9)" : "rgba(255,255,255,0.3)", fontSize: "9px", fontWeight: active ? 600 : 400 }}>{label}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -1280,8 +1447,8 @@ export default function HeroSection() {
                                         <div className="flex flex-col gap-3 flex-1 min-w-0">
                                             <div className="grid grid-cols-3 gap-2">
                                                 {[
-                                                    { label: "Pipeline Value", value: "$284k", sub: "+12% this month", c: "#4B91F7" },
-                                                    { label: "Leads Scored", value: "1,048", sub: "94 high-intent", c: "#4B91F7" },
+                                                    { label: "Pipeline Value", value: "$284k", sub: "+12% this month", c: "#7B55EA" },
+                                                    { label: "Leads Scored", value: "1,048", sub: "94 high-intent", c: "#7B55EA" },
                                                     { label: "Deals Closed", value: "37", sub: "↑ 8 from last mo.", c: "#3ECF8E" },
                                                 ].map(({ label, value, sub, c }) => (
                                                     <div key={label} className="rounded-xl p-2.5"
@@ -1300,7 +1467,7 @@ export default function HeroSection() {
                                                     <div className="flex gap-2">
                                                         {["Actual", "Forecast"].map((l, i) => (
                                                             <div key={l} className="flex items-center gap-1">
-                                                                <div className="w-2 h-0.5 rounded" style={{ background: i === 0 ? "#4B91F7" : "rgba(75,145,247,0.5)" }} />
+                                                                <div className="w-2 h-0.5 rounded" style={{ background: i === 0 ? "#7B55EA" : "rgba(123, 85, 234,0.5)" }} />
                                                                 <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "8px" }}>{l}</span>
                                                             </div>
                                                         ))}
@@ -1313,7 +1480,7 @@ export default function HeroSection() {
                                                     ))}
                                                     <polyline
                                                         points="0,55 40,50 80,45 120,42 160,38 200,35 240,33 280,30"
-                                                        fill="none" stroke="rgba(75,145,247,0.35)" strokeWidth="1.5" strokeDasharray="4 3"
+                                                        fill="none" stroke="rgba(123, 85, 234,0.35)" strokeWidth="1.5" strokeDasharray="4 3"
                                                     />
                                                     <polygon
                                                         points="0,70 0,58 40,52 80,40 120,48 160,35 200,28 240,32 280,22 280,70"
@@ -1321,14 +1488,14 @@ export default function HeroSection() {
                                                     />
                                                     <polyline
                                                         points="0,58 40,52 80,40 120,48 160,35 200,28 240,32 280,22"
-                                                        fill="none" stroke="#4B91F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                                        fill="none" stroke="#7B55EA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                                                     />
-                                                    <circle cx="200" cy="28" r="3" fill="#4B91F7" />
-                                                    <circle cx="200" cy="28" r="5" fill="rgba(75,145,247,0.2)" />
+                                                    <circle cx="200" cy="28" r="3" fill="#7B55EA" />
+                                                    <circle cx="200" cy="28" r="5" fill="rgba(123, 85, 234,0.2)" />
                                                     <defs>
                                                         <linearGradient id="chartFillFeatured" x1="0" y1="0" x2="0" y2="1">
-                                                            <stop offset="0%" stopColor="#4B91F7" />
-                                                            <stop offset="100%" stopColor="#4B91F7" stopOpacity="0" />
+                                                            <stop offset="0%" stopColor="#7B55EA" />
+                                                            <stop offset="100%" stopColor="#7B55EA" stopOpacity="0" />
                                                         </linearGradient>
                                                     </defs>
                                                 </svg>
@@ -1349,7 +1516,7 @@ export default function HeroSection() {
                                                 </div>
                                                 {[
                                                     { lead: "Acme Corp", score: "94", stage: "Proposal", value: "$42k", sc: "#3ECF8E" },
-                                                    { lead: "Vertex AI", score: "87", stage: "Discovery", value: "$18k", sc: "#4B91F7" },
+                                                    { lead: "Vertex AI", score: "87", stage: "Discovery", value: "$18k", sc: "#7B55EA" },
                                                     { lead: "Nexus Ltd", score: "71", stage: "Qualified", value: "$29k", sc: "#FFD21E" },
                                                 ].map((row, i) => (
                                                     <div key={i} className="grid grid-cols-4 px-3 py-1.5"
@@ -1376,7 +1543,7 @@ export default function HeroSection() {
             <section id="numbers" className="home-theme-dark relative w-full px-6 pt-10 pb-20 md:pt-14 md:pb-24">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background:
-                        "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -1417,8 +1584,8 @@ export default function HeroSection() {
             <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-24 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 50%, rgba(75,145,247,0.07) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(75,145,247,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 50%, rgba(123, 85, 234,0.07) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -1447,7 +1614,7 @@ export default function HeroSection() {
                                 className="relative flex flex-col rounded-2xl p-8 md:p-9 overflow-hidden"
                                 style={w.featured ? {
                                     background: "rgba(10,14,28,0.98)",
-                                    border: "1px solid rgba(75,145,247,0.22)",
+                                    border: "1px solid rgba(123, 85, 234,0.22)",
                                 } : {
                                     background: "var(--home-card-bg)",
                                     border: "1px solid var(--home-card-border)",
@@ -1455,7 +1622,7 @@ export default function HeroSection() {
                             >
                                 {w.featured && (
                                     <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl" style={{
-                                        background: "radial-gradient(ellipse 80% 45% at 50% -5%, rgba(75,145,247,0.16) 0%, transparent 70%)",
+                                        background: "radial-gradient(ellipse 80% 45% at 50% -5%, rgba(123, 85, 234,0.16) 0%, transparent 70%)",
                                     }} />
                                 )}
 
@@ -1504,13 +1671,8 @@ export default function HeroSection() {
 
             {/* ── 12. FINAL CTA ──────────────────────────────── */}
             <section className="home-theme-dark relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
-                <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: [
-                        "radial-gradient(ellipse 80% 70% at 50% 110%, rgba(75,145,247,0.22) 0%, rgba(75,145,247,0.1) 45%, transparent 70%)",
-                        "radial-gradient(ellipse 50% 40% at 50% 0%, rgba(75,145,247,0.06) 0%, transparent 60%)",
-                    ].join(", "),
-                }} />
-                <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(75,145,247,0.5), transparent)" }} />
+                <CTAAurora />
+                <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.5), transparent)" }} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -1531,7 +1693,7 @@ export default function HeroSection() {
                             type="button"
                             onClick={openBookCall}
                             className="group inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer sm:py-3.5"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Book a Strategy Call
                             <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>

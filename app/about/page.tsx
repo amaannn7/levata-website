@@ -1,9 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import CTAAurora from "@/app/components/CTAAurora";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -145,7 +146,7 @@ export default function AboutPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-5 py-3 rounded-full text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Book a Strategy Call
                         </button>
@@ -153,7 +154,7 @@ export default function AboutPage() {
                 </motion.div>
 
                 <div aria-hidden className="absolute bottom-0 left-1/2 -translate-x-1/2 h-px w-32"
-                    style={{ background: "linear-gradient(to right, transparent, rgba(75,145,247,0.35), transparent)" }}
+                    style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.35), transparent)" }}
                 />
                 <HeroHorizon />
             </section>
@@ -164,18 +165,18 @@ export default function AboutPage() {
                     top: "50%", left: "50%", transform: "translate(-50%,-50%)",
                     width: "120vw", height: "500px",
                     background: [
-                        "radial-gradient(ellipse 30% 60% at 20% 50%, rgba(75,145,247,0.07) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 30% 60% at 80% 50%, rgba(75,145,247,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 30% 60% at 20% 50%, rgba(123, 85, 234,0.07) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 30% 60% at 80% 50%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
 
-                <div className="relative z-10 mx-auto max-w-4xl">
+                <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-12 flex flex-col items-center text-center gap-5"
+                        className="flex flex-col items-center text-center gap-5"
                     >
                         <SectionLabel text="Who we are" />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -189,7 +190,7 @@ export default function AboutPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="mx-auto max-w-2xl text-center text-base leading-relaxed text-white/55 md:text-[1.05rem]"
+                        className="mt-8 max-w-2xl text-center text-base leading-relaxed text-white/55 md:text-[1.05rem]"
                     >
                         We founded Levata to close the gap between powerful AI technology and the businesses
                         that need it most. Not through software subscriptions or one-off projects, but as a
@@ -201,14 +202,14 @@ export default function AboutPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                        className="mx-auto mt-10 max-w-2xl rounded-2xl p-px"
+                        className="mt-10 w-full max-w-2xl rounded-2xl p-px"
                         style={{
                             background:
-                                "linear-gradient(135deg, rgba(75,145,247,0.35) 0%, rgba(255,255,255,0.06) 50%, rgba(75,145,247,0.35) 100%)",
+                                "linear-gradient(135deg, rgba(123, 85, 234,0.35) 0%, rgba(255,255,255,0.06) 50%, rgba(123, 85, 234,0.35) 100%)",
                         }}
                     >
                         <div
-                            className="relative rounded-[15px] p-7 md:p-8"
+                            className="relative flex flex-col items-center rounded-[15px] p-7 text-center md:p-8"
                             style={{
                                 background: "rgba(23,26,34,0.98)",
                                 border: "1px solid rgba(255,255,255,0.04)",
@@ -230,8 +231,8 @@ export default function AboutPage() {
             <section className="relative w-full overflow-hidden px-6 py-16 md:py-24">
                 <div aria-hidden className="pointer-events-none absolute inset-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(75,145,247,0.07) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 30% 40% at 80% 20%, rgba(75,145,247,0.05) 0%, transparent 60%)",
+                        "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(123, 85, 234,0.07) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 30% 40% at 80% 20%, rgba(123, 85, 234,0.05) 0%, transparent 60%)",
                     ].join(", "),
                 }} />
 
@@ -269,7 +270,7 @@ export default function AboutPage() {
                                     className="flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed sm:h-32 sm:w-32 md:h-36 md:w-36"
                                     style={{
                                         borderColor: "rgba(255,255,255,0.18)",
-                                        background: "radial-gradient(circle, rgba(75,145,247,0.08) 0%, rgba(8,1,28,0.5) 70%)",
+                                        background: "radial-gradient(circle, rgba(123, 85, 234,0.08) 0%, rgba(8,1,28,0.5) 70%)",
                                     }}
                                 >
                                     <span className="text-2xl font-bold tracking-tight text-white/85 md:text-3xl">
@@ -291,8 +292,8 @@ export default function AboutPage() {
             <section className="relative w-full overflow-hidden px-6 py-16 md:py-24">
                 <div aria-hidden className="pointer-events-none absolute inset-0" style={{
                     background: [
-                        "radial-gradient(ellipse 60% 60% at 50% 30%, rgba(75,145,247,0.08) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 40% at 20% 80%, rgba(75,145,247,0.06) 0%, transparent 60%)",
+                        "radial-gradient(ellipse 60% 60% at 50% 30%, rgba(123, 85, 234,0.08) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 40% at 20% 80%, rgba(123, 85, 234,0.06) 0%, transparent 60%)",
                     ].join(", "),
                 }} />
 
@@ -311,42 +312,67 @@ export default function AboutPage() {
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:auto-rows-fr">
-                        {WHY_ITEMS.map(({ Icon, title, body }, i) => (
-                            <motion.div
-                                key={title}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: (i % 2) * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                whileHover={{ y: -4 }}
-                                className="flex h-full flex-col gap-6 rounded-2xl p-7 md:p-9 transition-colors duration-300 hover:bg-white/[0.03]"
-                                style={{
-                                    background: "rgba(23,26,34,0.92)",
-                                    border: "1px solid rgba(255,255,255,0.07)",
-                                }}
-                            >
-                                <Icon />
-                                <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
-                                    {title}
-                                </h3>
-                                <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">{body}</p>
-                            </motion.div>
-                        ))}
+                    <div className="relative mx-auto max-w-3xl">
+                        <div
+                            aria-hidden
+                            className="pointer-events-none absolute left-[27px] top-4 bottom-4 hidden md:block"
+                            style={{
+                                width: "1px",
+                                background:
+                                    "linear-gradient(to bottom, transparent, rgba(123,85,234,0.45) 12%, rgba(123,85,234,0.45) 88%, transparent)",
+                            }}
+                        />
+                        <div className="flex flex-col gap-6">
+                            {WHY_ITEMS.map(({ Icon, title, body }, i) => (
+                                <motion.div
+                                    key={title}
+                                    initial={{ opacity: 0, y: 24 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-60px" }}
+                                    transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                                    className="relative flex items-start gap-5 md:gap-7"
+                                >
+                                    <div
+                                        className="relative z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full"
+                                        style={{
+                                            background: "rgba(23,26,34,0.98)",
+                                            border: "1.5px solid rgba(123,85,234,0.65)",
+                                            boxShadow: "0 0 0 6px #0E1014, 0 0 22px rgba(123,85,234,0.22)",
+                                        }}
+                                    >
+                                        <span className="text-sm font-bold tracking-tight text-white md:text-base">
+                                            {String(i + 1).padStart(2, "0")}
+                                        </span>
+                                    </div>
+                                    <div
+                                        className="flex flex-1 flex-col gap-3 rounded-2xl p-6 md:flex-row md:items-center md:gap-7 md:p-7"
+                                        style={{
+                                            background: "rgba(23,26,34,0.92)",
+                                            border: "1px solid rgba(255,255,255,0.07)",
+                                        }}
+                                    >
+                                        <div className="flex-shrink-0">
+                                            <Icon />
+                                        </div>
+                                        <div className="flex flex-col gap-2 md:gap-2.5">
+                                            <h3 className="text-lg font-bold leading-snug tracking-tight text-white md:text-xl">
+                                                {title}
+                                            </h3>
+                                            <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">{body}</p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* ── Final CTA ────────────────────────────────────── */}
             <section ref={ctaRef} className="relative w-full px-6 py-20 md:py-28 overflow-hidden">
-                <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: [
-                        "radial-gradient(ellipse 50% 70% at 50% 100%, rgba(75,145,247,0.15) 0%, transparent 65%)",
-                        "radial-gradient(ellipse 30% 40% at 30% 50%, rgba(75,145,247,0.07) 0%, transparent 60%)",
-                    ].join(", "),
-                }} />
+                <CTAAurora />
                 <div aria-hidden className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-32"
-                    style={{ background: "linear-gradient(to right, transparent, rgba(75,145,247,0.4), transparent)" }}
+                    style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.4), transparent)" }}
                 />
 
                 <motion.div
@@ -369,7 +395,7 @@ export default function AboutPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Book a Free Strategy Call
                         </button>

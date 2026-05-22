@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const BLUE = "#4B91F7";
+const BLUE = "#7B55EA";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // ── Kept exports, used by HeroSection ────────────────────────────────────
@@ -21,8 +21,8 @@ export function CircleArrow({ label = "Learn More", prominent = false }: { accen
             <span className={`font-semibold uppercase tracking-[0.22em] text-white transition-colors group-hover/cta:text-white ${prominent ? "text-base" : "text-xs text-white/80"}`}>
                 {label}
             </span>
-            <span className={`flex items-center justify-center rounded-full border text-white transition-all duration-300 group-hover/cta:border-[#4B91F7]/50 group-hover/cta:shadow-[0_0_18px_rgba(75,145,247,0.35)] ${prominent ? "h-12 w-12 border-white/30" : "h-10 w-10 border-white/15"}`}>
-                <span className="transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:drop-shadow-[0_0_6px_#4B91F7]">
+            <span className={`flex items-center justify-center rounded-full border text-white transition-all duration-300 group-hover/cta:border-[#7B55EA]/50 group-hover/cta:shadow-[0_0_18px_rgba(123, 85, 234,0.35)] ${prominent ? "h-12 w-12 border-white/30" : "h-10 w-10 border-white/15"}`}>
+                <span className="transition-transform duration-300 group-hover/cta:translate-x-0.5 group-hover/cta:drop-shadow-[0_0_6px_#7B55EA]">
                     <ArrowIcon />
                 </span>
             </span>
@@ -159,6 +159,172 @@ function IconTrend() {
     );
 }
 
+// ── Card motifs (white, geometric, subtle motion) ─────────────────────────
+const MOTIF_STROKE = "rgba(255,255,255,0.14)";
+const MOTIF_STROKE_SOFT = "rgba(255,255,255,0.08)";
+const MOTIF_FILL = "rgba(255,255,255,0.10)";
+
+function MotifWrap({ children }: { children: React.ReactNode }) {
+    return (
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+            <svg className="absolute inset-0 h-full w-full" viewBox="0 0 220 180" preserveAspectRatio="xMidYMid slice" fill="none">
+                {children}
+            </svg>
+        </div>
+    );
+}
+
+// 01 — AI & Intelligence: connected nodes with a pulsing node
+function MotifAINodes() {
+    const nodes = [
+        { cx: 150, cy: 40 }, { cx: 188, cy: 78 }, { cx: 170, cy: 128 },
+        { cx: 110, cy: 100 }, { cx: 130, cy: 62 }, { cx: 92, cy: 50 },
+    ];
+    const edges = [[0, 4], [4, 1], [1, 2], [2, 3], [3, 4], [5, 4], [5, 3]];
+    return (
+        <MotifWrap>
+            {edges.map(([a, b], i) => (
+                <line key={i} x1={nodes[a].cx} y1={nodes[a].cy} x2={nodes[b].cx} y2={nodes[b].cy} stroke={MOTIF_STROKE_SOFT} strokeWidth="0.9" />
+            ))}
+            {nodes.map((n, i) => (
+                <motion.circle
+                    key={i}
+                    cx={n.cx}
+                    cy={n.cy}
+                    r={2.4}
+                    fill={MOTIF_FILL}
+                    stroke={MOTIF_STROKE}
+                    strokeWidth="0.8"
+                    animate={{ opacity: [0.55, 1, 0.55], r: [2.4, 3.2, 2.4] }}
+                    transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: i * 0.55 }}
+                />
+            ))}
+        </MotifWrap>
+    );
+}
+
+// 02 — Sales Intelligence Platform: concentric rings + rotating crosshair
+function MotifTarget() {
+    return (
+        <MotifWrap>
+            <g transform="translate(160 90)">
+                <circle r="48" stroke={MOTIF_STROKE_SOFT} strokeWidth="0.9" />
+                <circle r="32" stroke={MOTIF_STROKE_SOFT} strokeWidth="0.9" />
+                <circle r="16" stroke={MOTIF_STROKE} strokeWidth="1" />
+                <circle r="2.4" fill={MOTIF_FILL} stroke={MOTIF_STROKE} strokeWidth="0.8" />
+                <motion.g
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 5.0, repeat: Infinity, ease: "linear" }}
+                    style={{ transformOrigin: "0px 0px" }}
+                >
+                    <line x1="-52" y1="0" x2="-18" y2="0" stroke={MOTIF_STROKE} strokeWidth="0.9" strokeLinecap="round" />
+                    <line x1="18" y1="0" x2="52" y2="0" stroke={MOTIF_STROKE} strokeWidth="0.9" strokeLinecap="round" />
+                </motion.g>
+            </g>
+        </MotifWrap>
+    );
+}
+
+// 03 — Digital Products: stacked isometric layers drifting up
+function MotifLayers() {
+    return (
+        <MotifWrap>
+            <motion.g
+                animate={{ y: [0, -2.5, 0] }}
+                transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut" }}
+            >
+                {[0, 1, 2].map((i) => {
+                    const y = 60 + i * 22;
+                    return (
+                        <g key={i} opacity={1 - i * 0.18}>
+                            <path d={`M120 ${y} L172 ${y - 14} L196 ${y} L144 ${y + 14} Z`} stroke={MOTIF_STROKE} strokeWidth="0.9" fill={MOTIF_FILL} />
+                        </g>
+                    );
+                })}
+            </motion.g>
+        </MotifWrap>
+    );
+}
+
+// 04 — Digital Services: globe meridians + traveling dash
+function MotifGlobeArcs() {
+    return (
+        <MotifWrap>
+            <g transform="translate(160 90)">
+                <circle r="46" stroke={MOTIF_STROKE_SOFT} strokeWidth="0.9" />
+                <ellipse rx="46" ry="18" stroke={MOTIF_STROKE_SOFT} strokeWidth="0.9" />
+                <ellipse rx="18" ry="46" stroke={MOTIF_STROKE_SOFT} strokeWidth="0.9" />
+                <ellipse rx="46" ry="46" stroke="none" fill="none" />
+                <motion.circle
+                    r="2.6"
+                    fill={MOTIF_FILL}
+                    stroke={MOTIF_STROKE}
+                    strokeWidth="0.8"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 5.4, repeat: Infinity, ease: "linear" }}
+                    style={{ transformOrigin: "0px 0px", transformBox: "fill-box" }}
+                    cx="46"
+                    cy="0"
+                />
+            </g>
+        </MotifWrap>
+    );
+}
+
+// 05 — Automation & Systems: parallel pipeline with flowing dashes
+function MotifPipeline() {
+    return (
+        <MotifWrap>
+            <g transform="translate(0 78)">
+                <line x1="100" y1="0" x2="210" y2="0" stroke={MOTIF_STROKE_SOFT} strokeWidth="0.9" />
+                <line x1="100" y1="22" x2="210" y2="22" stroke={MOTIF_STROKE_SOFT} strokeWidth="0.9" />
+                <motion.line
+                    x1="100" y1="0" x2="210" y2="0"
+                    stroke={MOTIF_STROKE}
+                    strokeWidth="1.1"
+                    strokeDasharray="10 18"
+                    animate={{ strokeDashoffset: [0, -28] }}
+                    transition={{ duration: 3.8, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.line
+                    x1="100" y1="22" x2="210" y2="22"
+                    stroke={MOTIF_STROKE}
+                    strokeWidth="1.1"
+                    strokeDasharray="6 22"
+                    animate={{ strokeDashoffset: [0, -28] }}
+                    transition={{ duration: 4.6, repeat: Infinity, ease: "linear" }}
+                />
+                {[120, 160, 200].map((cx, i) => (
+                    <circle key={i} cx={cx} cy={11} r="1.6" fill={MOTIF_FILL} stroke={MOTIF_STROKE} strokeWidth="0.7" />
+                ))}
+            </g>
+        </MotifWrap>
+    );
+}
+
+// 06 — Growth & Marketing: ascending chart with a traveling dot
+function MotifChart() {
+    return (
+        <MotifWrap>
+            {[40, 80, 120].map((y) => (
+                <line key={y} x1="100" y1={y} x2="210" y2={y} stroke={MOTIF_STROKE_SOFT} strokeWidth="0.5" strokeDasharray="2 3" />
+            ))}
+            <path d="M104 132 L130 110 L150 118 L172 84 L204 52" stroke={MOTIF_STROKE} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            <motion.circle
+                r="2.6"
+                fill={MOTIF_FILL}
+                stroke={MOTIF_STROKE}
+                strokeWidth="0.8"
+                animate={{
+                    cx: [104, 130, 150, 172, 204],
+                    cy: [132, 110, 118, 84, 52],
+                }}
+                transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }}
+            />
+        </MotifWrap>
+    );
+}
+
 // ── Data ─────────────────────────────────────────────────────────────────
 const SERVICES = [
     {
@@ -167,6 +333,7 @@ const SERVICES = [
         description: "Native AI integration, assistants, workflows, and custom models embedded into your operations.",
         href: "/products/ai-intelligence",
         Icon: IconAI,
+        Motif: MotifAINodes,
     },
     {
         num: "02",
@@ -174,6 +341,7 @@ const SERVICES = [
         description: "The AI sales workspace for B2B teams, research, prioritize, outreach, and close.",
         href: "/products/sales-intelligence-platform",
         Icon: IconTarget,
+        Motif: MotifTarget,
     },
     {
         num: "03",
@@ -181,6 +349,7 @@ const SERVICES = [
         description: "MVP development with AI built in from day one, validated and launched in weeks.",
         href: "/products/digital-products",
         Icon: IconBox,
+        Motif: MotifLayers,
     },
     {
         num: "04",
@@ -188,6 +357,7 @@ const SERVICES = [
         description: "Websites, platforms, and e-commerce engineered to convert and scale.",
         href: "/products/digital-services",
         Icon: IconGlobe,
+        Motif: MotifGlobeArcs,
     },
     {
         num: "05",
@@ -195,6 +365,7 @@ const SERVICES = [
         description: "Eliminate manual operations and get real-time visibility across your entire business.",
         href: "/products/automation-systems",
         Icon: IconBolt,
+        Motif: MotifPipeline,
     },
     {
         num: "06",
@@ -202,6 +373,7 @@ const SERVICES = [
         description: "AI-enhanced acquisition systems that scale without scaling headcount.",
         href: "#",
         Icon: IconTrend,
+        Motif: MotifChart,
     },
 ];
 
@@ -216,15 +388,15 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
         >
             <Link
                 href={service.href}
-                className="group relative flex min-h-[220px] flex-col overflow-hidden rounded-2xl p-7 outline-none focus-visible:ring-2 focus-visible:ring-[#4B91F7]/60"
+                className="group relative flex min-h-[220px] flex-col overflow-hidden rounded-2xl p-7 outline-none focus-visible:ring-2 focus-visible:ring-[#7B55EA]/60"
                 style={{
                     background: "var(--home-card-bg)",
                     border: "1px solid var(--home-card-border)",
                     transition: "border-color 350ms ease, box-shadow 350ms ease",
                 }}
                 onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(75,145,247,0.28)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1px rgba(75,145,247,0.08), 0 8px 32px rgba(0,0,0,0.25)";
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(123, 85, 234,0.28)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1px rgba(123, 85, 234,0.08), 0 8px 32px rgba(0,0,0,0.25)";
                 }}
                 onMouseLeave={(e) => {
                     (e.currentTarget as HTMLElement).style.borderColor = "var(--home-card-border)";
@@ -235,21 +407,20 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
                 <div
                     aria-hidden
                     className="pointer-events-none absolute bottom-0 left-0 right-0 h-2/3 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(75,145,247,0.07) 0%, transparent 70%)" }}
+                    style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(123, 85, 234,0.07) 0%, transparent 70%)" }}
                 />
 
                 {/* Default view, fades out on hover */}
                 <div className="relative z-10 flex flex-1 flex-col transition-opacity duration-300 group-hover:opacity-0">
-                    <div className="flex items-start justify-between">
+                    <div className="relative z-10 flex items-start">
                         <span
                             className="flex h-11 w-11 items-center justify-center rounded-xl"
-                            style={{ background: `rgba(75,145,247,0.1)`, border: `1px solid rgba(75,145,247,0.22)` }}
+                            style={{ background: `rgba(123, 85, 234,0.1)`, border: `1px solid rgba(123, 85, 234,0.22)` }}
                         >
                             <service.Icon />
                         </span>
-                        <span className="text-[11px] font-bold tracking-[0.18em] text-white/20">{service.num}</span>
                     </div>
-                    <div className="mt-auto">
+                    <div className="relative z-10 mt-auto">
                         <h3 className="text-lg font-semibold leading-snug text-white md:text-xl">{service.name}</h3>
                     </div>
                 </div>
@@ -264,7 +435,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
                     <div className="flex items-center justify-between">
                         <span
                             className="flex h-9 w-9 items-center justify-center rounded-lg"
-                            style={{ background: `rgba(75,145,247,0.12)`, border: `1px solid rgba(75,145,247,0.25)` }}
+                            style={{ background: `rgba(123, 85, 234,0.12)`, border: `1px solid rgba(123, 85, 234,0.25)` }}
                         >
                             <service.Icon />
                         </span>
@@ -297,8 +468,8 @@ export default function ServicesSection() {
         <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
             <div className="pointer-events-none absolute inset-0 z-0" style={{
                 background: [
-                    "radial-gradient(ellipse 55% 50% at 20% 20%, rgba(75,145,247,0.06) 0%, transparent 65%)",
-                    "radial-gradient(ellipse 45% 50% at 80% 80%, rgba(75,145,247,0.05) 0%, transparent 65%)",
+                    "radial-gradient(ellipse 55% 50% at 20% 20%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
+                    "radial-gradient(ellipse 45% 50% at 80% 80%, rgba(123, 85, 234,0.05) 0%, transparent 65%)",
                 ].join(", "),
             }} />
 

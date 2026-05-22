@@ -1,4 +1,4 @@
-import ContactCTASection from "@/app/components/ContactCTASection";
+﻿import ContactCTASection from "@/app/components/ContactCTASection";
 import BookCallSection from "@/app/components/BookCallSection";
 import ContactHero from "@/app/components/ContactHero";
 import type { Metadata } from "next";
@@ -23,8 +23,8 @@ export default function ContactPage() {
                     width: "140vw",
                     height: "520px",
                     background: [
-                        "radial-gradient(ellipse 30% 60% at 35% 80%, rgba(75,145,247,0.14) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 30% 60% at 65% 80%, rgba(75,145,247,0.18) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 30% 60% at 35% 80%, rgba(123, 85, 234,0.14) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 30% 60% at 65% 80%, rgba(123, 85, 234,0.18) 0%, transparent 70%)",
                     ].join(", "),
                 }}
             />

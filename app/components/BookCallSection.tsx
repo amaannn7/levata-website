@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
+import CTAAurora from "@/app/components/CTAAurora";
 
 export default function BookCallSection() {
     const [open, setOpen] = useState(false);
@@ -10,9 +11,10 @@ export default function BookCallSection() {
         <section
             ref={sectionRef}
             id="book-call"
-            className="relative w-full bg-[var(--background)] px-6 pb-16"
+            className="relative w-full overflow-hidden bg-[var(--background)] px-6 pb-16"
         >
-            <div className="mx-auto max-w-5xl">
+            <CTAAurora intent="subtle" />
+            <div className="relative z-10 mx-auto max-w-5xl">
 
                 <div className="h-px w-full bg-white/8" />
 
@@ -51,9 +53,9 @@ export default function BookCallSection() {
                             <span className="text-sm font-semibold uppercase tracking-[0.22em] text-white/80 transition-colors group-hover/cta:text-white">
                                 {open ? "Close" : "Pick a Time"}
                             </span>
-                            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-all duration-300 group-hover/cta:border-[#4B91F7]/60 group-hover/cta:shadow-[0_0_14px_rgba(75,145,247,0.35)]">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-all duration-300 group-hover/cta:border-[#7B55EA]/60 group-hover/cta:shadow-[0_0_14px_rgba(123, 85, 234,0.35)]">
                                 <span
-                                    className="transition-transform duration-300 group-hover/cta:drop-shadow-[0_0_6px_#4B91F7]"
+                                    className="transition-transform duration-300 group-hover/cta:drop-shadow-[0_0_6px_#7B55EA]"
                                     style={{ transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
                                 >
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>

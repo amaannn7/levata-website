@@ -1,15 +1,16 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import CTAAurora from "@/app/components/CTAAurora";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
-const GREEN = "#4B91F7";
-const BLUE = "#4B91F7";
+const GREEN = "#FFFFFF";
+const BLUE = "#FFFFFF";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // ── Section label ─────────────────────────────────────────────────────────
@@ -247,14 +248,14 @@ export default function DigitalProductsPage() {
                         <span className="display-strong-line">Faster than you thought.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        We design and build digital products that validate your market, attract your first users, and create the foundation for scale, without the 18-month timeline or six-figure burn rate.
+                        Validated, market-ready products built in weeks — without the 18-month timeline or six-figure burn.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Start Your Product Journey
                         </button>
@@ -268,8 +269,8 @@ export default function DigitalProductsPage() {
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -346,7 +347,7 @@ export default function DigitalProductsPage() {
             {/* ── 3. APPROACH, Sticky left + scrolling right ─── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-[0.7fr_1fr] md:gap-16 lg:gap-20 items-start">
@@ -539,7 +540,7 @@ export default function DigitalProductsPage() {
             {/* ── 5. OUTCOMES, 2×2 oversized KPI grid ──────── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(75,145,247,0.05) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(123, 85, 234,0.05) 0%, transparent 65%)",
                 }} />
                 <div className="hero-grid-bg pointer-events-none absolute inset-0 z-0 opacity-30" />
                 <div className="relative z-10 mx-auto max-w-5xl">
@@ -662,14 +663,8 @@ export default function DigitalProductsPage() {
 
             {/* ── 8. FINAL CTA ──────────────────────────────── */}
             <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
-                <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: [
-                        "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(75,145,247,0.18) 0%, transparent 65%)",
-                        "radial-gradient(ellipse 40% 50% at 20% 0%, rgba(75,145,247,0.1) 0%, transparent 60%)",
-                    ].join(", "),
-                }} />
-                <div className="hero-grid-bg pointer-events-none absolute inset-0 z-0 opacity-30" />
-                <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(75,145,247,0.5), transparent)" }} />
+                <CTAAurora />
+                <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.5), transparent)" }} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -690,7 +685,7 @@ export default function DigitalProductsPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Start Your Product Journey
                         </button>

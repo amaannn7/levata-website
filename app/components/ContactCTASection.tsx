@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { COUNTRIES } from "@/app/lib/countries";
+import CTAAurora from "@/app/components/CTAAurora";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -107,8 +108,9 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
     };
 
     return (
-        <section ref={sectionRef} id="contact-cta" className="relative w-full bg-[#0E1014] px-5 py-8 sm:px-6 md:py-14">
-            <div className="mx-auto max-w-6xl">
+        <section ref={sectionRef} id="contact-cta" className="relative w-full overflow-hidden bg-[#0E1014] px-5 py-8 sm:px-6 md:py-14">
+            <CTAAurora intent="subtle" />
+            <div className="relative z-10 mx-auto max-w-6xl">
 
                 {showHeading && (
                     <div className="mb-12" data-form-heading>
@@ -133,14 +135,14 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                 <div
                     data-no-reveal
                     className="overflow-hidden rounded-2xl p-px"
-                    style={{ background: "linear-gradient(135deg,rgba(75,145,247,0.3) 0%,rgba(255,255,255,0.06) 50%,rgba(75,145,247,0.3) 100%)" }}
+                    style={{ background: "linear-gradient(135deg,rgba(123, 85, 234,0.3) 0%,rgba(255,255,255,0.06) 50%,rgba(123, 85, 234,0.3) 100%)" }}
                 >
                     <div className="grid grid-cols-1 overflow-hidden rounded-2xl lg:grid-cols-[340px_1fr]" data-form>
 
                         {/* Left info panel */}
                         <div
                             className="flex flex-col justify-between gap-5 border-b border-white/8 p-6 sm:gap-8 sm:p-8 md:gap-10 md:p-10 lg:border-b-0 lg:border-r"
-                            style={{ background: "linear-gradient(160deg,rgba(75,145,247,0.15) 0%,rgba(23,26,34,0.98) 100%)" }}
+                            style={{ background: "linear-gradient(160deg,rgba(123, 85, 234,0.15) 0%,rgba(23,26,34,0.98) 100%)" }}
                         >
                             <div>
                                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/30">
@@ -175,10 +177,10 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                 <div className="flex h-full min-h-[320px] flex-col items-center justify-center gap-5 text-center">
                                     <span
                                         className="flex h-14 w-14 items-center justify-center rounded-full"
-                                        style={{ background: "rgba(75,145,247,0.10)", border: "1px solid rgba(75,145,247,0.28)" }}
+                                        style={{ background: "rgba(123, 85, 234,0.10)", border: "1px solid rgba(123, 85, 234,0.28)" }}
                                     >
                                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                            <path d="M5 12l4.5 4.5L19 7" stroke="#4B91F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M5 12l4.5 4.5L19 7" stroke="#7B55EA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                     </span>
                                     <div className="flex flex-col gap-2">
@@ -290,7 +292,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                             type="submit"
                                             disabled={isLoading}
                                             className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 sm:px-6 sm:py-3 disabled:opacity-60 disabled:cursor-not-allowed"
-                                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                                         >
                                             {isLoading ? (
                                                 <span className="flex items-center gap-2">

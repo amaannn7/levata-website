@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
@@ -20,7 +20,7 @@ interface Step {
 const STEPS: Step[] = [
     {
         num: "01",
-        accent: "#4B91F7",
+        accent: "#7B55EA",
         accentRgb: "155,47,255",
         label: "Discovery & Audit",
         description: "Before we write a single line of code, we audit your systems, data flows, and commercial model to find the highest-leverage AI and automation opportunities.",
@@ -33,7 +33,7 @@ const STEPS: Step[] = [
     },
     {
         num: "02",
-        accent: "#4B91F7",
+        accent: "#7B55EA",
         accentRgb: "114,200,245",
         label: "Architecture & Strategy",
         description: "We design the architecture: how every system connects, where data flows, and which KPIs prove the strategy is working.",
@@ -46,7 +46,7 @@ const STEPS: Step[] = [
     },
     {
         num: "03",
-        accent: "#4B91F7",
+        accent: "#7B55EA",
         accentRgb: "61,253,152",
         label: "Build, Launch & Optimise",
         description: "We ship in focused sprints, launch with full support, and measure everything so your system gets smarter and more valuable over time.",
@@ -72,10 +72,10 @@ function StepCard({ step }: { step: Step }) {
             }}
         >
             <div className="flex items-center gap-2.5">
-                <span className="h-2 w-2 rounded-full" style={{ background: "#4B91F7" }} />
+                <span className="h-2 w-2 rounded-full" style={{ background: "#7B55EA" }} />
                 <span
                     className="text-[10px] font-bold uppercase tracking-[0.22em]"
-                    style={{ color: "#4B91F7" }}
+                    style={{ color: "#7B55EA" }}
                 >
                     Phase {step.num} / {step.label}
                 </span>
@@ -86,7 +86,7 @@ function StepCard({ step }: { step: Step }) {
                     <li key={b} className="flex items-start gap-3 text-sm leading-relaxed text-white/70 md:text-[15px]">
                         <span
                             className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full"
-                            style={{ background: "#4B91F7", opacity: 0.7 }}
+                            style={{ background: "#7B55EA", opacity: 0.7 }}
                         />
                         {b}
                     </li>
@@ -95,8 +95,8 @@ function StepCard({ step }: { step: Step }) {
             <div
                 className="rounded-xl px-4 py-3"
                 style={{
-                    background: "var(--home-card-muted-bg, rgba(75,145,247,0.05))",
-                    border: "1px solid var(--home-card-muted-border, rgba(75,145,247,0.14))",
+                    background: "var(--home-card-muted-bg, rgba(123, 85, 234,0.05))",
+                    border: "1px solid var(--home-card-muted-border, rgba(123, 85, 234,0.14))",
                 }}
             >
                 <p className="text-xs leading-relaxed text-white/50">
@@ -145,8 +145,8 @@ export default function ProcessTabsSection() {
                     className="pointer-events-none absolute inset-0"
                     style={{
                         background: [
-                            "radial-gradient(ellipse 50% 70% at 15% 40%, rgba(75,145,247,0.07) 0%, transparent 65%)",
-                            "radial-gradient(ellipse 45% 55% at 85% 60%, rgba(75,145,247,0.05) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 50% 70% at 15% 40%, rgba(123, 85, 234,0.07) 0%, transparent 65%)",
+                            "radial-gradient(ellipse 45% 55% at 85% 60%, rgba(123, 85, 234,0.05) 0%, transparent 65%)",
                         ].join(", "),
                     }}
                 />
@@ -172,7 +172,7 @@ export default function ProcessTabsSection() {
                                             className="h-0.5 rounded-full transition-all duration-500"
                                             style={{
                                                 width: i === activeStep ? 32 : 16,
-                                                background: i === activeStep ? "#4B91F7" : "rgba(148,163,184,0.28)",
+                                                background: i === activeStep ? "#7B55EA" : "rgba(148,163,184,0.28)",
                                             }}
                                         />
                                         <span
@@ -208,7 +208,7 @@ export default function ProcessTabsSection() {
 
             {/* -- Mobile / tablet fallback (<lg) --------------------------- */}
             <div className="relative px-6 py-20 lg:hidden">
-                <div className="pointer-events-none absolute inset-0" style={{ background: ["radial-gradient(ellipse 40% 60% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)", "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)"].join(", ") }} />
+                <div className="pointer-events-none absolute inset-0" style={{ background: ["radial-gradient(ellipse 40% 60% at 20% 30%, rgba(123, 85, 234,0.06) 0%, transparent 70%)", "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)"].join(", ") }} />
                 <div className="relative mx-auto max-w-2xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -237,8 +237,8 @@ export default function ProcessTabsSection() {
                                     transition={{ duration: 0.7, delay: i * 0.12, ease: EASE }}
                                     className="relative flex items-start gap-6"
                                 >
-                                    <div className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl" style={{ background: "rgba(23,26,34,0.98)", border: "1px solid #4B91F780", boxShadow: "0 0 0 6px rgba(7,0,31,1), 0 0 20px #4B91F725" }}>
-                                        <span className="text-sm font-bold" style={{ color: "#4B91F7" }}>{step.num}</span>
+                                    <div className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl" style={{ background: "rgba(23,26,34,0.98)", border: "1px solid #7B55EA80", boxShadow: "0 0 0 6px rgba(7,0,31,1), 0 0 20px #7B55EA25" }}>
+                                        <span className="text-sm font-bold" style={{ color: "#7B55EA" }}>{step.num}</span>
                                     </div>
                                     <div className="flex flex-1 flex-col gap-4 pt-1">
                                         <div>

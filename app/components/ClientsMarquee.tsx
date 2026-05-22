@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 const CLIENTS = [
     {
@@ -79,7 +79,7 @@ export default function ClientsMarquee() {
         <section className="home-theme-dark relative w-full overflow-hidden px-5 py-10 sm:px-6 md:py-14">
             <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                 <div className="absolute inset-0" style={{
-                    background: "radial-gradient(ellipse 60% 70% at 50% 60%, rgba(75,145,247,0.07) 0%, transparent 65%)"
+                    background: "radial-gradient(ellipse 60% 70% at 50% 60%, rgba(123, 85, 234,0.07) 0%, transparent 65%)"
                 }} />
             </div>
             <div className="relative z-10 mx-auto max-w-6xl">

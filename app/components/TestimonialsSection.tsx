@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -61,15 +61,15 @@ export default function TestimonialsSection() {
         <section
             ref={sectionRef}
             className="home-theme-dark relative w-full px-6 py-20 md:py-28 overflow-hidden"
-            style={{ background: "#0D0F17", color: "#F0F0F2" }}
+            style={{ background: "#07080F", color: "#F0F0F2" }}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
         >
             <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                 <div className="absolute inset-0" style={{
                     background: [
-                        "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
-                        "radial-gradient(ellipse 40% 45% at 80% 20%, rgba(75,145,247,0.04) 0%, transparent 60%)",
+                        "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 40% 45% at 80% 20%, rgba(123, 85, 234,0.04) 0%, transparent 60%)",
                     ].join(", ")
                 }} />
             </div>

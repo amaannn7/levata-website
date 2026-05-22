@@ -1,15 +1,18 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import CTAAurora from "@/app/components/CTAAurora";
+import WhatWeBuildVisual from "@/app/components/WhatWeBuildVisual";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
-const GREEN = "#4B91F7";
-const BLUE = "#4B91F7";
+const GREEN = "#FFFFFF";
+const BLUE = "#FFFFFF";
+const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 // ── Section label ─────────────────────────────────────────────────────────
@@ -113,120 +116,6 @@ function IconSpark({ flat = false }: { flat?: boolean }) {
     );
 }
 
-// ── Mini schematic visuals ────────────────────────────────────────────────
-function BrowserMock() {
-    return (
-        <div
-            className="relative w-full overflow-hidden rounded-2xl"
-            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
-        >
-            <div className="flex items-center gap-1.5 border-b border-white/8 px-3 py-2">
-                <span className="h-2 w-2 rounded-full bg-white/15" />
-                <span className="h-2 w-2 rounded-full bg-white/15" />
-                <span className="h-2 w-2 rounded-full bg-white/15" />
-                <span className="ml-3 h-2 w-32 rounded-full bg-white/8" />
-            </div>
-            <div className="grid grid-cols-3 gap-3 p-5">
-                <div className="col-span-2 flex flex-col gap-2">
-                    <span className="h-3 w-3/4 rounded-full bg-white/10" />
-                    <span className="h-3 w-1/2 rounded-full bg-white/8" />
-                    <span className="mt-2 h-8 w-28 rounded-md" style={{ background: `${BLUE}22`, border: `1px solid ${BLUE}55` }} />
-                </div>
-                <div className="rounded-md" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }} />
-            </div>
-            {/* floating CTA indicator */}
-            <div
-                className="absolute right-4 top-16 flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-semibold"
-                style={{ background: `${GREEN}18`, border: `1px solid ${GREEN}55`, color: GREEN }}
-            >
-                +CTA
-            </div>
-        </div>
-    );
-}
-
-function ArchitectureMock() {
-    return (
-        <div
-            className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
-        >
-            <svg viewBox="0 0 320 180" className="h-full w-full" fill="none">
-                {/* connectors */}
-                <path d="M60 90 L130 50 M60 90 L130 90 M60 90 L130 130 M190 50 L260 90 M190 90 L260 90 M190 130 L260 90" stroke={`${BLUE}66`} strokeWidth="1" strokeDasharray="3 3" />
-                {/* center api */}
-                <rect x="30" y="70" width="60" height="40" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                <text x="60" y="95" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="9" fontWeight="600">API</text>
-                {/* auth */}
-                <rect x="130" y="30" width="60" height="40" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                <text x="160" y="55" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="9">AUTH</text>
-                {/* db */}
-                <rect x="130" y="70" width="60" height="40" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                <text x="160" y="95" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="9">DB</text>
-                {/* dash */}
-                <rect x="130" y="110" width="60" height="40" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                <text x="160" y="135" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="9">DASH</text>
-                {/* server */}
-                <rect x="230" y="70" width="60" height="40" rx="6" stroke={BLUE} strokeWidth="1.4" />
-                <text x="260" y="95" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="9">SERVER</text>
-            </svg>
-        </div>
-    );
-}
-
-function StorefrontMock() {
-    return (
-        <div
-            className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
-        >
-            <div className="grid h-full grid-cols-3 gap-3">
-                <div className="rounded-md" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }} />
-                <div className="rounded-md" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }} />
-                <div className="rounded-md" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }} />
-            </div>
-            <div
-                className="absolute left-4 top-4 flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-semibold"
-                style={{ background: `${BLUE}18`, border: `1px solid ${BLUE}55`, color: BLUE }}
-            >
-                AI Search
-            </div>
-            <div
-                className="absolute bottom-4 right-4 flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-semibold"
-                style={{ background: `${GREEN}18`, border: `1px solid ${GREEN}55`, color: GREEN }}
-            >
-                Checkout +
-            </div>
-        </div>
-    );
-}
-
-function BlueprintMock() {
-    return (
-        <div
-            className="relative w-full overflow-hidden rounded-2xl p-6"
-            style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.08)", aspectRatio: "16 / 10" }}
-        >
-            <svg viewBox="0 0 320 180" className="h-full w-full" fill="none">
-                {/* grid background */}
-                {Array.from({ length: 8 }).map((_, i) => (
-                    <line key={`v${i}`} x1={i * 40} y1="0" x2={i * 40} y2="180" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-                ))}
-                {Array.from({ length: 5 }).map((_, i) => (
-                    <line key={`h${i}`} x1="0" y1={i * 40} x2="320" y2={i * 40} stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-                ))}
-                <path d="M40 60 L120 60 L120 120 L240 120 L240 60 L280 60" stroke={BLUE} strokeWidth="1.4" strokeDasharray="4 3" />
-                <rect x="30" y="50" width="40" height="22" rx="3" stroke={BLUE} strokeWidth="1.2" />
-                <rect x="110" y="110" width="40" height="22" rx="3" stroke={BLUE} strokeWidth="1.2" />
-                <rect x="230" y="50" width="40" height="22" rx="3" stroke={BLUE} strokeWidth="1.2" />
-                <text x="50" y="65" textAnchor="middle" fill="rgba(255,255,255,0.65)" fontSize="8">ADMIN</text>
-                <text x="130" y="125" textAnchor="middle" fill="rgba(255,255,255,0.65)" fontSize="8">DB</text>
-                <text x="250" y="65" textAnchor="middle" fill="rgba(255,255,255,0.65)" fontSize="8">FLOW</text>
-            </svg>
-        </div>
-    );
-}
-
 // ── Data ──────────────────────────────────────────────────────────────────
 const LEAKAGE = [
     { num: "01", title: "Beautiful but passive websites", body: "They look good and get ignored in the market. No conversion architecture, no intelligence, no measurable revenue impact." },
@@ -249,7 +138,7 @@ const SUB_SERVICES = [
         eyebrow: "Conversion-first",
         body: "Conversion-first websites with strategy, UX, design, development, CMS, SEO, and tracking built in.",
         bullets: ["Conversion strategy and UX architecture", "Performance-optimised development", "Analytics and conversion tracking"],
-        visual: "browser",
+        visual: "website" as const,
     },
     {
         num: "02",
@@ -257,7 +146,7 @@ const SUB_SERVICES = [
         eyebrow: "Scale-ready",
         body: "Client portals, SaaS products, and internal tools built to perform under load and scale with your model.",
         bullets: ["Full-stack development and API design", "Authentication, permissions, and security", "Third-party integrations"],
-        visual: "architecture",
+        visual: "platform" as const,
     },
     {
         num: "03",
@@ -265,7 +154,7 @@ const SUB_SERVICES = [
         eyebrow: "Revenue engine",
         body: "E-commerce built around conversion rate, average order value, and lifetime customer value. AI search included.",
         bullets: ["Checkout optimisation and payment integration", "AI product recommendations and smart search", "Analytics and revenue attribution"],
-        visual: "storefront",
+        visual: "ecommerce" as const,
     },
     {
         num: "04",
@@ -273,7 +162,7 @@ const SUB_SERVICES = [
         eyebrow: "Bespoke infrastructure",
         body: "When off-the-shelf software doesn't fit, we build it. Proprietary tools, portals, and BI infrastructure.",
         bullets: ["Custom database and data architecture", "Business logic and rules engine development", "Security, compliance, and documentation"],
-        visual: "blueprint",
+        visual: "custom" as const,
     },
 ];
 
@@ -411,14 +300,14 @@ export default function DigitalServicesPage() {
                         <span className="display-strong-line">built to work hard.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        We don&apos;t build websites. We engineer digital systems, high-performance, AI-integrated platforms designed to generate revenue, qualify leads, and serve customers at a level that separates you from every competitor.
+                        We don&apos;t build websites. We engineer AI-integrated platforms that generate revenue and serve customers around the clock.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Discuss Your Project
                         </button>
@@ -432,8 +321,8 @@ export default function DigitalServicesPage() {
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(75,145,247,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(75,145,247,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -454,37 +343,56 @@ export default function DigitalServicesPage() {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-3 md:gap-x-10">
                         {LEAKAGE.map((item, i) => (
                             <motion.div
                                 key={item.num}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 28 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
-                                whileHover={{ y: -4 }}
-                                className="flex flex-col gap-5 rounded-2xl p-7 transition-colors duration-300 hover:bg-white/[0.03]"
-                                style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
+                                transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
+                                className={`relative flex flex-col gap-5 ${
+                                    i === 1 ? "md:mt-16" : i === 2 ? "md:mt-32" : ""
+                                }`}
                             >
-                                <div className="flex items-center justify-between">
-                                    <span className="text-2xl font-bold leading-none" style={{ color: GREEN }}>{item.num}</span>
-                                    <span className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: `${BLUE}14`, border: `1px solid ${BLUE}40` }}>
-                                        <IconDownArrow />
+                                {/* Huge background watermark numeral */}
+                                <span
+                                    aria-hidden
+                                    className="pointer-events-none absolute -top-6 -left-2 select-none leading-none"
+                                    style={{
+                                        fontFamily: MONO,
+                                        fontWeight: 700,
+                                        fontSize: "clamp(5rem, 10vw, 8rem)",
+                                        color: "rgba(255,255,255,0.04)",
+                                        letterSpacing: "-0.04em",
+                                    }}
+                                >
+                                    {item.num}
+                                </span>
+
+                                {/* Eyebrow + accent line */}
+                                <div className="relative flex items-center gap-3">
+                                    <span
+                                        className="h-px w-8"
+                                        style={{
+                                            background:
+                                                "linear-gradient(to right, rgba(34,211,238,0.6), transparent)",
+                                        }}
+                                    />
+                                    <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/45">
+                                        Pattern {item.num}
                                     </span>
                                 </div>
-                                {/* before/after mini bars */}
-                                <div className="flex items-end gap-3">
-                                    <div className="flex flex-1 flex-col gap-1.5">
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-white/40">Before</span>
-                                        <span className="h-12 rounded" style={{ background: "rgba(255,255,255,0.06)" }} />
-                                    </div>
-                                    <div className="flex flex-1 flex-col gap-1.5">
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-white/40">After</span>
-                                        <span className="h-20 rounded" style={{ background: `${GREEN}22`, border: `1px solid ${GREEN}55` }} />
-                                    </div>
-                                </div>
-                                <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                                <p className="text-sm leading-relaxed text-white/55">{item.body}</p>
+
+                                {/* Title */}
+                                <h3 className="relative text-2xl font-semibold leading-[1.15] tracking-tight text-white md:text-[1.75rem]">
+                                    {item.title}
+                                </h3>
+
+                                {/* Body */}
+                                <p className="relative text-[15px] leading-relaxed text-white/55">
+                                    {item.body}
+                                </p>
                             </motion.div>
                         ))}
                     </div>
@@ -494,7 +402,7 @@ export default function DigitalServicesPage() {
             {/* ── 3. APPROACH, Revenue engineering vertical flow ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(75,145,247,0.06) 0%, transparent 65%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
@@ -593,7 +501,6 @@ export default function DigitalServicesPage() {
                     <div className="flex flex-col gap-20 md:gap-28">
                         {SUB_SERVICES.map((svc, i) => {
                             const isOdd = i % 2 === 1;
-                            const Visual = svc.visual === "browser" ? BrowserMock : svc.visual === "architecture" ? ArchitectureMock : svc.visual === "storefront" ? StorefrontMock : BlueprintMock;
                             const IconForRow = i === 0 ? IconGlobe : i === 1 ? IconLayers : i === 2 ? IconCart : IconCog;
                             return (
                                 <motion.div
@@ -630,7 +537,7 @@ export default function DigitalServicesPage() {
                                     </div>
                                     {/* visual */}
                                     <div>
-                                        <Visual />
+                                        <WhatWeBuildVisual kind={svc.visual} />
                                     </div>
                                 </motion.div>
                             );
@@ -773,25 +680,7 @@ export default function DigitalServicesPage() {
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"
                     style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }}
                 />
-                <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 z-0"
-                    style={{
-                        background: [
-                            "radial-gradient(ellipse 60% 70% at 50% 100%, rgba(75,145,247,0.18) 0%, transparent 65%)",
-                            "radial-gradient(ellipse 40% 50% at 50% 0%, rgba(123,85,234,0.08) 0%, transparent 60%)",
-                        ].join(", "),
-                    }}
-                />
-                <div className="pointer-events-none absolute inset-0 opacity-30">
-                    <svg viewBox="0 0 1200 400" className="h-full w-full" fill="none" preserveAspectRatio="xMidYMid slice">
-                        <path d="M0 200 Q300 100 600 200 T1200 200" stroke={`${BLUE}33`} strokeWidth="1" />
-                        <path d="M0 250 Q300 350 600 250 T1200 250" stroke={`${BLUE}22`} strokeWidth="1" />
-                        {[200, 400, 600, 800, 1000].map((x) => (
-                            <circle key={x} cx={x} cy="200" r="3" fill={GREEN} opacity="0.5" />
-                        ))}
-                    </svg>
-                </div>
+                <CTAAurora />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -811,7 +700,7 @@ export default function DigitalServicesPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
                         >
                             Discuss Your Project
                         </button>

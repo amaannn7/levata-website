@@ -14,7 +14,7 @@ const SIZE_CLASS: Record<Size, string> = {
 };
 
 const VARIANT_CLASS: Record<Variant, string> = {
-    primary: "bg-[#7b61ff] text-white hover:bg-[#6b4ff0] border border-transparent",
+    primary: "bg-[#7B55EA] text-white hover:bg-[#6b4cd8] border border-transparent",
     secondary: "bg-transparent text-white border border-white/20 hover:border-white/40 hover:bg-white/5",
     ghost: "bg-transparent text-white/75 border border-transparent hover:text-white",
 };

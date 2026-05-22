@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useMemo, useEffect, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -39,13 +39,13 @@ const STREAM_DATA = (() => {
             arc: greatCircleArc(NODE_POSITIONS[a], NODE_POSITIONS[b], 24),
             speed: 0.07 + Math.random() * 0.11,
             offset: Math.random(),
-            color: i % 2 === 0 ? "#4B91F7" : "#7B55EA",
+            color: i % 2 === 0 ? "#7B55EA" : "#3B82F6",
         };
     });
 })();
 
-const NODE_COLORS = ["#4B91F7", "#4B91F7", "#4B91F7", "#4B91F7", "#4B91F7",
-    "#4B91F7", "#4B91F7", "#7B55EA", "#7B55EA", "#7B55EA"] as const;
+const NODE_COLORS = ["#7B55EA", "#3B82F6", "#7B55EA", "#3B82F6", "#7B55EA",
+    "#3B82F6", "#7B55EA", "#3B82F6", "#7B55EA", "#3B82F6"] as const;
 
 // ── GlobeGrid, lat/long digital-earth grid lines (progressive reveal) ────
 const GRID_SEG = 96;
@@ -108,7 +108,7 @@ function GlobeGrid() {
 
     return (
         <lineSegments ref={ref} geometry={geo} scale={1.003}>
-            <lineBasicMaterial color="#4B91F7" transparent opacity={0.28} />
+            <lineBasicMaterial color="#7B55EA" transparent opacity={0.24} />
         </lineSegments>
     );
 }
@@ -134,12 +134,12 @@ function EnergyCore() {
             {/* Outer glow ring */}
             <mesh ref={outerRef}>
                 <sphereGeometry args={[0.18, 16, 16]} />
-                <meshBasicMaterial color="#00D4FF" transparent opacity={0.15} />
+                <meshBasicMaterial color="#3B82F6" transparent opacity={0.15} />
             </mesh>
             {/* Bright inner core */}
             <mesh ref={innerRef}>
                 <sphereGeometry args={[0.06, 12, 12]} />
-                <meshBasicMaterial color="#00D4FF" transparent opacity={0.95} />
+                <meshBasicMaterial color="#3B82F6" transparent opacity={0.95} />
             </mesh>
         </group>
     );
@@ -207,7 +207,7 @@ function ConnectionLines() {
 
     return (
         <lineSegments geometry={geo}>
-            <lineBasicMaterial color="#4B91F7" transparent opacity={0.16} />
+            <lineBasicMaterial color="#3B82F6" transparent opacity={0.14} />
         </lineSegments>
     );
 }
@@ -242,9 +242,9 @@ function DataStreams() {
 
 // ── OrbitalRings, 3 rings, each carrying a wireframe satellite ───────────
 const RING_CONFIGS = [
-    { tilt: [1.2, 0, 0] as const, radius: 1.42, tube: 0.006, color: "#4B91F7", opacity: 0.6, spin: 0.003 },
-    { tilt: [0.5, 0.6, Math.PI / 3] as const, radius: 1.58, tube: 0.005, color: "#7B55EA", opacity: 0.45, spin: -0.0022 },
-    { tilt: [-0.4, -0.8, -Math.PI / 4] as const, radius: 1.68, tube: 0.0045, color: "#4B91F7", opacity: 0.3, spin: 0.0014 },
+    { tilt: [1.2, 0, 0] as const, radius: 1.42, tube: 0.006, color: "#7B55EA", opacity: 0.6, spin: 0.003 },
+    { tilt: [0.5, 0.6, Math.PI / 3] as const, radius: 1.58, tube: 0.005, color: "#3B82F6", opacity: 0.45, spin: -0.0022 },
+    { tilt: [-0.4, -0.8, -Math.PI / 4] as const, radius: 1.68, tube: 0.0045, color: "#7B55EA", opacity: 0.3, spin: 0.0014 },
 ] as const;
 
 function OrbitalRings() {
@@ -344,8 +344,8 @@ function GlobeScene() {
     return (
         <>
             <ambientLight intensity={0.08} />
-            <pointLight position={[3, 3, 3]} intensity={3} color="#4B91F7" />
-            <pointLight position={[-3, -2, 2]} intensity={1.5} color="#7B55EA" />
+            <pointLight position={[3, 3, 3]} intensity={3} color="#7B55EA" />
+            <pointLight position={[-3, -2, 2]} intensity={1.8} color="#3B82F6" />
             <Starfield />
             <group ref={groupRef}>
                 <GlobeGrid />

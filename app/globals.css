@@ -1,73 +1,44 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "geomanist";
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: local("Geomanist Light"), local("Geomanist-Light"), local("geomanist light");
-}
-
-@font-face {
-  font-family: "geomanist";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local("Geomanist"), local("Geomanist Regular"), local("Geomanist-Regular"), local("geomanist");
-}
-
-@font-face {
-  font-family: "geomanist";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: local("Geomanist Medium"), local("Geomanist-Medium"), local("geomanist medium");
-}
-
-@font-face {
-  font-family: "geomanist";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local("Geomanist Bold"), local("Geomanist-Bold"), local("geomanist bold");
-}
-
 :root {
-  --background: #0D0F17;
-  --surface: #151822;
-  --surface-elevated: #1C202E;
-  --border: #252A3A;
+  --background: #07080F;
+  --surface: #0E0E1A;
+  --surface-elevated: #131328;
+  --border: #1E1B2E;
   --foreground: #F0F0F2;
   --text-primary: #F0F0F2;
   --text-secondary: #A3A3AC;
   --text-muted: #6E6E7E;
   --text-disabled: #4A4A5A;
-  --accent: #4B91F7;
-  --font-ui: geomanist, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --home-card-bg: #151822;
-  --home-card-bg-strong: #151822;
-  --home-card-border: rgba(37, 42, 58, 0.9);
-  --home-card-border-strong: rgba(37, 42, 58, 1);
+  --accent: #7B55EA;
+  --accent-secondary: #22D3EE;
+  --font-ui: var(--font-body), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: var(--font-heading), var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-code: var(--font-mono-code), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --home-card-bg: #0E0E1A;
+  --home-card-bg-strong: #0E0E1A;
+  --home-card-border: rgba(30, 27, 46, 0.9);
+  --home-card-border-strong: rgba(30, 27, 46, 1);
   --home-card-shadow: none;
-  --home-card-muted-bg: rgba(75, 145, 247, 0.05);
-  --home-card-muted-border: rgba(75, 145, 247, 0.14);
-  --home-control-bg: rgba(21, 24, 34, 0.92);
-  --home-control-border: rgba(37, 42, 58, 0.9);
+  --home-card-muted-bg: rgba(123, 85, 234, 0.06);
+  --home-card-muted-border: rgba(123, 85, 234, 0.15);
+  --home-control-bg: rgba(14, 14, 26, 0.92);
+  --home-control-border: rgba(30, 27, 46, 0.9);
   --home-control-color: #F0F0F2;
-  --home-node-bg: #151822;
-  --home-node-border: rgba(37, 42, 58, 0.9);
-  --home-terminal-bg: #151822;
-  --home-terminal-border: rgba(37, 42, 58, 0.9);
-  --home-grid-line: rgba(37, 42, 58, 0.55);
+  --home-node-bg: #0E0E1A;
+  --home-node-border: rgba(30, 27, 46, 0.9);
+  --home-terminal-bg: #0E0E1A;
+  --home-terminal-border: rgba(30, 27, 46, 0.9);
+  --home-grid-line: rgba(30, 27, 46, 0.55);
   --home-diagram-stroke: rgba(240, 240, 242, 0.38);
-  --home-diagram-fill: rgba(37, 42, 58, 0.5);
-  --home-accent-cyan: rgba(255,255,255,0.88);
-  --home-accent-purple: rgba(255,255,255,0.88);
-  --home-accent-violet: rgba(255,255,255,0.88);
+  --home-diagram-fill: rgba(30, 27, 46, 0.5);
+  --home-accent-cyan: rgba(34, 211, 238, 0.9);
+  --home-accent-purple: rgba(123, 85, 234, 0.9);
+  --home-accent-violet: rgba(123, 85, 234, 0.9);
   --home-accent-green: rgba(255,255,255,0.72);
-  --accent-gradient: linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%);
-  --home-button-bg: #4B91F7;
-  --home-button-border: #4B91F7;
+  --accent-gradient: linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%);
+  --home-button-bg: #7B55EA;
+  --home-button-border: #7B55EA;
   --home-button-color: #ffffff;
   --home-button-shadow: none;
   --home-button-shadow-hover: none;
@@ -77,7 +48,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-ui);
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono: var(--font-code);
 }
 
 html,
@@ -109,14 +80,26 @@ body {
 
 body,
 body * {
-  font-family: var(--font-ui) !important;
+  font-family: var(--font-ui);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-hero-title,
+.display-section-title {
+  font-family: var(--font-display) !important;
 }
 
 code,
 pre,
 kbd,
-samp {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+samp,
+[class*="font-mono"] {
+  font-family: var(--font-code) !important;
 }
 
 h1,
@@ -136,14 +119,14 @@ label {
 h1 {
   font-size: clamp(3rem, 4vw, 3.5rem);
   line-height: 1.05;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.03em;
 }
 
 h2 {
   font-size: clamp(2rem, 3vw, 2.5rem);
   line-height: 1.1;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.025em;
 }
 
@@ -183,7 +166,7 @@ a {
 }
 
 ::selection {
-  background: rgba(75, 145, 247, 0.22);
+  background: rgba(123, 85, 234, 0.28);
   color: #ffffff;
 }
 
@@ -202,14 +185,24 @@ a {
 .display-muted-line {
   display: block;
   color: var(--text-secondary);
-  font-weight: 400;
+  font-weight: 500;
+  padding-bottom: 0.08em;
 }
 
 .display-strong-line {
   display: block;
   color: var(--text-primary);
-  font-weight: 400;
-  padding-bottom: 0.12em;
+  font-weight: 700;
+  padding-bottom: 0.22em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding-bottom: 0.05em;
 }
 
 .section-gradient-divider {
@@ -218,11 +211,11 @@ a {
   margin: 0 auto;
   background: linear-gradient(90deg,
       rgba(255, 255, 255, 0) 0%,
-      rgba(113, 113, 122, 0.14) 12%,
-      rgba(161, 161, 170, 0.34) 32%,
-      rgba(230, 230, 230, 0.62) 50%,
-      rgba(161, 161, 170, 0.34) 68%,
-      rgba(113, 113, 122, 0.14) 88%,
+      rgba(123, 85, 234, 0.12) 12%,
+      rgba(123, 85, 234, 0.32) 32%,
+      rgba(34, 211, 238, 0.45) 50%,
+      rgba(123, 85, 234, 0.32) 68%,
+      rgba(123, 85, 234, 0.12) 88%,
       rgba(255, 255, 255, 0) 100%);
 }
 
@@ -237,11 +230,11 @@ a {
   z-index: 20;
   background: linear-gradient(90deg,
       rgba(255, 255, 255, 0) 0%,
-      rgba(113, 113, 122, 0.14) 12%,
-      rgba(161, 161, 170, 0.34) 32%,
-      rgba(230, 230, 230, 0.62) 50%,
-      rgba(161, 161, 170, 0.34) 68%,
-      rgba(113, 113, 122, 0.14) 88%,
+      rgba(123, 85, 234, 0.12) 12%,
+      rgba(123, 85, 234, 0.32) 32%,
+      rgba(34, 211, 238, 0.45) 50%,
+      rgba(123, 85, 234, 0.32) 68%,
+      rgba(123, 85, 234, 0.12) 88%,
       rgba(255, 255, 255, 0) 100%
   );
 }
@@ -259,7 +252,7 @@ a {
 }
 
 .home-ai-grid {
-  background-image: radial-gradient(rgba(75, 145, 247, 0.2) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(123, 85, 234, 0.18) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
@@ -307,13 +300,20 @@ a {
   color: var(--text-disabled) !important;
 }
 
-.font-bold,
+.font-bold {
+  font-weight: 700 !important;
+}
+
 .font-semibold {
   font-weight: 600 !important;
 }
 
 .font-medium {
   font-weight: 500 !important;
+}
+
+.font-normal {
+  font-weight: 400 !important;
 }
 
 .text-xs,
@@ -455,7 +455,8 @@ a {
 }
 
 [class*="bg-[#0E1014]"],
-[class*="bg-[#0D0F17]"] {
+[class*="bg-[#0D0F17]"],
+[class*="bg-[#07080F]"] {
   background-color: var(--background) !important;
 }
 
@@ -532,8 +533,8 @@ a {
   height: 1.5px;
   width: 28px;
   margin-right: 4px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.75) 100%);
-  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(90deg, transparent 0%, rgba(123, 85, 234, 0.8) 45%, rgba(34, 211, 238, 0.85) 100%);
+  box-shadow: 0 0 4px 1px rgba(123, 85, 234, 0.3);
   border-radius: 9999px;
   transform-origin: left center;
   animation: labelBeam 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -544,8 +545,8 @@ a {
   height: 6px;
   width: 6px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.3);
+  background: rgba(34, 211, 238, 0.85);
+  box-shadow: 0 0 5px 1px rgba(34, 211, 238, 0.4);
   animation: labelDotPulse 2.8s ease-in-out infinite;
 }
 
@@ -561,14 +562,14 @@ a {
   --text-secondary: #A3A3AC;
   --text-muted: #6E6E7E;
   --text-disabled: #4A4A5A;
-  --background: #0D0F17;
-  --surface: #151822;
-  --border: #252A3A;
-  --home-card-bg: rgba(21, 24, 34, 0.94);
+  --background: #07080F;
+  --surface: #0E0E1A;
+  --border: #1E1B2E;
+  --home-card-bg: rgba(14, 14, 26, 0.94);
   --home-card-border: rgba(255, 255, 255, 0.07);
   --home-card-shadow: none;
-  --home-card-muted-bg: rgba(75, 145, 247, 0.05);
-  --home-card-muted-border: rgba(75, 145, 247, 0.14);
+  --home-card-muted-bg: rgba(123, 85, 234, 0.06);
+  --home-card-muted-border: rgba(123, 85, 234, 0.15);
   background: var(--background);
   color: var(--text-primary);
 }
@@ -584,8 +585,8 @@ a {
   --home-card-bg: rgba(255, 255, 255, 0.95);
   --home-card-border: rgba(0, 0, 0, 0.06);
   --home-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
-  --home-card-muted-bg: rgba(75, 145, 247, 0.04);
-  --home-card-muted-border: rgba(75, 145, 247, 0.12);
+  --home-card-muted-bg: rgba(123, 85, 234, 0.04);
+  --home-card-muted-border: rgba(123, 85, 234, 0.12);
   background: var(--background);
   color: var(--text-primary);
 }
