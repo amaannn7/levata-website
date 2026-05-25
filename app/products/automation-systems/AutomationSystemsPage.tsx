@@ -309,32 +309,34 @@ export default function AutomationSystemsPage() {
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
-                    >
-                        <SectionLabel text="The problem" />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Manual operations</span>
-                            <span className="display-strong-line">are a tax on growth.</span>
-                        </h2>
-                        <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            Most businesses run on spreadsheets, copy-paste, and tribal knowledge. No automation layer, no system of record.
-                        </p>
-                    </motion.div>
+                    <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12">
+                        {/* Left: text */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.7, ease: EASE }}
+                            className="flex flex-col gap-5 text-left"
+                        >
+                            <SectionLabel text="The problem" />
+                            <h2 className="display-section-title">
+                                <span className="display-muted-line">Manual operations</span>
+                                <span className="display-strong-line">are a tax on growth.</span>
+                            </h2>
+                            <p className="max-w-md text-base leading-relaxed text-white/55">
+                                Most businesses run on spreadsheets, copy-paste, and tribal knowledge. No automation layer, no system of record.
+                            </p>
+                        </motion.div>
 
-                    {/* Disconnected systems orbiting a central hub — all in viewBox coords so lines actually meet the cards */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 12 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.55, ease: EASE }}
-                        className="relative mx-auto w-full max-w-3xl"
-                        style={{ aspectRatio: "16 / 10" }}
-                    >
+                        {/* Right: disconnected systems orbiting a central hub — all in viewBox coords so lines actually meet the cards */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.55, ease: EASE }}
+                            className="relative w-full"
+                            style={{ aspectRatio: "16 / 10" }}
+                        >
                         <svg
                             viewBox="0 0 600 380"
                             className="absolute inset-0 h-full w-full"
@@ -466,6 +468,7 @@ export default function AutomationSystemsPage() {
                             })()}
                         </svg>
                     </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -724,7 +727,7 @@ export default function AutomationSystemsPage() {
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"
                     style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }}
                 />
-                <CTAAurora />
+                <CTAAurora variant={3} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}

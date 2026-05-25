@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { COUNTRIES } from "@/app/lib/countries";
-import CTAAurora from "@/app/components/CTAAurora";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -108,8 +107,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
     };
 
     return (
-        <section ref={sectionRef} id="contact-cta" className="relative w-full overflow-hidden bg-[#0E1014] px-5 py-8 sm:px-6 md:py-14">
-            <CTAAurora intent="subtle" />
+        <section ref={sectionRef} id="contact-cta" className="relative w-full bg-[#0E1014] px-5 py-8 sm:px-6 md:py-14">
             <div className="relative z-10 mx-auto max-w-6xl">
 
                 {showHeading && (

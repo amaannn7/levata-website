@@ -1027,7 +1027,7 @@ export default function SalesIntelligencePage() {
 
             {/* ── 8. FINAL CTA ─────────────────────────────── */}
             <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
-                <CTAAurora />
+                <CTAAurora variant={2} />
                 <div
                     aria-hidden
                     className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2"

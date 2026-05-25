@@ -370,7 +370,7 @@ export default function AboutPage() {
 
             {/* ── Final CTA ────────────────────────────────────── */}
             <section ref={ctaRef} className="relative w-full px-6 py-20 md:py-28 overflow-hidden">
-                <CTAAurora />
+                <CTAAurora variant={3} />
                 <div aria-hidden className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-32"
                     style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.4), transparent)" }}
                 />

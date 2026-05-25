@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     SiReact, SiNextdotjs, SiVuedotjs, SiNuxt, SiSvelte, SiAngular,
@@ -93,36 +94,40 @@ function SectionDivider() {
 }
 
 // ── Two-row opposing marquee, Tech Stack (replaces the old tab grid) ─────
-type TechItem = { name: string; Icon: React.ComponentType<{ size?: number; className?: string }> };
+type TechItem = {
+    name: string;
+    Icon: React.ComponentType<{ size?: number; className?: string; color?: string; style?: React.CSSProperties }>;
+    color: string;
+};
 
 const TECH_ROW_TOP: TechItem[] = [
-    { name: "Next.js", Icon: SiNextdotjs },
-    { name: "React", Icon: SiReact },
-    { name: "Vue.js", Icon: SiVuedotjs },
-    { name: "Nuxt", Icon: SiNuxt },
-    { name: "SvelteKit", Icon: SiSvelte },
-    { name: "Angular", Icon: SiAngular },
-    { name: "Express", Icon: SiExpress },
-    { name: "NestJS", Icon: SiNestjs },
-    { name: "Spring Boot", Icon: SiSpring },
-    { name: "FastAPI", Icon: SiFastapi },
-    { name: "Django", Icon: SiDjango },
-    { name: "Laravel", Icon: SiLaravel },
+    { name: "Next.js", Icon: SiNextdotjs, color: "#FFFFFF" },
+    { name: "React", Icon: SiReact, color: "#61DAFB" },
+    { name: "Vue.js", Icon: SiVuedotjs, color: "#4FC08D" },
+    { name: "Nuxt", Icon: SiNuxt, color: "#00DC82" },
+    { name: "SvelteKit", Icon: SiSvelte, color: "#FF3E00" },
+    { name: "Angular", Icon: SiAngular, color: "#DD0031" },
+    { name: "Express", Icon: SiExpress, color: "#FFFFFF" },
+    { name: "NestJS", Icon: SiNestjs, color: "#E0234E" },
+    { name: "Spring Boot", Icon: SiSpring, color: "#6DB33F" },
+    { name: "FastAPI", Icon: SiFastapi, color: "#009688" },
+    { name: "Django", Icon: SiDjango, color: "#44B78B" },
+    { name: "Laravel", Icon: SiLaravel, color: "#FF2D20" },
 ];
 
 const TECH_ROW_BOTTOM: TechItem[] = [
-    { name: "Sanity", Icon: SiSanity },
-    { name: "Strapi", Icon: SiStrapi },
-    { name: "Contentful", Icon: SiContentful },
-    { name: "WordPress", Icon: SiWordpress },
-    { name: "Payload CMS", Icon: SiPayloadcms },
-    { name: "Directus", Icon: SiDirectus },
-    { name: "PostgreSQL", Icon: SiPostgresql },
-    { name: "MySQL", Icon: SiMysql },
-    { name: "MongoDB", Icon: SiMongodb },
-    { name: "Supabase", Icon: SiSupabase },
-    { name: "Firebase", Icon: SiFirebase },
-    { name: "Redis", Icon: SiRedis },
+    { name: "Sanity", Icon: SiSanity, color: "#F03E2F" },
+    { name: "Strapi", Icon: SiStrapi, color: "#4945FF" },
+    { name: "Contentful", Icon: SiContentful, color: "#2478CC" },
+    { name: "WordPress", Icon: SiWordpress, color: "#21759B" },
+    { name: "Payload CMS", Icon: SiPayloadcms, color: "#FFFFFF" },
+    { name: "Directus", Icon: SiDirectus, color: "#6644FF" },
+    { name: "PostgreSQL", Icon: SiPostgresql, color: "#4169E1" },
+    { name: "MySQL", Icon: SiMysql, color: "#4479A1" },
+    { name: "MongoDB", Icon: SiMongodb, color: "#47A248" },
+    { name: "Supabase", Icon: SiSupabase, color: "#3FCF8E" },
+    { name: "Firebase", Icon: SiFirebase, color: "#FFCA28" },
+    { name: "Redis", Icon: SiRedis, color: "#DC382D" },
 ];
 
 function TechMarqueeRow({ items, direction, duration }: { items: TechItem[]; direction: "left" | "right"; duration: number }) {
@@ -138,16 +143,18 @@ function TechMarqueeRow({ items, direction, duration }: { items: TechItem[]; dir
                     animationDirection: direction === "left" ? "normal" : "reverse",
                 }}
             >
-                {doubled.map(({ name, Icon }, i) => (
+                {doubled.map(({ name, Icon, color }, i) => (
                     <div
                         key={`${name}-${i}`}
                         title={name}
-                        className="home-tech-icon-wrap group flex flex-shrink-0 items-center justify-center"
+                        className="group flex flex-shrink-0 items-center justify-center"
                         style={{ width: 44, height: 44 }}
                     >
                         <Icon
                             size={40}
-                            className="home-tech-icon"
+                            color={color}
+                            className="transition-all duration-200 group-hover:scale-110"
+                            style={{ opacity: 0.85, filter: "saturate(0.85)" }}
                         />
                     </div>
                 ))}
@@ -276,6 +283,7 @@ const SERVICE_CARDS: Array<{
     href: string;
     accent: string;
     icon: IconKind;
+    image: string;
 }> = [
         {
             title: "Digital Products",
@@ -289,6 +297,7 @@ const SERVICE_CARDS: Array<{
             href: "/products/digital-products",
             accent: "#7B55EA",
             icon: "products",
+            image: "/services-2.jpeg",
         },
         {
             title: "Digital Services",
@@ -302,6 +311,7 @@ const SERVICE_CARDS: Array<{
             href: "/products/digital-services",
             accent: "#7B55EA",
             icon: "services",
+            image: "/services-3.jpeg",
         },
         {
             title: "Automation & Systems",
@@ -315,6 +325,7 @@ const SERVICE_CARDS: Array<{
             href: "/products/automation-systems",
             accent: "#7B55EA",
             icon: "automation",
+            image: "/services-4.jpeg",
         },
         {
             title: "AI and Intelligence",
@@ -328,6 +339,7 @@ const SERVICE_CARDS: Array<{
             href: "/products/ai-intelligence",
             accent: "#7B55EA",
             icon: "ai",
+            image: "/services-1.jpeg",
         },
     ];
 
@@ -752,7 +764,7 @@ function ServicesCarousel() {
                     <a
                         key={card.title}
                         href={card.href}
-                        className="group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-7 outline-none focus-visible:ring-2 focus-visible:ring-[#7B55EA]/60 md:block md:h-[300px] md:p-0"
+                        className="group relative flex h-[260px] flex-col overflow-hidden rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-[#7B55EA]/60 sm:h-[280px] md:h-[320px]"
                         style={{
                             background: "var(--home-card-bg, rgba(21,24,34,0.94))",
                             border: "1px solid var(--home-card-border, rgba(255,255,255,0.07))",
@@ -760,8 +772,8 @@ function ServicesCarousel() {
                         }}
                         onMouseEnter={(e) => {
                             const el = e.currentTarget as HTMLElement;
-                            el.style.borderColor = "rgba(123, 85, 234,0.3)";
-                            el.style.boxShadow = "inset 0 0 0 1px rgba(123, 85, 234,0.08), 0 24px 60px rgba(0,0,0,0.35)";
+                            el.style.borderColor = "rgba(123, 85, 234,0.35)";
+                            el.style.boxShadow = "inset 0 0 0 1px rgba(123, 85, 234,0.1), 0 24px 60px rgba(0,0,0,0.4)";
                         }}
                         onMouseLeave={(e) => {
                             const el = e.currentTarget as HTMLElement;
@@ -769,61 +781,90 @@ function ServicesCarousel() {
                             el.style.boxShadow = "";
                         }}
                     >
-                        {/* Large watermark number */}
-                        <span
-                            aria-hidden
-                            className="pointer-events-none absolute right-5 top-2 select-none font-bold leading-none text-white transition-opacity duration-500 group-hover:opacity-[0.02]"
-                            style={{ fontSize: "140px", opacity: 0.035, letterSpacing: "-0.06em" }}
-                        >
-                            {String(i + 1).padStart(2, "0")}
-                        </span>
+                        {/* Background image — low opacity so it reads as atmosphere */}
+                        <Image
+                            src={card.image}
+                            alt={card.title}
+                            fill
+                            sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
+                            className="object-cover opacity-[0.35] transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-[0.5] group-hover:scale-[1.06]"
+                            priority={i < 2}
+                        />
 
-                        {/* Radial glow, fades in on hover */}
+                        {/* Dark vertical gradient — strong at bottom for text legibility, light at top */}
+                        <div
+                            aria-hidden
+                            className="pointer-events-none absolute inset-0"
+                            style={{
+                                background:
+                                    "linear-gradient(180deg, rgba(7,8,15,0.4) 0%, rgba(7,8,15,0.25) 35%, rgba(7,8,15,0.85) 75%, rgba(7,8,15,0.96) 100%)",
+                            }}
+                        />
+
+                        {/* Cyan→purple hover sheen, fades in */}
                         <div
                             aria-hidden
                             className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                            style={{ background: "radial-gradient(ellipse 70% 55% at 30% 100%, rgba(123, 85, 234,0.09) 0%, transparent 65%)" }}
+                            style={{
+                                background:
+                                    "radial-gradient(ellipse 80% 60% at 30% 100%, rgba(123, 85, 234,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 90% 0%, rgba(34, 211, 238,0.12) 0%, transparent 65%)",
+                            }}
                         />
 
-                        {/* Top bar, icon + number badge */}
-                        <div className="relative z-10 flex items-center justify-between md:absolute md:left-7 md:right-7 md:top-7">
+                        {/* Top bar: circular brand-tinted icon + editorial number marker */}
+                        <div className="relative z-10 flex items-start justify-between p-6 md:p-7">
                             <div
-                                className="flex h-11 w-11 items-center justify-center rounded-xl transition-colors duration-400"
+                                className="flex h-11 w-11 items-center justify-center rounded-full backdrop-blur-md transition-all duration-300 group-hover:scale-105"
                                 style={{
-                                    background: "rgba(123, 85, 234,0.09)",
-                                    border: "1px solid rgba(123, 85, 234,0.2)",
+                                    background:
+                                        "linear-gradient(135deg, rgba(123,85,234,0.28) 0%, rgba(34,211,238,0.16) 100%)",
+                                    border: "1px solid rgba(255,255,255,0.28)",
+                                    boxShadow: "0 4px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08)",
                                 }}
                             >
-                                <ServiceIcon kind={card.icon} size={22} />
+                                <ServiceIcon kind={card.icon} size={20} />
                             </div>
-                            <span className="text-[10px] font-bold tracking-[0.2em] text-white/20">
-                                {String(i + 1).padStart(2, "0")}
-                            </span>
+                            <div className="flex items-center gap-2 pt-3">
+                                <span
+                                    aria-hidden
+                                    className="h-px w-6"
+                                    style={{
+                                        background:
+                                            "linear-gradient(to right, transparent, rgba(255,255,255,0.55))",
+                                    }}
+                                />
+                                <span
+                                    className="text-[10.5px] font-semibold tabular-nums tracking-[0.24em] text-white/75"
+                                    style={{
+                                        fontFamily:
+                                            "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace",
+                                    }}
+                                >
+                                    {String(i + 1).padStart(2, "0")}
+                                </span>
+                            </div>
                         </div>
 
-                        {/* Title, lifts on hover at md+; in normal flow on mobile */}
-                        <div
-                            className="relative z-10 mt-auto md:absolute md:bottom-7 md:left-7 md:right-7 md:mt-0 md:transition-transform md:duration-[400ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:-translate-y-[76px]"
-                        >
-                            <h3 className="text-[1.35rem] font-semibold leading-snug tracking-tight text-white md:text-[1.45rem]">
-                                {card.title}
-                            </h3>
-                        </div>
+                        {/* Bottom content: title (lifts) + description (slides in) */}
+                        <div className="relative z-10 mt-auto p-6 md:p-7">
+                            <div className="md:transition-transform md:duration-[420ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:-translate-y-[78px]">
+                                <h3 className="text-[1.35rem] font-semibold leading-snug tracking-tight text-white md:text-[1.5rem]">
+                                    {card.title}
+                                </h3>
+                            </div>
 
-                        {/* Description + CTA, always visible on mobile; hover-reveal on md+ */}
-                        <div
-                            className="relative z-10 md:absolute md:bottom-7 md:left-7 md:right-7 md:translate-y-3 md:opacity-0 md:transition-all md:duration-[400ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:translate-y-0 md:group-hover:opacity-100"
-                        >
-                            <p className="text-sm leading-relaxed text-white/55">{card.description}</p>
-                            <span
-                                className="mt-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em]"
-                                style={{ color: BLUE }}
-                            >
-                                Explore
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke={BLUE} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </span>
+                            <div className="mt-2 md:absolute md:bottom-6 md:left-6 md:right-6 md:mt-0 md:translate-y-3 md:opacity-0 md:transition-all md:duration-[420ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:translate-y-0 md:group-hover:opacity-100 md:p-0 md:py-1">
+                                <p className="text-sm leading-relaxed text-white/70">{card.description}</p>
+                                <span
+                                    className="mt-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em]"
+                                    style={{ color: BLUE }}
+                                >
+                                    Explore
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                        <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke={BLUE} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </span>
+                            </div>
                         </div>
                     </a>
                 ))}
@@ -1294,7 +1335,7 @@ export default function HeroSection() {
 
             {/* ── 5. MID-PAGE CTA ──────────────────────────────── */}
             <section className="home-theme-dark relative w-full px-5 py-16 sm:px-6 sm:py-20 overflow-hidden">
-                <CTAAurora />
+                <CTAAurora variant={2} />
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -1671,7 +1712,7 @@ export default function HeroSection() {
 
             {/* ── 12. FINAL CTA ──────────────────────────────── */}
             <section className="home-theme-dark relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
-                <CTAAurora />
+                <CTAAurora variant={1} />
                 <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.5), transparent)" }} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

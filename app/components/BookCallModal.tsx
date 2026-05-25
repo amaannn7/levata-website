@@ -105,7 +105,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                     aria-modal="true"
                     role="dialog"
                 >
-                    <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
+                    <div className="flex min-h-full justify-center p-4 sm:p-6">
                     <motion.div
                         key="book-panel"
                         initial={{ opacity: 0, scale: 0.96, y: 8 }}
@@ -113,7 +113,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                         exit={{ opacity: 0, scale: 0.96, y: 8 }}
                         transition={{ duration: 0.22, ease: EASE }}
                         onClick={(e) => e.stopPropagation()}
-                        className="accent-frame relative w-full max-w-sm overflow-hidden rounded-2xl p-px sm:max-w-md"
+                        className="accent-frame relative my-auto w-full max-w-sm overflow-hidden rounded-2xl p-px sm:max-w-md"
                     >
                         <div className="relative overflow-hidden rounded-2xl bg-[#0E1014]">
                             {/* subtle glow accent */}

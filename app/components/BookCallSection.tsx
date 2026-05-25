@@ -13,7 +13,7 @@ export default function BookCallSection() {
             id="book-call"
             className="relative w-full overflow-hidden bg-[var(--background)] px-6 pb-16"
         >
-            <CTAAurora intent="subtle" />
+            <CTAAurora intent="subtle" variant={3} />
             <div className="relative z-10 mx-auto max-w-5xl">
 
                 <div className="h-px w-full bg-white/8" />

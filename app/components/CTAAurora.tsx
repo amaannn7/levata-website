@@ -1,108 +1,55 @@
 "use client";
 
-import { useMemo } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 
 type Intent = "default" | "subtle";
+type Variant = 1 | 2 | 3;
 
-// Deterministic seeded RNG so node layout is identical across SSR / client / re-renders.
-function mulberry32(seed: number) {
-    return function () {
-        seed |= 0;
-        seed = (seed + 0x6D2B79F5) | 0;
-        let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-}
-
-const VIEW_W = 1000;
-const VIEW_H = 500;
-const NODE_COUNT = 26;
-const LINK_DISTANCE = 230;
-
-type Node = { x: number; y: number; delay: number };
-
-function buildLayout(): { nodes: Node[]; edges: [number, number][] } {
-    const rand = mulberry32(42);
-    const nodes: Node[] = Array.from({ length: NODE_COUNT }, () => ({
-        x: rand() * VIEW_W,
-        y: rand() * VIEW_H,
-        delay: rand() * 3,
-    }));
-
-    const edges: [number, number][] = [];
-    for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-            const dx = nodes[i].x - nodes[j].x;
-            const dy = nodes[i].y - nodes[j].y;
-            if (Math.hypot(dx, dy) < LINK_DISTANCE) {
-                edges.push([i, j]);
-            }
-        }
-    }
-    return { nodes, edges };
-}
-
-export default function CTAAurora({ intent = "default" }: { intent?: Intent }) {
-    const prefersReducedMotion = useReducedMotion();
-    const { nodes, edges } = useMemo(buildLayout, []);
-    const opacityScale = intent === "subtle" ? 0.55 : 1;
+// Soft image backdrop for CTA sections.
+// One image per section, with a radial vignette so it fades into the page bg.
+// No animation, no node lines — just a calm photographic atmosphere at low opacity.
+export default function CTAAurora({
+    intent = "default",
+    variant = 1,
+}: {
+    intent?: Intent;
+    variant?: Variant;
+}) {
+    const opacity = intent === "subtle" ? 0.1 : 0.18;
 
     return (
         <div
             aria-hidden
             className="pointer-events-none absolute inset-0 overflow-hidden"
-            style={{ opacity: opacityScale }}
         >
-            <svg
-                className="h-full w-full"
-                viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-                preserveAspectRatio="xMidYMid slice"
-                fill="none"
-            >
-                {edges.map(([a, b], i) => (
-                    <line
-                        key={`e-${i}`}
-                        x1={nodes[a].x}
-                        y1={nodes[a].y}
-                        x2={nodes[b].x}
-                        y2={nodes[b].y}
-                        stroke="rgba(255,255,255,0.035)"
-                        strokeWidth={1}
-                    />
-                ))}
+            {/* Background photo */}
+            <Image
+                src={`/clients/CTA-${variant}.jpeg`}
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover"
+                style={{ opacity }}
+                priority={false}
+            />
 
-                {nodes.map((n, i) => {
-                    if (prefersReducedMotion) {
-                        return (
-                            <circle
-                                key={`n-${i}`}
-                                cx={n.x}
-                                cy={n.y}
-                                r={2}
-                                fill="rgba(255,255,255,0.35)"
-                            />
-                        );
-                    }
-                    return (
-                        <motion.circle
-                            key={`n-${i}`}
-                            cx={n.x}
-                            cy={n.y}
-                            initial={{ r: 1.8, opacity: 0.22 }}
-                            animate={{ r: [1.8, 2.6, 1.8], opacity: [0.22, 0.5, 0.22] }}
-                            transition={{
-                                duration: 3.6,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: n.delay,
-                            }}
-                            fill="rgba(255,255,255,0.5)"
-                        />
-                    );
-                })}
-            </svg>
+            {/* Soft dark vignette — fades the image into the page background at the edges */}
+            <div
+                className="absolute inset-0"
+                style={{
+                    background:
+                        "radial-gradient(ellipse 90% 90% at 50% 50%, transparent 0%, rgba(7,8,15,0.55) 60%, rgba(7,8,15,0.92) 100%)",
+                }}
+            />
+
+            {/* Faint purple-to-cyan tint on top for brand cohesion */}
+            <div
+                className="absolute inset-0"
+                style={{
+                    background:
+                        "linear-gradient(135deg, rgba(123,85,234,0.08) 0%, transparent 50%, rgba(34,211,238,0.06) 100%)",
+                }}
+            />
         </div>
     );
 }

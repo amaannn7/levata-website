@@ -663,7 +663,7 @@ export default function DigitalProductsPage() {
 
             {/* ── 8. FINAL CTA ──────────────────────────────── */}
             <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
-                <CTAAurora />
+                <CTAAurora variant={1} />
                 <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.5), transparent)" }} />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
