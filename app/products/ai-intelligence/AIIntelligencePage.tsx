@@ -365,26 +365,25 @@ export default function AIIntelligencePage() {
     const [openStack, setOpenStack] = useState<number>(0);
     const stackSectionRef = useRef<HTMLElement>(null);
 
-    // Scroll-driven progression for the AI Stack accordion.
-    // The section is min-h ~ N × 80vh so the inner sticky wrapper has scroll runway
-    // for one card per ~80vh. After scrolling past, the section releases and the
-    // next section appears naturally.
+    // Scroll-driven progression for the AI Stack accordion — desktop (md+) only.
+    // On mobile we leave the accordion to manual tap-to-open behaviour so users
+    // aren't reading text while cards cycle behind them.
     useEffect(() => {
         const el = stackSectionRef.current;
         if (!el) return;
+        if (typeof window === "undefined") return;
 
+        const mq = window.matchMedia("(min-width: 768px)");
         let rafId: number | null = null;
         const total = 4; // SUB_SERVICES.length
 
         const update = () => {
             rafId = null;
+            if (!mq.matches) return; // mobile: no scroll-driven progression
             const rect = el.getBoundingClientRect();
             const vh = window.innerHeight;
-            // Skip if section is off-screen
             if (rect.bottom < 0 || rect.top > vh) return;
 
-            // Pin-style progress: 0 when section top reaches top of viewport,
-            // 1 just before section bottom leaves bottom of viewport.
             const scrolled = -rect.top;
             const scrollable = rect.height - vh;
             if (scrollable <= 0) return;
@@ -402,9 +401,11 @@ export default function AIIntelligencePage() {
         update();
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onScroll, { passive: true });
+        mq.addEventListener("change", onScroll);
         return () => {
             window.removeEventListener("scroll", onScroll);
             window.removeEventListener("resize", onScroll);
+            mq.removeEventListener("change", onScroll);
             if (rafId !== null) cancelAnimationFrame(rafId);
         };
     }, []);
@@ -535,14 +536,13 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ── 4. AI STACK, pinned two-column with scroll-driven accordion ── */}
+            {/* ── 4. AI STACK, pinned two-column with scroll-driven accordion (desktop only) ── */}
             <section
                 ref={stackSectionRef}
-                className="relative w-full"
-                style={{ minHeight: "calc(100vh + 4 * 80vh)" }}
+                className="relative w-full md:min-h-[420vh]"
             >
-                {/* Inner sticky wrapper — pins to top of viewport while user scrolls section */}
-                <div className="sticky top-0 flex min-h-screen items-center overflow-hidden px-5 py-16 sm:px-6 sm:py-20 md:py-24">
+                {/* Sticky-pin on md+. On mobile this is a normal section with the accordion below the heading. */}
+                <div className="px-5 py-16 sm:px-6 sm:py-20 md:sticky md:top-0 md:flex md:min-h-screen md:items-center md:overflow-hidden md:py-24">
                     <div className="relative z-10 mx-auto w-full max-w-6xl">
                     <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-14">
                         {/* Left: heading + body + CTA */}
