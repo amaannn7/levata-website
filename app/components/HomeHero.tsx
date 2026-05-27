@@ -1,8 +1,8 @@
 ﻿"use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useBookCall } from "@/app/components/BookCallProvider";
 
 const AIGlobe = dynamic(() => import("@/app/components/AIGlobe"), { ssr: false });
@@ -10,16 +10,110 @@ const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr:
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// ── Section label helper (matches the rest of the site) ───────────────────
-function SectionLabel({ text }: { text: string }) {
+// ── Rotating word with gradient underline ─────────────────────────────────
+const ROTATING_WORDS = ["operates", "grows", "scales"];
+
+
+function RotatingWord() {
+    const INTERVAL = 2600;
+
+    const [index, setIndex] = useState(0);
+    const [sweepKey, setSweepKey] = useState(0);
+    const [targetWidth, setTargetWidth] = useState<number | null>(null);
+
+    const measureRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
+    // Delay width update to match when new word starts entering (after exit anim ~500ms)
+    useEffect(() => {
+        if (targetWidth === null) {
+            // initial mount — set immediately
+            setTargetWidth(measureRefs.current[index]?.offsetWidth ?? null);
+            return;
+        }
+        // Wait for exit animation to finish before resizing line
+        const wt = setTimeout(() => {
+            setTargetWidth(measureRefs.current[index]?.offsetWidth ?? null);
+        }, 500);
+        // Sweep after word + line are fully in
+        const st = setTimeout(() => setSweepKey(k => k + 1), 900);
+        return () => { clearTimeout(wt); clearTimeout(st); };
+    }, [index]);
+
+    useEffect(() => {
+        const t = setInterval(() => {
+            setIndex(i => (i + 1) % ROTATING_WORDS.length);
+        }, INTERVAL);
+        return () => clearInterval(t);
+    }, []);
+
     return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
+        <span className="relative inline-block align-baseline">
+            {/* Reserve space for longest word */}
+            <span className="invisible whitespace-nowrap">
+                {ROTATING_WORDS.reduce((a, b) => (a.length >= b.length ? a : b))}.
             </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
+
+            {/* Hidden measurers for all words */}
+            {ROTATING_WORDS.map((w, i) => (
+                <span
+                    key={w}
+                    ref={el => { measureRefs.current[i] = el; }}
+                    aria-hidden
+                    className="whitespace-nowrap"
+                    style={{ position: "absolute", visibility: "hidden", top: 0, left: 0, pointerEvents: "none" }}
+                >
+                    {w}.
+                </span>
+            ))}
+
+            {/* Rotating word */}
+            <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                    key={index}
+                    initial={{ y: "0.85em", opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: "-0.85em", opacity: 0 }}
+                    transition={{ duration: 0.5, ease: EASE }}
+                    className="absolute inset-0 whitespace-nowrap"
+                >
+                    {ROTATING_WORDS[index]}.
+                </motion.span>
+            </AnimatePresence>
+
+            {/* Base line — always visible */}
+            <span
+                aria-hidden
+                style={{
+                    position: "absolute",
+                    left: 0,
+                    bottom: "-6px",
+                    width: targetWidth ? `${targetWidth}px` : "100%",
+                    height: "3px",
+                    display: "block",
+                    borderRadius: "9999px",
+                    background: "rgba(255,255,255,0.1)",
+                    transition: "width 0.7s cubic-bezier(0.25,1,0.5,1)",
+                }}
+            />
+
+            {/* Color sweep — fires when line extends */}
+            <span
+                key={sweepKey}
+                aria-hidden
+                style={{
+                    position: "absolute",
+                    left: 0,
+                    bottom: "-6px",
+                    width: targetWidth ? `${targetWidth}px` : "100%",
+                    height: "3px",
+                    display: "block",
+                    borderRadius: "9999px",
+                    background: "linear-gradient(90deg, #00FFDD 0%, #7B55EA 50%, #CC01FF 100%)",
+                    transition: "width 0.7s cubic-bezier(0.25,1,0.5,1)",
+                    animation: "auroraFlowSweep 1s ease-out forwards",
+                }}
+            />
+        </span>
     );
 }
 
@@ -231,27 +325,19 @@ export default function HomeHero() {
                 className="pointer-events-none absolute inset-0 z-0"
                 style={{ background: "radial-gradient(ellipse 70% 55% at 50% -5%, rgba(123, 85, 234,0.06) 0%, transparent 60%)" }}
             />
-            {/* Content layer (left text / right cards) */}
+
+            {/* Mobile only — particle cloud as a subtle background behind hero text */}
+            <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 z-10 md:hidden"
+                style={{ opacity: 0.32 }}
+            >
+                <AIGlobe />
+            </div>
+
+            {/* Content layer (left text / right globe) */}
             <div className="relative z-20 mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 pb-20 pt-28 sm:px-10 sm:pb-24 md:gap-14 md:pt-32 lg:grid-cols-[1fr_400px] lg:gap-20 lg:min-h-[min(100vh,880px)] lg:px-16 lg:py-0 xl:px-20">
-
-                {/* Left column, text + CTAs */}
                 <div className="flex flex-col items-start text-left">
-                    <motion.div
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
-                        className="mb-5 md:mb-6"
-                    >
-                        {/* Mobile eyebrow, plain uppercase */}
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50 md:hidden">
-                            Digital Solutions &amp; Software
-                        </p>
-                        {/* Desktop eyebrow, animated SectionLabel */}
-                        <div className="hidden md:block">
-                            <SectionLabel text="Digital Solutions & Software" />
-                        </div>
-                    </motion.div>
-
                     <motion.h1
                         id="hero-heading"
                         initial={{ opacity: 0, y: 18 }}
@@ -259,15 +345,17 @@ export default function HomeHero() {
                         transition={{ duration: 0.85, delay: 0.18, ease: EASE }}
                         className="display-hero-title max-w-2xl"
                     >
-                        <span className="display-muted-line">Your Business Deserves</span>
-                        <span className="display-strong-line">AI, not just software.</span>
+                        <span className="display-muted-line">Custom intelligence for</span>
+                        <span className="display-strong-line">
+                            how your business <RotatingWord />
+                        </span>
                     </motion.h1>
 
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, delay: 0.32, ease: EASE }}
-                        className="mt-5 max-w-[560px]"
+                        className="mt-5 max-w-[480px]"
                     >
                         <p className="text-sm leading-relaxed text-white/55 md:text-base">
                             Levata builds AI systems and automation that transform how your business operates, not just supports it.
@@ -283,16 +371,16 @@ export default function HomeHero() {
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all duration-200 cursor-pointer hover:opacity-90 sm:py-3.5"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90 sm:py-3.5"
+                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
                         >
-                            <span>Book a Strategy Call</span>
+                            Book a Consultation Call
                             <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                         </button>
                     </motion.div>
                 </div>
 
-                {/* Right column, AI Intelligence Globe */}
+                {/* Right column — AI Globe */}
                 <div className="relative hidden md:flex md:items-center justify-center w-full lg:max-w-[360px]" aria-hidden>
                     <motion.div
                         className="w-full"

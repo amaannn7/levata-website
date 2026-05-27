@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import CTAAurora from "@/app/components/CTAAurora";
+import SectionLabel from "@/app/components/SectionLabel";
 
 export default function BookCallSection() {
     const [open, setOpen] = useState(false);
@@ -25,14 +26,7 @@ export default function BookCallSection() {
                         data-book-heading
                     >
                         <div>
-                            <div className="mb-3 inline-flex items-center gap-3">
-                                <span className="flex items-center">
-                                    <span className="animate-label-line" />
-                                    <span className="animate-label-dot" />
-                                </span>
-                                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">Prefer a call?</p>
-                            </div>
-                            <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+                                                        <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
                                 Book a{" "}
                                 <span className="text-white">
                                     30-minute call.

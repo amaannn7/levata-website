@@ -6,6 +6,7 @@ import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import AutomationVisual from "@/app/components/AutomationVisual";
+import SectionLabel from "@/app/components/SectionLabel";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -14,19 +15,6 @@ const GREEN = "#FFFFFF";
 const BLUE = "#FFFFFF";
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-// ── Section label ─────────────────────────────────────────────────────────
-function SectionLabel({ text }: { text: string }) {
-    return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
-    );
-}
 
 // ── Count-up hook ─────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2000) {
@@ -277,8 +265,7 @@ export default function AutomationSystemsPage() {
                     transition={{ duration: 0.9, ease: EASE }}
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
-                    <SectionLabel text="Automation & Systems" />
-                    <h1 className="display-hero-title max-w-3xl text-center">
+                                        <h1 className="display-hero-title max-w-3xl text-center">
                         <span className="display-muted-line">Automate the Work.</span>
                         <span className="display-strong-line">Amplify the People.</span>
                     </h1>
@@ -290,7 +277,7 @@ export default function AutomationSystemsPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Map Your Automation Opportunities
                         </button>
@@ -318,7 +305,7 @@ export default function AutomationSystemsPage() {
                             transition={{ duration: 0.7, ease: EASE }}
                             className="flex flex-col gap-5 text-left"
                         >
-                            <SectionLabel text="The problem" />
+                            <SectionLabel />
                             <h2 className="display-section-title">
                                 <span className="display-muted-line">Manual operations</span>
                                 <span className="display-strong-line">are a tax on growth.</span>
@@ -337,137 +324,137 @@ export default function AutomationSystemsPage() {
                             className="relative w-full"
                             style={{ aspectRatio: "16 / 10" }}
                         >
-                        <svg
-                            viewBox="0 0 600 380"
-                            className="absolute inset-0 h-full w-full"
-                            fill="none"
-                            preserveAspectRatio="xMidYMid meet"
-                        >
-                            {(() => {
-                                const HUB = { cx: 300, cy: 190 };
-                                const HUB_R = 64;
-                                const PILL_W = 140;
-                                const PILL_H = 44;
-                                const pills = [
-                                    { cx: 95, cy: 70, label: "CRM", delay: 0.1 },
-                                    { cx: 505, cy: 70, label: "Finance", delay: 0.18 },
-                                    { cx: 95, cy: 310, label: "Ops", delay: 0.26 },
-                                    { cx: 505, cy: 310, label: "Support", delay: 0.34 },
-                                    { cx: 300, cy: 348, label: "Reporting", delay: 0.42 },
-                                ];
+                            <svg
+                                viewBox="0 0 600 380"
+                                className="absolute inset-0 h-full w-full"
+                                fill="none"
+                                preserveAspectRatio="xMidYMid meet"
+                            >
+                                {(() => {
+                                    const HUB = { cx: 300, cy: 190 };
+                                    const HUB_R = 64;
+                                    const PILL_W = 140;
+                                    const PILL_H = 44;
+                                    const pills = [
+                                        { cx: 95, cy: 70, label: "CRM", delay: 0.1 },
+                                        { cx: 505, cy: 70, label: "Finance", delay: 0.18 },
+                                        { cx: 95, cy: 310, label: "Ops", delay: 0.26 },
+                                        { cx: 505, cy: 310, label: "Support", delay: 0.34 },
+                                        { cx: 300, cy: 348, label: "Reporting", delay: 0.42 },
+                                    ];
 
-                                return (
-                                    <>
-                                        {/* Dashed connector lines: from each card edge toward the hub edge */}
-                                        {pills.map((p) => {
-                                            const dx = HUB.cx - p.cx;
-                                            const dy = HUB.cy - p.cy;
-                                            const len = Math.hypot(dx, dy);
-                                            const ux = dx / len;
-                                            const uy = dy / len;
-                                            // Start near pill edge (offset from center along the line toward hub)
-                                            const x1 = p.cx + ux * (PILL_W / 2 - 4);
-                                            const y1 = p.cy + uy * (PILL_H / 2 - 4);
-                                            // End at hub edge
-                                            const x2 = HUB.cx - ux * HUB_R;
-                                            const y2 = HUB.cy - uy * HUB_R;
-                                            return (
-                                                <motion.line
-                                                    key={`l-${p.label}`}
-                                                    x1={x1} y1={y1} x2={x2} y2={y2}
-                                                    stroke={BLUE}
-                                                    strokeOpacity="0.5"
-                                                    strokeWidth="1"
-                                                    strokeDasharray="4 5"
-                                                    initial={{ pathLength: 0, opacity: 0 }}
-                                                    whileInView={{ pathLength: 1, opacity: 0.6 }}
-                                                    viewport={{ once: true, margin: "-60px" }}
-                                                    transition={{ duration: 0.9, delay: 0.5 + p.delay, ease: EASE }}
-                                                />
-                                            );
-                                        })}
+                                    return (
+                                        <>
+                                            {/* Dashed connector lines: from each card edge toward the hub edge */}
+                                            {pills.map((p) => {
+                                                const dx = HUB.cx - p.cx;
+                                                const dy = HUB.cy - p.cy;
+                                                const len = Math.hypot(dx, dy);
+                                                const ux = dx / len;
+                                                const uy = dy / len;
+                                                // Start near pill edge (offset from center along the line toward hub)
+                                                const x1 = p.cx + ux * (PILL_W / 2 - 4);
+                                                const y1 = p.cy + uy * (PILL_H / 2 - 4);
+                                                // End at hub edge
+                                                const x2 = HUB.cx - ux * HUB_R;
+                                                const y2 = HUB.cy - uy * HUB_R;
+                                                return (
+                                                    <motion.line
+                                                        key={`l-${p.label}`}
+                                                        x1={x1} y1={y1} x2={x2} y2={y2}
+                                                        stroke={BLUE}
+                                                        strokeOpacity="0.5"
+                                                        strokeWidth="1"
+                                                        strokeDasharray="4 5"
+                                                        initial={{ pathLength: 0, opacity: 0 }}
+                                                        whileInView={{ pathLength: 1, opacity: 0.6 }}
+                                                        viewport={{ once: true, margin: "-60px" }}
+                                                        transition={{ duration: 0.9, delay: 0.5 + p.delay, ease: EASE }}
+                                                    />
+                                                );
+                                            })}
 
-                                        {/* Central hub */}
-                                        <motion.g
-                                            initial={{ opacity: 0, scale: 0.6 }}
-                                            whileInView={{ opacity: 1, scale: 1 }}
-                                            viewport={{ once: true, margin: "-60px" }}
-                                            transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
-                                            style={{ transformOrigin: `${HUB.cx}px ${HUB.cy}px` }}
-                                        >
-                                            {/* dark ring around hub to mask line ends */}
-                                            <circle
-                                                cx={HUB.cx} cy={HUB.cy} r={HUB_R + 6}
-                                                fill="#0E1014"
-                                            />
-                                            <circle
-                                                cx={HUB.cx} cy={HUB.cy} r={HUB_R}
-                                                fill="rgba(23,26,34,0.98)"
-                                                stroke={GREEN}
-                                                strokeWidth="1.5"
-                                            />
-                                            {/* bolt glyph */}
-                                            <path
-                                                d={`M${HUB.cx + 2} ${HUB.cy - 22} L${HUB.cx - 11} ${HUB.cy + 2} L${HUB.cx} ${HUB.cy + 2} L${HUB.cx - 2} ${HUB.cy + 20} L${HUB.cx + 14} ${HUB.cy - 5} L${HUB.cx + 3} ${HUB.cy - 5} L${HUB.cx + 6} ${HUB.cy - 22} Z`}
-                                                stroke={BLUE} strokeWidth="1.6" strokeLinejoin="round" fill="none"
-                                            />
-                                            <text
-                                                x={HUB.cx} y={HUB.cy + 40}
-                                                textAnchor="middle"
-                                                fontFamily={MONO}
-                                                fontSize="13" fontWeight="700"
-                                                letterSpacing="0.22em"
-                                                fill={GREEN}
-                                            >
-                                                HUB
-                                            </text>
-                                        </motion.g>
-
-                                        {/* Floating system pills */}
-                                        {pills.map((p) => (
+                                            {/* Central hub */}
                                             <motion.g
-                                                key={p.label}
-                                                initial={{ opacity: 0, y: 8 }}
-                                                whileInView={{ opacity: 1, y: 0 }}
+                                                initial={{ opacity: 0, scale: 0.6 }}
+                                                whileInView={{ opacity: 1, scale: 1 }}
                                                 viewport={{ once: true, margin: "-60px" }}
-                                                transition={{ duration: 0.5, delay: p.delay, ease: EASE }}
+                                                transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
+                                                style={{ transformOrigin: `${HUB.cx}px ${HUB.cy}px` }}
                                             >
-                                                <rect
-                                                    x={p.cx - PILL_W / 2}
-                                                    y={p.cy - PILL_H / 2}
-                                                    width={PILL_W}
-                                                    height={PILL_H}
-                                                    rx="10"
-                                                    fill="rgba(23,26,34,0.98)"
-                                                    stroke={BLUE}
-                                                    strokeOpacity="0.4"
-                                                    strokeWidth="1.2"
+                                                {/* dark ring around hub to mask line ends */}
+                                                <circle
+                                                    cx={HUB.cx} cy={HUB.cy} r={HUB_R + 6}
+                                                    fill="#0E1014"
                                                 />
                                                 <circle
-                                                    cx={p.cx - PILL_W / 2 + 16}
-                                                    cy={p.cy}
-                                                    r="4"
-                                                    fill={BLUE}
-                                                    fillOpacity="0.75"
+                                                    cx={HUB.cx} cy={HUB.cy} r={HUB_R}
+                                                    fill="rgba(23,26,34,0.98)"
+                                                    stroke={GREEN}
+                                                    strokeWidth="1.5"
+                                                />
+                                                {/* bolt glyph */}
+                                                <path
+                                                    d={`M${HUB.cx + 2} ${HUB.cy - 22} L${HUB.cx - 11} ${HUB.cy + 2} L${HUB.cx} ${HUB.cy + 2} L${HUB.cx - 2} ${HUB.cy + 20} L${HUB.cx + 14} ${HUB.cy - 5} L${HUB.cx + 3} ${HUB.cy - 5} L${HUB.cx + 6} ${HUB.cy - 22} Z`}
+                                                    stroke={BLUE} strokeWidth="1.6" strokeLinejoin="round" fill="none"
                                                 />
                                                 <text
-                                                    x={p.cx + 8}
-                                                    y={p.cy + 5}
+                                                    x={HUB.cx} y={HUB.cy + 40}
                                                     textAnchor="middle"
                                                     fontFamily={MONO}
-                                                    fontSize="15" fontWeight="700"
-                                                    letterSpacing="0.08em"
-                                                    fill="white"
+                                                    fontSize="13" fontWeight="700"
+                                                    letterSpacing="0.22em"
+                                                    fill={GREEN}
                                                 >
-                                                    {p.label}
+                                                    HUB
                                                 </text>
                                             </motion.g>
-                                        ))}
-                                    </>
-                                );
-                            })()}
-                        </svg>
-                    </motion.div>
+
+                                            {/* Floating system pills */}
+                                            {pills.map((p) => (
+                                                <motion.g
+                                                    key={p.label}
+                                                    initial={{ opacity: 0, y: 8 }}
+                                                    whileInView={{ opacity: 1, y: 0 }}
+                                                    viewport={{ once: true, margin: "-60px" }}
+                                                    transition={{ duration: 0.5, delay: p.delay, ease: EASE }}
+                                                >
+                                                    <rect
+                                                        x={p.cx - PILL_W / 2}
+                                                        y={p.cy - PILL_H / 2}
+                                                        width={PILL_W}
+                                                        height={PILL_H}
+                                                        rx="10"
+                                                        fill="rgba(23,26,34,0.98)"
+                                                        stroke={BLUE}
+                                                        strokeOpacity="0.4"
+                                                        strokeWidth="1.2"
+                                                    />
+                                                    <circle
+                                                        cx={p.cx - PILL_W / 2 + 16}
+                                                        cy={p.cy}
+                                                        r="4"
+                                                        fill={BLUE}
+                                                        fillOpacity="0.75"
+                                                    />
+                                                    <text
+                                                        x={p.cx + 8}
+                                                        y={p.cy + 5}
+                                                        textAnchor="middle"
+                                                        fontFamily={MONO}
+                                                        fontSize="15" fontWeight="700"
+                                                        letterSpacing="0.08em"
+                                                        fill="white"
+                                                    >
+                                                        {p.label}
+                                                    </text>
+                                                </motion.g>
+                                            ))}
+                                        </>
+                                    );
+                                })()}
+                            </svg>
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -485,7 +472,7 @@ export default function AutomationSystemsPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
-                        <SectionLabel text="Our approach" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">The five-stage</span>
                             <span className="display-strong-line">automation blueprint.</span>
@@ -548,7 +535,7 @@ export default function AutomationSystemsPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
-                        <SectionLabel text="What we build" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Three layers of</span>
                             <span className="display-strong-line">operational intelligence.</span>
@@ -609,7 +596,7 @@ export default function AutomationSystemsPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Outcomes" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">What unified automation</span>
                             <span className="display-strong-line">ships.</span>
@@ -634,7 +621,7 @@ export default function AutomationSystemsPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Deployment" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Roadmap to</span>
                             <span className="display-strong-line">production.</span>
@@ -698,7 +685,7 @@ export default function AutomationSystemsPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="FAQ" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">From the</span>
                             <span className="display-strong-line">operations console.</span>
@@ -747,7 +734,7 @@ export default function AutomationSystemsPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Book Your Automation Audit
                         </button>

@@ -107,20 +107,6 @@ function StepCard({ step }: { step: Step }) {
     );
 }
 
-// -- Section label ----------------------------------------------------------
-
-function SectionLabel({ text }: { text: string }) {
-    return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
-    );
-}
-
 // -- Main component ---------------------------------------------------------
 
 export default function ProcessTabsSection() {
@@ -156,8 +142,7 @@ export default function ProcessTabsSection() {
 
                         {/* -- Left panel -- */}
                         <div className="flex w-[42%] flex-col gap-8">
-                            <SectionLabel text="How we work" />
-                            <h2 className="display-section-title">
+                                                        <h2 className="display-section-title">
                                 <span className="display-muted-line">From strategy to</span>
                                 <span className="display-strong-line">compounding success.</span>
                             </h2>
@@ -217,8 +202,7 @@ export default function ProcessTabsSection() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-12 flex flex-col items-center gap-4 text-center"
                     >
-                        <SectionLabel text="How we work" />
-                        <h2 className="display-section-title max-w-xl text-center">
+                                                <h2 className="display-section-title max-w-xl text-center">
                             <span className="display-muted-line">From strategy to</span>
                             <span className="display-strong-line">compounding success.</span>
                         </h2>

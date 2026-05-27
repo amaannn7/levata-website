@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
+import SectionBeam from "@/app/components/SectionBeam";
 
 const TESTIMONIALS = [
     {
@@ -75,14 +76,12 @@ export default function TestimonialsSection() {
             </div>
             <div className="relative z-10 mx-auto max-w-4xl">
                 {/* Label */}
-                <div className="mb-12 flex flex-col items-center text-center gap-4">
-                    <div className="inline-flex items-center gap-3">
-                        <span className="flex items-center">
-                            <span className="animate-label-line" />
-                            <span className="animate-label-dot" />
-                        </span>
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">What clients say</p>
-                    </div>
+                <div className="mb-12 flex flex-col items-center text-center gap-5">
+                    <SectionBeam />
+                    <h2 className="display-section-title max-w-2xl text-center">
+                        <span className="display-muted-line">Don&apos;t take our word for it.</span>
+                        <span className="display-strong-line">What clients say.</span>
+                    </h2>
                 </div>
 
                 {/* Testimonial stage */}

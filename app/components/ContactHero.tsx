@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import SectionLabel from "@/app/components/SectionLabel";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
@@ -11,13 +12,8 @@ export default function ContactHero() {
             className="relative z-10 flex flex-1 flex-col items-center justify-start text-center px-6"
             style={{ paddingTop: "calc(60px + 9.5vw)", paddingBottom: "clamp(60px, 8vw, 120px)" }}
         >
-            <div className="relative z-10 mb-4 inline-flex items-center gap-3">
-                <span className="flex items-center">
-                    <span className="animate-label-line" />
-                    <span className="animate-label-dot" />
-                </span>
-                <p className="text-[12px] font-medium uppercase tracking-[0.14em] text-[#71717A]">Strategy call</p>
-            </div>
+            <div className="relative z-10 mb-4">
+                            </div>
 
             <h1 className="display-hero-title max-w-3xl relative z-10 mb-6 text-center">
                 <span className="display-muted-line">The intelligence layer</span>

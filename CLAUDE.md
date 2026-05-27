@@ -6,15 +6,14 @@ This is the authoritative design specification for the Levata website. All AI-ge
 
 Next.js (App Router), TypeScript, Tailwind CSS, Framer Motion.
 
-### Fonts (three-stack system, all loaded via `next/font/google` in [app/layout.tsx](app/layout.tsx))
+### Fonts (two-stack system, all loaded in [app/layout.tsx](app/layout.tsx))
 
 | Purpose | Font | CSS variable | Weights |
 |---|---|---|---|
-| Headings / titles (h1–h6, `.display-*`) | **Space Grotesk** | `--font-display` / `--font-heading` | 500, 600, 700 |
-| Body text (default everywhere else) | **Inter** | `--font-ui` / `--font-body` | 400, 500, 600 |
-| Terminal / logs / code (`code`, `pre`, `kbd`, `[class*="font-mono"]`) | **JetBrains Mono** | `--font-code` / `--font-mono-code` | 400, 500 |
+| All text — headings, body, UI | **DM Sans** | `--font-dm-sans` → `--font-display` / `--font-ui` | 300, 400, 500, 600, 700 |
+| Terminal / logs / code (`code`, `pre`, `kbd`, `[class*="font-mono"]`) | **GeistMono** | `--font-geist-mono` → `--font-code` | 400, 500 |
 
-Headings automatically inherit Space Grotesk via the global rule in [globals.css](app/globals.css); body inherits Inter; mono elements inherit JetBrains Mono. Do not import additional font families or set `font-family` inline.
+Hero and section titles use **DM Sans weight 300** — light, airy, with `letter-spacing: 0.01em`. Do not import additional font families or set `font-family` inline.
 
 ---
 
@@ -60,9 +59,9 @@ The home page uses **all-dark sections**. Every section uses `home-theme-dark` (
 | `--text-secondary` | `#A3A3AC` |
 | `--text-muted` | `#6E6E7E` |
 | `--text-disabled` | `#4A4A5A` |
-| `--accent` | `#7B55EA` |
-| `--accent-secondary` | `#22D3EE` |
-| `--accent-gradient` | `linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)` |
+| `--accent` | `#CC01FF` (decorative glows/borders ONLY — never on text or buttons) |
+| `--accent-secondary` | `#00FFDD` |
+| `--accent-gradient` | `linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)` |
 | `--home-card-bg` | `rgba(14,14,26,0.94)` |
 | `--home-card-border` | `rgba(255,255,255,0.07)` |
 | `--home-control-bg` | `rgba(14,14,26,0.92)` |
@@ -84,16 +83,16 @@ Tailwind's `text-white/XX` classes are remapped to CSS variables:
 
 **Key rule:** Always use `text-white/XX` Tailwind classes (not hardcoded hex) for text. Never hardcode colors.
 
-Font weight overrides:
+Font weight scale:
 
-| Class | Compiled weight |
-|---|---|
-| `font-bold` | `700` (headings only) |
-| `font-semibold` | `600` |
-| `font-medium` | `500` |
-| `font-normal` | `400` |
+| Class | Compiled weight | Use |
+|---|---|---|
+| `font-thin` | 300 | hero titles, section titles, all `.display-*` lines |
+| `font-normal` | 400 | body text, paragraphs, h3/h4 |
+| `font-medium` | 500 | UI labels, nav items |
+| `font-semibold` | 600 | buttons, section eyebrow labels |
 
-Headings may use 500/600/700. Body text stays within 400/500/600 — never apply `font-bold` (700) to body copy.
+**Display headings use weight 300.** Never apply 500+ to `.display-hero-title`, `.display-section-title`, `.display-muted-line`, or `.display-strong-line`.
 
 ---
 
@@ -113,9 +112,9 @@ Headings may use 500/600/700. Body text stays within 400/500/600 — never apply
 </h2>
 ```
 
-- `display-muted-line`: `color: var(--text-secondary)`, weight `500` (Space Grotesk)
-- `display-strong-line`: `color: var(--text-primary)`, weight `700` (Space Grotesk)
-- Hierarchy comes from both **color** and **weight contrast** (500 vs 700)
+- `display-muted-line`: `color: var(--text-secondary)`, weight **300** (DM Sans)
+- `display-strong-line`: `color: var(--text-primary)`, weight **300** (DM Sans)
+- Hierarchy comes from **color contrast only** — secondary vs primary, not weight difference
 
 ### Span length rules (prevent 4-line wrap at hero font size)
 
@@ -149,7 +148,7 @@ Primary CTA buttons use the purple-to-cyan gradient. Text/numbers are strictly b
 // Primary CTA — purple-to-cyan gradient
 <button
   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity cursor-pointer"
-  style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+  style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
 >
   Book a Strategy Call →
 </button>
@@ -160,7 +159,7 @@ Primary CTA buttons use the purple-to-cyan gradient. Text/numbers are strictly b
 </a>
 ```
 
-**NEVER** use `var(--accent)` (`#7B55EA`) as a raw solid fill where the gradient fits better. The accent color is for small decorative glows/borders and solid icon accents. Prefer `var(--accent-gradient)` for all CTA buttons.
+**NEVER** use `var(--accent)` (`#CC01FF`) as a raw solid fill. The accent color is for decorative glows/borders only. Use `var(--accent-gradient)` for all CTA buttons.
 
 ---
 
@@ -183,17 +182,19 @@ Cards must use CSS variables for all colors. Never hardcode surface or border co
 
 ## Non-Negotiable Rules
 
-- No `font-extrabold` / `font-black` (max weight is `700`, and `700` is for headings only)
-- No `font-bold` (`700`) on body copy, captions, labels, or buttons — those stay at `500`/`600`
+- No weight above 300 on `.display-hero-title`, `.display-section-title`, `.display-muted-line`, `.display-strong-line`
+- No negative `letter-spacing` on hero/section titles — must be `0` or positive (`0.01em`)
+- No `font-extrabold` / `font-black`
+- No `font-bold` on body copy, captions, labels, or buttons
 - No gradient text
 - No italic styling
 - No `text-balance` on left-aligned text
 - No `ch`-based max-widths
 - No `max-w-xl` on centered hero h1
 - No hardcoded hex color values in new TSX components — use CSS variables or the gradient constant
-- No pink (`#EA4B71`) on text, numbers, or headings — strictly black and white for readable content
+- No pink on text, numbers, or headings
 - No `home-theme-light` on any section — entire home page is dark
-- Only the three approved fonts: Space Grotesk (headings), Inter (body), JetBrains Mono (code/terminal). Do not introduce a fourth family or set inline `font-family`.
+- Only two approved font families: DM Sans (all text) + GeistMono (code/terminal). Do not introduce a third family or set inline `font-family`.
 
 ---
 

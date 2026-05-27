@@ -6,6 +6,7 @@ import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import WhatWeBuildVisual from "@/app/components/WhatWeBuildVisual";
+import SectionLabel from "@/app/components/SectionLabel";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -14,19 +15,6 @@ const GREEN = "#FFFFFF";
 const BLUE = "#FFFFFF";
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-// ── Section label ─────────────────────────────────────────────────────────
-function SectionLabel({ text }: { text: string }) {
-    return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
-    );
-}
 
 // ── Count-up hook ─────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2000) {
@@ -294,8 +282,7 @@ export default function DigitalServicesPage() {
                     transition={{ duration: 0.9, ease: EASE }}
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
-                    <SectionLabel text="Digital Services" />
-                    <h1 className="display-hero-title max-w-3xl text-center">
+                                        <h1 className="display-hero-title max-w-3xl text-center">
                         <span className="display-muted-line">Digital infrastructure</span>
                         <span className="display-strong-line">built to work hard.</span>
                     </h1>
@@ -307,7 +294,7 @@ export default function DigitalServicesPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Discuss Your Project
                         </button>
@@ -333,7 +320,7 @@ export default function DigitalServicesPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="The problem" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Where revenue leaks</span>
                             <span className="display-strong-line">out of digital.</span>
@@ -351,9 +338,8 @@ export default function DigitalServicesPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-60px" }}
                                 transition={{ duration: 0.55, delay: i * 0.1, ease: EASE }}
-                                className={`relative flex flex-col gap-5 ${
-                                    i === 1 ? "lg:mt-16" : i === 2 ? "lg:mt-32" : ""
-                                }`}
+                                className={`relative flex flex-col gap-5 ${i === 1 ? "lg:mt-16" : i === 2 ? "lg:mt-32" : ""
+                                    }`}
                             >
                                 {/* Huge background watermark numeral */}
                                 <span
@@ -412,7 +398,7 @@ export default function DigitalServicesPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
-                        <SectionLabel text="Our approach" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Revenue engineering,</span>
                             <span className="display-strong-line">end to end.</span>
@@ -491,7 +477,7 @@ export default function DigitalServicesPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
-                        <SectionLabel text="What we build" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Four practices.</span>
                             <span className="display-strong-line">One delivery standard.</span>
@@ -556,7 +542,7 @@ export default function DigitalServicesPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Outcomes" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">What the numbers</span>
                             <span className="display-strong-line">look like.</span>
@@ -595,7 +581,7 @@ export default function DigitalServicesPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Delivery process" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">A pipeline,</span>
                             <span className="display-strong-line">not a sprint.</span>
@@ -651,7 +637,7 @@ export default function DigitalServicesPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center gap-5 text-center md:mb-14"
                     >
-                        <SectionLabel text="FAQ" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">The</span>
                             <span className="display-strong-line">common questions.</span>
@@ -700,7 +686,7 @@ export default function DigitalServicesPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Discuss Your Project
                         </button>

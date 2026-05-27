@@ -2,7 +2,8 @@
 
 ## Stack
 - Next.js (App Router), TypeScript, Tailwind CSS, Framer Motion
-- Font: `geomanist` — single unified stack, no secondary fonts
+- Fonts: **DM Sans** (all text, loaded via Next.js `next/font/google`) + **GeistMono** (code/mono)
+- CSS variables: `--font-ui` / `--font-display` → DM Sans; `--font-code` → GeistMono
 
 ## Theme Architecture — All Dark
 
@@ -12,17 +13,17 @@ All home page sections use `home-theme-dark` (or inherit from `:root` which is d
 <section className="home-theme-dark ...">
 ```
 
-**Section order:**
+**Section order (HeroSection.tsx):**
 1. HomeHero — dark
-2. TechStackSection — dark
-3. ClientsMarquee — dark
-4. Problem — dark
-5. Solution — dark
-6. Services — dark
-7. Mid-page CTA — dark (after services)
-8. Featured Product — dark
-9. By the Numbers — dark
-10. Testimonials — dark
+2. Problem (spider layout) — dark
+3. Solution — dark
+4. Services carousel (2×2 image cards) — dark
+5. Mid-page CTA — dark
+6. Clients Marquee — dark
+7. Featured Product (Sales Intelligence Platform) — dark
+8. By the Numbers — dark
+9. Testimonials — dark
+10. Tech Stack — dark
 11. Why Levata — dark
 12. Final CTA — dark
 13. Footer — dark
@@ -31,36 +32,37 @@ All home page sections use `home-theme-dark` (or inherit from `:root` which is d
 
 | Token | Value |
 |---|---|
-| `--background` | `#0D0F17` |
-| `--surface` | `#151822` |
-| `--surface-elevated` | `#1C202E` |
-| `--border` | `#252A3A` |
+| `--background` | `#07080F` |
+| `--surface` | `#0E0E1A` |
+| `--surface-elevated` | `#131328` |
+| `--border` | `#1E1B2E` |
 | `--text-primary` | `#F0F0F2` |
 | `--text-secondary` | `#A3A3AC` |
 | `--text-muted` | `#6E6E7E` |
 | `--text-disabled` | `#4A4A5A` |
-| `--accent` | `#EA4B71` (decorative glows/borders ONLY — never on text or buttons) |
-| `--accent-gradient` | `linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)` |
-| `--home-card-bg` | `rgba(21,24,34,0.94)` |
-| `--home-card-border` | `rgba(255,255,255,0.07)` |
-| `--home-control-bg` | `rgba(21,24,34,0.92)` |
-| `--home-control-border` | `rgba(37,42,58,0.9)` |
+| `--accent` | `#CC01FF` (decorative glows/borders ONLY) |
+| `--accent-secondary` | `#00FFDD` |
+| `--accent-gradient` | `linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)` |
+| `--home-card-bg` | `#0E0E1A` |
+| `--home-card-border` | `rgba(30,27,46,0.9)` |
+| `--home-control-bg` | `rgba(14,14,26,0.92)` |
+| `--home-control-border` | `rgba(30,27,46,0.9)` |
 | `--home-control-color` | `#F0F0F2` |
 
-## Tailwind Utility Mappings
+## Font Weight Scale
 
-Tailwind `text-white/XX` remapped to CSS vars in globals.css:
+| Tailwind class | Compiled weight | Use |
+|---|---|---|
+| `font-thin` | 300 | hero titles, section titles, all display lines |
+| `font-normal` | 400 | body text, paragraphs, h3/h4 |
+| `font-medium` | 500 | UI labels, nav items |
+| `font-semibold` | 600 | buttons, section eyebrow labels |
 
-| Tailwind | Resolves to |
-|---|---|
-| `text-white` | `var(--text-primary)` |
-| `text-white/55` | `var(--text-secondary)` |
-| `text-white/40` | `var(--text-muted)` |
-| `text-white/25` | `var(--text-disabled)` |
+**Display headings use weight 300.** `display-hero-title`, `display-section-title`, `display-muted-line`, `display-strong-line` all compile to `font-weight: 300`.
+
+Letter-spacing on display titles: `0.01em` (positive, airy). Never negative.
 
 ## Heading Pattern — Every h1 and h2
-
-Both lines weight 400. Hierarchy is color-only.
 
 ```jsx
 <h1 className="display-hero-title max-w-3xl">
@@ -74,60 +76,19 @@ Both lines weight 400. Hierarchy is color-only.
 </h2>
 ```
 
-- `display-muted-line`: `color: var(--text-muted)`, weight 400
-- `display-strong-line`: `color: var(--text-primary)`, weight 400
+- `display-muted-line`: `color: var(--text-secondary)`, weight 300
+- `display-strong-line`: `color: var(--text-primary)`, weight 300
+- Hierarchy is **color contrast only** — not weight difference
 
 ## Span Length Rules
 
-At hero size (56px):
-- `max-w-2xl` → ≤ 22 chars
-- `max-w-3xl` → ≤ 25 chars
-- `max-w-4xl` → ≤ 29 chars
+| Container | Max chars per span |
+|---|---|
+| `max-w-2xl` | ≤ 22 chars |
+| `max-w-3xl` | ≤ 25 chars |
+| `max-w-4xl` | ≤ 29 chars |
 
-Never use `max-w-xl` on a centered hero h1.
-
-## Font Weight Scale
-
-| Tailwind class | Actual weight | Use |
-|---|---|---|
-| `font-normal` | 400 | body text, display headings |
-| `font-medium` | 500 | UI text, navbar, buttons |
-| `font-semibold` | 600 | h3 headings |
-| `font-bold` | 600 | section headings |
-
-No `font-extrabold`, no `font-black`, no weight 700 anywhere.
-
-## Button Pattern
-
-Primary CTAs use blue-purple gradient. Text and numbers are strictly white/black — no pink on readable content.
-
-```tsx
-// Primary CTA — gradient
-<button
-    type="button"
-    className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity cursor-pointer"
-    style={{ background: "linear-gradient(135deg, #4B91F7 0%, #7B55EA 100%)" }}
->
-    Book a Strategy Call →
-</button>
-
-// Secondary text link
-<a className="text-sm font-medium text-white/50 hover:text-white/80 transition-colors duration-200">
-    See what we build →
-</a>
-```
-
-**NEVER** use `var(--accent)` for button backgrounds. Accent is for decorative glows/SVG borders only.
-
-## Card Pattern
-
-```tsx
-<div style={{
-    background: "var(--home-card-bg)",
-    border: "1px solid var(--home-card-border)",
-    boxShadow: "var(--home-card-shadow)",
-}}>
-```
+Never `max-w-xl` on centered hero h1. Never `ch`-based max-widths.
 
 ## Section Label Pattern
 
@@ -141,15 +102,64 @@ Primary CTAs use blue-purple gradient. Text and numbers are strictly white/black
 </div>
 ```
 
-## Prohibited
+## Button Pattern
 
-- `font-weight: 700` / `font-extrabold` / `font-black`
-- Gradient text or glow text effects
-- Italic styling
-- `text-balance` on left-aligned text
-- `ch`-based max-widths
-- `max-w-xl` on centered hero h1
-- Pink (`#EA4B71`) on text, numbers, headings, or buttons
-- `home-theme-light` on any section
-- Hardcoded color hex values in component styles — always use CSS variables
-- Multiple font families
+Primary CTAs use cyan→purple gradient. Text always white/black — no pink/accent on text.
+
+```tsx
+<button
+  className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity cursor-pointer"
+  style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+>
+  Book your call →
+</button>
+```
+
+**NEVER** use `var(--accent)` as a raw solid button fill. Use `var(--accent-gradient)` for CTAs.
+
+## Card Pattern
+
+```tsx
+<div style={{
+  background: "var(--home-card-bg)",
+  border: "1px solid var(--home-card-border)",
+}}>
+```
+
+## Services Section (actual, in HeroSection.tsx)
+
+Uses `SERVICE_CARDS` array with `ServicesCarousel` component — 2×2 grid of image cards.
+Each card: background photo + icon + number always visible. Sub-service chips always visible.
+Description + Explore link revealed on hover via `grid-rows-[0fr→1fr]` + opacity transition.
+
+## Problem Section (spider layout, desktop only)
+
+`ProblemSpider` component in HeroSection.tsx. SVG canvas 800×360, center at (400,180).
+Four pain points at diagonal corners connected to center visual (`OperationsBeforeTerminal`) via animated dashed spokes with traveling `animateMotion` dots.
+Mobile: stacked list + visual.
+
+## Stats Section (By the Numbers)
+
+`KEY_RESULTS` in HeroSection.tsx. Each stat has: `title` (eyebrow), animated count + suffix, `label` (descriptor).
+Section headline: "What smarter operations / deliver."
+
+## Mid-page CTA
+
+Headline: "Your next level / starts here."
+Subline: "Let's uncover what's slowing your growth, and what fixes it."
+Button: "Book your call →"
+
+## Non-Negotiable Rules
+
+- No `font-weight` above 300 on display/hero/section titles
+- No negative `letter-spacing` on display titles — must be `0` or `0.01em`
+- No `font-extrabold` / `font-black` / `font-bold` on body or captions
+- No gradient text
+- No italic styling
+- No `text-balance` on left-aligned text
+- No `ch`-based max-widths
+- No `max-w-xl` on centered hero h1
+- No hardcoded hex in new TSX components — use CSS variables or the gradient constant
+- No pink on text, numbers, or headings
+- No `home-theme-light` on any section
+- Only two font families: DM Sans (all text) + GeistMono (code). Do not introduce a third.

@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
+import SectionLabel from "@/app/components/SectionLabel";
+import SectionLabelSide from "@/app/components/SectionLabelSide";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -12,19 +14,6 @@ const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr:
 const GREEN = "#FFFFFF";
 const BLUE = "#FFFFFF";
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-// ── Section label ─────────────────────────────────────────────────────────
-function SectionLabel({ text }: { text: string }) {
-    return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
-    );
-}
 
 // ── Count-up hook ─────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2000) {
@@ -242,8 +231,7 @@ export default function DigitalProductsPage() {
                     transition={{ duration: 0.9, ease: EASE }}
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
-                    <SectionLabel text="Digital Products" />
-                    <h1 className="display-hero-title max-w-3xl text-center">
+                                        <h1 className="display-hero-title max-w-3xl text-center">
                         <span className="display-muted-line">From concept to market.</span>
                         <span className="display-strong-line">Faster than you thought.</span>
                     </h1>
@@ -255,7 +243,7 @@ export default function DigitalProductsPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Start Your Product Journey
                         </button>
@@ -281,7 +269,7 @@ export default function DigitalProductsPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="The problem" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Why most software</span>
                             <span className="display-strong-line">products fail to ship.</span>
@@ -358,7 +346,7 @@ export default function DigitalProductsPage() {
                             transition={{ duration: 0.7, ease: EASE }}
                             className="flex flex-col gap-5 md:sticky md:top-32"
                         >
-                            <SectionLabel text="Our approach" />
+                            <SectionLabelSide />
                             <h2 className="display-section-title">
                                 <span className="display-muted-line">We build products</span>
                                 <span className="display-strong-line">that prove themselves.</span>
@@ -405,7 +393,7 @@ export default function DigitalProductsPage() {
                         className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_auto] md:gap-12 items-start"
                     >
                         <div className="flex flex-col gap-4">
-                            <SectionLabel text="MVP development" />
+                            <SectionLabelSide />
                             <h2 className="display-section-title">
                                 <span className="display-muted-line">Real product. Real users.</span>
                                 <span className="display-strong-line">Six weeks.</span>
@@ -551,7 +539,7 @@ export default function DigitalProductsPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Outcomes" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">The numbers founders</span>
                             <span className="display-strong-line">actually care about.</span>
@@ -576,7 +564,7 @@ export default function DigitalProductsPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Delivery process" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">From signed kickoff</span>
                             <span className="display-strong-line">to shipped product.</span>
@@ -639,7 +627,7 @@ export default function DigitalProductsPage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-12 flex flex-col items-center gap-5 text-center"
                     >
-                        <SectionLabel text="FAQ" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Founder questions,</span>
                             <span className="display-strong-line">answered.</span>
@@ -672,8 +660,7 @@ export default function DigitalProductsPage() {
                     transition={{ duration: 0.8, ease: EASE }}
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
                 >
-                    <SectionLabel text="Build with us" />
-                    <h2 className="display-section-title max-w-2xl text-center">
+                                        <h2 className="display-section-title max-w-2xl text-center">
                         <span className="display-muted-line">Your idea deserves better</span>
                         <span className="display-strong-line">than a long quote.</span>
                     </h2>
@@ -685,7 +672,7 @@ export default function DigitalProductsPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Start Your Product Journey
                         </button>

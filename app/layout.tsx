@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import { DM_Sans } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SmoothScrollProvider from "./components/SmoothScrollProvider";
@@ -7,24 +8,10 @@ import TextReveal from "./components/TextReveal";
 import BookCallProvider from "./components/BookCallProvider";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-heading",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-body",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono-code",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
@@ -42,8 +29,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`antialiased ${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`antialiased ${dmSans.variable} ${GeistMono.variable}`}
     >
+      <head>
+        <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" />
+      </head>
       <body className="min-h-screen bg-[#0E1014] text-[#E6E6E6]">
         <SmoothScrollProvider>
           <BookCallProvider>

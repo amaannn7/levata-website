@@ -10,11 +10,11 @@
   --text-secondary: #A3A3AC;
   --text-muted: #6E6E7E;
   --text-disabled: #4A4A5A;
-  --accent: #7B55EA;
-  --accent-secondary: #22D3EE;
-  --font-ui: var(--font-body), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-display: var(--font-heading), var(--font-body), ui-sans-serif, system-ui, sans-serif;
-  --font-code: var(--font-mono-code), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --accent: #CC01FF;
+  --accent-secondary: #00FFDD;
+  --font-ui: "Switzer", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: "Switzer", ui-sans-serif, system-ui, sans-serif;
+  --font-code: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --home-card-bg: #0E0E1A;
   --home-card-bg-strong: #0E0E1A;
   --home-card-border: rgba(30, 27, 46, 0.9);
@@ -32,13 +32,13 @@
   --home-grid-line: rgba(30, 27, 46, 0.55);
   --home-diagram-stroke: rgba(240, 240, 242, 0.38);
   --home-diagram-fill: rgba(30, 27, 46, 0.5);
-  --home-accent-cyan: rgba(34, 211, 238, 0.9);
+  --home-accent-cyan: rgba(0, 255, 221, 0.9);
   --home-accent-purple: rgba(123, 85, 234, 0.9);
   --home-accent-violet: rgba(123, 85, 234, 0.9);
-  --home-accent-green: rgba(255,255,255,0.72);
-  --accent-gradient: linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%);
-  --home-button-bg: #7B55EA;
-  --home-button-border: #7B55EA;
+  --home-accent-green: rgba(255, 255, 255, 0.72);
+  --accent-gradient: linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%);
+  --home-button-bg: #CC01FF;
+  --home-button-border: #CC01FF;
   --home-button-color: #ffffff;
   --home-button-shadow: none;
   --home-button-shadow-hover: none;
@@ -119,28 +119,28 @@ label {
 h1 {
   font-size: clamp(3rem, 4vw, 3.5rem);
   line-height: 1.05;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 h2 {
   font-size: clamp(2rem, 3vw, 2.5rem);
   line-height: 1.1;
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 h3 {
   font-size: clamp(1.5rem, 2vw, 1.75rem);
   line-height: 1.15;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 h4 {
   font-size: 1.25rem;
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 p,
@@ -166,7 +166,7 @@ a {
 }
 
 ::selection {
-  background: rgba(123, 85, 234, 0.28);
+  background: rgba(204, 1, 255, 0.28);
   color: #ffffff;
 }
 
@@ -185,15 +185,15 @@ a {
 .display-muted-line {
   display: block;
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 300;
   padding-bottom: 0.08em;
 }
 
 .display-strong-line {
   display: block;
   color: var(--text-primary);
-  font-weight: 700;
-  padding-bottom: 0.22em;
+  font-weight: 400;
+  padding-bottom: 0.08em;
 }
 
 h1,
@@ -219,8 +219,114 @@ h6 {
       rgba(255, 255, 255, 0) 100%);
 }
 
+/* ── Unified section label icon: line + dot in one element ── */
+.label-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 36px;
+  height: 8px;
+  flex-shrink: 0;
+}
+
+/* The line */
+.label-icon::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left center;
+  width: 28px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent 0%, rgba(204, 1, 255, 0.85) 45%, rgba(0, 255, 221, 0.9) 100%);
+  box-shadow: 0 0 6px 1px rgba(204, 1, 255, 0.35);
+  opacity: 0;
+}
+
+/* The dot */
+.label-icon::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  transform-origin: center;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 255, 221, 0.9), rgba(204, 1, 255, 0.9));
+  box-shadow: 0 0 6px 1px rgba(204, 1, 255, 0.45), 0 0 10px rgba(0, 255, 221, 0.25);
+  opacity: 0;
+}
+
+.label-icon--active::before {
+  animation: labelLine 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.label-icon--active::after {
+  animation: labelDot 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards,
+             labelDotPulse 2.2s ease-in-out 0.75s infinite;
+}
+
+@keyframes labelLine {
+  to {
+    transform: translateY(-50%) scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes labelDot {
+  to {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Legacy aliases — keep so old class names still compile during migration */
+.animate-label-line {
+  display: none;
+}
+.animate-label-dot {
+  display: none;
+}
+
+.rotating-word-line {
+  background: linear-gradient(90deg, #00FFDD 0%, #CC01FF 50%, #00FFDD 100%);
+  background-size: 200% 100%;
+  animation: gradient-slide 2.6s linear infinite;
+}
+
+@keyframes gradient-slide {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes label-dot-pulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+}
+
 /* Auto section dividers — applied to product/about/contact pages */
-.page-dividers > section + section::before {
+.page-dividers>section+section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -235,8 +341,7 @@ h6 {
       rgba(34, 211, 238, 0.45) 50%,
       rgba(123, 85, 234, 0.32) 68%,
       rgba(123, 85, 234, 0.12) 88%,
-      rgba(255, 255, 255, 0) 100%
-  );
+      rgba(255, 255, 255, 0) 100%);
 }
 
 @media (max-width: 767px) {
@@ -252,7 +357,7 @@ h6 {
 }
 
 .home-ai-grid {
-  background-image: radial-gradient(rgba(123, 85, 234, 0.18) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(0, 255, 221, 0.18) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
@@ -528,27 +633,91 @@ h6 {
   animation: techFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.animate-label-line {
-  display: block;
-  height: 1.5px;
-  width: 28px;
-  margin-right: 4px;
-  background: linear-gradient(90deg, transparent 0%, rgba(123, 85, 234, 0.8) 45%, rgba(34, 211, 238, 0.85) 100%);
-  box-shadow: 0 0 4px 1px rgba(123, 85, 234, 0.3);
+/* ── Vertical section label: line draws down, dot pops at the end ── */
+/* ── Vertical beam (centered sections) ── */
+.section-label-beam {
+  display: block !important;
+  width: 2px !important;
+  height: 48px !important;
+  background: linear-gradient(to bottom, transparent 0%, #00FFDD 40%, #7B55EA 100%) !important;
+  clip-path: inset(0 0 100% 0);
   border-radius: 9999px;
-  transform-origin: left center;
-  animation: labelBeam 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.animate-label-dot {
-  display: block;
-  height: 6px;
-  width: 6px;
-  border-radius: 9999px;
-  background: rgba(34, 211, 238, 0.85);
-  box-shadow: 0 0 5px 1px rgba(34, 211, 238, 0.4);
-  animation: labelDotPulse 2.8s ease-in-out infinite;
+.section-label-beam--active {
+  animation: beamDraw 0.7s cubic-bezier(0.4, 0, 0.15, 1) forwards;
 }
+
+.section-label-dot {
+  display: block !important;
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 9999px !important;
+  background: #7B55EA !important;
+  box-shadow: 0 0 8px rgba(123, 85, 234, 0.6), 0 0 16px rgba(0, 255, 221, 0.2) !important;
+  transform: scale(0);
+  opacity: 0;
+}
+
+.section-label-dot--active {
+  animation: dotPop 0.2s ease-out 0.68s forwards;
+}
+
+@keyframes auroraFlow {
+  0%   { background-position: 100% 0%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes auroraFlowSweep {
+  0%   { clip-path: inset(0 100% 0 0); opacity: 1; }
+  50%  { clip-path: inset(0 0%   0 0); opacity: 1; }
+  100% { clip-path: inset(0 0%   0 0); opacity: 0; }
+}
+
+@keyframes beamDraw {
+  0%   { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 0% 0); }
+}
+
+@keyframes dotPop {
+  0%   { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Horizontal beam (left-aligned side sections) ── */
+.section-label-beam-side {
+  display: block !important;
+  width: 48px !important;
+  height: 2px !important;
+  background: linear-gradient(to right, rgba(0,255,221,0.3) 0%, #00FFDD 40%, #7B55EA 100%) !important;
+  clip-path: inset(0 100% 0 0);
+  border-radius: 9999px;
+}
+
+.section-label-beam-side--active {
+  animation: beamDrawSide 0.7s cubic-bezier(0.4, 0, 0.15, 1) forwards;
+}
+
+.section-label-dot-side {
+  display: block !important;
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 9999px !important;
+  background: #7B55EA !important;
+  box-shadow: 0 0 8px rgba(123, 85, 234, 0.6), 0 0 16px rgba(0, 255, 221, 0.2) !important;
+  transform: scale(0);
+  opacity: 0;
+}
+
+.section-label-dot-side--active {
+  animation: dotPop 0.2s ease-out 0.68s forwards;
+}
+
+@keyframes beamDrawSide {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0% 0 0); }
+}
+
 
 .home-theme-alt,
 .home-theme-white,
@@ -592,7 +761,7 @@ h6 {
 }
 
 /* Suppress ambient accent glow blobs in light sections */
-.home-theme-light > .pointer-events-none[style*="radial-gradient"] {
+.home-theme-light>.pointer-events-none[style*="radial-gradient"] {
   display: none;
 }
 
@@ -668,6 +837,22 @@ h6 {
 
 .delay-3000 {
   animation-delay: 3000ms;
+}
+
+@keyframes rotatingWordGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotating-word-line {
+    animation: none;
+  }
 }
 
 .services-carousel-scroll::-webkit-scrollbar {

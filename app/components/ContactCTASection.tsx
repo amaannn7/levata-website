@@ -1,8 +1,9 @@
 ﻿"use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { COUNTRIES } from "@/app/lib/countries";
+import SectionLabel from "@/app/components/SectionLabel";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -112,14 +113,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
                 {showHeading && (
                     <div className="mb-12" data-form-heading>
-                        <div className="mb-3 inline-flex items-center gap-3">
-                            <span className="flex items-center">
-                                <span className="animate-label-line" />
-                                <span className="animate-label-dot" />
-                            </span>
-                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">Get in touch</p>
-                        </div>
-                        <h2 className="display-section-title">
+                                                <h2 className="display-section-title">
                             <span className="display-muted-line">Drop us a</span>
                             <span className="display-strong-line">message.</span>
                         </h2>
@@ -290,7 +284,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                             type="submit"
                                             disabled={isLoading}
                                             className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 sm:px-6 sm:py-3 disabled:opacity-60 disabled:cursor-not-allowed"
-                                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
                                         >
                                             {isLoading ? (
                                                 <span className="flex items-center gap-2">

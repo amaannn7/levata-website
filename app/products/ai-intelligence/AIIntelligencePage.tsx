@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
+import SectionLabel from "@/app/components/SectionLabel";
+import SectionLabelSide from "@/app/components/SectionLabelSide";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -13,19 +15,6 @@ const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr:
 const GREEN = "#FFFFFF";
 const BLUE = "#FFFFFF";
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-// ── Section label ─────────────────────────────────────────────────────────
-function SectionLabel({ text }: { text: string }) {
-    return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
-    );
-}
 
 // ── Count-up ──────────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 1800) {
@@ -425,8 +414,7 @@ export default function AIIntelligencePage() {
                     transition={{ duration: 0.9, ease: EASE }}
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
-                    <SectionLabel text="AI & Intelligence" />
-                    <h1 className="display-hero-title max-w-3xl text-center">
+                                        <h1 className="display-hero-title max-w-3xl text-center">
                         <span className="display-muted-line">Intelligence becomes</span>
                         <span className="display-strong-line">infrastructure.</span>
                     </h1>
@@ -439,7 +427,7 @@ export default function AIIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Book a Strategy Call
                         </button>
@@ -465,7 +453,7 @@ export default function AIIntelligencePage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="The problem" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Three patterns that quietly</span>
                             <span className="display-strong-line">break AI investments.</span>
@@ -506,7 +494,7 @@ export default function AIIntelligencePage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Our approach" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">We architect AI as</span>
                             <span className="display-strong-line">infrastructure, not tools.</span>
@@ -539,166 +527,164 @@ export default function AIIntelligencePage() {
             {/* ── 4. AI STACK, pinned two-column with scroll-driven accordion (desktop only) ── */}
             <section
                 ref={stackSectionRef}
-                className="relative w-full md:min-h-[420vh]"
+                className="relative w-full"
             >
                 {/* Sticky-pin on md+. On mobile this is a normal section with the accordion below the heading. */}
                 <div className="px-5 py-16 sm:px-6 sm:py-20 md:sticky md:top-0 md:flex md:min-h-screen md:items-center md:overflow-hidden md:py-24">
                     <div className="relative z-10 mx-auto w-full max-w-6xl">
-                    <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-14">
-                        {/* Left: heading + body + CTA */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-80px" }}
-                            transition={{ duration: 0.7, ease: EASE }}
-                            className="flex flex-col gap-6"
-                        >
-                            <SectionLabel text="The AI stack" />
-                            <h2 className="display-section-title">
-                                <span className="display-muted-line">Four capability layers.</span>
-                                <span className="display-strong-line">One coherent system.</span>
-                            </h2>
-                            <p className="max-w-md text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                                Each layer plugs into the one above it. Click through to see how the system fits together end-to-end.
-                            </p>
-                            <button
-                                type="button"
-                                onClick={openBookCall}
-                                className="mt-2 inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90"
-                                style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-14">
+                            {/* Left: heading + body + CTA */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, ease: EASE }}
+                                className="flex flex-col gap-6"
                             >
-                                Discuss your AI build →
-                            </button>
-                        </motion.div>
+                                <SectionLabelSide />
+                                <h2 className="display-section-title">
+                                    <span className="display-muted-line">Four capability layers.</span>
+                                    <span className="display-strong-line">One coherent system.</span>
+                                </h2>
+                                <p className="max-w-md text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                                    Each layer plugs into the one above it. Click through to see how the system fits together end-to-end.
+                                </p>
+                                <button
+                                    type="button"
+                                    onClick={openBookCall}
+                                    className="mt-2 inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90"
+                                    style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
+                                >
+                                    Discuss your AI build →
+                                </button>
+                            </motion.div>
 
-                        {/* Right: stacked deck of cards */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.5, ease: EASE }}
-                            className="relative flex flex-col"
-                        >
-                            {SUB_SERVICES.map((svc, i) => {
-                                const isOpen = openStack === i;
-                                const distanceFromOpen = Math.abs(i - openStack);
-                                return (
-                                    <motion.div
-                                        key={svc.num}
-                                        layout
-                                        transition={{ layout: { duration: 0.45, ease: EASE } }}
-                                        className="overflow-hidden rounded-2xl"
-                                        style={{
-                                            marginTop: i === 0 ? 0 : -28,
-                                            zIndex: SUB_SERVICES.length - distanceFromOpen,
-                                            background: isOpen
-                                                ? "linear-gradient(135deg, rgba(28,30,38,0.98) 0%, rgba(20,22,28,0.98) 100%)"
-                                                : "rgba(23,26,34,0.95)",
-                                            border: isOpen
-                                                ? "1px solid rgba(255,255,255,0.22)"
-                                                : "1px solid rgba(255,255,255,0.08)",
-                                            boxShadow: isOpen
-                                                ? "0 18px 50px rgba(0,0,0,0.45)"
-                                                : "0 6px 18px rgba(0,0,0,0.25)",
-                                        }}
-                                    >
-                                        <button
-                                            type="button"
-                                            onClick={() => setOpenStack(isOpen ? -1 : i)}
-                                            aria-expanded={isOpen}
-                                            className="group flex w-full items-center gap-5 px-6 py-5 text-left transition-colors duration-200 md:px-7 md:py-6"
+                            {/* Right: stacked deck of cards */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, ease: EASE }}
+                                className="relative flex flex-col"
+                            >
+                                {SUB_SERVICES.map((svc, i) => {
+                                    const isOpen = openStack === i;
+                                    const distanceFromOpen = Math.abs(i - openStack);
+                                    return (
+                                        <motion.div
+                                            key={svc.num}
+                                            layout
+                                            transition={{ layout: { duration: 0.45, ease: EASE } }}
+                                            className="overflow-hidden rounded-2xl"
+                                            style={{
+                                                marginTop: i === 0 ? 0 : -28,
+                                                zIndex: SUB_SERVICES.length - distanceFromOpen,
+                                                background: isOpen
+                                                    ? "linear-gradient(135deg, rgba(28,30,38,0.98) 0%, rgba(20,22,28,0.98) 100%)"
+                                                    : "rgba(23,26,34,0.95)",
+                                                border: isOpen
+                                                    ? "1px solid rgba(255,255,255,0.22)"
+                                                    : "1px solid rgba(255,255,255,0.08)",
+                                                boxShadow: isOpen
+                                                    ? "0 18px 50px rgba(0,0,0,0.45)"
+                                                    : "0 6px 18px rgba(0,0,0,0.25)",
+                                            }}
                                         >
-                                            {/* Number */}
-                                            <span
-                                                className="flex-shrink-0 text-3xl font-bold leading-none tabular-nums tracking-tight transition-colors duration-300 md:text-4xl"
-                                                style={{ color: isOpen ? "#FFFFFF" : "rgba(255,255,255,0.4)" }}
+                                            <button
+                                                type="button"
+                                                onClick={() => setOpenStack(isOpen ? -1 : i)}
+                                                aria-expanded={isOpen}
+                                                className="group flex w-full items-center gap-5 px-6 py-5 text-left transition-colors duration-200 md:px-7 md:py-6"
                                             >
-                                                {svc.num}.
-                                            </span>
-
-                                            {/* Title (eyebrow only when open) */}
-                                            <div className="flex flex-1 flex-col gap-0.5 min-w-0">
-                                                <AnimatePresence initial={false}>
-                                                    {isOpen && (
-                                                        <motion.span
-                                                            key="eyebrow"
-                                                            initial={{ opacity: 0, y: -4, height: 0 }}
-                                                            animate={{ opacity: 1, y: 0, height: "auto" }}
-                                                            exit={{ opacity: 0, y: -4, height: 0 }}
-                                                            transition={{ duration: 0.25, ease: EASE }}
-                                                            className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45"
-                                                        >
-                                                            {svc.eyebrow}
-                                                        </motion.span>
-                                                    )}
-                                                </AnimatePresence>
+                                                {/* Number */}
                                                 <span
-                                                    className="text-base font-semibold leading-snug tracking-tight transition-colors duration-300 md:text-lg"
-                                                    style={{ color: isOpen ? "#FFFFFF" : "rgba(255,255,255,0.7)" }}
+                                                    className="flex-shrink-0 text-3xl font-bold leading-none tabular-nums tracking-tight transition-colors duration-300 md:text-4xl"
+                                                    style={{ color: isOpen ? "#FFFFFF" : "rgba(255,255,255,0.4)" }}
                                                 >
-                                                    {svc.title}
+                                                    {svc.num}.
                                                 </span>
-                                            </div>
 
-                                            {/* Toggle icon — plus → x rotation */}
-                                            <span
-                                                aria-hidden
-                                                className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300"
-                                                style={{
-                                                    background: "rgba(255,255,255,0.04)",
-                                                    border: "1px solid rgba(255,255,255,0.18)",
-                                                    transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                                                }}
-                                            >
-                                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                    <path d="M6 1v10M1 6h10" stroke="rgba(255,255,255,0.85)" strokeWidth="1.6" strokeLinecap="round" />
-                                                </svg>
-                                            </span>
-                                        </button>
+                                                {/* Title (eyebrow only when open) */}
+                                                <div className="flex flex-1 flex-col gap-0.5 min-w-0">
+                                                    <AnimatePresence initial={false}>
+                                                        {isOpen && (
+                                                            <motion.span
+                                                                key="eyebrow"
+                                                                initial={{ opacity: 0, y: -4, height: 0 }}
+                                                                animate={{ opacity: 1, y: 0, height: "auto" }}
+                                                                exit={{ opacity: 0, y: -4, height: 0 }}
+                                                                transition={{ duration: 0.25, ease: EASE }}
+                                                                className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45"
+                                                            >
+                                                                {svc.eyebrow}
+                                                            </motion.span>
+                                                        )}
+                                                    </AnimatePresence>
+                                                    <span
+                                                        className="text-base font-semibold leading-snug tracking-tight transition-colors duration-300 md:text-lg"
+                                                        style={{ color: isOpen ? "#FFFFFF" : "rgba(255,255,255,0.7)" }}
+                                                    >
+                                                        {svc.title}
+                                                    </span>
+                                                </div>
 
-                                        {/* Drawer content */}
-                                        <AnimatePresence initial={false}>
-                                            {isOpen && (
-                                                <motion.div
-                                                    key="drawer"
-                                                    initial={{ height: 0, opacity: 0 }}
-                                                    animate={{ height: "auto", opacity: 1 }}
-                                                    exit={{ height: 0, opacity: 0 }}
-                                                    transition={{
-                                                        height: { duration: 0.38, ease: EASE },
-                                                        opacity: { duration: 0.28, ease: EASE, delay: isOpen ? 0.08 : 0 },
+                                                {/* Toggle icon — plus → x rotation */}
+                                                <span
+                                                    aria-hidden
+                                                    className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300"
+                                                    style={{
+                                                        background: "rgba(255,255,255,0.04)",
+                                                        border: "1px solid rgba(255,255,255,0.18)",
+                                                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
                                                     }}
-                                                    className="overflow-hidden"
                                                 >
-                                                    <div className="flex flex-col gap-5 px-6 pb-6 md:px-7 md:pb-7">
-                                                        {/* Description */}
-                                                        <p className="text-sm leading-relaxed text-white/65 md:text-[15px]">
-                                                            {svc.body}
-                                                        </p>
-                                                        {/* Bullets */}
-                                                        <ul className="flex flex-col gap-2.5">
-                                                            {svc.bullets.map((b, bi) => (
-                                                                <motion.li
-                                                                    key={b}
-                                                                    initial={{ opacity: 0, x: -6 }}
-                                                                    animate={{ opacity: 1, x: 0 }}
-                                                                    transition={{ duration: 0.3, delay: 0.14 + bi * 0.05, ease: EASE }}
-                                                                    className="flex items-center gap-3 text-sm text-white/85"
-                                                                >
-                                                                    <IconCheck />
-                                                                    {b}
-                                                                </motion.li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </motion.div>
-                                );
-                            })}
-                        </motion.div>
-                    </div>
+                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                        <path d="M6 1v10M1 6h10" stroke="rgba(255,255,255,0.85)" strokeWidth="1.6" strokeLinecap="round" />
+                                                    </svg>
+                                                </span>
+                                            </button>
+
+                                            {/* Drawer content */}
+                                            <AnimatePresence initial={false}>
+                                                {isOpen && (
+                                                    <motion.div
+                                                        key="drawer"
+                                                        initial={{ height: 0, opacity: 0 }}
+                                                        animate={{ height: "auto", opacity: 1 }}
+                                                        exit={{ height: 0, opacity: 0 }}
+                                                        transition={{
+                                                            height: { duration: 0.38, ease: EASE },
+                                                            opacity: { duration: 0.28, ease: EASE, delay: isOpen ? 0.08 : 0 },
+                                                        }}
+                                                        className="overflow-hidden"
+                                                    >
+                                                        <div className="flex flex-col gap-5 px-6 pb-6 md:px-7 md:pb-7">
+                                                            {/* Description */}
+                                                            <p className="text-sm leading-relaxed text-white/65 md:text-[15px]">
+                                                                {svc.body}
+                                                            </p>
+                                                            {/* Bullets */}
+                                                            <ul className="flex flex-col gap-2.5">
+                                                                {svc.bullets.map((b, bi) => (
+                                                                    <motion.li
+                                                                        key={b}
+                                                                        initial={{ opacity: 0, x: -6 }}
+                                                                        animate={{ opacity: 1, x: 0 }}
+                                                                        transition={{ duration: 0.3, delay: 0.14 + bi * 0.05, ease: EASE }}
+                                                                        className="flex items-center gap-3 text-sm text-white/85"
+                                                                    >
+                                                                        <IconCheck />
+                                                                        {b}
+                                                                    </motion.li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </motion.div>
+                                    );
+                                })}
+                            </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -713,7 +699,7 @@ export default function AIIntelligencePage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center gap-5 text-center"
                     >
-                        <SectionLabel text="Featured product" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Intelligence,</span>
                             <span className="display-strong-line">shipped as a workspace.</span>
@@ -777,7 +763,7 @@ export default function AIIntelligencePage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Outcomes" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">What intelligence</span>
                             <span className="display-strong-line">ships.</span>
@@ -802,7 +788,7 @@ export default function AIIntelligencePage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
                     >
-                        <SectionLabel text="Delivery process" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">The AI lifecycle,</span>
                             <span className="display-strong-line">end to end.</span>
@@ -872,7 +858,7 @@ export default function AIIntelligencePage() {
                         transition={{ duration: 0.7, ease: EASE }}
                         className="mb-10 flex flex-col items-center gap-5 text-center md:mb-14"
                     >
-                        <SectionLabel text="FAQ" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">The</span>
                             <span className="display-strong-line">common questions.</span>
@@ -921,7 +907,7 @@ export default function AIIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Book Your AI Strategy Session
                         </button>

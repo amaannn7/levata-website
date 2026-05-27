@@ -331,6 +331,7 @@ const SERVICES = [
         num: "01",
         name: "AI & Intelligence",
         description: "Native AI integration, assistants, workflows, and custom models embedded into your operations.",
+        points: ["Custom AI assistants", "Workflow automation", "Model fine-tuning", "Ops integration"],
         href: "/products/ai-intelligence",
         Icon: IconAI,
         Motif: MotifAINodes,
@@ -338,7 +339,8 @@ const SERVICES = [
     {
         num: "02",
         name: "Sales Intelligence Platform",
-        description: "The AI sales workspace for B2B teams, research, prioritize, outreach, and close.",
+        description: "Sales Intelligence Platform for B2B teams: research, prioritize, outreach, and close.",
+        points: ["Lead research & scoring", "Automated outreach", "Pipeline visibility", "CRM sync"],
         href: "/products/sales-intelligence-platform",
         Icon: IconTarget,
         Motif: MotifTarget,
@@ -347,6 +349,7 @@ const SERVICES = [
         num: "03",
         name: "Digital Products",
         description: "MVP development with AI built in from day one, validated and launched in weeks.",
+        points: ["AI-native MVPs", "Rapid prototyping", "User validation", "Full-stack build"],
         href: "/products/digital-products",
         Icon: IconBox,
         Motif: MotifLayers,
@@ -355,6 +358,7 @@ const SERVICES = [
         num: "04",
         name: "Digital Services",
         description: "Websites, platforms, and e-commerce engineered to convert and scale.",
+        points: ["Conversion-led design", "E-commerce builds", "CMS & headless", "Performance tuning"],
         href: "/products/digital-services",
         Icon: IconGlobe,
         Motif: MotifGlobeArcs,
@@ -363,6 +367,7 @@ const SERVICES = [
         num: "05",
         name: "Automation & Systems",
         description: "Eliminate manual operations and get real-time visibility across your entire business.",
+        points: ["Process automation", "Real-time dashboards", "Tool integrations", "Error elimination"],
         href: "/products/automation-systems",
         Icon: IconBolt,
         Motif: MotifPipeline,
@@ -371,6 +376,7 @@ const SERVICES = [
         num: "06",
         name: "Growth & Marketing",
         description: "AI-enhanced acquisition systems that scale without scaling headcount.",
+        points: ["AI-driven campaigns", "SEO & content systems", "Paid media optimisation", "Funnel infrastructure"],
         href: "#",
         Icon: IconTrend,
         Motif: MotifChart,
@@ -388,15 +394,15 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
         >
             <Link
                 href={service.href}
-                className="group relative flex min-h-[220px] flex-col overflow-hidden rounded-2xl p-7 outline-none focus-visible:ring-2 focus-visible:ring-[#7B55EA]/60"
+                className="group relative flex flex-col overflow-hidden rounded-2xl p-7 outline-none focus-visible:ring-2 focus-visible:ring-[#7B55EA]/60"
                 style={{
                     background: "var(--home-card-bg)",
                     border: "1px solid var(--home-card-border)",
                     transition: "border-color 350ms ease, box-shadow 350ms ease",
                 }}
                 onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(123, 85, 234,0.28)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1px rgba(123, 85, 234,0.08), 0 8px 32px rgba(0,0,0,0.25)";
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(123,85,234,0.28)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1px rgba(123,85,234,0.08), 0 8px 32px rgba(0,0,0,0.25)";
                 }}
                 onMouseLeave={(e) => {
                     (e.currentTarget as HTMLElement).style.borderColor = "var(--home-card-border)";
@@ -407,54 +413,48 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
                 <div
                     aria-hidden
                     className="pointer-events-none absolute bottom-0 left-0 right-0 h-2/3 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(123, 85, 234,0.07) 0%, transparent 70%)" }}
+                    style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(123,85,234,0.07) 0%, transparent 70%)" }}
                 />
 
-                {/* Default view, fades out on hover */}
-                <div className="relative z-10 flex flex-1 flex-col transition-opacity duration-300 group-hover:opacity-0">
-                    <div className="relative z-10 flex items-start">
-                        <span
-                            className="flex h-11 w-11 items-center justify-center rounded-xl"
-                            style={{ background: `rgba(123, 85, 234,0.1)`, border: `1px solid rgba(123, 85, 234,0.22)` }}
-                        >
-                            <service.Icon />
-                        </span>
-                    </div>
-                    <div className="relative z-10 mt-auto">
-                        <h3 className="text-lg font-semibold leading-snug text-white md:text-xl">{service.name}</h3>
-                    </div>
+                {/* Always visible: icon + number */}
+                <div className="relative z-10 flex items-start justify-between">
+                    <span
+                        className="flex h-11 w-11 items-center justify-center rounded-xl"
+                        style={{ background: "rgba(123,85,234,0.1)", border: "1px solid rgba(123,85,234,0.22)" }}
+                    >
+                        <service.Icon />
+                    </span>
+                    <span className="text-[11px] font-bold tracking-[0.18em] text-white/25">{service.num}</span>
                 </div>
 
-                {/* Reveal panel, slides up from bottom on hover */}
-                <div
-                    aria-hidden={false}
-                    className="absolute inset-0 z-20 flex translate-y-full flex-col justify-between rounded-2xl p-7 transition-transform duration-[380ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0"
-                    style={{ background: "linear-gradient(160deg, rgba(17,20,30,0.98) 0%, rgba(13,16,23,0.99) 100%)" }}
-                >
-                    {/* Top: icon + number */}
-                    <div className="flex items-center justify-between">
-                        <span
-                            className="flex h-9 w-9 items-center justify-center rounded-lg"
-                            style={{ background: `rgba(123, 85, 234,0.12)`, border: `1px solid rgba(123, 85, 234,0.25)` }}
-                        >
-                            <service.Icon />
-                        </span>
-                        <span className="text-[11px] font-bold tracking-[0.18em] text-white/25">{service.num}</span>
-                    </div>
+                {/* Always visible: name */}
+                <h3 className="relative z-10 mt-5 text-base font-semibold leading-snug text-white md:text-lg">{service.name}</h3>
 
-                    {/* Bottom: name + description + link */}
-                    <div className="flex flex-col gap-3">
-                        <h3 className="text-base font-semibold leading-snug text-white">{service.name}</h3>
-                        <p className="text-sm leading-relaxed text-white/55">{service.description}</p>
-                        <span
-                            className="mt-1 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] transition-colors duration-200"
-                            style={{ color: BLUE }}
-                        >
-                            Explore
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke={BLUE} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
+                {/* Always visible: bullet points */}
+                <ul className="relative z-10 mt-4 flex flex-col gap-2">
+                    {service.points.map((pt) => (
+                        <li key={pt} className="flex items-center gap-2.5">
+                            <span className="h-1 w-1 flex-shrink-0 rounded-full" style={{ background: "rgba(123,85,234,0.7)" }} />
+                            <span className="text-[12.5px] font-medium text-white/50">{pt}</span>
+                        </li>
+                    ))}
+                </ul>
+
+                {/* Hover reveal: description + link */}
+                <div className="relative z-10 grid grid-rows-[0fr] opacity-0 transition-all duration-[380ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100">
+                    <div className="overflow-hidden">
+                        <div className="mt-5 border-t pt-4" style={{ borderColor: "rgba(123,85,234,0.15)" }}>
+                            <p className="text-sm leading-relaxed text-white/55">{service.description}</p>
+                            <span
+                                className="mt-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em]"
+                                style={{ color: BLUE }}
+                            >
+                                Explore
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke={BLUE} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </Link>
@@ -482,16 +482,9 @@ export default function ServicesSection() {
                     transition={{ duration: 0.7, ease: EASE }}
                     className="mb-12 flex flex-col items-center gap-5 text-center"
                 >
-                    <div className="inline-flex items-center gap-3">
-                        <span className="flex items-center">
-                            <span className="animate-label-line" />
-                            <span className="animate-label-dot" />
-                        </span>
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">Services</p>
-                    </div>
                     <h2 className="display-section-title max-w-2xl text-center">
-                        <span className="display-muted-line">Six capabilities.</span>
-                        <span className="display-strong-line">One unified system.</span>
+                        <span className="display-muted-line">Four ways we build</span>
+                        <span className="display-strong-line">smarter businesses</span>
                     </h2>
                 </motion.div>
 

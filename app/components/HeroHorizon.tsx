@@ -1,87 +1,143 @@
-﻿"use client";
+"use client";
 
-import { useRef, useMemo, Suspense } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+import { useEffect, useRef } from "react";
 
-const SPACING = 1;
+type ColorPreset = "purple" | "teal" | "magenta";
+type Intensity = "subtle" | "default" | "strong";
 
-function Grid() {
-    const ref = useRef<THREE.LineSegments>(null);
+type Props = {
+    /** Brand color preset, or custom { edge, mid } RGBs ("R,G,B") */
+    color?: ColorPreset | { edge: string; mid: string };
+    /** Line density + max opacity */
+    intensity?: Intensity;
+    /** Height of the bottom band */
+    className?: string;
+};
 
-    const geo = useMemo(() => {
-        const verts: number[] = [];
-        for (let z = -30; z <= 6; z += SPACING) {
-            verts.push(-20, 0, z, 20, 0, z);
-        }
-        for (let x = -20; x <= 20; x += SPACING) {
-            verts.push(x, 0, -30, x, 0, 6);
-        }
-        const g = new THREE.BufferGeometry();
-        g.setAttribute("position", new THREE.Float32BufferAttribute(verts, 3));
-        return g;
-    }, []);
+const COLOR_PRESETS: Record<ColorPreset, { edge: string; mid: string }> = {
+    purple:  { edge: "123,85,234",  mid: "167,139,250" },
+    teal:    { edge: "34,211,238",  mid: "94,234,212"  },
+    magenta: { edge: "204,1,255",   mid: "232,121,249" },
+};
 
-    useFrame((_, delta) => {
-        if (!ref.current) return;
-        ref.current.position.z = (ref.current.position.z + delta * 1.4) % SPACING;
-    });
+const INTENSITY_PRESETS: Record<Intensity, { lines: number; maxAlpha: number; scrollSeconds: number }> = {
+    subtle:  { lines: 8,  maxAlpha: 0.14, scrollSeconds: 12 },
+    default: { lines: 14, maxAlpha: 0.22, scrollSeconds: 9 },
+    strong:  { lines: 20, maxAlpha: 0.32, scrollSeconds: 7 },
+};
+
+export default function HeroHorizon({
+    color = "purple",
+    intensity = "default",
+    className = "h-[200px] md:h-[260px]",
+}: Props = {}) {
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const visibleRef = useRef(true);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const wrapper = wrapperRef.current;
+        if (!canvas || !wrapper) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        const palette = typeof color === "string" ? COLOR_PRESETS[color] : color;
+        const { lines: LINE_COUNT, maxAlpha, scrollSeconds } = INTENSITY_PRESETS[intensity];
+
+        const reducedMotion =
+            typeof window !== "undefined" &&
+            window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        let rafId = 0;
+        const start = performance.now();
+        let staticDrawn = false;
+
+        const resize = () => {
+            const w = canvas.clientWidth;
+            const h = canvas.clientHeight;
+            canvas.width = Math.floor(w * dpr);
+            canvas.height = Math.floor(h * dpr);
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(dpr, dpr);
+            staticDrawn = false; // re-render snapshot on resize
+        };
+        resize();
+        window.addEventListener("resize", resize);
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                visibleRef.current = entries[0]?.isIntersecting ?? true;
+            },
+            { threshold: 0 }
+        );
+        observer.observe(wrapper);
+
+        const drawFrame = (t: number) => {
+            const w = canvas.clientWidth;
+            const h = canvas.clientHeight;
+            ctx.clearRect(0, 0, w, h);
+
+            for (let i = 0; i < LINE_COUNT; i++) {
+                const offset = (t / scrollSeconds + i / LINE_COUNT) % 1;
+                const p = Math.pow(offset, 2.2);
+                const y = p * h;
+
+                const fade = Math.sin(offset * Math.PI);
+                const alpha = fade * maxAlpha;
+                if (alpha < 0.01) continue;
+
+                const grad = ctx.createLinearGradient(0, 0, w, 0);
+                grad.addColorStop(0,    "rgba(0,0,0,0)");
+                grad.addColorStop(0.2,  `rgba(${palette.edge},${alpha})`);
+                grad.addColorStop(0.5,  `rgba(${palette.mid},${alpha * 1.2})`);
+                grad.addColorStop(0.8,  `rgba(${palette.edge},${alpha})`);
+                grad.addColorStop(1,    "rgba(0,0,0,0)");
+
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(w, y);
+                ctx.stroke();
+            }
+        };
+
+        const loop = () => {
+            if (reducedMotion) {
+                if (!staticDrawn) {
+                    drawFrame(0);
+                    staticDrawn = true;
+                }
+            } else if (visibleRef.current) {
+                drawFrame((performance.now() - start) / 1000);
+            }
+            rafId = requestAnimationFrame(loop);
+        };
+        rafId = requestAnimationFrame(loop);
+
+        return () => {
+            cancelAnimationFrame(rafId);
+            window.removeEventListener("resize", resize);
+            observer.disconnect();
+        };
+    }, [color, intensity]);
 
     return (
-        <lineSegments ref={ref} geometry={geo}>
-            <lineBasicMaterial color="#7B55EA" transparent opacity={0.35} />
-        </lineSegments>
-    );
-}
-
-function PulseLines() {
-    const ref = useRef<THREE.LineSegments>(null);
-
-    const geo = useMemo(() => {
-        const verts: number[] = [];
-        for (let x = -20; x <= 20; x += SPACING * 4) {
-            verts.push(x, 0.001, -30, x, 0.001, 6);
-        }
-        const g = new THREE.BufferGeometry();
-        g.setAttribute("position", new THREE.Float32BufferAttribute(verts, 3));
-        return g;
-    }, []);
-
-    useFrame((_, delta) => {
-        if (!ref.current) return;
-        ref.current.position.z = (ref.current.position.z + delta * 1.4) % SPACING;
-    });
-
-    return (
-        <lineSegments ref={ref} geometry={geo}>
-            <lineBasicMaterial color="#7B55EA" transparent opacity={0.25} />
-        </lineSegments>
-    );
-}
-
-export default function HeroHorizon() {
-    return (
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-0 h-[180px] md:h-[220px]">
-            <Canvas
-                camera={{ position: [0, 0.45, 2], fov: 60 }}
-                gl={{ antialias: true, alpha: true }}
-                dpr={[1, 1.5]}
-                style={{ background: "transparent", width: "100%", height: "100%" }}
-                onCreated={({ camera }) => {
-                    camera.rotation.x = -0.35;
-                }}
-            >
-                <Suspense fallback={null}>
-                    <Grid />
-                    <PulseLines />
-                </Suspense>
-            </Canvas>
+        <div
+            ref={wrapperRef}
+            className={`pointer-events-none absolute bottom-0 left-0 right-0 z-0 ${className}`}
+        >
+            <canvas
+                ref={canvasRef}
+                style={{ width: "100%", height: "100%", display: "block" }}
+            />
             <div
                 aria-hidden
                 className="absolute inset-0"
                 style={{
-                    background:
-                        "linear-gradient(to top, transparent 0%, transparent 55%, #07080F 100%), linear-gradient(to right, #07080F 0%, transparent 18%, transparent 82%, #07080F 100%)",
+                    background: "linear-gradient(to top, transparent 0%, transparent 50%, #07080F 100%)",
                 }}
             />
         </div>

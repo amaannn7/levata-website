@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
+import SectionLabel from "@/app/components/SectionLabel";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -80,19 +81,6 @@ function IconLeakyFunnel() {
 
 const PAIN_ICONS = [IconResearchClock, IconEnvelopeIgnored, IconLeakyFunnel] as const;
 const PAIN_ACCENTS = ["#FFFFFF", "#FFFFFF", "#FFFFFF"] as const;
-
-// ── Section label helper ───────────────────────────────────────────────────
-function SectionLabel({ text }: { text: string }) {
-    return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
-    );
-}
 
 // ── Count-up hook (matches HeroSection.tsx) ────────────────────────────────
 function useCountUp(target: number, duration = 1800) {
@@ -457,8 +445,7 @@ export default function SalesIntelligencePage() {
                     transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
-                    <SectionLabel text="Sales Intelligence Platform" />
-                    <h1 className="display-hero-title max-w-3xl text-center">
+                                        <h1 className="display-hero-title max-w-3xl text-center">
                         <span className="display-muted-line">Turn your lead list into</span>
                         <span className="display-strong-line">a pipeline, in hours.</span>
                     </h1>
@@ -470,7 +457,7 @@ export default function SalesIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Start Your Free Trial
                         </button>
@@ -505,7 +492,7 @@ export default function SalesIntelligencePage() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="The problem" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Stop wasting time</span>
                             <span className="display-strong-line">on research and outreach tools.</span>
@@ -568,7 +555,7 @@ export default function SalesIntelligencePage() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Core capabilities" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Everything your team needs</span>
                             <span className="display-strong-line">in one intelligent workspace.</span>
@@ -831,7 +818,7 @@ export default function SalesIntelligencePage() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-12 flex flex-col items-center gap-5 text-center"
                     >
-                        <SectionLabel text="Who it's for" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Built for teams that do</span>
                             <span className="display-strong-line">real outbound sales.</span>
@@ -894,7 +881,7 @@ export default function SalesIntelligencePage() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="Key outcomes" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Real results,</span>
                             <span className="display-strong-line">not hype.</span>
@@ -935,7 +922,7 @@ export default function SalesIntelligencePage() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
-                        <SectionLabel text="How it works" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">From lead list</span>
                             <span className="display-strong-line">to closed deal in 6 steps.</span>
@@ -1003,7 +990,7 @@ export default function SalesIntelligencePage() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-12 flex flex-col items-center gap-5 text-center"
                     >
-                        <SectionLabel text="FAQ" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Frequently asked</span>
                             <span className="display-strong-line">questions.</span>
@@ -1041,8 +1028,7 @@ export default function SalesIntelligencePage() {
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
                 >
-                    <SectionLabel text="Ship pipeline" />
-                    <h2 className="display-section-title max-w-2xl text-center">
+                                        <h2 className="display-section-title max-w-2xl text-center">
                         <span className="display-muted-line">Your reps should be</span>
                         <span className="display-strong-line">closing, not researching.</span>
                     </h2>
@@ -1054,7 +1040,7 @@ export default function SalesIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Book a Demo
                         </button>

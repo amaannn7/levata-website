@@ -4,10 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-    SiReact, SiNextdotjs, SiVuedotjs, SiNuxt, SiSvelte, SiAngular,
-    SiExpress, SiNestjs, SiSpring, SiFastapi, SiDjango, SiLaravel,
-    SiSanity, SiContentful, SiStrapi, SiWordpress, SiPayloadcms, SiDirectus,
-    SiPostgresql, SiMysql, SiMongodb, SiSupabase, SiFirebase, SiRedis,
+    SiReact, SiAngular,
+    SiExpress, SiFastapi, SiDjango, SiLaravel, SiShopify,
+    SiWordpress, SiPostgresql, SiMysql, SiMongodb, SiSupabase, SiFirebase, SiRedis,
 } from "react-icons/si";
 import ClientsMarquee from "@/app/components/ClientsMarquee";
 import { CircleArrow } from "@/app/components/ServicesSection";
@@ -15,6 +14,9 @@ import TestimonialsSection from "@/app/components/TestimonialsSection";
 import HomeHero from "@/app/components/HomeHero";
 import OperationsBeforeTerminal from "@/app/components/OperationsBeforeTerminal";
 import CTAAurora from "@/app/components/CTAAurora";
+import SectionLabel from "@/app/components/SectionLabel";
+import SectionBeamShared from "@/app/components/SectionBeam";
+import SectionLabelSide from "@/app/components/SectionLabelSide";
 import { useBookCall } from "@/app/components/BookCallProvider";
 
 // ── Count-up hook ──────────────────────────────────────────────────────────
@@ -53,37 +55,27 @@ function useCountUp(target: number, duration = 2000) {
 }
 
 // ── Animated stat number (extended: animate lead number, static suffix) ────
-function StatCounter({ leadNumber, suffix, label }: { leadNumber: number; suffix: string; label: string }) {
+function StatCounter({ leadNumber, suffix, label, title }: { leadNumber: number; suffix: string; label: string; title: string }) {
     const { count, elRef } = useCountUp(leadNumber, 2000);
     return (
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">{title}</span>
             <span
                 ref={elRef}
-                className="text-5xl font-bold leading-none tracking-tight md:text-6xl"
+                className="text-4xl font-bold leading-none tracking-tight md:text-5xl"
                 style={{ color: "var(--text-primary)" }}
             >
                 {count}
                 <span style={{ color: "var(--text-primary)" }}>{suffix}</span>
             </span>
-            <span className="max-w-[180px] text-center text-sm font-medium leading-snug text-white/45 tracking-wide">
+            <span className="max-w-[160px] text-center text-sm font-medium leading-snug text-white/40">
                 {label}
             </span>
         </div>
     );
 }
 
-// ── Section label helper ───────────────────────────────────────────────────
-function SectionLabel({ text }: { text: string }) {
-    return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
-    );
-}
+const SectionBeam = SectionBeamShared;
 
 function SectionDivider() {
     return (
@@ -101,27 +93,17 @@ type TechItem = {
 };
 
 const TECH_ROW_TOP: TechItem[] = [
-    { name: "Next.js", Icon: SiNextdotjs, color: "#FFFFFF" },
     { name: "React", Icon: SiReact, color: "#61DAFB" },
-    { name: "Vue.js", Icon: SiVuedotjs, color: "#4FC08D" },
-    { name: "Nuxt", Icon: SiNuxt, color: "#00DC82" },
-    { name: "SvelteKit", Icon: SiSvelte, color: "#FF3E00" },
     { name: "Angular", Icon: SiAngular, color: "#DD0031" },
     { name: "Express", Icon: SiExpress, color: "#FFFFFF" },
-    { name: "NestJS", Icon: SiNestjs, color: "#E0234E" },
-    { name: "Spring Boot", Icon: SiSpring, color: "#6DB33F" },
     { name: "FastAPI", Icon: SiFastapi, color: "#009688" },
     { name: "Django", Icon: SiDjango, color: "#44B78B" },
     { name: "Laravel", Icon: SiLaravel, color: "#FF2D20" },
+    { name: "Shopify", Icon: SiShopify, color: "#96BE3F" },
 ];
 
 const TECH_ROW_BOTTOM: TechItem[] = [
-    { name: "Sanity", Icon: SiSanity, color: "#F03E2F" },
-    { name: "Strapi", Icon: SiStrapi, color: "#4945FF" },
-    { name: "Contentful", Icon: SiContentful, color: "#2478CC" },
     { name: "WordPress", Icon: SiWordpress, color: "#21759B" },
-    { name: "Payload CMS", Icon: SiPayloadcms, color: "#FFFFFF" },
-    { name: "Directus", Icon: SiDirectus, color: "#6644FF" },
     { name: "PostgreSQL", Icon: SiPostgresql, color: "#4169E1" },
     { name: "MySQL", Icon: SiMysql, color: "#4479A1" },
     { name: "MongoDB", Icon: SiMongodb, color: "#47A248" },
@@ -138,7 +120,7 @@ function TechMarqueeRow({ items, direction, duration }: { items: TechItem[]; dir
                 className="flex items-center whitespace-nowrap"
                 style={{
                     width: "max-content",
-                    gap: "clamp(32px, 5vw, 72px)",
+                    gap: "clamp(56px, 8vw, 120px)",
                     animation: `marquee ${duration}s linear infinite`,
                     animationDirection: direction === "left" ? "normal" : "reverse",
                 }}
@@ -170,13 +152,13 @@ function TechStackSection() {
                 <div className="absolute inset-0" style={{
                     background: [
                         "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(123, 85, 234,0.07) 0%, transparent 65%)",
-                        "radial-gradient(ellipse 40% 40% at 85% 20%, rgba(123, 85, 234,0.04) 0%, transparent 60%)",
+                        "radial-gradient(ellipse 40% 40% at 85% 20%, rgba(0, 255, 221,0.04) 0%, transparent 60%)",
                     ].join(", ")
                 }} />
             </div>
             <div className="relative z-10 mx-auto max-w-6xl">
                 <div className="mb-12 flex flex-col items-center text-center gap-5">
-                    <SectionLabel text="Our stack" />
+                    <SectionBeam />
                     <h2 className="display-section-title max-w-2xl text-center">
                         <span className="display-muted-line">Built on tech that</span>
                         <span className="display-strong-line">compounds.</span>
@@ -187,8 +169,8 @@ function TechStackSection() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <TechMarqueeRow items={TECH_ROW_TOP} direction="left" duration={40} />
-                    <TechMarqueeRow items={TECH_ROW_BOTTOM} direction="right" duration={36} />
+                    <TechMarqueeRow items={TECH_ROW_TOP} direction="left" duration={54} />
+                    <TechMarqueeRow items={TECH_ROW_BOTTOM} direction="right" duration={52} />
                 </div>
             </div>
         </section>
@@ -286,26 +268,26 @@ const SERVICE_CARDS: Array<{
     image: string;
 }> = [
         {
-            title: "Digital Products",
-            description: "MVP development with AI built in from day one, validated and launched in weeks.",
+            title: "AI & Intelligence",
+            description: "AI integration, assistants, and intelligent workflows wired into your operations.",
             subServices: [
-                "AI-native MVP development",
-                "Validated product launches",
-                "Scalable platform architecture",
+                "AI Integration",
+                "AI Assistants",
+                "Custom AI Solutions",
             ],
-            learnMore: "Build a digital product",
-            href: "/products/digital-products",
+            learnMore: "Explore AI & intelligence",
+            href: "/products/ai-intelligence",
             accent: "#7B55EA",
-            icon: "products",
-            image: "/services-2.jpeg",
+            icon: "ai",
+            image: "/services-5.jpeg",
         },
         {
             title: "Digital Services",
             description: "Websites, platforms, and e-commerce engineered to convert and scale.",
             subServices: [
-                "Websites & web platforms",
-                "E-commerce & portals",
-                "Conversion-optimized builds",
+                "Website Development",
+                "Platform Development",
+                "E-commerce Development",
             ],
             learnMore: "Explore digital services",
             href: "/products/digital-services",
@@ -315,30 +297,30 @@ const SERVICE_CARDS: Array<{
         },
         {
             title: "Automation & Systems",
-            description: "Eliminate manual operations and get real-time visibility across your entire business.",
+            description: "Business automation, CRM, workflow, and dashboards that run your operations.",
             subServices: [
-                "Workflow & back-office automation",
-                "Real-time reporting & BI",
-                "Operations infrastructure",
+                "Business Automation",
+                "Workflow Automation",
+                "Dashboard Systems",
             ],
             learnMore: "Automate your operations",
             href: "/products/automation-systems",
             accent: "#7B55EA",
             icon: "automation",
-            image: "/services-4.jpeg",
+            image: "/services-6.jpeg",
         },
         {
-            title: "AI and Intelligence",
-            description: "AI-enhanced acquisition systems that scale without scaling headcount.",
+            title: "Digital Products",
+            description: "SaaS products, MVPs, and client products designed and built end-to-end.",
             subServices: [
-                "AI integration & assistants",
-                "Custom model deployment",
-                "Intelligent automation workflows",
+                "SaaS Products",
+                "MVP Development",
+                "Product Design",
             ],
-            learnMore: "Explore AI & intelligence",
-            href: "/products/ai-intelligence",
+            learnMore: "Build a digital product",
+            href: "/products/digital-products",
             accent: "#7B55EA",
-            icon: "ai",
+            icon: "products",
             image: "/services-1.jpeg",
         },
     ];
@@ -745,16 +727,10 @@ function ServicesCarousel() {
         <div>
             {/* Header */}
             <div className="mb-12 flex flex-col items-center gap-4 text-center md:mb-16">
-                <div className="inline-flex items-center gap-3">
-                    <span className="flex items-center">
-                        <span className="animate-label-line" />
-                        <span className="animate-label-dot" />
-                    </span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">What we do</span>
-                </div>
+                <SectionBeam />
                 <h2 className="display-section-title max-w-2xl text-center">
-                    <span className="display-muted-line">Four capabilities.</span>
-                    <span className="display-strong-line">One unified system.</span>
+                    <span className="display-muted-line">Four ways we build</span>
+                    <span className="display-strong-line">smarter businesses</span>
                 </h2>
             </div>
 
@@ -764,7 +740,7 @@ function ServicesCarousel() {
                     <a
                         key={card.title}
                         href={card.href}
-                        className="group relative flex h-[260px] flex-col overflow-hidden rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-[#7B55EA]/60 sm:h-[280px] md:h-[320px]"
+                        className="group relative flex h-[280px] flex-col overflow-hidden rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-[#7B55EA]/60 sm:h-[300px] md:h-[340px]"
                         style={{
                             background: "var(--home-card-bg, rgba(21,24,34,0.94))",
                             border: "1px solid var(--home-card-border, rgba(255,255,255,0.07))",
@@ -781,13 +757,13 @@ function ServicesCarousel() {
                             el.style.boxShadow = "";
                         }}
                     >
-                        {/* Background image — low opacity so it reads as atmosphere */}
+                        {/* Background image — slightly more visible so the image reads clearly */}
                         <Image
                             src={card.image}
                             alt={card.title}
                             fill
                             sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
-                            className="object-cover opacity-[0.35] transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-[0.5] group-hover:scale-[1.06]"
+                            className="object-cover opacity-[0.6] transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-[0.75] group-hover:scale-[1.06]"
                             priority={i < 2}
                         />
 
@@ -807,7 +783,7 @@ function ServicesCarousel() {
                             className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                             style={{
                                 background:
-                                    "radial-gradient(ellipse 80% 60% at 30% 100%, rgba(123, 85, 234,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 90% 0%, rgba(34, 211, 238,0.12) 0%, transparent 65%)",
+                                    "radial-gradient(ellipse 80% 60% at 30% 100%, rgba(123, 85, 234,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 90% 0%, rgba(0, 255, 221,0.12) 0%, transparent 65%)",
                             }}
                         />
 
@@ -817,7 +793,7 @@ function ServicesCarousel() {
                                 className="flex h-11 w-11 items-center justify-center rounded-full backdrop-blur-md transition-all duration-300 group-hover:scale-105"
                                 style={{
                                     background:
-                                        "linear-gradient(135deg, rgba(123,85,234,0.28) 0%, rgba(34,211,238,0.16) 100%)",
+                                        "linear-gradient(135deg, rgba(204,1,255,0.28) 0%, rgba(0,255,221,0.16) 100%)",
                                     border: "1px solid rgba(255,255,255,0.28)",
                                     boxShadow: "0 4px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08)",
                                 }}
@@ -845,25 +821,54 @@ function ServicesCarousel() {
                             </div>
                         </div>
 
-                        {/* Bottom content: title (lifts) + description (slides in) */}
+                        {/* Bottom content */}
                         <div className="relative z-10 mt-auto p-6 md:p-7">
-                            <div className="md:transition-transform md:duration-[420ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:-translate-y-[78px]">
-                                <h3 className="text-[1.35rem] font-semibold leading-snug tracking-tight text-white md:text-[1.5rem]">
-                                    {card.title}
-                                </h3>
-                            </div>
+                            {/* Title — always visible, no lift */}
+                            <h3 className="text-[1.35rem] font-medium leading-snug tracking-tight text-white md:text-[1.5rem]">
+                                {card.title}
+                            </h3>
 
-                            <div className="mt-2 md:absolute md:bottom-6 md:left-6 md:right-6 md:mt-0 md:translate-y-3 md:opacity-0 md:transition-all md:duration-[420ms] md:ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:translate-y-0 md:group-hover:opacity-100 md:p-0 md:py-1">
-                                <p className="text-sm leading-relaxed text-white/70">{card.description}</p>
-                                <span
-                                    className="mt-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em]"
-                                    style={{ color: BLUE }}
-                                >
-                                    Explore
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-                                        <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke={BLUE} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                </span>
+                            {/* Sub-service chips — always visible */}
+                            <ul className="mt-3 flex flex-wrap gap-1.5">
+                                {card.subServices.map((s) => (
+                                    <li key={s}>
+                                        <span
+                                            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium leading-none text-white/90"
+                                            style={{
+                                                background: "linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%)",
+                                                border: "1px solid rgba(255,255,255,0.14)",
+                                                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 10px rgba(0,0,0,0.35)",
+                                                backdropFilter: "blur(6px)",
+                                                WebkitBackdropFilter: "blur(6px)",
+                                            }}
+                                        >
+                                            <span
+                                                aria-hidden
+                                                className="inline-block h-1 w-1 flex-shrink-0 rounded-full"
+                                                style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+                                            />
+                                            {s}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            {/* Hover reveal: description + Explore link */}
+                            <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100">
+                                <div className="overflow-hidden">
+                                    <p className="mt-4 text-[13px] leading-relaxed text-white/60">
+                                        {card.description}
+                                    </p>
+                                    <span
+                                        className="mt-3 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em]"
+                                        style={{ color: BLUE }}
+                                    >
+                                        Explore
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                                            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke={BLUE} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -873,11 +878,11 @@ function ServicesCarousel() {
     );
 }
 
-const KEY_RESULTS: Array<{ leadNumber: number; suffix: string; label: string }> = [
-    { leadNumber: 3, suffix: "–5×", label: "Increase in lead conversion" },
-    { leadNumber: 60, suffix: "%", label: "Reduction in manual ops" },
-    { leadNumber: 6, suffix: "–12wk", label: "To MVP launch" },
-    { leadNumber: 12, suffix: "mo", label: "Average ROI timeline" },
+const KEY_RESULTS: Array<{ leadNumber: number; suffix: string; label: string; title: string }> = [
+    { leadNumber: 3, suffix: "–5×", title: "More Revenue",      label: "Pipeline performance" },
+    { leadNumber: 60, suffix: "%",  title: "Less Admin",        label: "Reduction in manual work" },
+    { leadNumber: 4, suffix: "–6wk", title: "Faster Execution", label: "Weeks to launch" },
+    { leadNumber: 12, suffix: "mo", title: "Clearer Returns",   label: "Average ROI timeline" },
 ];
 
 // ── Why Choose Levata visual hints (monochrome schematic SVGs) ────────────
@@ -973,32 +978,147 @@ const WHY_LEVATA: Array<{
     num: string; title: string; body: string;
     tags: string[]; featured?: boolean;
 }> = [
-    {
-        num: "01",
-        title: "AI-Native From Day One",
-        body: "Every system we build has AI at its core, not bolted on later. Strategy, architecture, and execution all compound over time.",
-        tags: ["INTELLIGENT SYSTEMS", "AI STRATEGY", "NO CODE LIMITS"],
-    },
-    {
-        num: "02",
-        title: "End-to-End, One Team",
-        body: "Strategy, design, engineering, and growth, all under one roof with one shared goal. No handoffs. No gaps.",
-        tags: ["FULL-STACK", "ONE TEAM", "NO HAND-OFFS"],
-        featured: true,
-    },
-    {
-        num: "03",
-        title: "Outcomes Over Outputs",
-        body: "We commit to measurable results, pipeline growth, conversion lift, ops cost reduction. Not deliverables. Not sprints.",
-        tags: ["PIPELINE GROWTH", "ROI-DRIVEN", "ALWAYS-ON"],
-    },
-    {
-        num: "04",
-        title: "Continuous Optimisation",
-        body: "We don't disappear after launch. We measure, iterate, and compound results every month.",
-        tags: ["MONTHLY REVIEW", "COMPOUND GROWTH", "ALWAYS-ON"],
-    },
-];
+        {
+            num: "01",
+            title: "AI-Native From Day One",
+            body: "Every system we build has AI at its core, not bolted on later. Strategy, architecture, and execution all compound over time.",
+            tags: ["INTELLIGENT SYSTEMS", "AI STRATEGY", "NO CODE LIMITS"],
+        },
+        {
+            num: "02",
+            title: "End-to-End, One Team",
+            body: "Strategy, design, engineering, and growth, all under one roof with one shared goal. No handoffs. No gaps.",
+            tags: ["FULL-STACK", "ONE TEAM", "NO HAND-OFFS"],
+            featured: true,
+        },
+        {
+            num: "03",
+            title: "Outcomes Over Outputs",
+            body: "We commit to measurable results, pipeline growth, conversion lift, ops cost reduction. Not deliverables. Not sprints.",
+            tags: ["PIPELINE GROWTH", "ROI-DRIVEN", "ALWAYS-ON"],
+        },
+        {
+            num: "04",
+            title: "Continuous Optimisation",
+            body: "We don't disappear after launch. We measure, iterate, and compound results every month.",
+            tags: ["MONTHLY REVIEW", "COMPOUND GROWTH", "ALWAYS-ON"],
+        },
+    ];
+
+// ── WhyLevataDeck: sticky heading + scroll-driven single-card reveal ──────
+function WhyLevataProgress({ active, total }: { active: number; total: number }) {
+    return (
+        <div className="flex items-center gap-2 mt-2" aria-hidden>
+            {Array.from({ length: total }).map((_, i) => (
+                <span
+                    key={i}
+                    className="h-1.5 rounded-full transition-all duration-500"
+                    style={{
+                        width: i === active ? "28px" : "8px",
+                        background: i === active
+                            ? "linear-gradient(90deg, #7B55EA 0%, #CC01FF 100%)"
+                            : "rgba(255,255,255,0.15)",
+                    }}
+                />
+            ))}
+        </div>
+    );
+}
+
+function WhyLevataCard({ active }: { active: number }) {
+    const w = WHY_LEVATA[active];
+    return (
+        <div className="relative w-full" style={{ height: "440px" }}>
+            <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                    key={w.num}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -24 }}
+                    transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute inset-0 flex flex-col justify-center"
+                >
+                    {/* Huge editorial number */}
+                    <span
+                        className="block font-semibold leading-none tabular-nums tracking-tight"
+                        style={{
+                            color: "transparent",
+                            background: "linear-gradient(180deg, rgba(123,85,234,0.95) 0%, rgba(204,1,255,0.55) 100%)",
+                            WebkitBackgroundClip: "text",
+                            backgroundClip: "text",
+                            fontSize: "clamp(2.5rem, 4vw, 3.5rem)",
+                        }}
+                    >
+                        {w.num}
+                    </span>
+
+                    {/* Hairline rule */}
+                    <span
+                        className="block h-px w-24 mt-2 mb-7"
+                        style={{ background: "linear-gradient(90deg, rgba(123,85,234,0.6) 0%, transparent 100%)" }}
+                    />
+
+                    {/* Big bold title */}
+                    <h3 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white md:text-[2.25rem] max-w-lg">
+                        {w.title}
+                    </h3>
+
+                    {/* Body */}
+                    <p className="mt-5 text-base leading-relaxed max-w-md md:text-[1.05rem]" style={{ color: "rgba(255,255,255,0.55)" }}>
+                        {w.body}
+                    </p>
+
+                    {/* Eyebrow tags at bottom */}
+                    <p className="mt-7 font-mono text-[10px] font-semibold uppercase tracking-[0.24em]" style={{ color: "rgba(255,255,255,0.38)" }}>
+                        {w.tags.join("  ·  ")}
+                    </p>
+                </motion.div>
+            </AnimatePresence>
+        </div>
+    );
+}
+
+function WhyLevataDeck() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [active, setActive] = useState(0);
+
+    useEffect(() => {
+        const onScroll = () => {
+            const el = containerRef.current;
+            if (!el) return;
+            const rect = el.getBoundingClientRect();
+            const viewportH = window.innerHeight;
+            const total = rect.height - viewportH;
+            const scrolled = Math.max(0, Math.min(total, -rect.top));
+            const progress = total > 0 ? scrolled / total : 0;
+            const idx = Math.min(WHY_LEVATA.length - 1, Math.floor(progress * WHY_LEVATA.length));
+            setActive(idx);
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    return (
+        <div ref={containerRef} className="hidden lg:block relative" style={{ height: `${WHY_LEVATA.length * 90 + 60}vh` }}>
+            <div className="sticky top-0 h-screen w-full flex items-center">
+                <div className="mx-auto w-full max-w-6xl px-6">
+                    <div className="grid grid-cols-2 gap-16 items-center">
+                        <div className="flex flex-col gap-6">
+                            <SectionLabelSide />
+                            <h2 className="display-section-title">
+                                <span className="display-muted-line">Why teams pick Levata.</span>
+                                <span className="display-strong-line">Outcomes, not outputs.</span>
+                            </h2>
+                            <WhyLevataProgress active={active} total={WHY_LEVATA.length} />
+                        </div>
+                        <WhyLevataCard active={active} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
 
 // ── Problem section: pain points ──────────────────────────────────────────
 const PAIN_POINTS: Array<{ title: string; desc: string }> = [
@@ -1115,7 +1235,7 @@ function FlowConnector({ vertical = false }: { vertical?: boolean }) {
         );
     }
     return (
-        <div className="flex items-center w-16 flex-shrink-0" aria-hidden style={{ marginTop: "52px" }}>
+        <div className="flex items-center w-16 flex-shrink-0" aria-hidden style={{ marginTop: "74px" }}>
             <div className="relative flex w-full items-center">
                 <div className="h-px w-full" style={{ background: "linear-gradient(to right, rgba(123, 85, 234,0.25), rgba(123, 85, 234,0.5), rgba(123, 85, 234,0.25))" }} />
                 <svg className="flex-shrink-0 -ml-px" width="7" height="12" viewBox="0 0 7 12" fill="none">
@@ -1133,6 +1253,200 @@ function FlowConnector({ vertical = false }: { vertical?: boolean }) {
     );
 }
 
+// ── Problem spider: hub-and-spoke layout (desktop only) ───────────────────
+// Canvas: 960 × 480. Center: (480, 240).
+// Spoke ends are chosen so nodes have ~180px of horizontal room each side.
+const SPIDER_W = 960, SPIDER_H = 480, SPIDER_CX = 480, SPIDER_CY = 240;
+// Spoke tips — lines terminate here, node dot sits exactly here.
+const SPOKE_ENDS = [
+    { x: 230, y: 110 },  // TL
+    { x: 730, y: 110 },  // TR
+    { x: 230, y: 370 },  // BL
+    { x: 730, y: 370 },  // BR
+] as const;
+
+function TravelDot({ x1, y1, x2, y2, delay, dur = 2.4 }: {
+    x1: number; y1: number; x2: number; y2: number; delay: number; dur?: number;
+}) {
+    return (
+        <g filter="url(#prob_glow)">
+            <circle r="2" fill="rgba(204,1,255,0.95)">
+                <animateMotion
+                    dur={`${dur}s`}
+                    begin={`${delay}s`}
+                    repeatCount="indefinite"
+                    calcMode="spline"
+                    keyTimes="0;0.65;1"
+                    keySplines="0.4 0 0.6 1;0.4 0 0.6 1"
+                    path={`M${x1} ${y1} L${x2} ${y2}`}
+                />
+                <animate
+                    attributeName="opacity"
+                    values="0;0.9;0"
+                    dur={`${dur}s`}
+                    begin={`${delay}s`}
+                    repeatCount="indefinite"
+                    keyTimes="0;0.65;1"
+                />
+            </circle>
+        </g>
+    );
+}
+
+function ProblemSpider() {
+    const EASE = [0.16, 1, 0.3, 1] as const;
+    const W = SPIDER_W, H = SPIDER_H, cx = SPIDER_CX, cy = SPIDER_CY;
+
+    const spokes = SPOKE_ENDS.map((e, i) => ({
+        x1: cx, y1: cy, x2: e.x, y2: e.y,
+        grad: `psp_${i}`,
+        lineDelay: 0.4 + i * 0.1,
+        dotDelay: 1.2 + i * 0.5,
+    }));
+
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.45, ease: EASE }}
+            className="relative mx-auto w-full max-w-4xl"
+            style={{ aspectRatio: `${W} / ${H}` }}
+        >
+            <svg
+                viewBox={`0 0 ${W} ${H}`}
+                className="absolute inset-0 w-full h-full overflow-visible"
+                aria-hidden
+            >
+                <defs>
+                    <filter id="prob_glow" x="-80%" y="-80%" width="260%" height="260%">
+                        <feGaussianBlur stdDeviation="2.5" result="blur" />
+                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                    </filter>
+                    {spokes.map(({ x1, y1, x2, y2, grad }) => (
+                        <linearGradient key={grad} id={grad} x1={x1} y1={y1} x2={x2} y2={y2} gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"   stopColor="rgba(204,1,255,0.04)" />
+                            <stop offset="50%"  stopColor="rgba(204,1,255,0.25)" />
+                            <stop offset="100%" stopColor="rgba(255,70,70,0.20)" />
+                        </linearGradient>
+                    ))}
+                </defs>
+
+                {/* Spoke lines */}
+                {spokes.map(({ x1, y1, x2, y2, grad, lineDelay }) => (
+                    <motion.path
+                        key={grad}
+                        d={`M${x1} ${y1} L${x2} ${y2}`}
+                        stroke={`url(#${grad})`}
+                        strokeWidth="1"
+                        strokeDasharray="3 6"
+                        fill="none"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        whileInView={{ pathLength: 1, opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, delay: lineDelay, ease: EASE }}
+                    />
+                ))}
+
+                {/* Traveling dots */}
+                {spokes.map(({ x1, y1, x2, y2, dotDelay }, i) => (
+                    <TravelDot key={i} x1={x1} y1={y1} x2={x2} y2={y2} delay={dotDelay} />
+                ))}
+
+                {/* Center hub */}
+                <motion.circle
+                    cx={cx} cy={cy} r="28"
+                    fill="none"
+                    stroke="rgba(204,1,255,0.12)"
+                    strokeWidth="1"
+                    animate={{ r: [26, 32, 26], opacity: [0.5, 0.15, 0.5] }}
+                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.circle
+                    cx={cx} cy={cy} r="18"
+                    fill="rgba(204,1,255,0.04)"
+                    stroke="rgba(204,1,255,0.2)"
+                    strokeWidth="0.8"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+                />
+
+                {/* Pain point nodes — all in SVG coords, dot at exact spoke tip */}
+                {SPOKE_ENDS.map((end, i) => {
+                    const isLeft = end.x < cx;
+                    const nodeDelay = 0.25 + i * 0.07;
+                    const textAnchor = isLeft ? "end" : "start";
+                    const titleX = isLeft ? end.x - 14 : end.x + 14;
+                    const descX  = isLeft ? end.x - 14 : end.x + 14;
+
+                    return (
+                        <motion.g
+                            key={i}
+                            initial={{ opacity: 0, x: isLeft ? -8 : 8 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: nodeDelay, ease: EASE }}
+                        >
+                            {/* Pulsing endpoint dot */}
+                            <motion.circle
+                                cx={end.x} cy={end.y} r="4"
+                                fill="rgba(255,75,75,0.9)"
+                                style={{ filter: "drop-shadow(0 0 6px rgba(255,75,75,0.7))" }}
+                                animate={{ r: [3.5, 5, 3.5], opacity: [0.9, 0.5, 0.9] }}
+                                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.6 }}
+                            />
+                            {/* Title */}
+                            <text
+                                x={titleX}
+                                y={end.y - 8}
+                                textAnchor={textAnchor}
+                                fontSize="15"
+                                fontWeight="600"
+                                fontFamily="var(--font-dm-sans)"
+                                fill="rgba(240,240,242,0.95)"
+                            >
+                                {PAIN_POINTS[i].title}
+                            </text>
+                            {/* Description — wrapped via tspan */}
+                            <text
+                                x={descX}
+                                y={end.y + 12}
+                                textAnchor={textAnchor}
+                                fontSize="12.5"
+                                fontWeight="400"
+                                fontFamily="var(--font-dm-sans)"
+                                fill="rgba(255,255,255,0.42)"
+                            >
+                                {PAIN_POINTS[i].desc.length > 42
+                                    ? <>
+                                        <tspan x={descX} dy="0">{PAIN_POINTS[i].desc.slice(0, PAIN_POINTS[i].desc.lastIndexOf(" ", 42))}</tspan>
+                                        <tspan x={descX} dy="17">{PAIN_POINTS[i].desc.slice(PAIN_POINTS[i].desc.lastIndexOf(" ", 42) + 1)}</tspan>
+                                      </>
+                                    : PAIN_POINTS[i].desc
+                                }
+                            </text>
+                        </motion.g>
+                    );
+                })}
+            </svg>
+
+            {/* Center visual — overlaid at hub */}
+            <motion.div
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+                style={{ width: "20%", maxWidth: 180 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
+            >
+                <OperationsBeforeTerminal />
+            </motion.div>
+        </motion.div>
+    );
+}
+
 // ── Page ───────────────────────────────────────────────────────────────────
 export default function HeroSection() {
     const { open: openBookCall } = useBookCall();
@@ -1147,8 +1461,9 @@ export default function HeroSection() {
             <section id="problem" className="home-theme-dark relative w-full px-6 py-20 md:py-28 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 30%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 55% 60% at 50% 50%, rgba(204,1,255,0.05) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 40% at 15% 20%, rgba(204,1,255,0.04) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 35% 40% at 85% 80%, rgba(204,1,255,0.04) 0%, transparent 65%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">
@@ -1157,94 +1472,50 @@ export default function HeroSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-14 flex flex-col items-center text-center gap-5"
+                        className="mb-20 flex flex-col items-center text-center gap-5"
                     >
-                        <SectionLabel text="The problem" />
+                        <SectionBeam />
                         <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Most businesses run on</span>
-                            <span className="display-strong-line">duct tape and spreadsheets.</span>
+                            <span className="display-muted-line">Most businesses are</span>
+                            <span className="display-strong-line">scaling chaos, not systems.</span>
                         </h2>
-                        <p className="max-w-xl text-base text-white/45 md:text-lg leading-relaxed">
-                            Levata replaces the chaos with infrastructure.
-                        </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-14 items-center">
-                        {/* Left: Pain points list */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                            className="flex flex-col divide-y"
-                            style={{ borderColor: "rgba(255,255,255,0.06)" }}
-                        >
-                            {PAIN_POINTS.map((p, i) => (
-                                <div key={i} className="flex items-start gap-5 py-5 first:pt-0 last:pb-0">
-                                    <span
-                                        className="flex-shrink-0 mt-0.5 flex h-7 w-7 items-center justify-center rounded-lg text-[11px] font-bold tabular-nums"
-                                        style={{
-                                            background: "rgba(255,255,255,0.04)",
-                                            border: "1px solid rgba(255,255,255,0.08)",
-                                            color: "rgba(255,255,255,0.3)",
-                                        }}
-                                    >
-                                        {String(i + 1).padStart(2, "0")}
-                                    </span>
-                                    <div className="flex-1">
-                                        <p className="text-sm font-semibold text-white mb-1.5 md:text-base">{p.title}</p>
-                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.42)" }}>{p.desc}</p>
-                                    </div>
-                                    <span
-                                        aria-hidden
-                                        className="flex-shrink-0 mt-1 flex h-5 w-5 items-center justify-center rounded-full"
-                                        style={{ background: "rgba(255,60,60,0.08)", border: "1px solid rgba(255,60,60,0.22)" }}
-                                    >
-                                        <svg viewBox="0 0 8 8" fill="none" className="h-2 w-2">
-                                            <line x1="2" y1="2" x2="6" y2="6" stroke="rgba(255,90,90,0.7)" strokeWidth="1.5" strokeLinecap="round" />
-                                            <line x1="6" y1="2" x2="2" y2="6" stroke="rgba(255,90,90,0.7)" strokeWidth="1.5" strokeLinecap="round" />
-                                        </svg>
-                                    </span>
+                    {/* ── Mobile: stacked list + visual ── */}
+                    <div className="flex flex-col gap-5 lg:hidden">
+                        {PAIN_POINTS.map((p, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 12 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-40px" }}
+                                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                                className="flex items-start gap-3"
+                            >
+                                <span className="mt-[5px] h-2 w-2 flex-shrink-0 rounded-full" style={{ background: "rgba(255,80,80,0.85)", boxShadow: "0 0 10px rgba(255,80,80,0.5)" }} />
+                                <div className="flex flex-col gap-0.5">
+                                    <p className="text-base font-semibold leading-snug text-white/90">{p.title}</p>
+                                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.42)" }}>{p.desc}</p>
                                 </div>
-                            ))}
-                        </motion.div>
-
-                        {/* Right: Terminal — Operations Before Levata */}
+                            </motion.div>
+                        ))}
                         <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true, margin: "-40px" }}
+                            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                            className="mt-6"
                         >
                             <OperationsBeforeTerminal />
                         </motion.div>
                     </div>
+
+                    {/* ── Desktop: spider / hub layout ── */}
+                    <div className="hidden lg:block">
+                        <ProblemSpider />
+                    </div>
                 </div>
             </section>
-
-            {/* ── Problem → Solution editorial break ──────────── */}
-            <div className="home-theme-dark w-full px-6 py-16 md:py-24 flex items-center justify-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-center"
-                >
-                    <p
-                        className="text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-6xl"
-                        style={{ color: "var(--text-muted)" }}
-                    >
-                        So we built
-                    </p>
-                    <p
-                        className="text-4xl font-semibold leading-tight tracking-tight md:text-5xl lg:text-6xl"
-                        style={{ color: "var(--text-primary)" }}
-                    >
-                        the fix.
-                    </p>
-                </motion.div>
-            </div>
 
             {/* ── 3. OUR SOLUTION (with 4-node flow diagram) ───── */}
             <section id="solution" className="home-theme-dark relative w-full px-6 pt-10 pb-24 md:pt-14 md:pb-28 overflow-hidden">
@@ -1265,18 +1536,13 @@ export default function HeroSection() {
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         className="mx-auto mb-16 flex max-w-4xl flex-col items-center text-center gap-5"
                     >
-                        <SectionLabel text="Our solution" />
-                        <p className="text-sm text-white/45 md:text-base">
-                            This is the system that replaces the duct tape.
-                        </p>
+                        <SectionBeam />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">We don&apos;t sell services.</span>
                             <span className="display-strong-line">We build infrastructure.</span>
                         </h2>
                         <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-lg">
-                            Levata designs and operates integrated AI systems built specifically for your business model
-                            and growth trajectory. Strategy, technology, automation, and digital experience, all
-                            coordinated under one team, one vision, and one accountability structure.
+                            Levata designs and operates custom intelligence systems built for your business. Strategy, automation, technology, and digital experience, all aligned under one team, one vision.
                         </p>
                     </motion.div>
 
@@ -1344,20 +1610,20 @@ export default function HeroSection() {
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-7 text-center"
                 >
                     <h2 className="display-section-title max-w-2xl text-center">
-                        <span className="display-muted-line">See how it all fits</span>
-                        <span className="display-strong-line">into your business.</span>
+                        <span className="display-muted-line">Your next level</span>
+                        <span className="display-strong-line">starts here.</span>
                     </h2>
                     <p className="max-w-xl text-sm leading-relaxed text-white/55 md:text-base">
-                        Book a free strategy call. We&apos;ll map out exactly what your business needs, no commitment required.
+                        Let&apos;s uncover what&apos;s slowing your growth, and what fixes it.
                     </p>
                     <div className="flex flex-col items-center gap-3 sm:flex-row">
                         <button
                             type="button"
                             onClick={openBookCall}
                             className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
                         >
-                            Book a Strategy Call
+                            Book your call
                             <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                         </button>
                     </div>
@@ -1379,7 +1645,7 @@ export default function HeroSection() {
                     <div className="absolute inset-0" style={{
                         background: [
                             "radial-gradient(ellipse 65% 55% at 50% 30%, rgba(123, 85, 234,0.09) 0%, transparent 65%)",
-                            "radial-gradient(ellipse 40% 50% at 85% 70%, rgba(123,85,234,0.07) 0%, transparent 60%)",
+                            "radial-gradient(ellipse 40% 50% at 85% 70%, rgba(204,1,255,0.07) 0%, transparent 60%)",
                         ].join(", ")
                     }} />
                 </div>
@@ -1391,9 +1657,9 @@ export default function HeroSection() {
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 mx-auto mb-12 flex max-w-3xl flex-col items-center text-center gap-5"
                 >
-                    <SectionLabel text="Featured product" />
+                    <SectionBeam />
                     <h2 className="display-section-title max-w-2xl text-center">
-                        <span className="display-muted-line">The AI Sales Workspace</span>
+                        <span className="display-muted-line">Sales Intelligence Platform</span>
                         <span className="display-strong-line">Built for B2B Teams.</span>
                     </h2>
                     <p className="max-w-2xl text-sm leading-relaxed text-white/45 md:text-base">
@@ -1594,10 +1860,10 @@ export default function HeroSection() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
                     >
-                        <SectionLabel text="By the numbers" />
+                        <SectionBeam />
                         <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">The outcomes speak</span>
-                            <span className="display-strong-line">for themselves.</span>
+                            <span className="display-muted-line">What smarter operations</span>
+                            <span className="display-strong-line">deliver.</span>
                         </h2>
                     </motion.div>
 
@@ -1621,125 +1887,78 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* ── 11. WHY CHOOSE LEVATA (3-column feature cards) ── */}
-            <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-24 overflow-hidden">
-                <div className="pointer-events-none absolute inset-0 z-0" style={{
+            {/* ── 11. WHY CHOOSE LEVATA (sticky deck) ── */}
+            <section className="home-theme-dark relative w-full">
+                <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" style={{
                     background: [
-                        "radial-gradient(ellipse 50% 50% at 20% 50%, rgba(123, 85, 234,0.07) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 60% at 15% 50%, rgba(123,85,234,0.07) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 40% 50% at 85% 50%, rgba(123,85,234,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
-                <div className="relative z-10 mx-auto max-w-6xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
-                    >
-                        <SectionLabel text="Why Levata" />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">AI-native.</span>
-                            <span className="display-strong-line">End-to-end. Always-on.</span>
-                        </h2>
-                    </motion.div>
 
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-5">
+                {/* Mobile fallback */}
+                <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-6 block lg:hidden py-14 sm:py-20">
+                    <div className="mb-10 flex flex-col gap-5">
+                        <SectionLabelSide />
+                        <h2 className="display-section-title">
+                            <span className="display-muted-line">Why teams pick Levata.</span>
+                            <span className="display-strong-line">Outcomes, not outputs.</span>
+                        </h2>
+                    </div>
+                    <div className="flex flex-col gap-4">
                         {WHY_LEVATA.map((w, i) => (
                             <motion.div
                                 key={w.num}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                                className="relative flex flex-col rounded-2xl p-8 md:p-9 overflow-hidden"
-                                style={w.featured ? {
-                                    background: "rgba(10,14,28,0.98)",
-                                    border: "1px solid rgba(123, 85, 234,0.22)",
-                                } : {
-                                    background: "var(--home-card-bg)",
-                                    border: "1px solid var(--home-card-border)",
-                                }}
+                                viewport={{ once: true, margin: "-40px" }}
+                                transition={{ duration: 0.55, delay: i * 0.07, ease: [0.16,1,0.3,1] }}
+                                className="rounded-2xl p-7"
+                                style={{ background: "var(--home-card-bg)", border: "1px solid var(--home-card-border)" }}
                             >
-                                {w.featured && (
-                                    <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl" style={{
-                                        background: "radial-gradient(ellipse 80% 45% at 50% -5%, rgba(123, 85, 234,0.16) 0%, transparent 70%)",
-                                    }} />
-                                )}
-
-                                {/* Icon + number row */}
-                                <div className="relative flex items-start justify-between mb-8">
-                                    <div className="flex items-center justify-center rounded-xl w-11 h-11" style={{
-                                        background: "rgba(255,255,255,0.04)",
-                                        border: "1px solid rgba(255,255,255,0.08)",
-                                        color: "rgba(255,255,255,0.55)",
-                                    }}>
-                                        <WhyCardIcon idx={i} />
-                                    </div>
-                                    <span className="text-sm font-semibold tabular-nums" style={{ color: "rgba(255,255,255,0.18)" }}>{w.num}</span>
+                                <div className="flex items-center justify-between mb-5">
+                                    <span className="text-3xl font-bold tabular-nums" style={{ color: "rgba(123,85,234,0.7)" }}>{w.num}.</span>
                                 </div>
-
-                                {/* Title + body */}
-                                <div className="relative flex flex-col gap-3 flex-1 mb-8">
-                                    <h3 className="text-xl font-semibold leading-snug tracking-tight text-white md:text-2xl">{w.title}</h3>
-                                    <p className="text-sm leading-relaxed md:text-[15px]" style={{ color: "rgba(255,255,255,0.5)" }}>{w.body}</p>
-                                </div>
-
-                                {/* Tags */}
-                                <div className="relative flex flex-wrap gap-2">
-                                    {w.tags.map(tag => (
-                                        <span
-                                            key={tag}
-                                            className="rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em]"
-                                            style={{
-                                                border: "1px solid rgba(255,255,255,0.1)",
-                                                background: "rgba(255,255,255,0.03)",
-                                                color: "rgba(255,255,255,0.4)",
-                                            }}
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-
+                                <h3 className="text-lg font-semibold text-white mb-2">{w.title}</h3>
+                                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{w.body}</p>
                             </motion.div>
                         ))}
                     </div>
                 </div>
+
+                {/* Desktop: pinned heading + scrolling cards */}
+                <WhyLevataDeck />
             </section>
 
             <SectionDivider />
 
             {/* ── 12. FINAL CTA ──────────────────────────────── */}
-            <section className="home-theme-dark relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
+            <section className="home-theme-dark relative w-full overflow-hidden px-5 py-12 sm:px-6 sm:py-16 md:py-20">
                 <CTAAurora variant={1} />
                 <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.5), transparent)" }} />
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-5 text-center"
                 >
-                    <SectionLabel text="Get started" />
                     <h2 className="display-section-title max-w-2xl text-center">
                         <span className="display-muted-line">Ready to build intelligence</span>
                         <span className="display-strong-line">into your operations?</span>
                     </h2>
-                    <p className="max-w-xl text-sm leading-relaxed text-white/55 md:text-base">
+                    <p className="max-w-lg text-sm leading-relaxed text-white/55">
                         Book a free strategy call. We&apos;ll map out the system your business needs.
                     </p>
-                    <div className="flex flex-col items-center gap-3 sm:flex-row">
-                        <button
-                            type="button"
-                            onClick={openBookCall}
-                            className="group inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer sm:py-3.5"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
-                        >
-                            Book a Strategy Call
-                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-                        </button>
-                    </div>
+                    <button
+                        type="button"
+                        onClick={openBookCall}
+                        className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
+                        style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+                    >
+                        Book a Strategy Call
+                        <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                    </button>
                 </motion.div>
             </section>
 

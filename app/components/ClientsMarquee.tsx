@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import SectionBeam from "@/app/components/SectionBeam";
 
 // ── Client logos ──────────────────────────────────────────────────────────
 // scale = per-logo size multiplier. Square / tightly-cropped marks need >1
@@ -23,17 +24,6 @@ const CLIENTS: { name: string; file: string; scale?: number }[] = [
 
 const TRACK = [...CLIENTS, ...CLIENTS];
 
-function SectionLabel({ text }: { text: string }) {
-    return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
-    );
-}
 
 function ClientItem({ client }: { client: typeof CLIENTS[number] }) {
     const scale = client.scale ?? 1;
@@ -73,7 +63,7 @@ export default function ClientsMarquee() {
             </div>
             <div className="relative z-10 mx-auto max-w-6xl">
                 <div className="mb-10 flex flex-col items-center gap-5 text-center md:mb-12">
-                    <SectionLabel text="Selected clients" />
+                    <SectionBeam />
                     <h2 className="display-section-title max-w-2xl text-center">
                         <span className="display-muted-line">Trusted by teams that</span>
                         <span className="display-strong-line">expect better systems.</span>

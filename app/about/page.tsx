@@ -5,22 +5,10 @@ import { motion } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
+import SectionLabel from "@/app/components/SectionLabel";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
-
-// ── Section label ──────────────────────────────────────────────────────────
-function SectionLabel({ text }: { text: string }) {
-    return (
-        <div className="inline-flex items-center gap-3">
-            <span className="flex items-center">
-                <span className="animate-label-line" />
-                <span className="animate-label-dot" />
-            </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">{text}</p>
-        </div>
-    );
-}
 
 // ── Monochrome schematic diagrams (mirror homepage §9 WhyVisualHint set) ──
 const MONO_STROKE = "rgba(255,255,255,0.65)";
@@ -124,7 +112,7 @@ export default function AboutPage() {
             {/* ── Hero ─────────────────────────────────────────── */}
             <section
                 data-hero
-                className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
+                className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-44 pt-28 text-center sm:px-6 md:pb-[220px] md:pt-[150px]"
             >
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -132,8 +120,7 @@ export default function AboutPage() {
                     transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 flex flex-col items-center gap-6 max-w-4xl mx-auto"
                 >
-                    <SectionLabel text="About Levata" />
-                    <h1 className="display-hero-title max-w-4xl text-center">
+                                        <h1 className="display-hero-title max-w-4xl text-center">
                         <span className="display-muted-line">We&apos;re not a digital agency.</span>
                         <span className="display-strong-line">We&apos;re an intelligence partner.</span>
                     </h1>
@@ -146,7 +133,7 @@ export default function AboutPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-5 py-3 rounded-full text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Book a Strategy Call
                         </button>
@@ -178,7 +165,7 @@ export default function AboutPage() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="flex flex-col items-center text-center gap-5"
                     >
-                        <SectionLabel text="Who we are" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Building the</span>
                             <span className="display-strong-line">AI-native operations layer.</span>
@@ -244,7 +231,7 @@ export default function AboutPage() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-12 flex flex-col items-center text-center gap-5"
                     >
-                        <SectionLabel text="The team" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">The people behind</span>
                             <span className="display-strong-line">the partnership.</span>
@@ -305,7 +292,7 @@ export default function AboutPage() {
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-12 flex flex-col items-center text-center gap-4"
                     >
-                        <SectionLabel text="Why clients choose us" />
+                        <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
                             <span className="display-muted-line">Four reasons we earn</span>
                             <span className="display-strong-line">long-term partnerships.</span>
@@ -382,8 +369,7 @@ export default function AboutPage() {
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 mx-auto max-w-3xl flex flex-col items-center text-center gap-8"
                 >
-                    <SectionLabel text="Work with us" />
-                    <h2 className="display-section-title max-w-2xl text-center">
+                                        <h2 className="display-section-title max-w-2xl text-center">
                         <span className="display-muted-line">Build the infrastructure</span>
                         <span className="display-strong-line">your business deserves.</span>
                     </h2>
@@ -395,7 +381,7 @@ export default function AboutPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
                         >
                             Book a Free Strategy Call
                         </button>
