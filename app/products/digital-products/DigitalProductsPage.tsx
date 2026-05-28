@@ -7,6 +7,7 @@ import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import SectionLabel from "@/app/components/SectionLabel";
 import SectionLabelSide from "@/app/components/SectionLabelSide";
+import SpotlightGrid from "@/app/components/SpotlightGrid";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -225,6 +226,7 @@ export default function DigitalProductsPage() {
                 data-hero
                 className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
+                <SpotlightGrid />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -236,7 +238,7 @@ export default function DigitalProductsPage() {
                         <span className="display-strong-line">Faster than you thought.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Validated, market-ready products built in weeks — without the 18-month timeline or six-figure burn.
+                        Validated, market-ready products built in weeks, without the 18-month timeline or six-figure burn.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button

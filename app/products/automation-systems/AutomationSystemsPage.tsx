@@ -7,6 +7,7 @@ import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import AutomationVisual from "@/app/components/AutomationVisual";
 import SectionLabel from "@/app/components/SectionLabel";
+import SpotlightGrid from "@/app/components/SpotlightGrid";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -15,6 +16,25 @@ const GREEN = "#FFFFFF";
 const BLUE = "#FFFFFF";
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+// Problem-diagram variants — driven by ONE whileInView on the parent <div>, so the
+// SVG children reveal via variant propagation (reliable on mobile, unlike per-SVG observers).
+const diagramParent = {
+    hidden: { opacity: 0, y: 12 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+};
+const diagramLine = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: (d: number) => ({ pathLength: 1, opacity: 0.6, transition: { duration: 0.9, delay: d, ease: EASE } }),
+};
+const diagramHub = {
+    hidden: { opacity: 0, scale: 0.6 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.6, delay: 0.85, ease: EASE } },
+};
+const diagramPill = {
+    hidden: { opacity: 0, y: 8 },
+    visible: (d: number) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: d, ease: EASE } }),
+};
 
 // ── Count-up hook ─────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2000) {
@@ -99,7 +119,7 @@ const SUB_AUTOMATION = [
         num: "01",
         title: "Eliminate Manual Operations at Scale",
         eyebrow: "Business automation",
-        body: "Every repetitive process — onboarding, invoicing, approvals, reporting — replaced with a reliable automated workflow that runs without human touch.",
+        body: "Every repetitive process (onboarding, invoicing, approvals, reporting) replaced with a reliable automated workflow that runs without human touch.",
         bullets: [
             "End-to-end onboarding and approval workflows",
             "Cross-system data sync, no copy-paste",
@@ -111,7 +131,7 @@ const SUB_AUTOMATION = [
         num: "02",
         title: "AI-Powered Process Intelligence",
         eyebrow: "Decision automation",
-        body: "AI decision engines that prioritise, route, and escalate work — lead scoring, ticket triage, exception handling — using your business rules.",
+        body: "AI decision engines that prioritise, route, and escalate work (lead scoring, ticket triage, exception handling) using your business rules.",
         bullets: [
             "Lead scoring + territory routing",
             "Ticket triage with SLA-aware escalation",
@@ -123,7 +143,7 @@ const SUB_AUTOMATION = [
         num: "03",
         title: "Real-Time Intelligence for Every Decision",
         eyebrow: "Live operations",
-        body: "A single pane of glass for the whole business — live KPIs, anomaly alerts, and cross-system drilldowns updating in real time.",
+        body: "A single pane of glass for the whole business: live KPIs, anomaly alerts, and cross-system drilldowns updating in real time.",
         bullets: [
             "Custom KPI views per team and role",
             "Real-time anomaly detection + alerts",
@@ -144,7 +164,7 @@ const DEPLOYMENT = [
     { num: "01", title: "Operations Audit", body: "Process inventory + bottlenecks ranked by automation impact." },
     { num: "02", title: "Architecture & Stack", body: "Automation architecture designed; tools picked to fit your systems." },
     { num: "03", title: "Build in Staging", body: "Workflows, integrations, and AI logic stress-tested before prod." },
-    { num: "04", title: "Phased Rollout", body: "Deploy in stages — validate each before expanding coverage." },
+    { num: "04", title: "Phased Rollout", body: "Deploy in stages, validating each before expanding coverage." },
     { num: "05", title: "Training & Handoff", body: "Runbooks, docs, and training so your team owns and extends it." },
     { num: "06", title: "Monitor & Expand", body: "Continuous monitoring and expansion as your business scales." },
 ];
@@ -259,6 +279,7 @@ export default function AutomationSystemsPage() {
                 data-hero
                 className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
+                <SpotlightGrid />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -270,7 +291,7 @@ export default function AutomationSystemsPage() {
                         <span className="display-strong-line">Amplify the People.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        We build the systems that eliminate the manual layer — so your team works on what actually moves the business.
+                        We build the systems that eliminate the manual layer, so your team works on what actually moves the business.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -295,15 +316,15 @@ export default function AutomationSystemsPage() {
                         "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
-                <div className="relative z-10 mx-auto max-w-6xl">
-                    <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12">
-                        {/* Left: text */}
+                <div className="relative z-10 mx-auto max-w-4xl">
+                    <div className="flex flex-col items-center gap-10 md:gap-12">
+                        {/* Top: text */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-80px" }}
                             transition={{ duration: 0.7, ease: EASE }}
-                            className="flex flex-col gap-5 text-left"
+                            className="flex flex-col items-center gap-5 text-center"
                         >
                             <SectionLabel />
                             <h2 className="display-section-title">
@@ -317,11 +338,11 @@ export default function AutomationSystemsPage() {
 
                         {/* Right: disconnected systems orbiting a central hub — all in viewBox coords so lines actually meet the cards */}
                         <motion.div
-                            initial={{ opacity: 0, y: 12 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            variants={diagramParent}
+                            initial="hidden"
+                            whileInView="visible"
                             viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.55, ease: EASE }}
-                            className="relative w-full"
+                            className="relative w-full max-w-2xl"
                         >
                             <svg
                                 viewBox="0 0 600 380"
@@ -365,18 +386,15 @@ export default function AutomationSystemsPage() {
                                                         strokeOpacity="0.5"
                                                         strokeWidth="1"
                                                         strokeDasharray="4 5"
-                                                        initial={{ pathLength: 0, opacity: 0 }}
-                                                        animate={{ pathLength: 1, opacity: 0.6 }}
-                                                        transition={{ duration: 0.9, delay: 0.5 + p.delay, ease: EASE }}
+                                                        variants={diagramLine}
+                                                        custom={0.5 + p.delay}
                                                     />
                                                 );
                                             })}
 
                                             {/* Central hub */}
                                             <motion.g
-                                                initial={{ opacity: 0, scale: 0.6 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
+                                                variants={diagramHub}
                                                 style={{ transformOrigin: `${HUB.cx}px ${HUB.cy}px` }}
                                             >
                                                 {/* dark ring around hub to mask line ends */}
@@ -411,9 +429,8 @@ export default function AutomationSystemsPage() {
                                             {pills.map((p) => (
                                                 <motion.g
                                                     key={p.label}
-                                                    initial={{ opacity: 0, y: 8 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    transition={{ duration: 0.5, delay: p.delay, ease: EASE }}
+                                                    variants={diagramPill}
+                                                    custom={p.delay}
                                                 >
                                                     <rect
                                                         x={p.cx - PILL_W / 2}
@@ -475,7 +492,7 @@ export default function AutomationSystemsPage() {
                             <span className="display-strong-line">automation blueprint.</span>
                         </h2>
                         <p className="max-w-xl text-base leading-relaxed text-white/55">
-                            Full architecture, not isolated automations — audit, design, build, intelligence, optimise.
+                            Full architecture, not isolated automations: audit, design, build, intelligence, optimise.
                         </p>
                     </motion.div>
 

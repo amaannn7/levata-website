@@ -6,6 +6,7 @@ import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import SectionLabel from "@/app/components/SectionLabel";
+import SpotlightGrid from "@/app/components/SpotlightGrid";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -236,7 +237,7 @@ const CAPABILITIES: Array<{
         {
             title: "AI Prospect Research",
             description:
-                "Full prospect intel in seconds — company, pain points, buying signals, hooks, and discovery questions ready before every outreach.",
+                "Full prospect intel in seconds: company, pain points, buying signals, hooks, and discovery questions ready before every outreach.",
             bullets: [
                 "Company + industry intel",
                 "Pain points + buying signals",
@@ -248,7 +249,7 @@ const CAPABILITIES: Array<{
         {
             title: "Lead Scoring & Prioritization",
             description:
-                "Every lead scored against your ICP — by industry, role, size, and engagement. Reps always know who to contact first.",
+                "Every lead scored against your ICP by industry, role, size, and engagement. Reps always know who to contact first.",
             bullets: [
                 "ICP fit + grade",
                 "Activity velocity tracking",
@@ -260,7 +261,7 @@ const CAPABILITIES: Array<{
         {
             title: "Personalized Email & Follow-Up",
             description:
-                "Cold email, follow-ups, and breakup emails generated in seconds — tailored to the prospect, your tone, and prior history.",
+                "Cold email, follow-ups, and breakup emails generated in seconds, tailored to the prospect, your tone, and prior history.",
             bullets: [
                 "Cold + 2 follow-ups + breakup",
                 "Tone + custom voice",
@@ -272,7 +273,7 @@ const CAPABILITIES: Array<{
         {
             title: "Call Script Generation",
             description:
-                "Structured scripts for cold, follow-up, discovery, and demo calls — adapted to the prospect, role, and industry.",
+                "Structured scripts for cold, follow-up, discovery, and demo calls, adapted to the prospect, role, and industry.",
             bullets: [
                 "4 call types covered",
                 "Industry-specific talking points",
@@ -439,6 +440,7 @@ export default function SalesIntelligencePage() {
                 data-hero
                 className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
+                <SpotlightGrid />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -450,7 +452,7 @@ export default function SalesIntelligencePage() {
                         <span className="display-strong-line">a pipeline, in hours.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Research, prioritize, outreach, and push qualified opportunities to your CRM — all from one AI workspace.
+                        Research, prioritize, outreach, and push qualified opportunities to your CRM, all from one AI workspace.
                     </p>
                     <div className="mt-2">
                         <button

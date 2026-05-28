@@ -370,6 +370,27 @@ h6 {
   mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 30%, transparent 80%);
 }
 
+/* Cursor-spotlight dot grid — dim grid that brightens near the pointer.
+   Cursor position comes from --mx / --my set by SpotlightGrid.tsx. */
+.spotlight-grid {
+  --mx: 50%;
+  --my: 35%;
+  background-image: radial-gradient(rgba(167, 139, 250, 0.09) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, #000 35%, transparent 85%);
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, #000 35%, transparent 85%);
+}
+.spotlight-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 255, 221, 0.5) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(circle 200px at var(--mx) var(--my), #000 0%, transparent 70%);
+  mask-image: radial-gradient(circle 200px at var(--mx) var(--my), #000 0%, transparent 70%);
+  transition: opacity 0.3s ease;
+}
+
 .text-primary {
   color: var(--text-primary);
 }
