@@ -148,6 +148,7 @@ export default function AboutPage() {
 
             {/* ── Who We Are ───────────────────────────────────── */}
             <section className="relative w-full px-6 py-16 md:py-20 overflow-hidden">
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div aria-hidden className="pointer-events-none absolute z-0" style={{
                     top: "50%", left: "50%", transform: "translate(-50%,-50%)",
                     width: "120vw", height: "500px",

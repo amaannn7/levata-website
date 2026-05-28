@@ -1648,7 +1648,7 @@ export default function HeroSection() {
                         ].join(", ")
                     }} />
                 </div>
-                <div aria-hidden className="pointer-events-none absolute inset-0 home-ai-grid opacity-[0.25]" />
+                <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-bg" />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}

@@ -547,6 +547,7 @@ export default function SalesIntelligencePage() {
                         background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                     }}
                 />
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

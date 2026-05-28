@@ -337,6 +337,7 @@ export default function DigitalProductsPage() {
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
                 }} />
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-[0.7fr_1fr] md:gap-16 lg:gap-20 items-start">
                         <motion.div

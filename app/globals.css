@@ -361,6 +361,15 @@ h6 {
   background-size: 28px 28px;
 }
 
+/* Reusable subtle dot grid — brand lavender, visible on any dark section.
+   Pair with a radial mask so it fades at the edges instead of hard-stopping. */
+.dot-grid-bg {
+  background-image: radial-gradient(rgba(167, 139, 250, 0.13) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 30%, transparent 80%);
+}
+
 .text-primary {
   color: var(--text-primary);
 }
