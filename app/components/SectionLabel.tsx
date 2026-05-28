@@ -9,9 +9,14 @@ export default function SectionLabel() {
     useEffect(() => {
         const el = ref.current;
         if (!el) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+            setVisible(true);
+            return;
+        }
         const obs = new IntersectionObserver(
             ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-            { threshold: 0 }
+            { threshold: 0, rootMargin: "0px 0px -10% 0px" }
         );
         obs.observe(el);
         return () => obs.disconnect();
