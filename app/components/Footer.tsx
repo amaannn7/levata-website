@@ -56,15 +56,12 @@ export default function Footer() {
 
                     {/* Brand column, full width on mobile */}
                     <div className="col-span-2 flex flex-col gap-5 md:col-span-1">
-                        <Link href="/" className="flex items-center gap-2.5 w-fit">
-                            <div className="overflow-hidden rounded-lg flex-shrink-0" style={{ width: 36, height: 36 }}>
-                                <img
-                                    src="/levatalogo.png"
-                                    alt="Levata logo"
-                                    style={{ height: 36, width: "auto", maxWidth: "none", display: "block" }}
-                                />
-                            </div>
-                            <span className="text-lg font-bold tracking-tight text-white">Levata</span>
+                        <Link href="/" className="flex items-center w-fit">
+                            <img
+                                src="/levatalogo.png"
+                                alt="Levata"
+                                style={{ height: 30, width: "auto", maxWidth: "none", display: "block" }}
+                            />
                         </Link>
 
                         <p className="max-w-[260px] text-sm leading-relaxed text-white/45">
