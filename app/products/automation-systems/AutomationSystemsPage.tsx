@@ -366,8 +366,7 @@ export default function AutomationSystemsPage() {
                                                         strokeWidth="1"
                                                         strokeDasharray="4 5"
                                                         initial={{ pathLength: 0, opacity: 0 }}
-                                                        whileInView={{ pathLength: 1, opacity: 0.6 }}
-                                                        viewport={{ once: true, margin: "-60px" }}
+                                                        animate={{ pathLength: 1, opacity: 0.6 }}
                                                         transition={{ duration: 0.9, delay: 0.5 + p.delay, ease: EASE }}
                                                     />
                                                 );
@@ -376,8 +375,7 @@ export default function AutomationSystemsPage() {
                                             {/* Central hub */}
                                             <motion.g
                                                 initial={{ opacity: 0, scale: 0.6 }}
-                                                whileInView={{ opacity: 1, scale: 1 }}
-                                                viewport={{ once: true, margin: "-60px" }}
+                                                animate={{ opacity: 1, scale: 1 }}
                                                 transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
                                                 style={{ transformOrigin: `${HUB.cx}px ${HUB.cy}px` }}
                                             >
@@ -414,8 +412,7 @@ export default function AutomationSystemsPage() {
                                                 <motion.g
                                                     key={p.label}
                                                     initial={{ opacity: 0, y: 8 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    viewport={{ once: true, margin: "-60px" }}
+                                                    animate={{ opacity: 1, y: 0 }}
                                                     transition={{ duration: 0.5, delay: p.delay, ease: EASE }}
                                                 >
                                                     <rect
