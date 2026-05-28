@@ -322,11 +322,10 @@ export default function AutomationSystemsPage() {
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.55, ease: EASE }}
                             className="relative w-full"
-                            style={{ aspectRatio: "16 / 10" }}
                         >
                             <svg
                                 viewBox="0 0 600 380"
-                                className="absolute inset-0 h-full w-full"
+                                className="block h-auto w-full"
                                 fill="none"
                                 preserveAspectRatio="xMidYMid meet"
                             >
