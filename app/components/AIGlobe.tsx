@@ -319,7 +319,7 @@ export default function AIGlobe() {
                 camera={{ position: [0, 0, 4.0], fov: 40 }}
                 gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
                 dpr={[1, 1.75]}
-                style={{ background: "transparent", width: "100%", height: "100%" }}
+                style={{ background: "transparent", width: "100%", height: "100%", pointerEvents: "none" }}
             >
                 <Suspense fallback={null}>
                     <Scene />
