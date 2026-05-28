@@ -24,6 +24,32 @@ function PlusIcon() {
     );
 }
 
+function FileIcon() {
+    return (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M14 2v6h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    );
+}
+
+function XIcon() {
+    return (
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+    );
+}
+
+const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB — within Vercel hobby tier request limit
+const ALLOWED_TYPES = ".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif,.webp";
+
+function formatFileSize(bytes: number): string {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 const INFO_ITEMS = [
     {
         icon: (
@@ -61,11 +87,34 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
     const [country, setCountry] = useState("us");
     const [status, setStatus] = useState<Status>("idle");
     const [errorMsg, setErrorMsg] = useState("");
+    const [attachedFile, setAttachedFile] = useState<File | null>(null);
     const formRef = useRef<HTMLFormElement>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const sectionRef = useRef<HTMLDivElement>(null);
 
     const selected = COUNTRIES.find((c) => c.code === country) ?? COUNTRIES[0];
     const isLoading = status === "loading";
+
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        if (file.size > MAX_FILE_SIZE) {
+            setErrorMsg(`File too large. Max ${MAX_FILE_SIZE / (1024 * 1024)}MB.`);
+            setStatus("error");
+            e.target.value = "";
+            return;
+        }
+        setAttachedFile(file);
+        if (status === "error") {
+            setStatus("idle");
+            setErrorMsg("");
+        }
+    };
+
+    const removeAttachment = () => {
+        setAttachedFile(null);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+    };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -75,13 +124,13 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
         const phoneNumber = (data.get("phone") as string | null)?.trim() ?? "";
         const phone = phoneNumber ? `${selected.dial} ${phoneNumber}` : "";
 
-        const payload = {
-            name: (data.get("name") as string).trim(),
-            email: (data.get("email") as string).trim(),
-            phone: phone || undefined,
-            message: (data.get("message") as string).trim(),
-            source: "Contact Form",
-        };
+        const payload = new FormData();
+        payload.append("name", (data.get("name") as string).trim());
+        payload.append("email", (data.get("email") as string).trim());
+        if (phone) payload.append("phone", phone);
+        payload.append("message", (data.get("message") as string).trim());
+        payload.append("source", "Contact Form");
+        if (attachedFile) payload.append("attachment", attachedFile);
 
         setStatus("loading");
         setErrorMsg("");
@@ -89,8 +138,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
         try {
             const res = await fetch("/api/contact", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
+                body: payload, // browser sets multipart Content-Type with boundary
             });
             const json = await res.json() as { success?: boolean; error?: string };
             if (!res.ok || !json.success) {
@@ -100,6 +148,8 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                 setStatus("success");
                 formRef.current?.reset();
                 setCountry("us");
+                setAttachedFile(null);
+                if (fileInputRef.current) fileInputRef.current.value = "";
             }
         } catch {
             setErrorMsg("Network error. Please check your connection and try again.");
@@ -255,18 +305,49 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                         />
                                     </div>
 
-                                    {/* Attach file (decorative, no backend) */}
+                                    {/* Attach file */}
                                     <div className="flex flex-wrap items-center gap-x-7 gap-y-3 pt-1" data-form-field>
-                                        <button
-                                            type="button"
+                                        <input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            accept={ALLOWED_TYPES}
+                                            onChange={handleFileSelect}
                                             disabled={isLoading}
-                                            className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40 transition-colors hover:text-white/70 disabled:opacity-40"
-                                        >
-                                            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-white/30">
-                                                <PlusIcon />
-                                            </span>
-                                            Attach File
-                                        </button>
+                                            className="hidden"
+                                            aria-hidden
+                                        />
+                                        {!attachedFile ? (
+                                            <button
+                                                type="button"
+                                                onClick={() => fileInputRef.current?.click()}
+                                                disabled={isLoading}
+                                                className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40 transition-colors hover:text-white/70 disabled:opacity-40"
+                                            >
+                                                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-white/30">
+                                                    <PlusIcon />
+                                                </span>
+                                                Attach File
+                                            </button>
+                                        ) : (
+                                            <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3 py-1.5">
+                                                <span className="text-white/55"><FileIcon /></span>
+                                                <span className="max-w-[180px] truncate text-xs font-medium text-white/75 sm:max-w-[240px]">
+                                                    {attachedFile.name}
+                                                </span>
+                                                <span className="text-[10px] font-mono text-white/35">
+                                                    {formatFileSize(attachedFile.size)}
+                                                </span>
+                                                <button
+                                                    type="button"
+                                                    onClick={removeAttachment}
+                                                    disabled={isLoading}
+                                                    aria-label="Remove attachment"
+                                                    className="ml-1 flex h-5 w-5 items-center justify-center rounded-full border border-white/15 text-white/45 transition-colors hover:border-white/30 hover:text-white/80 disabled:opacity-40"
+                                                >
+                                                    <XIcon />
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Error message */}

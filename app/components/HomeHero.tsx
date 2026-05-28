@@ -293,7 +293,7 @@ function CardRevenue() {
                     <motion.div
                         className="h-8 w-8 rounded-lg flex-shrink-0"
                         style={{
-                            background: "linear-gradient(135deg, #7B55EA 0%, #22D3EE 100%)",
+                            background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)",
                         }}
                         initial={{ opacity: 0, x: 12 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -326,11 +326,19 @@ export default function HomeHero() {
                 style={{ background: "radial-gradient(ellipse 70% 55% at 50% -5%, rgba(123, 85, 234,0.06) 0%, transparent 60%)" }}
             />
 
-            {/* Mobile only — particle cloud as a subtle background behind hero text */}
+            {/* Mobile only — small particle cloud floating in front of the text, centered, subtle */}
             <div
                 aria-hidden
-                className="pointer-events-none absolute inset-0 z-10 md:hidden"
-                style={{ opacity: 0.32 }}
+                className="pointer-events-none absolute z-30 md:hidden"
+                style={{
+                    top: "140px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "300px",
+                    height: "300px",
+                    opacity: 0.5,
+                    mixBlendMode: "screen",
+                }}
             >
                 <AIGlobe />
             </div>

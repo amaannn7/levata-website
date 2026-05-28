@@ -131,19 +131,51 @@ function buildHtml(fields: {
 
 const isDev = process.env.NODE_ENV === "development";
 const hasRealKey = !!process.env.RESEND_API_KEY && !process.env.RESEND_API_KEY.startsWith("re_your_key");
+const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024; // 4MB
 
 export async function POST(req: Request) {
     try {
-        const body = await req.json() as {
-            name?: string;
-            email?: string;
-            company?: string;
-            phone?: string;
-            message?: string;
-            source?: string;
-        };
+        const contentType = req.headers.get("content-type") || "";
 
-        const { name, email, company, phone, message, source } = body;
+        let name: string | undefined;
+        let email: string | undefined;
+        let company: string | undefined;
+        let phone: string | undefined;
+        let message: string | undefined;
+        let source: string | undefined;
+        let attachment: { filename: string; content: Buffer } | undefined;
+
+        if (contentType.includes("multipart/form-data")) {
+            const form = await req.formData();
+            name = form.get("name")?.toString();
+            email = form.get("email")?.toString();
+            company = form.get("company")?.toString() || undefined;
+            phone = form.get("phone")?.toString() || undefined;
+            message = form.get("message")?.toString();
+            source = form.get("source")?.toString() || undefined;
+
+            const file = form.get("attachment");
+            if (file instanceof File && file.size > 0) {
+                if (file.size > MAX_ATTACHMENT_BYTES) {
+                    return NextResponse.json(
+                        { error: `Attachment too large. Max ${MAX_ATTACHMENT_BYTES / (1024 * 1024)}MB.` },
+                        { status: 400 }
+                    );
+                }
+                const buffer = Buffer.from(await file.arrayBuffer());
+                attachment = { filename: file.name, content: buffer };
+            }
+        } else {
+            const body = await req.json() as {
+                name?: string;
+                email?: string;
+                company?: string;
+                phone?: string;
+                message?: string;
+                source?: string;
+            };
+            ({ name, email, company, phone, message, source } = body);
+        }
 
         if (!name?.trim() || !email?.trim() || !message?.trim()) {
             return NextResponse.json(
@@ -168,7 +200,7 @@ export async function POST(req: Request) {
 
         if (isDev && !hasRealKey) {
             console.log("\n📬 [contact/route] DEV MODE — email not sent. Payload:");
-            console.log({ name, email, company, phone, message, source, timestamp });
+            console.log({ name, email, company, phone, message, source, timestamp, attachment: attachment ? `${attachment.filename} (${attachment.content.length} bytes)` : "none" });
             console.log("Add a real RESEND_API_KEY to .env.local to send actual emails.\n");
             return NextResponse.json({ success: true });
         }
@@ -181,6 +213,7 @@ export async function POST(req: Request) {
             replyTo: email,
             subject: `New Levata Inquiry – ${name}`,
             html: buildHtml({ name, email, company, phone, message, source, timestamp }),
+            ...(attachment && { attachments: [attachment] }),
         });
 
         return NextResponse.json({ success: true });

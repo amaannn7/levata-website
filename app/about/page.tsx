@@ -112,7 +112,7 @@ export default function AboutPage() {
             {/* ── Hero ─────────────────────────────────────────── */}
             <section
                 data-hero
-                className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-44 pt-28 text-center sm:px-6 md:pb-[220px] md:pt-[150px]"
+                className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -120,9 +120,9 @@ export default function AboutPage() {
                     transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 flex flex-col items-center gap-6 max-w-4xl mx-auto"
                 >
-                                        <h1 className="display-hero-title max-w-4xl text-center">
+                                        <h1 className="display-hero-title max-w-3xl text-center">
                         <span className="display-muted-line">We&apos;re not a digital agency.</span>
-                        <span className="display-strong-line">We&apos;re an intelligence partner.</span>
+                        <span className="display-strong-line">Your intelligence partner.</span>
                     </h1>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                         Levata builds AI-powered systems that help businesses move faster, decide smarter, and
@@ -133,7 +133,7 @@ export default function AboutPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-5 py-3 rounded-full text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
                         >
                             Book a Strategy Call
                         </button>
@@ -381,7 +381,7 @@ export default function AboutPage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
                         >
                             Book a Free Strategy Call
                         </button>

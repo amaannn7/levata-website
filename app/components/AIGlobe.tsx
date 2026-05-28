@@ -64,40 +64,6 @@ const NEURAL = (() => {
     return { nodes, links };
 })();
 
-// Lorenz attractor trajectory — iterative chaotic curve
-const LORENZ = (() => {
-    const sigma = 10, rho = 28, beta = 8 / 3, dt = 0.006;
-    let x = 0.1, y = 0, z = 0;
-    const arr = new Float32Array(PARTICLE_COUNT * 3);
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const dx = sigma * (y - x);
-        const dy = x * (rho - z) - y;
-        const dz = x * y - beta * z;
-        x += dx * dt;
-        y += dy * dt;
-        z += dz * dt;
-        arr[i * 3] = x;
-        arr[i * 3 + 1] = y;
-        arr[i * 3 + 2] = z;
-    }
-    // Center and normalise to ~unit box
-    let cx = 0, cy = 0, cz = 0;
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-        cx += arr[i * 3]; cy += arr[i * 3 + 1]; cz += arr[i * 3 + 2];
-    }
-    cx /= PARTICLE_COUNT; cy /= PARTICLE_COUNT; cz /= PARTICLE_COUNT;
-    let maxAbs = 0;
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-        arr[i * 3]     -= cx;
-        arr[i * 3 + 1] -= cy;
-        arr[i * 3 + 2] -= cz;
-        maxAbs = Math.max(maxAbs, Math.abs(arr[i * 3]), Math.abs(arr[i * 3 + 1]), Math.abs(arr[i * 3 + 2]));
-    }
-    const scale = 0.75 / maxAbs;
-    for (let i = 0; i < arr.length; i++) arr[i] *= scale;
-    return arr;
-})();
-
 const SHAPES: ShapeFn[] = [
     // 0 — Neural-web cluster (particles ride along inter-node connections)
     (i) => {
@@ -148,9 +114,21 @@ const SHAPES: ShapeFn[] = [
             return [xA * (1 - rt) + xB * rt, (t - 0.5) * H, zA * (1 - rt) + zB * rt];
         }
     },
-    // 3 — Lorenz attractor (chaotic butterfly curve, sampled trajectory)
-    (i) => [LORENZ[i * 3], LORENZ[i * 3 + 1], LORENZ[i * 3 + 2]],
-    // 4 — Galaxy spiral, 3 arms with perpendicular scatter
+    // 3 — Twisted torus knot (flowing 3D curve, p=2 q=5 knot)
+    (i, n) => {
+        const p = 2, q = 5;
+        const t = (i / n) * Math.PI * 2;
+        const R = 0.58;
+        const r = 0.18;
+        const cx = (R + r * Math.cos(q * t)) * Math.cos(p * t);
+        const cy = r * Math.sin(q * t);
+        const cz = (R + r * Math.cos(q * t)) * Math.sin(p * t);
+        // small radial scatter so the knot reads as a tube, not a hairline
+        const ang = (i * 7.31) % (Math.PI * 2);
+        const j = 0.05;
+        return [cx + Math.cos(ang) * j, cy + Math.sin(ang) * j * 0.6, cz + Math.sin(ang) * j];
+    },
+    // 4 — Galaxy spiral, 3 arms with perpendicular scatter, tilted off-axis
     (i, n) => {
         const arms = 3;
         const arm = i % arms;
@@ -160,11 +138,13 @@ const SHAPES: ShapeFn[] = [
         const theta = (arm / arms) * Math.PI * 2 + r * pitch;
         const sideways = ((i * 0.31) % 1 - 0.5) * 0.05;
         const yJitter = ((i * 0.71) % 1 - 0.5) * 0.1;
-        return [
-            Math.cos(theta) * r + Math.cos(theta + Math.PI / 2) * sideways,
-            yJitter,
-            Math.sin(theta) * r + Math.sin(theta + Math.PI / 2) * sideways,
-        ];
+        const x = Math.cos(theta) * r + Math.cos(theta + Math.PI / 2) * sideways;
+        const yFlat = yJitter;
+        const z = Math.sin(theta) * r + Math.sin(theta + Math.PI / 2) * sideways;
+        // Tilt the disc ~35° around X axis so the spiral face is visible from the front
+        const tilt = 0.6;
+        const cT = Math.cos(tilt), sT = Math.sin(tilt);
+        return [x, yFlat * cT - z * sT, yFlat * sT + z * cT];
     },
 ];
 

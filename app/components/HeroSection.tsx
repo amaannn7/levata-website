@@ -1461,9 +1461,8 @@ export default function HeroSection() {
             <section id="problem" className="home-theme-dark relative w-full px-6 py-20 md:py-28 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 55% 60% at 50% 50%, rgba(204,1,255,0.05) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 40% 40% at 15% 20%, rgba(204,1,255,0.04) 0%, transparent 65%)",
-                        "radial-gradient(ellipse 35% 40% at 85% 80%, rgba(204,1,255,0.04) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 55% 50% at 50% 25%, rgba(123, 85, 234,0.08) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 40% 45% at 15% 75%, rgba(123, 85, 234,0.05) 0%, transparent 60%)",
                     ].join(", "),
                 }} />
                 <div className="relative z-10 mx-auto max-w-6xl">

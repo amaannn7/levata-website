@@ -427,7 +427,7 @@ export default function AIIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
                         >
                             Book a Strategy Call
                         </button>
@@ -552,7 +552,7 @@ export default function AIIntelligencePage() {
                                     type="button"
                                     onClick={openBookCall}
                                     className="mt-2 inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90"
-                                    style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
+                                    style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
                                 >
                                     Discuss your AI build →
                                 </button>
@@ -907,7 +907,7 @@ export default function AIIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #4F8FFF 0%, #7B55EA 100%)" }}
+                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
                         >
                             Book Your AI Strategy Session
                         </button>
