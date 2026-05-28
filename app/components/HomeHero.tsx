@@ -344,14 +344,14 @@ export default function HomeHero() {
             </div>
 
             {/* Content layer (left text / right globe) */}
-            <div className="relative z-20 mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 pb-20 pt-28 sm:px-10 sm:pb-24 md:gap-14 md:pt-32 lg:grid-cols-[1fr_400px] lg:gap-20 lg:min-h-[min(100vh,880px)] lg:px-16 lg:py-0 xl:px-20">
+            <div className="relative z-20 mx-auto grid w-full max-w-[1440px] items-center gap-10 px-6 pb-20 pt-28 sm:px-10 sm:pb-24 md:gap-14 md:pt-32 lg:grid-cols-[1fr_360px] lg:gap-16 lg:min-h-[min(100vh,880px)] lg:px-16 lg:py-0 xl:px-20">
                 <div className="flex flex-col items-start text-left">
                     <motion.h1
                         id="hero-heading"
                         initial={{ opacity: 0, y: 18 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.85, delay: 0.18, ease: EASE }}
-                        className="display-hero-title max-w-2xl"
+                        className="display-hero-title max-w-4xl"
                     >
                         <span className="display-muted-line">Custom intelligence for</span>
                         <span className="display-strong-line">

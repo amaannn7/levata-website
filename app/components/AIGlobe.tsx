@@ -302,13 +302,7 @@ function Rig() {
 
 // ── Scene ─────────────────────────────────────────────────────────────────
 function Scene() {
-    return (
-        <>
-            <fog attach="fog" args={["#07080F", 4, 9]} />
-            <ambientLight intensity={0.3} />
-            <Rig />
-        </>
-    );
+    return <Rig />;
 }
 
 // ── AIGlobe, main export ──────────────────────────────────────────────────
@@ -324,7 +318,7 @@ export default function AIGlobe() {
                 <Suspense fallback={null}>
                     <Scene />
                     <EffectComposer>
-                        <Bloom intensity={0.6} luminanceThreshold={0.2} luminanceSmoothing={0.85} mipmapBlur />
+                        <Bloom intensity={0.35} luminanceThreshold={0.55} luminanceSmoothing={0.3} />
                     </EffectComposer>
                 </Suspense>
             </Canvas>
