@@ -876,6 +876,7 @@ export default function SalesIntelligencePage() {
                         background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 85, 234,0.08) 0%, transparent 65%)",
                     }}
                 />
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -985,6 +986,7 @@ export default function SalesIntelligencePage() {
 
             {/* ── 7. FAQ ───────────────────────────────────── */}
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

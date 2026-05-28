@@ -533,7 +533,7 @@ export default function DigitalProductsPage() {
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(123, 85, 234,0.05) 0%, transparent 65%)",
                 }} />
-                <div className="hero-grid-bg pointer-events-none absolute inset-0 z-0 opacity-30" />
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-5xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -622,6 +622,7 @@ export default function DigitalProductsPage() {
 
             {/* ── 7. FAQ ── */}
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

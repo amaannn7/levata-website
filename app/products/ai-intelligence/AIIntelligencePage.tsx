@@ -783,6 +783,7 @@ export default function AIIntelligencePage() {
 
             {/* ── 7. DELIVERY PROCESS, Zig-zag rail with alternating steps ── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-5xl">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

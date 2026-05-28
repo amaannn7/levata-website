@@ -286,6 +286,7 @@ export default function AboutPage() {
                         "radial-gradient(ellipse 40% 40% at 20% 80%, rgba(123, 85, 234,0.06) 0%, transparent 60%)",
                     ].join(", "),
                 }} />
+                <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-bg" />
 
                 <div className="relative z-10 mx-auto max-w-6xl">
                     <motion.div
