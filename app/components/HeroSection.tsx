@@ -1300,8 +1300,8 @@ function ProblemSpider() {
     const spokes = SPOKE_ENDS.map((e, i) => ({
         x1: cx, y1: cy, x2: e.x, y2: e.y,
         grad: `psp_${i}`,
-        lineDelay: 0.4 + i * 0.1,
-        dotDelay: 1.2 + i * 0.5,
+        lineDelay: 0.05 + i * 0.04,
+        dotDelay: 0.3 + i * 0.15,
     }));
 
     return (
@@ -1309,7 +1309,7 @@ function ProblemSpider() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.45, ease: EASE }}
+            transition={{ duration: 0.3, ease: EASE }}
             className="relative mx-auto w-full max-w-4xl"
             style={{ aspectRatio: `${W} / ${H}` }}
         >
@@ -1344,7 +1344,7 @@ function ProblemSpider() {
                         initial={{ pathLength: 0, opacity: 0 }}
                         whileInView={{ pathLength: 1, opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.7, delay: lineDelay, ease: EASE }}
+                        transition={{ duration: 0.45, delay: lineDelay, ease: EASE }}
                     />
                 ))}
 
@@ -1370,13 +1370,13 @@ function ProblemSpider() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+                    transition={{ duration: 0.4, delay: 0.08, ease: EASE }}
                 />
 
                 {/* Pain point nodes — all in SVG coords, dot at exact spoke tip */}
                 {SPOKE_ENDS.map((end, i) => {
                     const isLeft = end.x < cx;
-                    const nodeDelay = 0.25 + i * 0.07;
+                    const nodeDelay = 0.1 + i * 0.05;
                     const textAnchor = isLeft ? "end" : "start";
                     const titleX = isLeft ? end.x - 14 : end.x + 14;
                     const descX  = isLeft ? end.x - 14 : end.x + 14;
@@ -1387,7 +1387,7 @@ function ProblemSpider() {
                             initial={{ opacity: 0, x: isLeft ? -8 : 8 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: nodeDelay, ease: EASE }}
+                            transition={{ duration: 0.45, delay: nodeDelay, ease: EASE }}
                         >
                             {/* Pulsing endpoint dot */}
                             <motion.circle
@@ -1439,7 +1439,7 @@ function ProblemSpider() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
+                transition={{ duration: 0.5, delay: 0.05, ease: EASE }}
             >
                 <OperationsBeforeTerminal />
             </motion.div>

@@ -6,6 +6,7 @@ import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import SectionLabel from "@/app/components/SectionLabel";
+import SectionLabelSide from "@/app/components/SectionLabelSide";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -120,13 +121,14 @@ export default function AboutPage() {
                     transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 flex flex-col items-center gap-6 max-w-4xl mx-auto"
                 >
-                                        <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">We&apos;re not a digital agency.</span>
-                        <span className="display-strong-line">Your intelligence partner.</span>
+                                        <h1 className="display-hero-title max-w-4xl text-center">
+                        <span className="display-muted-line">Most agencies build assets.</span>
+                        <span className="display-strong-line">We build advantage.</span>
                     </h1>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Levata builds AI-powered systems that help businesses move faster, decide smarter, and
-                        compete at a level that wasn&apos;t possible before.
+                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                        Every business has hidden inefficiencies, disconnected systems, and untapped leverage
+                        that limit its ability to operate and scale effectively. We help you identify them and
+                        engineer smarter ways to operate.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -135,7 +137,7 @@ export default function AboutPage() {
                             className="relative px-5 py-3 rounded-full text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                             data-cta="primary"
                         >
-                            Book a Strategy Call
+                            Book a Consultation Call
                         </button>
                     </div>
                 </motion.div>
@@ -158,58 +160,71 @@ export default function AboutPage() {
                     ].join(", "),
                 }} />
 
-                <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex flex-col items-center text-center gap-5"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Building the</span>
-                            <span className="display-strong-line">AI-native operations layer.</span>
-                        </h2>
-                    </motion.div>
+                <div className="relative z-10 mx-auto w-full max-w-6xl">
+                    {/* Asymmetric: heading left, narrative right */}
+                    <div className="grid grid-cols-1 gap-10 md:grid-cols-[0.8fr_1fr] md:gap-14 lg:gap-20 md:items-start">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                            className="flex flex-col gap-5 md:sticky md:top-28"
+                        >
+                            <SectionLabelSide />
+                            <h2 className="display-section-title">
+                                <span className="display-muted-line">Intelligence,</span>
+                                <span className="display-strong-line">Built.</span>
+                            </h2>
+                        </motion.div>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="mt-8 max-w-2xl text-center text-base leading-relaxed text-white/55 md:text-[1.05rem]"
-                    >
-                        We founded Levata to close the gap between powerful AI technology and the businesses
-                        that need it most. Not through software subscriptions or one-off projects, but as a
-                        genuine systems partner with end-to-end accountability for every outcome we promise.
-                    </motion.p>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            className="flex flex-col gap-5 text-base leading-relaxed text-white/55 md:text-[1.05rem]"
+                        >
+                            <p>
+                                We founded Levata to help businesses transition into a new era of operation, where
+                                AI, automation, and intelligent layers are embedded into the foundation of how
+                                companies operate, grow, and scale.
+                            </p>
+                            <p>
+                                Our approach focuses on building connected systems that improve operations, support
+                                scale, and drive measurable business growth instead of relying on fragmented tools
+                                or short-term solutions.
+                            </p>
+                        </motion.div>
+                    </div>
 
+                    {/* Vision — highlighted statement band */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                        className="mt-10 w-full max-w-2xl rounded-2xl p-px"
+                        className="mt-14 w-full overflow-hidden rounded-2xl p-px md:mt-20"
                         style={{
                             background:
-                                "linear-gradient(135deg, rgba(123, 85, 234,0.35) 0%, rgba(255,255,255,0.06) 50%, rgba(123, 85, 234,0.35) 100%)",
+                                "linear-gradient(135deg, rgba(123,85,234,0.4) 0%, rgba(255,255,255,0.05) 50%, rgba(0,255,221,0.28) 100%)",
                         }}
                     >
                         <div
-                            className="relative flex flex-col items-center rounded-[15px] p-7 text-center md:p-8"
-                            style={{
-                                background: "rgba(23,26,34,0.98)",
-                                border: "1px solid rgba(255,255,255,0.04)",
-                            }}
+                            className="relative overflow-hidden rounded-[15px] p-8 md:p-10"
+                            style={{ background: "rgba(14,16,22,0.98)" }}
                         >
-                            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
-                                Our vision
-                            </p>
-                            <p className="text-lg font-medium leading-snug text-white/90 md:text-xl">
-                                &ldquo;To make AI-powered operations the standard for every ambitious business,
-                                not just the enterprise.&rdquo;
-                            </p>
+                            <div aria-hidden className="absolute left-0 top-0 bottom-0 w-1"
+                                style={{ background: "linear-gradient(180deg, #7B55EA 0%, #00FFDD 100%)" }} />
+                            <div aria-hidden className="pointer-events-none absolute inset-0"
+                                style={{ background: "radial-gradient(ellipse 55% 90% at 0% 50%, rgba(123,85,234,0.12) 0%, transparent 60%)" }} />
+                            <div className="relative flex flex-col gap-3 pl-4 md:pl-6">
+                                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/35">
+                                    Our vision
+                                </p>
+                                <p className="max-w-3xl text-xl font-medium leading-snug text-white/90 md:text-2xl">
+                                    To help businesses unlock scalable growth through intelligent infrastructure.
+                                </p>
+                            </div>
                         </div>
                     </motion.div>
                 </div>
@@ -234,12 +249,12 @@ export default function AboutPage() {
                     >
                         <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">The people behind</span>
-                            <span className="display-strong-line">the partnership.</span>
+                            <span className="display-muted-line">The people building</span>
+                            <span className="display-strong-line">what&apos;s next.</span>
                         </h2>
                         <p className="max-w-xl text-base text-white/45 leading-relaxed md:text-[1.05rem]">
-                            A focused team of strategists, engineers, and AI specialists obsessed with shipping
-                            outcomes, not deliverables.
+                            Bringing together strategy, technology, and operational thinking to help businesses
+                            build what comes next.
                         </p>
                     </motion.div>
 
@@ -375,8 +390,10 @@ export default function AboutPage() {
                         <span className="display-muted-line">Build the infrastructure</span>
                         <span className="display-strong-line">your business deserves.</span>
                     </h2>
-                    <p className="max-w-md text-base text-white/50 leading-relaxed">
-                        No pitch. No pressure. Just clarity on what&apos;s possible.
+                    <p className="max-w-xl text-base text-white/50 leading-relaxed">
+                        Discover what becomes possible when intelligence is built into the foundation of your
+                        business. If you&apos;re ready to improve the way your business operates and scales,
+                        we&apos;re ready to talk.
                     </p>
                     <div className="flex flex-col items-center gap-3 sm:flex-row">
                         <button
@@ -385,7 +402,7 @@ export default function AboutPage() {
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                             data-cta="primary"
                         >
-                            Book a Free Strategy Call
+                            Book a Consultation
                         </button>
 
                     </div>

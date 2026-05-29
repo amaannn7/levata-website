@@ -15,14 +15,14 @@ export default function ContactHero() {
             <div className="relative z-10 mb-4">
                             </div>
 
-            <h1 className="display-hero-title max-w-3xl relative z-10 mb-6 text-center">
-                <span className="display-muted-line">The intelligence layer</span>
+            <h1 className="display-hero-title max-w-4xl relative z-10 mb-6 text-center">
+                <span className="display-muted-line">Build the intelligence layer</span>
                 <span className="display-strong-line">your business deserves.</span>
             </h1>
 
-            <p className="relative z-10 mb-8 max-w-[32rem] text-base leading-7 text-[#A1A1AA]">
-                Tell us about your business. We&apos;ll come back with a clear path to AI-powered operations
-                within 48 hours.
+            <p className="relative z-10 mb-8 max-w-[34rem] text-base leading-7 text-[#A1A1AA]">
+                Tell us about your business, operations, and goals. We&apos;ll assess where smarter systems,
+                automation, and AI can unlock greater efficiency, visibility, and growth.
             </p>
             <HeroHorizon />
         </section>
