@@ -6,7 +6,6 @@ import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import SectionLabel from "@/app/components/SectionLabel";
-import SpotlightGrid from "@/app/components/SpotlightGrid";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -440,7 +439,6 @@ export default function SalesIntelligencePage() {
                 data-hero
                 className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
             >
-                <SpotlightGrid />
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}

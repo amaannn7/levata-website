@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import SectionLabel from "@/app/components/SectionLabel";
-import SpotlightGrid from "@/app/components/SpotlightGrid";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
@@ -13,7 +12,6 @@ export default function ContactHero() {
             className="relative z-10 flex flex-1 flex-col items-center justify-start overflow-hidden text-center px-6"
             style={{ paddingTop: "calc(60px + 9.5vw)", paddingBottom: "clamp(60px, 8vw, 120px)" }}
         >
-            <SpotlightGrid />
             <div className="relative z-10 mb-4">
                             </div>
 
