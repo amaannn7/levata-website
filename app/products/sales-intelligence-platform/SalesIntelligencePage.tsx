@@ -457,7 +457,7 @@ export default function SalesIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+                            data-cta="primary"
                         >
                             Start Your Free Trial
                         </button>
@@ -1043,7 +1043,7 @@ export default function SalesIntelligencePage() {
                             type="button"
                             onClick={openBookCall}
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+                            data-cta="primary"
                         >
                             Book a Demo
                         </button>

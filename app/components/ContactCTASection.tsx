@@ -365,7 +365,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                             type="submit"
                                             disabled={isLoading}
                                             className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 sm:px-6 sm:py-3 disabled:opacity-60 disabled:cursor-not-allowed"
-                                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+                                            data-cta="primary"
                                         >
                                             {isLoading ? (
                                                 <span className="flex items-center gap-2">

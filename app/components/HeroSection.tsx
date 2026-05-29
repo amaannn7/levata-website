@@ -1621,7 +1621,7 @@ export default function HeroSection() {
                             type="button"
                             onClick={openBookCall}
                             className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
-                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+                            data-cta="primary"
                         >
                             Book your call
                             <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
@@ -1954,7 +1954,7 @@ export default function HeroSection() {
                         type="button"
                         onClick={openBookCall}
                         className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
-                        style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+                        data-cta="primary"
                     >
                         Book a Strategy Call
                         <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>

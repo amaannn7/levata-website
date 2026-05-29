@@ -391,6 +391,24 @@ h6 {
   transition: opacity 0.3s ease;
 }
 
+/* Primary CTA — gradient-border ghost. Dark interior + gradient ring, fills on hover.
+   Applied via data-cta="primary" so existing button classes (shape, padding) stay. */
+[data-cta="primary"] {
+  color: #ffffff;
+  background:
+    linear-gradient(#0E1014, #0E1014) padding-box,
+    linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%) border-box;
+  border: 1.5px solid transparent;
+  transition: background 0.35s ease, color 0.3s ease, box-shadow 0.35s ease;
+}
+[data-cta="primary"]:hover {
+  background:
+    linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%) padding-box,
+    linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%) border-box;
+  color: #07080F;
+  box-shadow: 0 8px 30px rgba(123, 85, 234, 0.28);
+}
+
 .text-primary {
   color: var(--text-primary);
 }

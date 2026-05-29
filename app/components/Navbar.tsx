@@ -412,7 +412,7 @@ export default function Navbar() {
                         <Link
                             href="/contact"
                             className="hidden md:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90"
-                            style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+                            data-cta="primary"
                         >
                             Contact Us
                         </Link>
@@ -540,7 +540,7 @@ export default function Navbar() {
                                         type="button"
                                         onClick={triggerBookCall}
                                         className="w-full rounded-2xl py-4 text-center text-[15px] font-semibold text-white transition-opacity hover:opacity-90"
-                                        style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)" }}
+                                        data-cta="primary"
                                     >
                                         Book a Strategy Call
                                     </button>

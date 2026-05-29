@@ -123,6 +123,31 @@ function WebsiteIllustration({
                         <rect x="54" y="236" width="40" height="2.5" rx="1" fill="rgba(255,255,255,0.18)" />
                     </motion.g>
 
+                    {/* Floating conversion-analytics card */}
+                    <motion.g
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={inView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.5, delay: 0.6, ease: EASE }}
+                    >
+                        <motion.g
+                            animate={reduced ? undefined : { y: [0, -3, 0] }}
+                            transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                            <rect x="244" y="208" width="100" height="58" rx="9" fill="rgba(12,14,20,0.98)" stroke={`${CYAN}, 0.5)`} strokeWidth="1.2" />
+                            <text x="256" y="224" fontFamily={MONO} fontSize="6" letterSpacing="0.18em" fill="rgba(255,255,255,0.5)">
+                                CONVERSION
+                            </text>
+                            <text x="256" y="242" fontFamily={MONO} fontSize="13" fontWeight="700" fill="white">
+                                +24%
+                            </text>
+                            <polyline
+                                points="256,258 268,253 280,255 292,247 304,249 318,240 332,236"
+                                fill="none" stroke={`${CYAN}, 0.95)`} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"
+                            />
+                            <path d="M332 236 L327 237 M332 236 L331 241" stroke={`${CYAN}, 0.95)`} strokeWidth="1.4" strokeLinecap="round" />
+                        </motion.g>
+                    </motion.g>
+
                     {/* Cursor pointer hovering over CTA */}
                     <motion.g
                         initial={{ opacity: 0, x: -10, y: 10 }}
@@ -250,6 +275,11 @@ function PlatformIllustration({
                                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                             />
                         )}
+                        {/* Replicated instances behind hub — implies horizontal scaling */}
+                        <rect x="160" y="128" width="84" height="54" rx="8"
+                            fill="rgba(20,22,28,0.55)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+                        <rect x="154" y="123" width="84" height="54" rx="8"
+                            fill="rgba(20,22,28,0.8)" stroke="rgba(255,255,255,0.16)" strokeWidth="1" />
                         <rect x="148" y="118" width="84" height="54" rx="8"
                             fill="rgba(20,22,28,0.98)"
                             stroke={`${CYAN}, 0.55)`}
@@ -309,8 +339,15 @@ function EcommerceIllustration({
                             stroke="rgba(255,255,255,0.42)"
                             strokeWidth="1.6"
                         />
-                        {/* Speaker notch */}
-                        <rect x="174" y="44" width="32" height="4" rx="2" fill="rgba(255,255,255,0.18)" />
+                        {/* Dynamic Island */}
+                        <rect x="170" y="41" width="40" height="9" rx="4.5" fill="rgba(0,0,0,0.65)" stroke="rgba(255,255,255,0.12)" strokeWidth="0.6" />
+                        <circle cx="203" cy="45.5" r="1.8" fill="rgba(255,255,255,0.28)" />
+
+                        {/* Status bar */}
+                        <text x="140" y="58" fontFamily={MONO} fontSize="6.5" fontWeight="600" letterSpacing="0.04em" fill="rgba(255,255,255,0.6)">9:41</text>
+                        <rect x="222" y="53.5" width="14" height="6" rx="1.5" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="0.8" />
+                        <rect x="223.5" y="55" width="9" height="3" rx="0.8" fill={`${CYAN}, 0.85)`} />
+                        <rect x="236.5" y="55" width="1.6" height="3" rx="0.8" fill="rgba(255,255,255,0.5)" />
 
                         {/* Product image area */}
                         <rect
@@ -319,6 +356,10 @@ function EcommerceIllustration({
                             stroke="rgba(255,255,255,0.1)"
                             strokeWidth="0.8"
                         />
+                        {/* AI recommendation badge */}
+                        <rect x="146" y="66" width="46" height="13" rx="6.5" fill={`${CYAN}, 0.18)`} stroke={`${CYAN}, 0.6)`} strokeWidth="0.8" />
+                        <path d="M153 72.5 l1.4 -3 l1.4 3 l3 1.4 l-3 1.4 l-1.4 3 l-1.4 -3 l-3 -1.4 Z" fill={`${CYAN}, 0.95)`} transform="translate(-1 0)" />
+                        <text x="162" y="76" fontFamily={MONO} fontSize="6.5" fontWeight="700" letterSpacing="0.1em" fill="white">AI PICK</text>
 
                         {/* Sneaker silhouette inside image area */}
                         <motion.g
@@ -368,6 +409,15 @@ function EcommerceIllustration({
                                 fill="rgba(255,255,255,0.4)">
                                 RUNNING · M
                             </text>
+                            {/* Rating stars */}
+                            {[0, 1, 2, 3, 4].map((i) => (
+                                <path
+                                    key={i}
+                                    d="M0,-3.2 L0.94,-0.99 L3.04,-0.99 L1.35,0.38 L1.88,2.59 L0,1.3 L-1.88,2.59 L-1.35,0.38 L-3.04,-0.99 L-0.94,-0.99 Z"
+                                    transform={`translate(${206 + i * 8}, 174)`}
+                                    fill={i < 4 ? `${CYAN}, 0.95)` : "rgba(255,255,255,0.2)"}
+                                />
+                            ))}
                         </motion.g>
 
                         {/* Price */}
@@ -382,17 +432,56 @@ function EcommerceIllustration({
                             $112
                         </motion.text>
 
+                        {/* Colour selector swatches */}
+                        <motion.g
+                            initial={{ opacity: 0 }}
+                            animate={inView ? { opacity: 1 } : {}}
+                            transition={{ duration: 0.4, delay: 0.46, ease: EASE }}
+                        >
+                            <circle cx="212" cy="197" r="4.5" fill="rgba(255,255,255,0.85)" />
+                            <circle cx="212" cy="197" r="6.6" fill="none" stroke={`${CYAN}, 0.85)`} strokeWidth="1" />
+                            <circle cx="226" cy="197" r="4.5" fill={`${CYAN}, 0.7)`} />
+                            <circle cx="240" cy="197" r="4.5" fill="rgba(255,255,255,0.28)" />
+                        </motion.g>
+
                         {/* Add to cart button (centered text, no icon) */}
                         <motion.g
                             initial={{ opacity: 0, y: 6 }}
                             animate={inView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.45, delay: 0.5, ease: EASE }}
                         >
-                            <rect x="140" y="218" width="100" height="24" rx="12" fill={`${CYAN}, 0.92)`} />
-                            <text x="190" y="234" textAnchor="middle"
+                            <rect x="140" y="216" width="100" height="22" rx="11" fill={`${CYAN}, 0.92)`} />
+                            <text x="190" y="231" textAnchor="middle"
                                 fontFamily={MONO} fontSize="9" fontWeight="700" letterSpacing="0.2em" fill="rgba(8,10,16,0.95)">
                                 ADD TO CART
                             </text>
+                        </motion.g>
+
+                        {/* Home indicator */}
+                        <rect x="172" y="245" width="36" height="3" rx="1.5" fill="rgba(255,255,255,0.32)" />
+                    </motion.g>
+
+                    {/* Floating revenue card (bottom-left) */}
+                    <motion.g
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={inView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.5, delay: 0.72, ease: EASE }}
+                    >
+                        <motion.g
+                            animate={reduced ? undefined : { y: [0, -3, 0] }}
+                            transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                            <rect x="40" y="194" width="92" height="58" rx="9" fill="rgba(12,14,20,0.98)" stroke={`${CYAN}, 0.5)`} strokeWidth="1.2" />
+                            <text x="52" y="210" fontFamily={MONO} fontSize="6" letterSpacing="0.16em" fill="rgba(255,255,255,0.5)">
+                                REVENUE
+                            </text>
+                            <text x="52" y="228" fontFamily={MONO} fontSize="13" fontWeight="700" fill="white">
+                                +40%
+                            </text>
+                            {[0, 1, 2, 3, 4].map((i) => (
+                                <rect key={i} x={52 + i * 15} y={246 - (6 + i * 4)} width="9" height={6 + i * 4} rx="1.5"
+                                    fill={`${CYAN}, ${0.4 + i * 0.12})`} />
+                            ))}
                         </motion.g>
                     </motion.g>
 
@@ -436,7 +525,7 @@ function EcommerceIllustration({
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// 4. CUSTOM — custom-shaped module being drawn with blueprint dimension marks
+// 4. CUSTOM — bespoke data architecture: database → schema + logic/rules engine
 // ─────────────────────────────────────────────────────────────────────────
 function CustomIllustration({
     inView,
@@ -447,125 +536,156 @@ function CustomIllustration({
     reduced: boolean;
     refEl: React.RefObject<HTMLDivElement | null>;
 }) {
-    // A custom asymmetric polygon — the "built to spec" shape
-    const shape = "M120 110 L228 90 L268 150 L246 220 L156 232 L100 188 Z";
+    // Database cylinder geometry (left)
+    const dbX = 86, dbTop = 110, dbW = 64, dbH = 96, dbRy = 12;
+    const dbCx = dbX + dbW / 2;
+    // Connector targets
+    const schema = { x: 226, y: 96, w: 118, h: 70 };   // schema table (top-right)
+    const logic = { x: 226, y: 196, w: 118, h: 62 };   // rules/logic engine (bottom-right)
 
     return (
         <Frame refEl={refEl} inView={inView}>
             <div className="absolute inset-0 flex items-center justify-center p-4">
                 <svg viewBox="0 0 380 290" className="h-full w-full" fill="none">
-                    {/* Subtle blueprint grid behind the shape */}
+                    {/* Subtle blueprint grid */}
                     <motion.g
                         initial={{ opacity: 0 }}
                         animate={inView ? { opacity: 1 } : {}}
                         transition={{ duration: 0.5, delay: 0.06, ease: EASE }}
                     >
                         {[60, 100, 140, 180, 220, 260].map((y) => (
-                            <line key={`h-${y}`} x1="50" y1={y} x2="330" y2={y}
+                            <line key={`h-${y}`} x1="40" y1={y} x2="356" y2={y}
                                 stroke="rgba(255,255,255,0.05)" strokeWidth="0.6" />
                         ))}
-                        {[50, 100, 150, 200, 250, 300, 330].map((x) => (
-                            <line key={`v-${x}`} x1={x} y1="60" x2={x} y2="260"
+                        {[40, 90, 140, 190, 240, 290, 340].map((x) => (
+                            <line key={`v-${x}`} x1={x} y1="50" x2={x} y2="262"
                                 stroke="rgba(255,255,255,0.05)" strokeWidth="0.6" />
                         ))}
                     </motion.g>
 
-                    {/* Blueprint corner ticks (frame only, no box) */}
-                    {([[50, 60], [330, 60], [50, 260], [330, 260]] as const).map(([x, y], i) => (
-                        <motion.g
-                            key={i}
-                            initial={{ opacity: 0 }}
-                            animate={inView ? { opacity: 0.6 } : {}}
-                            transition={{ duration: 0.4, delay: 0.08 + i * 0.04, ease: EASE }}
-                        >
-                            <line x1={x - 8} y1={y} x2={x + 8} y2={y} stroke={`${CYAN}, 0.6)`} strokeWidth="1" />
-                            <line x1={x} y1={y - 8} x2={x} y2={y + 8} stroke={`${CYAN}, 0.6)`} strokeWidth="1" />
-                        </motion.g>
-                    ))}
-
-                    {/* Fill of the shape (drawn behind the outline) */}
-                    <motion.path
-                        d={shape}
-                        fill={`${CYAN}, 0.1)`}
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : {}}
-                        transition={{ duration: 0.4, delay: 0.5, ease: EASE }}
-                    />
-
-                    {/* Outline drawn in via pathLength */}
-                    <motion.path
-                        d={shape}
-                        fill="none"
-                        stroke={`${CYAN}, 0.95)`}
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        initial={{ pathLength: 0 }}
-                        animate={inView ? { pathLength: 1 } : {}}
-                        transition={{ duration: 1.1, delay: 0.18, ease: EASE }}
-                    />
-
-                    {/* Vertex markers */}
-                    {[
-                        [120, 110], [228, 90], [268, 150], [246, 220], [156, 232], [100, 188],
-                    ].map(([cx, cy], i) => (
-                        <motion.circle
-                            key={i}
-                            cx={cx} cy={cy} r="3"
-                            fill="rgba(14,16,22,0.98)"
-                            stroke={`${CYAN}, 0.95)`}
-                            strokeWidth="1.4"
-                            initial={{ opacity: 0, scale: 0.4 }}
-                            animate={inView ? { opacity: 1, scale: 1 } : {}}
-                            transition={{ duration: 0.3, delay: 0.6 + i * 0.05, ease: EASE }}
+                    {/* Connector lines: DB → schema, DB → logic */}
+                    {([
+                        [dbX + dbW, dbTop + 18, schema.x, schema.y + schema.h / 2],
+                        [dbX + dbW, dbTop + dbH - 18, logic.x, logic.y + logic.h / 2],
+                    ] as const).map(([x1, y1, x2, y2], i) => (
+                        <motion.path
+                            key={`c-${i}`}
+                            d={`M${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}`}
+                            stroke="rgba(255,255,255,0.18)"
+                            strokeWidth="1"
+                            strokeDasharray="3 5"
+                            fill="none"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={inView ? { pathLength: 1, opacity: 1 } : {}}
+                            transition={{ duration: 0.6, delay: 0.5 + i * 0.12, ease: EASE }}
                         />
                     ))}
 
-                    {/* Pulsing vertex (highlight one as "active") */}
-                    {!reduced && (
+                    {/* Data pulses travelling DB → schema / logic */}
+                    {!reduced && ([
+                        [dbX + dbW, dbTop + 18, schema.x, schema.y + schema.h / 2],
+                        [dbX + dbW, dbTop + dbH - 18, logic.x, logic.y + logic.h / 2],
+                    ] as const).map(([x1, y1, x2, y2], i) => (
                         <motion.circle
-                            cx="228" cy="90" r="3"
+                            key={`pulse-${i}`}
+                            r="2.4"
                             fill={`${CYAN}, 0.95)`}
-                            animate={{ opacity: [0.45, 1, 0.45], r: [3, 5, 3] }}
-                            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                            initial={{ opacity: 0 }}
+                            animate={inView ? { cx: [x1, x2], cy: [y1, y2], opacity: [0, 1, 0] } : {}}
+                            transition={{ duration: 1.8, delay: 1 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
                         />
-                    )}
+                    ))}
 
-                    {/* Horizontal dimension line (top) */}
+                    {/* Database cylinder */}
                     <motion.g
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : {}}
-                        transition={{ duration: 0.4, delay: 0.95, ease: EASE }}
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        animate={inView ? { opacity: 1, scale: 1 } : {}}
+                        transition={{ duration: 0.55, delay: 0.16, ease: EASE }}
+                        style={{ transformOrigin: `${dbCx}px ${dbTop + dbH / 2}px` }}
                     >
-                        <line x1="100" y1="74" x2="268" y2="74" stroke="rgba(255,255,255,0.45)" strokeWidth="0.9" />
-                        {/* Tick marks */}
-                        <line x1="100" y1="70" x2="100" y2="78" stroke="rgba(255,255,255,0.45)" strokeWidth="0.9" />
-                        <line x1="268" y1="70" x2="268" y2="78" stroke="rgba(255,255,255,0.45)" strokeWidth="0.9" />
-                        {/* Label */}
-                        <rect x="166" y="66" width="36" height="14" rx="2"
-                            fill="rgba(14,16,22,0.98)" />
-                        <text x="184" y="76" textAnchor="middle"
-                            fontFamily={MONO} fontSize="8" fontWeight="700" letterSpacing="0.08em"
-                            fill={`${CYAN}, 0.95)`}>
-                            18.4
+                        {/* body */}
+                        <path
+                            d={`M${dbX} ${dbTop} L${dbX} ${dbTop + dbH} A ${dbW / 2} ${dbRy} 0 0 0 ${dbX + dbW} ${dbTop + dbH} L${dbX + dbW} ${dbTop} Z`}
+                            fill="rgba(20,22,28,0.98)"
+                            stroke={`${CYAN}, 0.55)`}
+                            strokeWidth="1.4"
+                        />
+                        {/* internal platters */}
+                        {[dbTop + 30, dbTop + 58].map((cy, i) => (
+                            <ellipse key={i} cx={dbCx} cy={cy} rx={dbW / 2} ry={dbRy}
+                                fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="1" />
+                        ))}
+                        {/* top cap */}
+                        <ellipse cx={dbCx} cy={dbTop} rx={dbW / 2} ry={dbRy}
+                            fill="rgba(28,30,38,0.98)" stroke={`${CYAN}, 0.7)`} strokeWidth="1.4" />
+                        <text x={dbCx} y={dbTop + dbH + 24} textAnchor="middle"
+                            fontFamily={MONO} fontSize="8" fontWeight="700" letterSpacing="0.16em" fill="white">
+                            DATA
+                        </text>
+                        <text x={dbCx} y={dbTop + dbH + 34} textAnchor="middle"
+                            fontFamily={MONO} fontSize="6" letterSpacing="0.12em" fill={`${CYAN}, 0.8)`}>
+                            custom schema
                         </text>
                     </motion.g>
 
-                    {/* Vertical dimension line (right) */}
+                    {/* Schema table card (top-right) */}
                     <motion.g
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : {}}
-                        transition={{ duration: 0.4, delay: 1.0, ease: EASE }}
+                        initial={{ opacity: 0, x: 8 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.5, delay: 0.34, ease: EASE }}
                     >
-                        <line x1="290" y1="90" x2="290" y2="220" stroke="rgba(255,255,255,0.45)" strokeWidth="0.9" />
-                        <line x1="286" y1="90" x2="294" y2="90" stroke="rgba(255,255,255,0.45)" strokeWidth="0.9" />
-                        <line x1="286" y1="220" x2="294" y2="220" stroke="rgba(255,255,255,0.45)" strokeWidth="0.9" />
-                        <rect x="278" y="148" width="24" height="14" rx="2"
-                            fill="rgba(14,16,22,0.98)" />
-                        <text x="290" y="158" textAnchor="middle"
-                            fontFamily={MONO} fontSize="8" fontWeight="700" letterSpacing="0.08em"
-                            fill={`${CYAN}, 0.95)`}>
-                            14.2
+                        <rect x={schema.x} y={schema.y} width={schema.w} height={schema.h} rx="6"
+                            fill="rgba(20,22,28,0.98)" stroke="rgba(255,255,255,0.22)" strokeWidth="1" />
+                        {/* header */}
+                        <rect x={schema.x} y={schema.y} width={schema.w} height="18" rx="6"
+                            fill={`${CYAN}, 0.14)`} />
+                        <rect x={schema.x} y={schema.y + 12} width={schema.w} height="6" fill={`${CYAN}, 0.14)`} />
+                        <text x={schema.x + 10} y={schema.y + 13} fontFamily={MONO} fontSize="7.5" fontWeight="700" letterSpacing="0.12em" fill="white">
+                            SCHEMA
+                        </text>
+                        {/* rows */}
+                        {[0, 1, 2].map((r) => (
+                            <g key={r}>
+                                <circle cx={schema.x + 12} cy={schema.y + 32 + r * 14} r="2" fill={`${CYAN}, 0.8)`} />
+                                <rect x={schema.x + 20} y={schema.y + 29 + r * 14} width={r === 1 ? 70 : 56} height="4" rx="1.5" fill="rgba(255,255,255,0.4)" />
+                                <rect x={schema.x + schema.w - 26} y={schema.y + 29 + r * 14} width="16" height="4" rx="1.5" fill="rgba(255,255,255,0.18)" />
+                            </g>
+                        ))}
+                    </motion.g>
+
+                    {/* Logic / rules engine (bottom-right) with gear */}
+                    <motion.g
+                        initial={{ opacity: 0, x: 8 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.5, delay: 0.44, ease: EASE }}
+                    >
+                        <rect x={logic.x} y={logic.y} width={logic.w} height={logic.h} rx="6"
+                            fill="rgba(20,22,28,0.98)" stroke="rgba(255,255,255,0.22)" strokeWidth="1" />
+                        {/* rotating gear */}
+                        <motion.g
+                            style={{ transformOrigin: `${logic.x + 26}px ${logic.y + logic.h / 2}px` }}
+                            animate={reduced ? undefined : { rotate: 360 }}
+                            transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+                        >
+                            {Array.from({ length: 8 }).map((_, i) => {
+                                const a = (i / 8) * Math.PI * 2;
+                                const cx = logic.x + 26, cy = logic.y + logic.h / 2;
+                                return (
+                                    <rect key={i}
+                                        x={cx - 1.5} y={cy - 14} width="3" height="5" rx="1"
+                                        fill={`${CYAN}, 0.85)`}
+                                        transform={`rotate(${(a * 180) / Math.PI} ${cx} ${cy})`} />
+                                );
+                            })}
+                            <circle cx={logic.x + 26} cy={logic.y + logic.h / 2} r="9" fill="none" stroke={`${CYAN}, 0.9)`} strokeWidth="1.6" />
+                            <circle cx={logic.x + 26} cy={logic.y + logic.h / 2} r="3" fill={`${CYAN}, 0.9)`} />
+                        </motion.g>
+                        {/* rule lines */}
+                        {[0, 1, 2].map((r) => (
+                            <rect key={r} x={logic.x + 48} y={logic.y + 18 + r * 12} width={r === 2 ? 38 : 56} height="4" rx="1.5" fill="rgba(255,255,255,0.32)" />
+                        ))}
+                        <text x={logic.x + 48} y={logic.y + 13} fontFamily={MONO} fontSize="7.5" fontWeight="700" letterSpacing="0.12em" fill="white">
+                            LOGIC
                         </text>
                     </motion.g>
 
@@ -575,20 +695,20 @@ function CustomIllustration({
                         animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.4, delay: 0.1, ease: EASE }}
                     >
-                        <text x="56" y="38" fontFamily={MONO} fontSize="7" letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">
-                            ▸ SPEC · 01 OF 01
+                        <text x="46" y="40" fontFamily={MONO} fontSize="7" letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">
+                            ▸ CUSTOM INFRASTRUCTURE
                         </text>
-                        <line x1="56" y1="44" x2="180" y2="44" stroke={`${CYAN}, 0.5)`} strokeWidth="0.8" />
+                        <line x1="46" y1="46" x2="200" y2="46" stroke={`${CYAN}, 0.5)`} strokeWidth="0.8" />
                     </motion.g>
 
-                    {/* BUILT TO SPEC label below the shape */}
+                    {/* Caption */}
                     <motion.text
                         x="190" y="282" textAnchor="middle"
-                        fontFamily={MONO} fontSize="9" fontWeight="700" letterSpacing="0.32em"
+                        fontFamily={MONO} fontSize="9" fontWeight="700" letterSpacing="0.3em"
                         fill="white"
                         initial={{ opacity: 0, y: 6 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.4, delay: 1.05, ease: EASE }}
+                        transition={{ duration: 0.4, delay: 0.9, ease: EASE }}
                     >
                         BUILT TO SPEC
                     </motion.text>
