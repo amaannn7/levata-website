@@ -232,11 +232,13 @@ export default function DigitalProductsPage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                                         <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">From concept to market.</span>
-                        <span className="display-strong-line">Faster than you thought.</span>
+                        <span className="display-muted-line">Most products burn runway.</span>
+                        <span className="display-strong-line">Ours buy you traction.</span>
                     </h1>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Validated, market-ready products built in weeks, without the 18-month timeline or six-figure burn.
+                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                        Most digital products spend months in design before a single user ever touches them.
+                        We compress concept to launch into weeks of validated, market-ready builds, so your
+                        runway funds growth instead of guesswork.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -245,7 +247,7 @@ export default function DigitalProductsPage() {
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                             data-cta="primary"
                         >
-                            Start Your Product Journey
+                            Book a Consultation Call
                         </button>
 
                     </div>

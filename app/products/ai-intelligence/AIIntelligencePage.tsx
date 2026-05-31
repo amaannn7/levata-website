@@ -415,12 +415,13 @@ export default function AIIntelligencePage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                                         <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Intelligence becomes</span>
-                        <span className="display-strong-line">infrastructure.</span>
+                        <span className="display-muted-line">Most teams bolt AI on.</span>
+                        <span className="display-strong-line">We engineer it in.</span>
                     </h1>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        We architect AI as a layer in your business, not a tool on the shelf. Data, decisions, and
-                        workflows wired into one intelligent system that compounds.
+                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                        Most companies treat AI as a tool to bolt onto existing workflows. We design intelligence
+                        as a layer engineered into your data, decisions, and operations, so every interaction
+                        compounds into a smarter business.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -429,7 +430,7 @@ export default function AIIntelligencePage() {
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                             data-cta="primary"
                         >
-                            Book a Strategy Call
+                            Book a Consultation Call
                         </button>
 
                     </div>

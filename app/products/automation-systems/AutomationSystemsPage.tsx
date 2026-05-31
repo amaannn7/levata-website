@@ -285,11 +285,13 @@ export default function AutomationSystemsPage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                                         <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Automate the Work.</span>
-                        <span className="display-strong-line">Amplify the People.</span>
+                        <span className="display-muted-line">Most automations break.</span>
+                        <span className="display-strong-line">Ours run your business.</span>
                     </h1>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        We build the systems that eliminate the manual layer, so your team works on what actually moves the business.
+                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                        Every business runs on hidden manual layers: copy-paste, exports, approvals, and
+                        follow-ups. We replace them with reliable systems that route, decide, and act so
+                        your team works on what actually moves the business.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -298,7 +300,7 @@ export default function AutomationSystemsPage() {
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                             data-cta="primary"
                         >
-                            Map Your Automation Opportunities
+                            Book a Consultation Call
                         </button>
 
                     </div>

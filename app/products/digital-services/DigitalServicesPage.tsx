@@ -283,11 +283,13 @@ export default function DigitalServicesPage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                                         <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Digital infrastructure</span>
-                        <span className="display-strong-line">built to work hard.</span>
+                        <span className="display-muted-line">Most builds sit pretty.</span>
+                        <span className="display-strong-line">Ours go to work.</span>
                     </h1>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        We don&apos;t build websites. We engineer AI-integrated platforms that generate revenue and serve customers around the clock.
+                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                        A website, platform, or commerce stack is only as useful as the pipeline and revenue
+                        it drives. We build digital infrastructure engineered around conversion, scale, and
+                        measurable business growth, not just delivery.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">
                         <button
@@ -296,7 +298,7 @@ export default function DigitalServicesPage() {
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                             data-cta="primary"
                         >
-                            Discuss Your Project
+                            Book a Consultation Call
                         </button>
 
                     </div>

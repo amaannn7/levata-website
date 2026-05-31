@@ -446,11 +446,13 @@ export default function SalesIntelligencePage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                                         <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Turn your lead list into</span>
-                        <span className="display-strong-line">a pipeline, in hours.</span>
+                        <span className="display-muted-line">Most lead lists go cold.</span>
+                        <span className="display-strong-line">Ours turn into pipeline.</span>
                     </h1>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                        Research, prioritize, outreach, and push qualified opportunities to your CRM, all from one AI workspace.
+                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                        Cold lead lists, scattered research, and generic outreach lose the deals worth winning.
+                        Our AI-powered workspace turns raw lead lists into prioritized, researched,
+                        ready-to-action pipeline in hours, not weeks.
                     </p>
                     <div className="mt-2">
                         <button
@@ -459,7 +461,7 @@ export default function SalesIntelligencePage() {
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                             data-cta="primary"
                         >
-                            Start Your Free Trial
+                            Book a Consultation Call
                         </button>
                     </div>
                 </motion.div>
