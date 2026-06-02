@@ -10,25 +10,25 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const SERVICES = [
     {
         label: "AI & Intelligence",
-        description: "AI integration, assistants, intelligent automation",
+        description: "AI Integration · Intelligent Workflows · Custom AI Solutions",
         href: "/products/ai-intelligence",
         accent: "#7B55EA",
     },
     {
-        label: "Digital Products",
-        description: "Validated MVPs and scalable platforms",
-        href: "/products/digital-products",
+        label: "Product Engineering",
+        description: "MVP Development · SaaS Product Development",
+        href: "/products/product-engineering",
         accent: "#7B55EA",
     },
     {
-        label: "Digital Services",
-        description: "Websites, platforms, e-commerce, custom systems",
-        href: "/products/digital-services",
+        label: "Digital Infrastructure",
+        description: "Website Development · E-commerce · Platform Development",
+        href: "/products/digital-infrastructure",
         accent: "#7B55EA",
     },
     {
         label: "Automation & Systems",
-        description: "Workflow automation, decision systems, dashboards",
+        description: "Workflow Automation · Dashboard Systems",
         href: "/products/automation-systems",
         accent: "#7B55EA",
     },
@@ -286,7 +286,7 @@ export default function Navbar() {
                                         transition={{ duration: 0.18, ease: EASE }}
                                         className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
                                     >
-                                        <div className="w-[520px] overflow-hidden rounded-2xl" style={DROPDOWN_STYLE}>
+                                        <div className="w-[calc(100vw-32px)] sm:w-[520px] overflow-hidden rounded-2xl" style={DROPDOWN_STYLE}>
                                             <div className="grid grid-cols-2 gap-1 p-2">
                                                 {SERVICES.map((s) => (
                                                     <Link
@@ -352,7 +352,7 @@ export default function Navbar() {
                                         transition={{ duration: 0.18, ease: EASE }}
                                         className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
                                     >
-                                        <div className="w-[340px] overflow-hidden rounded-2xl" style={DROPDOWN_STYLE}>
+                                        <div className="w-[calc(100vw-32px)] sm:w-[340px] overflow-hidden rounded-2xl" style={DROPDOWN_STYLE}>
                                             <div className="flex flex-col gap-1 p-2">
                                                 {PRODUCTS.map((p) => (
                                                     <Link

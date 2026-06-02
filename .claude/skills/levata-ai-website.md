@@ -149,6 +149,22 @@ Headline: "Your next level / starts here."
 Subline: "Let's uncover what's slowing your growth, and what fixes it."
 Button: "Book your call →"
 
+## Icon Color Rule
+
+All inline SVG icons across the site use **cyan** — `rgba(0,255,221,0.9)` — matching `--home-accent-cyan`.
+
+```tsx
+// Always use these constants for icon strokes/fills
+const ICON_STROKE = "rgba(0,255,221,0.9)";     // primary icon stroke
+const ICON_STROKE_DIM = "rgba(0,255,221,0.45)"; // dimmed secondary paths
+
+// Icon container background + border
+style={{ background: "rgba(0,255,221,0.07)", border: "1px solid rgba(0,255,221,0.18)" }}
+```
+
+This applies to: process step icons, solution pillar card icons, service visual glows/nodes, and any other decorative SVG icons.  
+**Never use** lavender `rgba(167,139,250,...)` or raw purple `#7B55EA` on icon strokes — those are for borders, gradients, and container glows only.
+
 ## Non-Negotiable Rules
 
 - No `font-weight` above 300 on display/hero/section titles

@@ -7,7 +7,7 @@ export type WhatWeBuildKind = "website" | "platform" | "ecommerce" | "custom";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
-const CYAN = "rgba(34, 211, 238";
+const CYAN = "rgba(123, 85, 234";
 
 function Frame({
     children,
@@ -721,7 +721,7 @@ function CustomIllustration({
 // ── Public component ──────────────────────────────────────────────────────
 export default function WhatWeBuildVisual({ kind }: { kind: WhatWeBuildKind }) {
     const ref = useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { once: true, margin: "-15%" });
+    const inView = useInView(ref, { once: true, margin: "200px" });
     const prefersReducedMotion = useReducedMotion();
     const reduced = !!prefersReducedMotion;
 

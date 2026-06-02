@@ -145,7 +145,7 @@ export default function AboutPage() {
                 <div aria-hidden className="absolute bottom-0 left-1/2 -translate-x-1/2 h-px w-32"
                     style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.35), transparent)" }}
                 />
-                <HeroHorizon />
+                <HeroHorizon intensity="strong" />
             </section>
 
             {/* ── Who We Are ───────────────────────────────────── */}
@@ -402,7 +402,7 @@ export default function AboutPage() {
                             className="relative px-4 py-2 rounded-full sm:px-6 sm:py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                             data-cta="primary"
                         >
-                            Book a Consultation
+                            Book a Consultation Call
                         </button>
 
                     </div>

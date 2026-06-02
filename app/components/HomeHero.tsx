@@ -334,8 +334,8 @@ export default function HomeHero() {
                     top: "140px",
                     left: "50%",
                     transform: "translateX(-50%)",
-                    width: "300px",
-                    height: "300px",
+                    width: "min(300px, 80vw)",
+                    height: "min(300px, 80vw)",
                     opacity: 0.5,
                     mixBlendMode: "screen",
                 }}

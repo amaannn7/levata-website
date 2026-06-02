@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import DigitalServicesPage from "./DigitalServicesPage";
 
 export const metadata: Metadata = {
-    title: "Digital Services | Levata",
+    title: "Digital Infrastructure | Levata",
     description:
-        "Revenue-engineered websites, platforms, e-commerce, and custom systems, built to convert, scale, and compound. Not brochureware.",
+        "Building high-performance websites, ecommerce platforms, and digital systems that form the foundation of modern business.",
 };
 
 export default function Page() {

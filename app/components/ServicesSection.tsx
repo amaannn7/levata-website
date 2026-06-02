@@ -225,7 +225,7 @@ function MotifTarget() {
     );
 }
 
-// 03 — Digital Products: stacked isometric layers drifting up
+// 03 — Product Engineering: stacked isometric layers drifting up
 function MotifLayers() {
     return (
         <MotifWrap>
@@ -330,56 +330,38 @@ const SERVICES = [
     {
         num: "01",
         name: "AI & Intelligence",
-        description: "Native AI integration, assistants, workflows, and custom models embedded into your operations.",
-        points: ["Custom AI assistants", "Workflow automation", "Model fine-tuning", "Ops integration"],
+        description: "Embedding AI into business operations through intelligent systems, assistants, and custom AI solutions built for real-world impact.",
+        points: ["AI Integration", "Intelligent Workflows", "Custom AI Solutions"],
         href: "/products/ai-intelligence",
         Icon: IconAI,
         Motif: MotifAINodes,
     },
     {
         num: "02",
-        name: "Sales Intelligence Platform",
-        description: "Sales Intelligence Platform for B2B teams: research, prioritize, outreach, and close.",
-        points: ["Lead research & scoring", "Automated outreach", "Pipeline visibility", "CRM sync"],
-        href: "/products/sales-intelligence-platform",
-        Icon: IconTarget,
-        Motif: MotifTarget,
-    },
-    {
-        num: "03",
-        name: "Digital Products",
-        description: "MVP development with AI built in from day one, validated and launched in weeks.",
-        points: ["AI-native MVPs", "Rapid prototyping", "User validation", "Full-stack build"],
-        href: "/products/digital-products",
+        name: "Product Engineering",
+        description: "Product engineering for founders and businesses — MVPs, SaaS products, and scalable digital systems built for growth.",
+        points: ["MVPs", "SaaS", "Scalable Architecture", "User-focused experiences"],
+        href: "/products/product-engineering",
         Icon: IconBox,
         Motif: MotifLayers,
     },
     {
-        num: "04",
-        name: "Digital Services",
-        description: "Websites, platforms, and e-commerce engineered to convert and scale.",
-        points: ["Conversion-led design", "E-commerce builds", "CMS & headless", "Performance tuning"],
-        href: "/products/digital-services",
+        num: "03",
+        name: "Digital Infrastructure",
+        description: "Building high-performance websites, ecommerce platforms, and digital systems that form the foundation of modern business.",
+        points: ["Web", "Ecommerce", "Platforms", "High-performance"],
+        href: "/products/digital-infrastructure",
         Icon: IconGlobe,
         Motif: MotifGlobeArcs,
     },
     {
-        num: "05",
+        num: "04",
         name: "Automation & Systems",
-        description: "Eliminate manual operations and get real-time visibility across your entire business.",
-        points: ["Process automation", "Real-time dashboards", "Tool integrations", "Error elimination"],
+        description: "Streamlining operations through connected automations, workflows, and dashboards designed for efficiency and scale.",
+        points: ["Automation", "Workflows", "Dashboards", "Connected operations"],
         href: "/products/automation-systems",
         Icon: IconBolt,
         Motif: MotifPipeline,
-    },
-    {
-        num: "06",
-        name: "Growth & Marketing",
-        description: "AI-enhanced acquisition systems that scale without scaling headcount.",
-        points: ["AI-driven campaigns", "SEO & content systems", "Paid media optimisation", "Funnel infrastructure"],
-        href: "#",
-        Icon: IconTrend,
-        Motif: MotifChart,
     },
 ];
 

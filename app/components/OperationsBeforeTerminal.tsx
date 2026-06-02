@@ -115,7 +115,7 @@ function Laptop() {
         <motion.div
             initial={{ opacity: 0, scale: 0.94, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.05, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
             <svg width="186" height="138" viewBox="0 0 230 170" fill="none">
                 <defs>
@@ -262,20 +262,20 @@ function BinaryStrip() {
 
 export default function OperationsBeforeTerminal() {
     const ref = useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { once: true, margin: "-15%" });
+    const inView = useInView(ref, { once: true, margin: "200px" });
 
     return (
         <div
             ref={ref}
             className="relative w-full"
-            style={{ aspectRatio: "6 / 5", minHeight: 400 }}
+            style={{ aspectRatio: "6 / 5", minHeight: "clamp(280px, 50vw, 400px)" }}
         >
             {/* ── TOP: floating pills cluster ── */}
             {inView && (
                 <div className="absolute left-1/2 top-4 z-20 flex -translate-x-1/2 flex-col items-center gap-1.5">
-                    <LogPill entry={TOP_LOGS[0]} delay={0.4} offset={0} />
-                    <LogPill entry={TOP_LOGS[1]} delay={0.55} offset={-20} />
-                    <LogPill entry={TOP_LOGS[2]} delay={0.7} offset={14} />
+                    <LogPill entry={TOP_LOGS[0]} delay={0.05} offset={0} />
+                    <LogPill entry={TOP_LOGS[1]} delay={0.12} offset={-20} />
+                    <LogPill entry={TOP_LOGS[2]} delay={0.19} offset={14} />
                 </div>
             )}
 
@@ -284,7 +284,7 @@ export default function OperationsBeforeTerminal() {
                 <motion.div
                     initial={{ opacity: 0, scaleY: 0 }}
                     animate={{ opacity: 1, scaleY: 1 }}
-                    transition={{ duration: 0.6, delay: 0.95, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                     className="pointer-events-none absolute left-1/2 -translate-x-1/2 z-10"
                     style={{
                         top: 116,
@@ -307,16 +307,16 @@ export default function OperationsBeforeTerminal() {
                         <Laptop />
 
                         {/* Orbiters around laptop body */}
-                        <Orbiter style={{ left: -52, top: 18 }} delay={1.3}>
+                        <Orbiter style={{ left: -52, top: 18 }} delay={0.22}>
                             <SpreadsheetGlyph />
                         </Orbiter>
-                        <Orbiter style={{ left: -18, top: 76 }} delay={1.4}>
+                        <Orbiter style={{ left: -18, top: 76 }} delay={0.28}>
                             <MagnifyGlyph />
                         </Orbiter>
-                        <Orbiter style={{ right: -18, top: 76 }} delay={1.45}>
+                        <Orbiter style={{ right: -18, top: 76 }} delay={0.32}>
                             <ClockGlyph />
                         </Orbiter>
-                        <Orbiter style={{ right: -52, top: 18 }} delay={1.5}>
+                        <Orbiter style={{ right: -52, top: 18 }} delay={0.36}>
                             <MailBrokenGlyph />
                         </Orbiter>
                     </div>
@@ -328,7 +328,7 @@ export default function OperationsBeforeTerminal() {
                 <motion.div
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.7, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.4, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
                     className="absolute left-1/2 -translate-x-1/2"
                     style={{ bottom: 62 }}
                 >
@@ -339,7 +339,7 @@ export default function OperationsBeforeTerminal() {
             {/* ── BOTTOM: critical severity pill ── */}
             {inView && (
                 <div className="absolute left-1/2 -translate-x-1/2" style={{ bottom: 18 }}>
-                    <LogPill entry={BOTTOM_LOG} delay={1.95} />
+                    <LogPill entry={BOTTOM_LOG} delay={0.44} />
                 </div>
             )}
         </div>

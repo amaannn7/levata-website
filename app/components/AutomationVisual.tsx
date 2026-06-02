@@ -7,7 +7,7 @@ export type AutomationKind = "workflow" | "decision" | "intel";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
-const CYAN = "rgba(34, 211, 238";
+const CYAN = "rgba(123, 85, 234";
 
 function Frame({
     children,
@@ -142,35 +142,15 @@ function WorkflowScene({
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.4, delay: 0.55, ease: EASE }}
                     >
-                        <text x="50" y="240" fontFamily={MONO} fontSize="7" letterSpacing="0.18em" fill="rgba(255,255,255,0.4)">
-                            ▸ RUNS
-                        </text>
-                        <text x="50" y="256" fontFamily={MONO} fontSize="13" fontWeight="700" fill="white">
-                            12,480
-                        </text>
-                        <text x="50" y="268" fontFamily={MONO} fontSize="6.5" letterSpacing="0.14em" fill="rgba(255,255,255,0.4)">
-                            this month
-                        </text>
-
-                        <text x="160" y="240" fontFamily={MONO} fontSize="7" letterSpacing="0.18em" fill="rgba(255,255,255,0.4)">
-                            ▸ ERROR RATE
-                        </text>
-                        <text x="160" y="256" fontFamily={MONO} fontSize="13" fontWeight="700" fill={`${CYAN}, 0.95)`}>
-                            0.01%
-                        </text>
-                        <text x="160" y="268" fontFamily={MONO} fontSize="6.5" letterSpacing="0.14em" fill="rgba(255,255,255,0.4)">
-                            auto-retried
-                        </text>
-
-                        <text x="280" y="240" fontFamily={MONO} fontSize="7" letterSpacing="0.18em" fill="rgba(255,255,255,0.4)">
-                            ▸ HUMAN HOURS
-                        </text>
-                        <text x="280" y="256" fontFamily={MONO} fontSize="13" fontWeight="700" fill="white">
-                            420h
-                        </text>
-                        <text x="280" y="268" fontFamily={MONO} fontSize="6.5" letterSpacing="0.14em" fill="rgba(255,255,255,0.4)">
-                            saved
-                        </text>
+                        <text x="67"  y="240" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">RUNS</text>
+                        <text x="67"  y="256" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">12,480</text>
+                        <text x="67"  y="267" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">this month</text>
+                        <text x="200" y="240" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">ERROR RATE</text>
+                        <text x="200" y="256" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.95)`}>0.01%</text>
+                        <text x="200" y="267" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">auto-retried</text>
+                        <text x="333" y="240" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">HUMAN HOURS</text>
+                        <text x="333" y="256" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">420h</text>
+                        <text x="333" y="267" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">saved</text>
                     </motion.g>
                 </svg>
             </div>
@@ -337,7 +317,7 @@ function IntelScene({
     return (
         <Frame refEl={refEl} inView={inView}>
             <div className="absolute inset-0 flex items-center justify-center p-4">
-                <svg viewBox="0 0 400 290" className="h-full w-full" fill="none">
+                <svg viewBox="0 0 400 320" className="h-full w-full" fill="none">
                     {/* Header */}
                     <motion.g
                         initial={{ opacity: 0 }}
@@ -438,18 +418,22 @@ function IntelScene({
                         ))}
                     </motion.g>
 
-                    {/* Bottom right KPI */}
+                    {/* Bottom stat strip */}
                     <motion.g
                         initial={{ opacity: 0, y: 6 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.4, delay: 0.55, ease: EASE }}
                     >
-                        <text x="50" y="266" fontFamily={MONO} fontSize="6.5" letterSpacing="0.18em" fill="rgba(255,255,255,0.4)">
-                            UPTIME · 30D
-                        </text>
-                        <text x="50" y="280" fontFamily={MONO} fontSize="11" fontWeight="700" letterSpacing="0.04em" fill={`${CYAN}, 0.95)`}>
-                            99.99%
-                        </text>
+                        <line x1="8" y1="268" x2="392" y2="268" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
+                        <text x="67"  y="281" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">UPTIME</text>
+                        <text x="67"  y="297" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.95)`}>99.99%</text>
+                        <text x="67"  y="308" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">30-day avg</text>
+                        <text x="200" y="281" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">EVENTS/DAY</text>
+                        <text x="200" y="297" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">12,400</text>
+                        <text x="200" y="308" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">processed</text>
+                        <text x="333" y="281" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">AUTO-RESOLVED</text>
+                        <text x="333" y="297" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.9)`}>94%</text>
+                        <text x="333" y="308" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">no human needed</text>
                     </motion.g>
                 </svg>
             </div>
@@ -460,7 +444,7 @@ function IntelScene({
 // ── Public component ──────────────────────────────────────────────────────
 export default function AutomationVisual({ kind }: { kind: AutomationKind }) {
     const ref = useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { once: true, margin: "-15%" });
+    const inView = useInView(ref, { once: true, margin: "200px" });
     const prefersReducedMotion = useReducedMotion();
     const reduced = !!prefersReducedMotion;
 

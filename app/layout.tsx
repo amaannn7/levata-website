@@ -34,7 +34,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" />
       </head>
-      <body className="min-h-screen bg-[#0E1014] text-[#E6E6E6]">
+      <body className="min-h-screen bg-[#0E1014] text-[#E6E6E6] overflow-x-hidden">
         <SmoothScrollProvider>
           <BookCallProvider>
             <TextReveal />

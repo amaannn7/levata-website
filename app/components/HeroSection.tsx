@@ -269,10 +269,10 @@ const SERVICE_CARDS: Array<{
 }> = [
         {
             title: "AI & Intelligence",
-            description: "AI integration, assistants, and intelligent workflows wired into your operations.",
+            description: "Embedding AI into business operations through intelligent systems, workflows, and custom AI solutions built for real-world impact.",
             subServices: [
                 "AI Integration",
-                "AI Assistants",
+                "Intelligent Workflows",
                 "Custom AI Solutions",
             ],
             learnMore: "Explore AI & intelligence",
@@ -282,46 +282,45 @@ const SERVICE_CARDS: Array<{
             image: "/services-5.jpeg",
         },
         {
-            title: "Digital Services",
-            description: "Websites, platforms, and e-commerce engineered to convert and scale.",
+            title: "Product Engineering",
+            description: "Product engineering for founders and businesses — MVPs, SaaS products, and scalable digital systems built for growth.",
             subServices: [
-                "Website Development",
-                "Platform Development",
-                "E-commerce Development",
+                "MVPs",
+                "SaaS",
             ],
-            learnMore: "Explore digital services",
-            href: "/products/digital-services",
+            learnMore: "Engineer a product",
+            href: "/products/product-engineering",
+            accent: "#7B55EA",
+            icon: "products",
+            image: "/services-1.jpeg",
+        },
+        {
+            title: "Digital Infrastructure",
+            description: "Building high-performance websites, ecommerce platforms, and digital systems that form the foundation of modern business.",
+            subServices: [
+                "Web",
+                "Ecommerce",
+                "Platforms",
+            ],
+            learnMore: "Build digital infrastructure",
+            href: "/products/digital-infrastructure",
             accent: "#7B55EA",
             icon: "services",
             image: "/services-3.jpeg",
         },
         {
             title: "Automation & Systems",
-            description: "Business automation, CRM, workflow, and dashboards that run your operations.",
+            description: "Streamlining operations through connected automations, workflows, and dashboards designed for efficiency and scale.",
             subServices: [
-                "Business Automation",
-                "Workflow Automation",
-                "Dashboard Systems",
+                "Automation",
+                "Workflows",
+                "Dashboards",
             ],
             learnMore: "Automate your operations",
             href: "/products/automation-systems",
             accent: "#7B55EA",
             icon: "automation",
             image: "/services-6.jpeg",
-        },
-        {
-            title: "Digital Products",
-            description: "SaaS products, MVPs, and client products designed and built end-to-end.",
-            subServices: [
-                "SaaS Products",
-                "MVP Development",
-                "Product Design",
-            ],
-            learnMore: "Build a digital product",
-            href: "/products/digital-products",
-            accent: "#7B55EA",
-            icon: "products",
-            image: "/services-1.jpeg",
         },
     ];
 
@@ -1265,7 +1264,7 @@ const SPOKE_ENDS = [
     { x: 730, y: 370 },  // BR
 ] as const;
 
-function TravelDot({ x1, y1, x2, y2, delay, dur = 2.4 }: {
+function TravelDot({ x1, y1, x2, y2, delay, dur = 1.6 }: {
     x1: number; y1: number; x2: number; y2: number; delay: number; dur?: number;
 }) {
     return (
@@ -1300,8 +1299,8 @@ function ProblemSpider() {
     const spokes = SPOKE_ENDS.map((e, i) => ({
         x1: cx, y1: cy, x2: e.x, y2: e.y,
         grad: `psp_${i}`,
-        lineDelay: 0.05 + i * 0.04,
-        dotDelay: 0.3 + i * 0.15,
+        lineDelay: i * 0.03,
+        dotDelay: 0.08 + i * 0.06,
     }));
 
     return (
@@ -1343,8 +1342,8 @@ function ProblemSpider() {
                         fill="none"
                         initial={{ pathLength: 0, opacity: 0 }}
                         whileInView={{ pathLength: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.45, delay: lineDelay, ease: EASE }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ duration: 0.3, delay: lineDelay, ease: EASE }}
                     />
                 ))}
 
@@ -1369,14 +1368,14 @@ function ProblemSpider() {
                     strokeWidth="0.8"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.08, ease: EASE }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.2, delay: 0, ease: EASE }}
                 />
 
-                {/* Pain point nodes — all in SVG coords, dot at exact spoke tip */}
+                {/* Pain point nodes */}
                 {SPOKE_ENDS.map((end, i) => {
                     const isLeft = end.x < cx;
-                    const nodeDelay = 0.1 + i * 0.05;
+                    const nodeDelay = i * 0.04;
                     const textAnchor = isLeft ? "end" : "start";
                     const titleX = isLeft ? end.x - 14 : end.x + 14;
                     const descX  = isLeft ? end.x - 14 : end.x + 14;
@@ -1386,8 +1385,8 @@ function ProblemSpider() {
                             key={i}
                             initial={{ opacity: 0, x: isLeft ? -8 : 8 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.45, delay: nodeDelay, ease: EASE }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.3, delay: nodeDelay, ease: EASE }}
                         >
                             {/* Pulsing endpoint dot */}
                             <motion.circle
@@ -1409,7 +1408,7 @@ function ProblemSpider() {
                             >
                                 {PAIN_POINTS[i].title}
                             </text>
-                            {/* Description — wrapped via tspan */}
+                            {/* Description */}
                             <text
                                 x={descX}
                                 y={end.y + 12}
@@ -1432,14 +1431,14 @@ function ProblemSpider() {
                 })}
             </svg>
 
-            {/* Center visual — overlaid at hub */}
+            {/* Center visual */}
             <motion.div
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
                 style={{ width: "20%", maxWidth: 180 }}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.05, ease: EASE }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.3, delay: 0, ease: EASE }}
             >
                 <OperationsBeforeTerminal />
             </motion.div>
@@ -1684,7 +1683,7 @@ export default function HeroSection() {
                             style={{ background: "rgba(6,0,20,0.98)" }}
                         >
                             <div className="relative flex flex-col lg:flex-row">
-                                <div className="flex flex-col justify-center gap-6 p-10 lg:p-14 lg:w-[48%]">
+                                <div className="flex flex-col justify-center gap-6 p-6 sm:p-8 lg:p-14 lg:w-[48%]">
                                     <div className="flex items-center gap-2">
                                         <span
                                             className="rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest"

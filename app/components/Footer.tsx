@@ -6,8 +6,8 @@ import { useBookCall } from "@/app/components/BookCallProvider";
 
 const SERVICES = [
     { label: "AI & Intelligence", href: "/products/ai-intelligence" },
-    { label: "Digital Products", href: "/products/digital-products" },
-    { label: "Digital Services", href: "/products/digital-services" },
+    { label: "Product Engineering", href: "/products/product-engineering" },
+    { label: "Digital Infrastructure", href: "/products/digital-infrastructure" },
     { label: "Automation & Systems", href: "/products/automation-systems" },
 ];
 
