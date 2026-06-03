@@ -1,5 +1,35 @@
 @import "tailwindcss";
 
+/* ── Mobile reveal safety net ──────────────────────────────────────────────
+   The product-page "visuals" are SVGs whose pieces animate in via per-element
+   framer-motion `whileInView`. On some mobile browsers (iOS Safari + smooth
+   scroll) those IntersectionObservers don't fire, leaving every piece at
+   opacity:0 — so the whole visual is invisible.
+
+   This forces the SVG drawing elements visible so the visuals ALWAYS render on
+   mobile, regardless of whether the observer fired. (Desktop keeps the inline
+   animated opacity, which wins via specificity during the brief animation.)
+   Decorative/persistent hidden elements use HTML opacity, not SVG-child
+   opacity, so they are unaffected. */
+@media (max-width: 767px) {
+  svg g,
+  svg path,
+  svg circle,
+  svg line,
+  svg rect,
+  svg polyline,
+  svg polygon,
+  svg ellipse,
+  svg text {
+    opacity: 1 !important;
+  }
+  /* Also neutralise the slide-in transform framer leaves on stuck SVG groups
+     so nothing renders shifted off its intended position. */
+  svg g[style*="translate"] {
+    transform: none !important;
+  }
+}
+
 :root {
   --background: #07080F;
   --surface: #0E0E1A;

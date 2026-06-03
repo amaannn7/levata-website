@@ -3,58 +3,55 @@
 import { useEffect } from "react";
 
 /**
- * Safety net for scroll-reveal animations on phones.
+ * Mobile reveal safety net.
  *
- * Most reveals use framer-motion `whileInView` with an `initial` opacity of 0.
- * On some mobile browsers (notably iOS Safari combined with smooth scroll) the
- * underlying IntersectionObserver can fail to fire, leaving an element stuck at
- * `opacity: 0` — i.e. invisible. This sweeps the DOM a short time after load and
- * again on scroll, and force-reveals anything framer-motion has left hidden.
+ * The product-page "visuals" are SVGs whose pieces animate in via per-element
+ * framer-motion `whileInView`. On some mobile browsers (iOS Safari + smooth
+ * scroll) those IntersectionObservers don't fire, leaving each piece hidden
+ * (framer sets `opacity="0"` as an SVG attribute) — so the whole visual is
+ * invisible.
  *
- * It only touches elements that are STILL at near-zero opacity via an inline
- * style (framer-motion's signature for an untriggered reveal). Elements that
- * have already animated in are left untouched, so working animations are
- * unaffected.
+ * On small screens we inject a stylesheet that forces SVG drawing elements
+ * visible and clears the leftover slide-in transform. Injecting from JS (rather
+ * than relying on globals.css cascade ordering) guarantees it wins reliably in
+ * both dev and production. We also sweep stuck HTML reveal wrappers as a backup.
  */
+const MOBILE_MAX = 767;
+
 export default function RevealFallback() {
     useEffect(() => {
+        // 1) Force SVG visuals visible on phones — independent of the observer.
+        const style = document.createElement("style");
+        style.setAttribute("data-reveal-fallback", "");
+        style.textContent = `
+@media (max-width: ${MOBILE_MAX}px) {
+  svg g, svg path, svg circle, svg line, svg rect,
+  svg polyline, svg polygon, svg ellipse, svg text { opacity: 1 !important; }
+  svg g[style*="translate"] { transform: none !important; }
+}`;
+        document.head.appendChild(style);
+
+        // 2) Sweep stuck HTML scroll-reveal wrappers (opacity:0 + translate) that
+        //    are already in/above view. Skips carousels/overlays/hover reveals.
         let stopped = false;
-
-        const reveal = (el: HTMLElement) => {
-            // Skip things intentionally kept hidden (aria-hidden dec/overlays handled elsewhere)
-            el.style.opacity = "1";
-            // Clear any lingering translate so it doesn't sit shifted off-position
-            const tf = el.style.transform;
-            if (tf && /translate|matrix/.test(tf)) {
-                el.style.transform = "none";
-            }
-        };
-
         const sweep = () => {
             if (stopped) return;
             const vh = window.innerHeight;
             document.querySelectorAll<HTMLElement>('[style*="opacity: 0"]').forEach((el) => {
-                // A scroll-reveal wrapper translates in (opacity:0 + translate). Skip elements
-                // that are intentionally/persistently hidden so we don't break carousels,
-                // AnimatePresence exits, decorative overlays, or hover-only reveals.
-                const style = el.getAttribute("style") || "";
-                if (!/translate/.test(style)) return;            // not a slide-in reveal
+                const st = el.getAttribute("style") || "";
+                if (!/translate/.test(st)) return;
                 if (el.getAttribute("aria-hidden") === "true") return;
-                if (/pointer-events:\s*none/.test(style)) return;
+                if (/pointer-events:\s*none/.test(st)) return;
                 const pos = getComputedStyle(el).position;
-                if (pos === "absolute" || pos === "fixed") return; // stacked/overlay element
-
+                if (pos === "absolute" || pos === "fixed") return;
                 const r = el.getBoundingClientRect();
-                // Only reveal if it has real size and is at/above the current scroll position
-                // (i.e. it should have been revealed already). Leaves far-below content alone
-                // so its real animation can still play when scrolled to.
-                if (r.height > 0 && r.top < vh) reveal(el);
+                if (r.height > 0 && r.top < vh) {
+                    el.style.opacity = "1";
+                    if (/translate|matrix/.test(el.style.transform)) el.style.transform = "none";
+                }
             });
         };
-
-        // First sweep after reveals would normally have fired.
         const t = setTimeout(sweep, 700);
-        // And on scroll, so anything missed as the user moves down gets caught.
         const onScroll = () => sweep();
         window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -62,6 +59,7 @@ export default function RevealFallback() {
             stopped = true;
             clearTimeout(t);
             window.removeEventListener("scroll", onScroll);
+            style.remove();
         };
     }, []);
 
