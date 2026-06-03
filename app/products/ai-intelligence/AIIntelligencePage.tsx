@@ -16,6 +16,18 @@ const BLUE = "rgba(0,255,221,0.9)";
 const EASE = [0.16, 1, 0.3, 1] as const;
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 
+// Reveal once in view, with a timed fallback so visuals still show even if the
+// IntersectionObserver never fires (iOS Safari + smooth scroll can miss it).
+function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
+    const observed = useInView(ref, { once: true, margin: "200px" });
+    const [forced, setForced] = useState(false);
+    useEffect(() => {
+        const t = setTimeout(() => setForced(true), 600);
+        return () => clearTimeout(t);
+    }, []);
+    return observed || forced;
+}
+
 // ── Icons ────────────────────────────────────────────────────────────────
 function IconCheck({ size = 12 }: { size?: number }) {
     return (
@@ -321,7 +333,7 @@ function AIFrame({ refEl, inView, children }: { refEl: React.RefObject<HTMLDivEl
 // Browser app showing a CRM-like UI with a floating AI connector panel
 function AIIntegrationVisual() {
     const ref = useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { once: true, margin: "200px" });
+    const inView = useReveal(ref);
 
     // Three stacked system blocks (CRM, DATABASE, WORKFLOW) each with a
     // status indicator and a live data reading. A shared AI layer bar sits
@@ -486,7 +498,7 @@ function AIIntegrationVisual() {
 // Pipeline: task in → AI decision diamond → three labelled output branches
 function IntelligentWorkflowsVisual() {
     const ref = useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { once: true, margin: "200px" });
+    const inView = useReveal(ref);
 
     // Node spine sits at x=190 centre. Label boxes extend left (BEFORE) or right (AFTER).
     // 4 rows, 52px apart, starting at y=40. Stat strip at y=254.
@@ -639,7 +651,7 @@ function IntelligentWorkflowsVisual() {
 // ── Service Visual 3: Custom AI Solutions ─────────────────────────────────
 function CustomAISolutionsVisual() {
     const ref = useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { once: true, margin: "200px" });
+    const inView = useReveal(ref);
 
     // Layout: 4 input rows on left (y=40,84,128,172), engine centre at (190,106),
     // 3 output rows on right (y=62,106,150).

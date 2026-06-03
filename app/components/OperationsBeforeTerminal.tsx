@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 const PURPLE = "rgba(168, 85, 247";
@@ -262,7 +262,14 @@ function BinaryStrip() {
 
 export default function OperationsBeforeTerminal() {
     const ref = useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { once: true, margin: "200px" });
+    const observed = useInView(ref, { once: true, margin: "200px" });
+    // Fallback so the terminal still renders if the observer never fires (iOS Safari).
+    const [forced, setForced] = useState(false);
+    useEffect(() => {
+        const t = setTimeout(() => setForced(true), 600);
+        return () => clearTimeout(t);
+    }, []);
+    const inView = observed || forced;
 
     return (
         <div

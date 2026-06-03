@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 
 export type AutomationKind = "workflow" | "decision" | "intel";
@@ -459,7 +459,14 @@ function IntelScene({
 // ── Public component ──────────────────────────────────────────────────────
 export default function AutomationVisual({ kind }: { kind: AutomationKind }) {
     const ref = useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { once: true, margin: "200px" });
+    const observed = useInView(ref, { once: true, margin: "200px" });
+    // Fallback: reveal even if the observer never fires (iOS Safari + smooth scroll).
+    const [forced, setForced] = useState(false);
+    useEffect(() => {
+        const t = setTimeout(() => setForced(true), 600);
+        return () => clearTimeout(t);
+    }, []);
+    const inView = observed || forced;
     const prefersReducedMotion = useReducedMotion();
     const reduced = !!prefersReducedMotion;
 

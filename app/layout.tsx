@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SmoothScrollProvider from "./components/SmoothScrollProvider";
 import TextReveal from "./components/TextReveal";
+import RevealFallback from "./components/RevealFallback";
 import BookCallProvider from "./components/BookCallProvider";
 import "./globals.css";
 
@@ -38,6 +39,7 @@ export default function RootLayout({
         <SmoothScrollProvider>
           <BookCallProvider>
             <TextReveal />
+            <RevealFallback />
             <Navbar />
             {children}
             <Footer />
