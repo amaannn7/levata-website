@@ -9,8 +9,8 @@ export default function ContactHero() {
     return (
         <section
             data-hero
-            className="relative z-10 flex flex-1 flex-col items-center justify-start overflow-hidden text-center px-6"
-            style={{ paddingTop: "calc(60px + 9.5vw)", paddingBottom: "clamp(60px, 8vw, 120px)" }}
+            className="relative z-10 flex min-h-[96svh] flex-1 flex-col items-center justify-center overflow-hidden text-center px-6 md:min-h-0 md:justify-start"
+            style={{ paddingTop: "calc(56px + 4vw)", paddingBottom: "clamp(48px, 6vw, 120px)" }}
         >
             <div className="relative z-10 mb-4">
                             </div>

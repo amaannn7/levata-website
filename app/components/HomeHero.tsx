@@ -318,7 +318,7 @@ export default function HomeHero() {
             ref={heroRef}
             data-hero
             aria-labelledby="hero-heading"
-            className="home-theme-dark relative w-full overflow-hidden"
+            className="home-theme-dark relative flex w-full flex-col justify-center overflow-hidden min-h-[88svh] lg:min-h-0"
         >
             {/* Subtle top-center accent glow */}
             <div

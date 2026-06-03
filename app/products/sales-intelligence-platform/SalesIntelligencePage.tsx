@@ -493,7 +493,7 @@ export default function SalesIntelligencePage() {
             {/* ── 1. HERO ───────────────────────────────────── */}
             <section
                 data-hero
-                className="relative flex flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:pb-[100px] md:pt-[150px]"
+                className="relative flex min-h-[92svh] flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:min-h-0 md:pb-[100px] md:pt-[150px]"
             >
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
