@@ -94,12 +94,13 @@ function AIProblemVisual() {
         { text: "Less efficiency at scale",                 icon: "down"    },
     ];
     const rowH = 38;
-    const startY = 16;
+    const startY = 50;
 
     return (
         <div className="relative mx-auto w-full max-w-md">
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">The pattern we see</p>
             <svg viewBox={`0 0 360 ${startY + rows.length * rowH + 24}`} className="block h-auto w-full" fill="none">
+                <text x="0" y="32" fontFamily={MONO} fontSize="9" fontWeight="700"
+                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">THE PATTERN WE SEE</text>
                 {rows.map((row, i) => (
                     <motion.g key={row.text}
                         initial={{ opacity: 0, x: -10 }}
@@ -350,7 +351,7 @@ function AIIntegrationVisual() {
             tag: "WORKFLOW",
             line1: "48 tasks pending",
             line2: "6 overdue callbacks",
-            result: "6 calls overdue — act now",
+            result: "6 calls overdue, act now",
             resultCy: true,
         },
     ];
@@ -820,7 +821,7 @@ const SERVICES = [
         num: "01",
         title: "AI Integration",
         eyebrow: "Intelligence Woven Into Your Stack",
-        body: "We connect cutting-edge AI directly into your existing platforms — CRMs, ERPs, databases, and workflows. The result: an operation that thinks alongside your team without context-switching.",
+        body: "We connect cutting-edge AI directly into your existing platforms: CRMs, ERPs, databases, and workflows. The result: an operation that thinks alongside your team without context-switching.",
         included: [
             "AI integration across your existing business systems",
             "Custom AI tools designed around your operations",
@@ -834,7 +835,7 @@ const SERVICES = [
         num: "02",
         title: "Intelligent Workflows",
         eyebrow: "Logic That Runs Itself",
-        body: "AI-driven workflow systems that replace decision-heavy manual processes with adaptive automation. These aren't rigid rules — they understand context, learn from outcomes, and route work intelligently.",
+        body: "AI-driven workflow systems that replace decision-heavy manual processes with adaptive automation. These aren't rigid rules. They understand context, learn from outcomes, and route work intelligently.",
         included: [
             "Workflow analysis and automation planning",
             "Intelligent workflows with decision-based logic",
@@ -1029,6 +1030,7 @@ export default function AIIntelligencePage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+                            className="hidden sm:block"
                         >
                             <AIProblemVisual />
                         </motion.div>
@@ -1080,10 +1082,10 @@ export default function AIIntelligencePage() {
                         style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
                     >
                         {[
-                            { title: "Streamline Workflows",  desc: "Processes that run without manual handoffs." },
-                            { title: "Automate Operations",   desc: "Systems that act without waiting for a person." },
-                            { title: "Improve Decisions",     desc: "Intelligence that surfaces the right action." },
-                            { title: "Reduce Friction",       desc: "Less overhead between insight and outcome." },
+                            { title: "Streamline Workflows",  desc: "Processes that run without manual handoffs.", icon: <><path d="M3 6h14M3 10h10M3 14h6" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round"/><path d="M16 12l3 3-3 3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></> },
+                            { title: "Automate Operations",   desc: "Systems that act without waiting for a person.", icon: <><circle cx="10" cy="10" r="3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5"/><path d="M10 3v2M10 15v2M3 10h2M15 10h2M5.05 5.05l1.41 1.41M13.54 13.54l1.41 1.41M5.05 14.95l1.41-1.41M13.54 6.46l1.41-1.41" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round"/></> },
+                            { title: "Improve Decisions",     desc: "Intelligence that surfaces the right action.", icon: <><path d="M10 3L12.5 8H17l-4 3 1.5 5L10 13l-4.5 3L7 11 3 8h4.5z" stroke="rgba(0,255,221,0.8)" strokeWidth="1.4" strokeLinejoin="round" fill="rgba(0,255,221,0.08)"/></> },
+                            { title: "Reduce Friction",       desc: "Less overhead between insight and outcome.", icon: <><path d="M4 10h12M13 7l3 3-3 3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M4 6v8" stroke="rgba(0,255,221,0.4)" strokeWidth="1.5" strokeLinecap="round"/></> },
                         ].map((p, i) => (
                             <motion.div
                                 key={p.title}
@@ -1091,9 +1093,12 @@ export default function AIIntelligencePage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-40px" }}
                                 transition={{ duration: 0.5, delay: 0.25 + i * 0.08, ease: EASE }}
-                                className="flex flex-col gap-2 pt-10 pb-7 px-6"
+                                className="flex flex-col gap-3 pt-10 pb-7 px-6"
                                 style={{ borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.06)" : "none" }}
                             >
+                                <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(0,255,221,0.06)", border: "1px solid rgba(0,255,221,0.15)" }}>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
+                                </div>
                                 <p className="text-sm font-semibold text-white leading-snug md:text-base">{p.title}</p>
                                 <p className="text-[13px] leading-relaxed text-white/40">{p.desc}</p>
                             </motion.div>
@@ -1116,15 +1121,9 @@ export default function AIIntelligencePage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">How intelligence</span>
-                            <span className="display-strong-line">gets built.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">How intelligence </span><span className="display-strong-line">gets built.</span>
                         </h2>
-                        <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
-                            Building intelligent operations starts with understanding how your business works today.
-                            From there, we identify opportunities, design the right intelligence layer, and
-                            integrate it into the systems that drive your business forward.
-                        </p>
                     </motion.div>
 
                     {/* Desktop: horizontal flow (matches home Solution exactly) */}
@@ -1134,12 +1133,12 @@ export default function AIIntelligencePage() {
                         viewport={{ once: true, margin: "-60px" }}
                         transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
                     >
-                        <div className="hidden items-start justify-center gap-0 md:flex">
+                        <div className="hidden items-start justify-center gap-6 md:flex">
                             {PROCESS_STEPS.map((step, i) => {
                                 const Icon = PROCESS_ICONS[i];
                                 return (
                                     <div key={step.num} className="flex items-start">
-                                        <div className="flex w-36 flex-col items-center gap-4 text-center">
+                                        <div className="flex w-44 flex-col items-center gap-4 text-center">
                                             <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123, 85, 234,0.6)" }}>
                                                 {step.num}
                                             </span>
@@ -1155,10 +1154,10 @@ export default function AIIntelligencePage() {
                                                 </div>
                                             </div>
                                             <h3 className="text-sm font-semibold tracking-tight text-white md:text-base">{step.title}</h3>
-                                            <p className="text-xs leading-relaxed md:text-sm" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "140px" }}>{step.body}</p>
+                                            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
                                         </div>
                                         {i < PROCESS_STEPS.length - 1 && (
-                                            <div className="flex w-16 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
+                                            <div className="flex w-10 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
                                                 <div className="relative flex w-full items-center">
                                                     <div className="h-px w-full" style={{ background: "linear-gradient(to right, rgba(123, 85, 234,0.25), rgba(123, 85, 234,0.5), rgba(123, 85, 234,0.25))" }} />
                                                     <svg className="-ml-px flex-shrink-0" width="7" height="12" viewBox="0 0 7 12" fill="none">
@@ -1185,7 +1184,7 @@ export default function AIIntelligencePage() {
                                 const Icon = PROCESS_ICONS[i];
                                 return (
                                     <div key={step.num} className="flex flex-col items-center">
-                                        <div className="flex w-36 flex-col items-center gap-4 text-center">
+                                        <div className="flex w-44 flex-col items-center gap-4 text-center">
                                             <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123, 85, 234,0.6)" }}>
                                                 {step.num}
                                             </span>
@@ -1201,7 +1200,7 @@ export default function AIIntelligencePage() {
                                                 </div>
                                             </div>
                                             <h3 className="text-sm font-semibold tracking-tight text-white">{step.title}</h3>
-                                            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
                                         </div>
                                         {i < PROCESS_STEPS.length - 1 && (
                                             <div className="flex justify-center py-1" aria-hidden>
@@ -1236,9 +1235,8 @@ export default function AIIntelligencePage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Three intelligence</span>
-                            <span className="display-strong-line">layers we build.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">Three intelligence </span><span className="display-strong-line">layers we build.</span>
                         </h2>
                     </motion.div>
 
@@ -1289,88 +1287,12 @@ export default function AIIntelligencePage() {
                                         </div>
                                     </div>
                                     {/* visual */}
-                                    <div>
+                                    <div className="hidden sm:block">
                                         <Visual />
                                     </div>
                                 </motion.div>
                             );
                         })}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── 6. OUTCOMES ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">What intelligence</span>
-                            <span className="display-strong-line">ships.</span>
-                        </h2>
-                    </motion.div>
-                    <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-4 md:gap-x-8 md:gap-y-0">
-                        {KPI_METRICS.map((k, i) => (
-                            <KPI key={k.label} {...k} index={i} />
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── 7. LIFECYCLE ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-5xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-16 gap-5 text-center"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">The AI lifecycle,</span>
-                            <span className="display-strong-line">end to end.</span>
-                        </h2>
-                    </motion.div>
-                    <div className="relative">
-                        <div aria-hidden className="pointer-events-none absolute left-6 top-2 bottom-2 w-px md:hidden"
-                            style={{ background: `linear-gradient(to bottom, transparent, ${BLUE}55 6%, ${BLUE}55 94%, transparent)` }} />
-                        <div aria-hidden className="pointer-events-none absolute left-1/2 top-2 bottom-2 hidden -translate-x-1/2 md:block"
-                            style={{ width: "1px", background: `linear-gradient(to bottom, transparent, ${BLUE}55 6%, ${BLUE}55 94%, transparent)` }} />
-                        <div className="flex flex-col gap-10 md:gap-12">
-                            {LIFECYCLE.map((step, i) => {
-                                const isLeft = i % 2 === 0;
-                                return (
-                                    <motion.div
-                                        key={step.num}
-                                        initial={{ opacity: 0, y: 24 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true, margin: "-60px" }}
-                                        transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
-                                        className="relative flex items-start gap-4 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-8"
-                                    >
-                                        <div
-                                            className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full md:order-2 md:h-14 md:w-14"
-                                            style={{ background: "#171A22", border: `1.5px solid ${BLUE}`, boxShadow: `0 0 0 6px #0E1014, 0 0 22px ${BLUE}33` }}
-                                        >
-                                            <span className="text-sm font-bold md:text-base" style={{ color: GREEN }}>{step.num}</span>
-                                        </div>
-                                        <div className={`flex-1 md:order-${isLeft ? "1" : "3"} ${isLeft ? "md:text-right" : "md:text-left"}`}>
-                                            <StepCard step={step} />
-                                        </div>
-                                        <div className={`hidden md:block ${isLeft ? "md:order-3" : "md:order-1"}`} aria-hidden />
-                                    </motion.div>
-                                );
-                            })}
-                        </div>
                     </div>
                 </div>
             </section>
@@ -1387,9 +1309,8 @@ export default function AIIntelligencePage() {
                         className="mb-10 flex flex-col items-center gap-5 text-center md:mb-14"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">The</span>
-                            <span className="display-strong-line">common questions.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">The </span><span className="display-strong-line">common questions.</span>
                         </h2>
                     </motion.div>
 

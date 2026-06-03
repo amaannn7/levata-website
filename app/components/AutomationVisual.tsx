@@ -173,7 +173,7 @@ function DecisionScene({
     return (
         <Frame refEl={refEl} inView={inView}>
             <div className="absolute inset-0 flex items-center justify-center p-4">
-                <svg viewBox="0 0 400 290" className="h-full w-full" fill="none">
+                <svg viewBox="0 0 400 340" className="h-full w-full" fill="none">
                     {/* Header label */}
                     <motion.g
                         initial={{ opacity: 0 }}
@@ -245,9 +245,9 @@ function DecisionScene({
 
                     {/* Three branches: priority / nurture / escalate */}
                     {[
-                        { y: 70, label: "PRIORITY", sub: "hot · score ≥ 80", weight: "62%", accent: true },
-                        { y: 156, label: "NURTURE", sub: "warm · 40–80", weight: "31%", accent: false },
-                        { y: 242, label: "ESCALATE", sub: "needs review", weight: "7%", accent: false, warn: true },
+                        { y: 56, label: "PRIORITY", sub: "hot · score ≥ 80", weight: "62%", accent: true },
+                        { y: 142, label: "NURTURE", sub: "warm · 40–80", weight: "31%", accent: false },
+                        { y: 228, label: "ESCALATE", sub: "needs review", weight: "7%", accent: false, warn: true },
                     ].map((b, i) => (
                         <motion.g
                             key={b.label}
@@ -289,6 +289,21 @@ function DecisionScene({
                             </text>
                         </motion.g>
                     ))}
+
+                    {/* Stat strip */}
+                    <motion.g initial={{ opacity: 0, y: 5 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.4, delay: 0.65, ease: EASE }}>
+                        <line x1="8" y1="276" x2="392" y2="276" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
+                        <text x="67"  y="290" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">DECISION TIME</text>
+                        <text x="67"  y="306" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">&lt;50ms</text>
+                        <text x="67"  y="317" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">per event</text>
+                        <text x="200" y="290" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">ROUTING ACCURACY</text>
+                        <text x="200" y="306" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.9)`}>97%</text>
+                        <text x="200" y="317" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">correct first time</text>
+                        <text x="333" y="290" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">MANUAL REVIEW</text>
+                        <text x="333" y="306" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">7%</text>
+                        <text x="333" y="317" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">escalated only</text>
+                    </motion.g>
                 </svg>
             </div>
         </Frame>

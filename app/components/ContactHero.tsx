@@ -20,7 +20,7 @@ export default function ContactHero() {
                 <span className="display-strong-line">your business deserves.</span>
             </h1>
 
-            <p className="relative z-10 mb-8 max-w-[34rem] text-base leading-7 text-[#A1A1AA]">
+            <p className="relative z-10 mb-8 max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                 Tell us about your business, operations, and goals. We&apos;ll assess where smarter systems,
                 automation, and AI can unlock greater efficiency, visibility, and growth.
             </p>

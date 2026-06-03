@@ -11,6 +11,7 @@ function buildHtml(fields: {
     email: string;
     company?: string;
     phone?: string;
+    services?: string;
     message: string;
     source?: string;
     timestamp: string;
@@ -41,6 +42,7 @@ function buildHtml(fields: {
     const optionalFields = [
         fields.company ? field("Company", fields.company) : "",
         fields.phone ? field("Phone", fields.phone) : "",
+        fields.services ? field("Interested In", fields.services, true) : "",
     ].join("");
 
     return `<!DOCTYPE html>
@@ -141,6 +143,7 @@ export async function POST(req: Request) {
         let email: string | undefined;
         let company: string | undefined;
         let phone: string | undefined;
+        let services: string | undefined;
         let message: string | undefined;
         let source: string | undefined;
         let attachment: { filename: string; content: Buffer } | undefined;
@@ -151,6 +154,7 @@ export async function POST(req: Request) {
             email = form.get("email")?.toString();
             company = form.get("company")?.toString() || undefined;
             phone = form.get("phone")?.toString() || undefined;
+            services = form.get("services")?.toString() || undefined;
             message = form.get("message")?.toString();
             source = form.get("source")?.toString() || undefined;
 
@@ -171,10 +175,11 @@ export async function POST(req: Request) {
                 email?: string;
                 company?: string;
                 phone?: string;
+                services?: string;
                 message?: string;
                 source?: string;
             };
-            ({ name, email, company, phone, message, source } = body);
+            ({ name, email, company, phone, services, message, source } = body);
         }
 
         if (!name?.trim() || !email?.trim() || !message?.trim()) {
@@ -200,7 +205,7 @@ export async function POST(req: Request) {
 
         if (isDev && !hasRealKey) {
             console.log("\n📬 [contact/route] DEV MODE — email not sent. Payload:");
-            console.log({ name, email, company, phone, message, source, timestamp, attachment: attachment ? `${attachment.filename} (${attachment.content.length} bytes)` : "none" });
+            console.log({ name, email, company, phone, services, message, source, timestamp, attachment: attachment ? `${attachment.filename} (${attachment.content.length} bytes)` : "none" });
             console.log("Add a real RESEND_API_KEY to .env.local to send actual emails.\n");
             return NextResponse.json({ success: true });
         }
@@ -212,7 +217,7 @@ export async function POST(req: Request) {
             to: [TO_ADDRESS],
             replyTo: email,
             subject: `New Levata Inquiry – ${name}`,
-            html: buildHtml({ name, email, company, phone, message, source, timestamp }),
+            html: buildHtml({ name, email, company, phone, services, message, source, timestamp }),
             ...(attachment && { attachments: [attachment] }),
         });
 

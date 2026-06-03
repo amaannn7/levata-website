@@ -163,9 +163,8 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
                 {showHeading && (
                     <div className="mb-12" data-form-heading>
-                                                <h2 className="display-section-title">
-                            <span className="display-muted-line">Drop us a</span>
-                            <span className="display-strong-line">message.</span>
+                                                <h2 className="display-section-title display-inline">
+                            <span className="display-muted-line">Drop us a </span><span className="display-strong-line">message.</span>
                         </h2>
                         <p className="mt-4 max-w-md text-sm leading-relaxed text-white/45">
                             Fill in the form and we&apos;ll get back within 48 hours.

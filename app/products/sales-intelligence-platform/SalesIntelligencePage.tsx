@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-mot
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import SectionLabel from "@/app/components/SectionLabel";
+import SectionLabelSide from "@/app/components/SectionLabelSide";
 import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
@@ -340,6 +341,7 @@ function SalesDashboardVisual() {
                     </div>
                 </div>
             </div>
+
         </motion.div>
     );
 }
@@ -430,7 +432,7 @@ const OUTCOMES = [
 
 const STEPS = [
     { num: "01", title: "Import or Add Leads", body: "Upload a CSV lead list or add prospects individually. Contact and company data stored in one clean record." },
-    { num: "02", title: "Run AI Research", body: "Generate a complete prospect intelligence brief in seconds — pain points, hooks, buying signals, and discovery questions." },
+    { num: "02", title: "Run AI Research", body: "Generate a complete prospect intelligence brief in seconds: pain points, hooks, buying signals, and discovery questions." },
     { num: "03", title: "Score & Prioritize", body: "The system grades each lead against your ICP and surfaces the highest-value opportunities first." },
     { num: "04", title: "Generate Outreach", body: "Create personalized cold emails, follow-ups, and call scripts in one click, tailored to each prospect." },
     { num: "05", title: "Track & Log", body: "Log emails sent, call outcomes, follow-up dates, and meeting results. Never lose track of where a lead stands." },
@@ -440,7 +442,7 @@ const STEPS = [
 const FAQS = [
     { q: "Is this a CRM replacement?", a: "No, it's a prospecting and outreach layer designed to sit on top of your existing CRM. We push qualified opportunities into your CRM, not replace it." },
     { q: "What CRMs do you integrate with?", a: "The platform supports most major CRM integrations via OAuth and field mapping. Zoho CRM is a primary supported integration with additional platforms in active development." },
-    { q: "How does the AI research work?", a: "The system uses the lead's contact and company data to generate structured sales intelligence — covering profile, pain points, buying signals, hooks, and questions — in seconds." },
+    { q: "How does the AI research work?", a: "The system uses the lead's contact and company data to generate structured sales intelligence covering profile, pain points, buying signals, hooks, and questions, in seconds." },
     { q: "Can multiple reps use the platform?", a: "Yes. The platform includes multi-user support with admin controls, user management, configurable ICP settings, and qualification question management." },
     { q: "Can I import my existing lead lists?", a: "Yes. Upload CSV files directly and the platform maps your existing data fields into the lead record structure. You can also add leads individually or via CRM pull sync." },
     { q: "Is there a free trial?", a: "Yes. Contact us to set up a trial or book a live demo where we'll walk through the platform with your actual prospect data." },
@@ -481,7 +483,8 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
 export default function SalesIntelligencePage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const [activeCap, setActiveCap] = useState(0);
-    const [openPain, setOpenPain] = useState<number>(0);
+    const [openPain, setOpenPain] = useState<number>(-1);
+    const [activeCard, setActiveCard] = useState(0);
     const { open: openBookCall } = useBookCall();
 
     return (
@@ -499,12 +502,12 @@ export default function SalesIntelligencePage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Too much effort.</span>
-                        <span className="display-strong-line">Not enough selling.</span>
+                        <span className="display-muted-line">Most lead lists go cold.</span>
+                        <span className="display-strong-line">Ours turn into pipeline.</span>
                     </h1>
                     <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
                         Research, qualification, outreach, and follow-up often consume more time than the conversations that drive revenue.
-                        Our AI-powered workspace turns raw lead lists into prioritized, researched, ready-to-action pipeline — in hours, not weeks.
+                        Our AI-powered workspace turns raw lead lists into prioritized, researched, ready-to-action pipeline. In hours, not weeks.
                     </p>
                     <div className="mt-2">
                         <button
@@ -523,95 +526,101 @@ export default function SalesIntelligencePage() {
 
             {/* ── 2. PROBLEM ────────────────────────────────── */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(204,1,255,0.04) 0%, transparent 70%)" }} />
+                <div className="pointer-events-none absolute inset-0 z-0" style={{
+                    background: [
+                        "radial-gradient(ellipse 55% 60% at 15% 40%, rgba(255,80,80,0.05) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 45% 55% at 85% 60%, rgba(123,85,234,0.05) 0%, transparent 65%)",
+                    ].join(", "),
+                }} />
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-6xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-16 flex flex-col items-center gap-5 text-center"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Too much effort.</span>
-                            <span className="display-strong-line">Not enough selling.</span>
-                        </h2>
-                        <p className="max-w-xl text-base leading-relaxed text-white/45">
-                            Research, qualification, outreach, and follow-up often consume more time than the conversations that drive revenue. As sales operations become fragmented, productivity declines and pipeline growth becomes harder to sustain.
-                        </p>
-                    </motion.div>
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-12 md:gap-16 items-start">
 
-                    {/* Pain points: spotlight accordion */}
-                    <div className="mx-auto max-w-3xl flex flex-col">
-                        {PAIN_POINTS.map((pp, i) => {
-                            const isOpen = openPain === i;
-                            return (
-                                <motion.div
-                                    key={pp.num}
-                                    initial={{ opacity: 0, y: 14 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-60px" }}
-                                    transition={{ duration: 0.5, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                                >
-                                    <button
-                                        type="button"
-                                        onClick={() => setOpenPain(i)}
-                                        className="group w-full flex items-center gap-5 py-6 text-left transition-colors duration-200"
-                                        style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
-                                        aria-expanded={isOpen}
+                        {/* Left: sticky heading */}
+                        <div className="flex flex-col gap-5 md:sticky md:top-20">
+                            <SectionLabelSide />
+                            <h2 className="display-section-title">
+                                <span className="display-muted-line">Too much effort.</span>
+                                <span className="display-strong-line">Not enough selling.</span>
+                            </h2>
+                            <p className="text-base leading-relaxed text-white/45 max-w-sm">
+                                Research, qualification, outreach, and follow-up often consume more time than the conversations that drive revenue. As sales operations become fragmented, productivity declines and pipeline growth becomes harder to sustain.
+                            </p>
+                        </div>
+
+                        {/* Right: stacked cards */}
+                        <div className="flex flex-col" style={{ gap: 0 }}>
+                            {PAIN_POINTS.map((pp, i) => {
+                                const isActive = activeCard === i;
+                                return (
+                                    <motion.div
+                                        key={pp.num}
+                                        onClick={() => setActiveCard(i)}
+                                        className="rounded-2xl overflow-hidden cursor-pointer relative"
+                                        animate={{
+                                            y: isActive ? -4 : 0,
+                                            zIndex: isActive ? 10 : PAIN_POINTS.length - i,
+                                        }}
+                                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                        style={{
+                                            background: isActive
+                                                ? "rgba(18,16,32,0.98)"
+                                                : `rgba(${10 + i * 3}, ${10 + i * 3}, ${20 + i * 3}, 0.97)`,
+                                            border: `1px solid ${isActive ? "rgba(255,60,60,0.25)" : "rgba(255,255,255,0.07)"}`,
+                                            boxShadow: isActive
+                                                ? "0 -4px 0 0 rgba(255,60,60,0.3), 0 16px 48px rgba(0,0,0,0.5)"
+                                                : "none",
+                                            marginTop: i === 0 ? 0 : -12,
+                                        }}
                                     >
-                                        {/* Number */}
-                                        <span
-                                            className="flex-shrink-0 text-[10px] font-semibold tabular-nums transition-colors duration-300"
-                                            style={{ fontFamily: MONO, letterSpacing: "0.18em", color: isOpen ? "rgba(0,255,221,0.7)" : "rgba(255,255,255,0.2)", minWidth: 20 }}
-                                        >
-                                            {pp.num}
-                                        </span>
-                                        {/* Title */}
-                                        <span
-                                            className="flex-1 text-base font-semibold leading-snug transition-colors duration-300 md:text-lg"
-                                            style={{ color: isOpen ? "#FFFFFF" : "rgba(255,255,255,0.45)" }}
-                                        >
-                                            {pp.title}
-                                        </span>
-                                        {/* Chevron */}
-                                        <span
-                                            aria-hidden
-                                            className="flex-shrink-0 transition-transform duration-300"
-                                            style={{
-                                                color: isOpen ? "rgba(0,255,221,0.8)" : "rgba(255,255,255,0.2)",
-                                                transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
-                                            }}
-                                        >
-                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                                <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg>
-                                        </span>
-                                    </button>
-
-                                    {/* Expanded body */}
-                                    <AnimatePresence initial={false}>
-                                        {isOpen && (
-                                            <motion.div
-                                                key="body"
-                                                initial={{ height: 0, opacity: 0 }}
-                                                animate={{ height: "auto", opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                                                className="overflow-hidden"
+                                        {/* Header */}
+                                        <div className="flex items-center gap-4 px-6 py-5">
+                                            <span
+                                                className="text-[10px] font-bold tabular-nums flex-shrink-0"
+                                                style={{ fontFamily: MONO, letterSpacing: "0.22em", color: isActive ? "rgba(255,80,80,0.8)" : "rgba(255,255,255,0.28)" }}
                                             >
-                                                <p className="pb-7 pl-9 text-sm leading-relaxed text-white/50 md:text-[15px]">
-                                                    {pp.body}
-                                                </p>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </motion.div>
-                            );
-                        })}
-                        {/* Bottom border */}
-                        <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }} />
+                                                {pp.num}
+                                            </span>
+                                            <span
+                                                className="flex-1 font-semibold leading-snug text-[15px]"
+                                                style={{ color: isActive ? "#fff" : "rgba(255,255,255,0.6)" }}
+                                            >
+                                                {pp.title}
+                                            </span>
+                                            <motion.span
+                                                animate={{ rotate: isActive ? 180 : 0 }}
+                                                transition={{ duration: 0.3 }}
+                                                style={{ color: isActive ? "rgba(255,80,80,0.7)" : "rgba(255,255,255,0.2)" }}
+                                            >
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                            </motion.span>
+                                        </div>
+
+                                        {/* Body */}
+                                        <AnimatePresence initial={false}>
+                                            {isActive && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <div className="px-6 pb-6 flex flex-col gap-3">
+                                                        <div className="h-px" style={{ background: "rgba(255,255,255,0.07)" }} />
+                                                        <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">
+                                                            {pp.body}
+                                                        </p>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </motion.div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -760,9 +769,8 @@ export default function SalesIntelligencePage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Real results,</span>
-                            <span className="display-strong-line">not hype.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">Real results, </span><span className="display-strong-line">not hype.</span>
                         </h2>
                     </motion.div>
                     <div className="grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-6">
@@ -876,9 +884,8 @@ export default function SalesIntelligencePage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Frequently asked</span>
-                            <span className="display-strong-line">questions.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">Frequently asked </span><span className="display-strong-line">questions.</span>
                         </h2>
                     </motion.div>
                     <div className="flex flex-col gap-3">
@@ -900,9 +907,8 @@ export default function SalesIntelligencePage() {
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
                 >
-                    <h2 className="display-section-title max-w-2xl text-center">
-                        <span className="display-muted-line">Your reps should be</span>
-                        <span className="display-strong-line">closing, not researching.</span>
+                    <h2 className="display-section-title display-inline max-w-2xl text-center">
+                        <span className="display-muted-line">Your reps should be </span><span className="display-strong-line">closing, not researching.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-lg">
                         Give your team the AI workspace that does the heavy lifting before every email and every call.

@@ -78,14 +78,13 @@ export default function TestimonialsSection() {
                 {/* Label */}
                 <div className="mb-12 flex flex-col items-center text-center gap-5">
                     <SectionBeam />
-                    <h2 className="display-section-title max-w-2xl text-center">
-                        <span className="display-muted-line">Don&apos;t take our word for it.</span>
-                        <span className="display-strong-line">What clients say.</span>
+                    <h2 className="display-section-title display-inline max-w-2xl text-center">
+                        <span className="display-muted-line">Don&apos;t take our word for it. </span><span className="display-strong-line">What clients say.</span>
                     </h2>
                 </div>
 
                 {/* Testimonial stage */}
-                <div className="relative min-h-[280px] md:min-h-[240px] flex items-center justify-center">
+                <div className="relative min-h-[320px] sm:min-h-[280px] md:min-h-[240px] flex items-center justify-center">
                     {TESTIMONIALS.map((t, i) => {
                         const isActive = i === active;
                         return (
@@ -100,7 +99,7 @@ export default function TestimonialsSection() {
                                     transition: "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
                                 }}
                             >
-                                <blockquote className="text-2xl md:text-3xl font-medium leading-snug tracking-tight max-w-3xl" style={{ color: "#F0F0F2" }}>
+                                <blockquote className="text-xl sm:text-2xl md:text-3xl font-medium leading-snug tracking-tight max-w-3xl" style={{ color: "#F0F0F2" }}>
                                     &ldquo;{t.quote}&rdquo;
                                 </blockquote>
                                 <div className="mt-10 flex flex-col items-center gap-1">

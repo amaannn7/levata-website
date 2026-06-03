@@ -62,7 +62,7 @@ function StatCounter({ leadNumber, suffix, label, title }: { leadNumber: number;
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">{title}</span>
             <span
                 ref={elRef}
-                className="text-4xl font-bold leading-none tracking-tight md:text-5xl"
+                className="text-[2rem] font-bold leading-none tracking-tight sm:text-4xl md:text-5xl"
                 style={{ color: "var(--text-primary)" }}
             >
                 {count}
@@ -159,9 +159,8 @@ function TechStackSection() {
             <div className="relative z-10 mx-auto max-w-6xl">
                 <div className="mb-12 flex flex-col items-center text-center gap-5">
                     <SectionBeam />
-                    <h2 className="display-section-title max-w-2xl text-center">
-                        <span className="display-muted-line">Built on tech that</span>
-                        <span className="display-strong-line">compounds.</span>
+                    <h2 className="display-section-title display-inline max-w-2xl text-center">
+                        <span className="display-muted-line">Built on tech that </span><span className="display-strong-line">compounds.</span>
                     </h2>
                     <p className="max-w-xl text-base leading-relaxed text-white/45 md:text-[1.05rem]">
                         Battle-tested infrastructure paired with cutting-edge AI, chosen for longevity, not novelty.
@@ -283,7 +282,7 @@ const SERVICE_CARDS: Array<{
         },
         {
             title: "Product Engineering",
-            description: "Product engineering for founders and businesses — MVPs, SaaS products, and scalable digital systems built for growth.",
+            description: "Product engineering for founders and businesses: MVPs, SaaS products, and scalable digital systems built for growth.",
             subServices: [
                 "MVPs",
                 "SaaS",
@@ -727,9 +726,8 @@ function ServicesCarousel() {
             {/* Header */}
             <div className="mb-12 flex flex-col items-center gap-4 text-center md:mb-16">
                 <SectionBeam />
-                <h2 className="display-section-title max-w-2xl text-center">
-                    <span className="display-muted-line">Four ways we build</span>
-                    <span className="display-strong-line">smarter businesses</span>
+                <h2 className="display-section-title display-inline max-w-2xl text-center">
+                    <span className="display-muted-line">Four ways we build </span><span className="display-strong-line">smarter businesses</span>
                 </h2>
             </div>
 
@@ -1090,8 +1088,20 @@ function WhyLevataDeck() {
             const total = rect.height - viewportH;
             const scrolled = Math.max(0, Math.min(total, -rect.top));
             const progress = total > 0 ? scrolled / total : 0;
-            const idx = Math.min(WHY_LEVATA.length - 1, Math.floor(progress * WHY_LEVATA.length));
-            setActive(idx);
+            const n = WHY_LEVATA.length;
+            // Use midpoint thresholds so each step covers a full segment
+            // Step i is active when progress is in [i/n, (i+1)/n)
+            // Add a small hysteresis band so fast scrollers don't skip
+            const segSize = 1 / n;
+            let idx = Math.min(n - 1, Math.floor(progress * n));
+            // Snap to last step slightly earlier to avoid missing it
+            if (progress >= 1 - segSize * 0.15) idx = n - 1;
+            setActive((prev) => {
+                // Only advance one step at a time to prevent skipping
+                if (idx > prev + 1) return prev + 1;
+                if (idx < prev - 1) return prev - 1;
+                return idx;
+            });
         };
         onScroll();
         window.addEventListener("scroll", onScroll, { passive: true });
@@ -1105,9 +1115,8 @@ function WhyLevataDeck() {
                     <div className="grid grid-cols-2 gap-16 items-center">
                         <div className="flex flex-col gap-6">
                             <SectionLabelSide />
-                            <h2 className="display-section-title">
-                                <span className="display-muted-line">Why teams pick Levata.</span>
-                                <span className="display-strong-line">Outcomes, not outputs.</span>
+                            <h2 className="display-section-title display-inline">
+                                <span className="display-muted-line">Why teams pick Levata. </span><span className="display-strong-line">Outcomes, not outputs.</span>
                             </h2>
                             <WhyLevataProgress active={active} total={WHY_LEVATA.length} />
                         </div>
@@ -1460,8 +1469,8 @@ export default function HeroSection() {
             <section id="problem" className="home-theme-dark relative w-full px-6 py-20 md:py-28 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 55% 50% at 50% 25%, rgba(123, 85, 234,0.08) 0%, transparent 65%)",
-                        "radial-gradient(ellipse 40% 45% at 15% 75%, rgba(123, 85, 234,0.05) 0%, transparent 60%)",
+                        "radial-gradient(ellipse 50% 55% at 50% 45%, rgba(255,80,80,0.06) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 45% 50% at 50% 50%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                     ].join(", "),
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
@@ -1608,9 +1617,8 @@ export default function HeroSection() {
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-7 text-center"
                 >
-                    <h2 className="display-section-title max-w-2xl text-center">
-                        <span className="display-muted-line">Your next level</span>
-                        <span className="display-strong-line">starts here.</span>
+                    <h2 className="display-section-title display-inline max-w-2xl text-center">
+                        <span className="display-muted-line">Your next level </span><span className="display-strong-line">starts here.</span>
                     </h2>
                     <p className="max-w-xl text-sm leading-relaxed text-white/55 md:text-base">
                         Let&apos;s uncover what&apos;s slowing your growth, and what fixes it.
@@ -1619,7 +1627,7 @@ export default function HeroSection() {
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
+                            className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                             data-cta="primary"
                         >
                             Book your call
@@ -1727,8 +1735,8 @@ export default function HeroSection() {
                                                 "radial-gradient(ellipse 45% 50% at 90% 20%, rgba(123, 85, 234,0.18) 0%, transparent 65%)",
                                             ].join(", ")
                                         }} />
-                                    <div className="absolute inset-0 p-5 flex gap-3 text-[10px]">
-                                        <div className="flex flex-col gap-1 w-28 flex-shrink-0" style={{ borderRight: "1px solid rgba(255,255,255,0.06)", paddingRight: "10px" }}>
+                                    <div className="absolute inset-0 p-4 sm:p-5 flex gap-3 text-[10px]">
+                                        <div className="hidden sm:flex flex-col gap-1 w-28 flex-shrink-0" style={{ borderRight: "1px solid rgba(255,255,255,0.06)", paddingRight: "10px" }}>
                                             <div className="mb-3">
                                                 <div className="h-2 w-16 rounded" style={{ background: "rgba(255,255,255,0.5)" }} />
                                                 <div className="mt-1 h-1.5 w-10 rounded" style={{ background: "rgba(255,255,255,0.15)" }} />
@@ -1860,13 +1868,12 @@ export default function HeroSection() {
                         className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
                     >
                         <SectionBeam />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">What smarter operations</span>
-                            <span className="display-strong-line">deliver.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">What smarter operations </span><span className="display-strong-line">deliver.</span>
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-2 gap-y-12 gap-x-8 md:grid-cols-4 md:gap-x-12 text-center">
+                    <div className="grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-y-12 sm:gap-x-8 md:grid-cols-4 md:gap-x-12 text-center">
                         {KEY_RESULTS.map((r) => (
                             <StatCounter key={r.label} {...r} />
                         ))}
@@ -1899,9 +1906,8 @@ export default function HeroSection() {
                 <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-6 block lg:hidden py-14 sm:py-20">
                     <div className="mb-10 flex flex-col gap-5">
                         <SectionLabelSide />
-                        <h2 className="display-section-title">
-                            <span className="display-muted-line">Why teams pick Levata.</span>
-                            <span className="display-strong-line">Outcomes, not outputs.</span>
+                        <h2 className="display-section-title display-inline">
+                            <span className="display-muted-line">Why teams pick Levata. </span><span className="display-strong-line">Outcomes, not outputs.</span>
                         </h2>
                     </div>
                     <div className="flex flex-col gap-4">
@@ -1952,7 +1958,7 @@ export default function HeroSection() {
                     <button
                         type="button"
                         onClick={openBookCall}
-                        className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 cursor-pointer"
+                        className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90"
                         data-cta="primary"
                     >
                         Book a Strategy Call

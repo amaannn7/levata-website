@@ -196,6 +196,13 @@ a {
   padding-bottom: 0.08em;
 }
 
+/* Single-row variant — both spans render inline on one line */
+.display-inline .display-muted-line,
+.display-inline .display-strong-line {
+  display: inline !important;
+  padding-bottom: 0 !important;
+}
+
 h1,
 h2,
 h3,
@@ -765,7 +772,6 @@ h6 {
   0%   { clip-path: inset(0 100% 0 0); }
   100% { clip-path: inset(0 0% 0 0); }
 }
-
 
 .home-theme-alt,
 .home-theme-white,

@@ -142,9 +142,8 @@ export default function ProcessTabsSection() {
 
                         {/* -- Left panel -- */}
                         <div className="flex w-[42%] flex-col gap-8">
-                                                        <h2 className="display-section-title">
-                                <span className="display-muted-line">From strategy to</span>
-                                <span className="display-strong-line">compounding success.</span>
+                                                        <h2 className="display-section-title display-inline">
+                                <span className="display-muted-line">From strategy to </span><span className="display-strong-line">compounding success.</span>
                             </h2>
                             <p className="text-[15px] leading-[1.65] text-white/50">
                                 A repeatable system that turns strategic clarity into measurable outcomes fast.

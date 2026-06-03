@@ -362,8 +362,9 @@ export default function AutomationSystemsPage() {
 
                         {/* Right: disconnected silos visual */}
                         <div className="relative mx-auto w-full max-w-sm">
-                            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Disconnected operations</p>
                             <svg viewBox="0 0 400 320" className="block h-auto w-full" fill="none">
+                                <text x="0" y="28" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
+                                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">DISCONNECTED OPERATIONS</text>
                                 <defs>
                                     <filter id="auto_prob_glow">
                                         <feGaussianBlur stdDeviation="3" result="blur" />
@@ -471,7 +472,7 @@ export default function AutomationSystemsPage() {
                             transition={{ duration: 0.7, ease: EASE }}
                             className="flex flex-col gap-5"
                         >
-                            <SectionLabel />
+                            <SectionLabelSide />
                             <h2 className="display-section-title">
                                 <span className="display-muted-line">Modern growth requires</span>
                                 <span className="display-strong-line">automated operations.</span>
@@ -502,10 +503,10 @@ export default function AutomationSystemsPage() {
                         style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
                     >
                         {[
-                            { title: "Streamline Workflows",       desc: "Processes that run without manual handoffs." },
-                            { title: "Improve Efficiency",         desc: "Less time spent on repetitive tasks." },
-                            { title: "Reduce Manual Work",         desc: "Automation handles the routine, people handle the rest." },
-                            { title: "Focus on Higher-Value Work", desc: "Teams spend time where it actually drives growth." },
+                            { title: "Streamline Workflows",       desc: "Processes that run without manual handoffs.", icon: <><path d="M3 6h14M3 10h10M3 14h6" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round"/><path d="M16 12l3 3-3 3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></> },
+                            { title: "Improve Efficiency",         desc: "Less time spent on repetitive tasks.", icon: <><path d="M10 4v6l4 2" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="10" cy="10" r="7" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5"/></> },
+                            { title: "Reduce Manual Work",         desc: "Automation handles the routine, people handle the rest.", icon: <><rect x="3" y="5" width="6" height="6" rx="1.5" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5"/><path d="M12 8h5M12 12h3M3 14l2 2 4-4" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></> },
+                            { title: "Focus on Higher-Value Work", desc: "Teams spend time where it actually drives growth.", icon: <><path d="M4 14l4-4 3 3 5-6" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="16" cy="5" r="2" fill="rgba(0,255,221,0.1)" stroke="rgba(0,255,221,0.8)" strokeWidth="1.4"/></> },
                         ].map((p, i) => (
                             <motion.div
                                 key={p.title}
@@ -513,9 +514,12 @@ export default function AutomationSystemsPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-40px" }}
                                 transition={{ duration: 0.5, delay: 0.25 + i * 0.08, ease: EASE }}
-                                className="flex flex-col gap-2 pt-10 pb-7 px-6"
+                                className="flex flex-col gap-3 pt-10 pb-7 px-6"
                                 style={{ borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.06)" : "none" }}
                             >
+                                <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(0,255,221,0.06)", border: "1px solid rgba(0,255,221,0.15)" }}>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
+                                </div>
                                 <p className="text-sm font-semibold text-white leading-snug md:text-base">{p.title}</p>
                                 <p className="text-[13px] leading-relaxed text-white/40">{p.desc}</p>
                             </motion.div>
@@ -538,9 +542,8 @@ export default function AutomationSystemsPage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">How automation</span>
-                            <span className="display-strong-line">gets built.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">How automation </span><span className="display-strong-line">gets built.</span>
                         </h2>
                     </motion.div>
 
@@ -551,10 +554,10 @@ export default function AutomationSystemsPage() {
                         transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
                     >
                         {/* Desktop: horizontal flow */}
-                        <div className="hidden items-start justify-center gap-0 md:flex">
+                        <div className="hidden items-start justify-center gap-6 md:flex">
                             {PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex items-start">
-                                    <div className="flex w-36 flex-col items-center gap-4 text-center">
+                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
                                         <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>{step.num}</span>
                                         <div className="rounded-2xl p-px" style={{ background: "linear-gradient(135deg, rgba(123,85,234,0.55) 0%, rgba(255,255,255,0.06) 50%, rgba(123,85,234,0.45) 100%)", boxShadow: "0 12px 36px rgba(123,85,234,0.15)" }}>
                                             <div className="flex h-24 w-24 items-center justify-center rounded-[15px]" style={{ background: "rgba(10,14,28,0.98)" }}>
@@ -565,10 +568,10 @@ export default function AutomationSystemsPage() {
                                             </div>
                                         </div>
                                         <h3 className="text-sm font-semibold tracking-tight text-white md:text-base">{step.title}</h3>
-                                        <p className="text-xs leading-relaxed md:text-sm" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "140px" }}>{step.body}</p>
+                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
                                     </div>
                                     {i < PROCESS_STEPS.length - 1 && (
-                                        <div className="flex w-16 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
+                                        <div className="flex w-10 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
                                             <div className="relative flex w-full items-center">
                                                 <div className="h-px w-full" style={{ background: "linear-gradient(to right, rgba(123,85,234,0.25), rgba(123,85,234,0.5), rgba(123,85,234,0.25))" }} />
                                                 <svg className="-ml-px flex-shrink-0" width="7" height="12" viewBox="0 0 7 12" fill="none">
@@ -589,7 +592,7 @@ export default function AutomationSystemsPage() {
                         <div className="flex flex-col items-center gap-2 md:hidden">
                             {PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex flex-col items-center">
-                                    <div className="flex w-36 flex-col items-center gap-4 text-center">
+                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
                                         <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>{step.num}</span>
                                         <div className="rounded-2xl p-px" style={{ background: "linear-gradient(135deg, rgba(123,85,234,0.55) 0%, rgba(255,255,255,0.06) 50%, rgba(123,85,234,0.45) 100%)", boxShadow: "0 12px 36px rgba(123,85,234,0.15)" }}>
                                             <div className="flex h-24 w-24 items-center justify-center rounded-[15px]" style={{ background: "rgba(10,14,28,0.98)" }}>
@@ -600,7 +603,7 @@ export default function AutomationSystemsPage() {
                                             </div>
                                         </div>
                                         <h3 className="text-sm font-semibold tracking-tight text-white">{step.title}</h3>
-                                        <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
                                     </div>
                                     {i < PROCESS_STEPS.length - 1 && (
                                         <div className="flex justify-center py-1" aria-hidden>
@@ -631,9 +634,8 @@ export default function AutomationSystemsPage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Two automation</span>
-                            <span className="display-strong-line">layers we build.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">Two automation </span><span className="display-strong-line">layers we build.</span>
                         </h2>
                     </motion.div>
 
@@ -674,102 +676,12 @@ export default function AutomationSystemsPage() {
                                             </ul>
                                         </div>
                                     </div>
-                                    <div className="mx-auto w-full max-w-lg">
+                                    <div className="hidden sm:block w-full">
                                         <AutomationVisual kind={svc.visual} />
                                     </div>
                                 </motion.div>
                             );
                         })}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── 5. OUTCOMES, Real-time dashboard ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">What unified automation</span>
-                            <span className="display-strong-line">ships.</span>
-                        </h2>
-                    </motion.div>
-
-                    <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
-                        {OPS_METRICS.map((m, i) => (
-                            <MetricTile key={m.label} {...m} index={i} />
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── 6. DELIVERY PROCESS, Deployment roadmap ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Roadmap to</span>
-                            <span className="display-strong-line">production.</span>
-                        </h2>
-                    </motion.div>
-
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
-                        {DEPLOYMENT.map((step, i) => (
-                            <motion.div
-                                key={step.num}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.5, delay: (i % 3) * 0.08, ease: EASE }}
-                                className="relative flex flex-col gap-3 overflow-hidden rounded-2xl p-6"
-                                style={{
-                                    background: "rgba(23,26,34,0.92)",
-                                    border: "1px solid rgba(255,255,255,0.07)",
-                                }}
-                            >
-                                {/* Background numeral watermark */}
-                                <span
-                                    aria-hidden
-                                    className="pointer-events-none absolute right-3 top-0 select-none leading-none"
-                                    style={{
-                                        fontFamily: MONO,
-                                        fontWeight: 700,
-                                        fontSize: "3.4rem",
-                                        color: "rgba(255,255,255,0.04)",
-                                        letterSpacing: "-0.04em",
-                                    }}
-                                >
-                                    {step.num}
-                                </span>
-                                <div className="relative flex items-center gap-3">
-                                    <span
-                                        className="h-px w-6"
-                                        style={{ background: `linear-gradient(to right, ${BLUE}, transparent)` }}
-                                    />
-                                    <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/45" style={{ fontFamily: MONO }}>
-                                        Stage {step.num}
-                                    </span>
-                                </div>
-                                <h3 className="relative text-lg font-semibold leading-snug tracking-tight text-white md:text-[1.15rem]">
-                                    {step.title}
-                                </h3>
-                                <p className="relative text-sm leading-relaxed text-white/55">{step.body}</p>
-                            </motion.div>
-                        ))}
                     </div>
                 </div>
             </section>
@@ -786,9 +698,8 @@ export default function AutomationSystemsPage() {
                         className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">From the</span>
-                            <span className="display-strong-line">operations console.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">From the </span><span className="display-strong-line">operations console.</span>
                         </h2>
                     </motion.div>
 

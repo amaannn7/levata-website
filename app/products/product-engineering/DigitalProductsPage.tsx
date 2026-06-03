@@ -255,8 +255,9 @@ function ProductProblemVisual() {
     ];
     return (
         <div className="relative mx-auto w-full max-w-xl">
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Where products fail</p>
             <svg viewBox="0 0 480 290" className="block h-auto w-full" fill="none">
+                <text x="0" y="62" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
+                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">WHERE PRODUCTS FAIL</text>
                 <defs>
                     <filter id="pp_glow">
                         <feGaussianBlur stdDeviation="4" result="blur" />
@@ -358,9 +359,11 @@ function MVPVisual() {
     const cy = 120;
 
     return (
-        <div className="relative mx-auto w-full max-w-xl">
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Validation path</p>
-            <svg viewBox="0 0 480 240" className="block h-auto w-full" fill="none">
+        <div className="relative w-full" style={{ aspectRatio: "5 / 4" }}>
+            <div className="absolute inset-0 flex items-center justify-center p-3">
+            <svg viewBox="0 0 480 282" className="h-full w-full" fill="none">
+                <text x="0" y="74" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
+                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">VALIDATION PATH</text>
                 <defs>
                     <filter id="mvp_glow">
                         <feGaussianBlur stdDeviation="3" result="blur" />
@@ -457,7 +460,25 @@ function MVPVisual() {
                     <text x="250" y="207" textAnchor="middle" fontFamily={MONO} fontSize="8.5" fontWeight="700"
                         letterSpacing="0.18em" fill="rgba(123,85,234,0.85)">VALIDATED MVP</text>
                 </motion.g>
+
+                {/* Stat strip */}
+                <motion.g initial={{ opacity: 0, y: 5 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.4, delay: 1.0, ease: EASE }}>
+                    <line x1="8" y1="228" x2="472" y2="228" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
+                    <text x="80"  y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TIME TO VALIDATE</text>
+                    <text x="80"  y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4–6w</text>
+                    <text x="80"  y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">idea to signal</text>
+                    <text x="240" y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">WASTED RUNWAY</text>
+                    <text x="240" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">−80%</text>
+                    <text x="240" y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">vs build-first</text>
+                    <text x="400" y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">PIVOT RISK</text>
+                    <text x="400" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3×</text>
+                    <text x="400" y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">lower at launch</text>
+                </motion.g>
             </svg>
+            </div>
         </div>
     );
 }
@@ -475,9 +496,11 @@ function SaaSVisual() {
     const barX = 20;
 
     return (
-        <div className="relative mx-auto w-full max-w-xl">
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Product architecture</p>
-            <svg viewBox="0 0 360 310" className="block h-auto w-full" fill="none">
+        <div className="relative w-full" style={{ aspectRatio: "5 / 4" }}>
+            <div className="absolute inset-0 flex items-center justify-center p-3">
+            <svg viewBox="0 0 360 360" className="h-full w-full" fill="none">
+                <text x="0" y="38" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
+                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">PRODUCT ARCHITECTURE</text>
                 <defs>
                     <filter id="saas_glow">
                         <feGaussianBlur stdDeviation="2.5" result="blur" />
@@ -575,7 +598,25 @@ function SaaSVisual() {
                     <text x="180" y="296" textAnchor="middle" fontFamily={MONO} fontSize="8" fontWeight="700"
                         letterSpacing="0.2em" fill="rgba(123,85,234,0.45)">BUILT TO GROW</text>
                 </motion.g>
+
+                {/* Stat strip */}
+                <motion.g initial={{ opacity: 0, y: 5 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.4, delay: 0.9, ease: EASE }}>
+                    <line x1="8" y1="310" x2="352" y2="310" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
+                    <text x="60"  y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">BUILD TIME</text>
+                    <text x="60"  y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10–20w</text>
+                    <text x="60"  y="352" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">to production</text>
+                    <text x="180" y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TECH DEBT</text>
+                    <text x="180" y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">Zero</text>
+                    <text x="180" y="352" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">architecture first</text>
+                    <text x="300" y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">OWNERSHIP</text>
+                    <text x="300" y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">100%</text>
+                    <text x="300" y="352" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">yours, always</text>
+                </motion.g>
             </svg>
+            </div>
         </div>
     );
 }
@@ -655,6 +696,7 @@ export default function DigitalProductsPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+                            className="hidden sm:block"
                         >
                             <ProductProblemVisual />
                         </motion.div>
@@ -678,9 +720,8 @@ export default function DigitalProductsPage() {
                             className="flex flex-col gap-5"
                         >
                             <SectionLabelSide />
-                            <h2 className="display-section-title">
-                                <span className="display-muted-line">Validate first.</span>
-                                <span className="display-strong-line">Build second.</span>
+                            <h2 className="display-section-title display-inline">
+                                <span className="display-muted-line">Validate first. </span><span className="display-strong-line">Build second.</span>
                             </h2>
                         </motion.div>
                         <motion.div
@@ -706,10 +747,10 @@ export default function DigitalProductsPage() {
                         style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
                     >
                         {[
-                            { title: "Reduce Risk",            desc: "Validate before you commit budget to building." },
-                            { title: "Move Faster",            desc: "From idea to live product in weeks, not months." },
-                            { title: "Validate Demand",        desc: "Real user signal before a line of production code." },
-                            { title: "Invest with Confidence", desc: "Every decision backed by data, not assumption." },
+                            { title: "Reduce Risk",            desc: "Validate before you commit budget to building.", icon: <><path d="M10 3L4 7v5c0 3.31 2.58 6.41 6 7 3.42-.59 6-3.69 6-7V7l-6-4z" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinejoin="round" fill="rgba(0,255,221,0.07)"/><path d="M7.5 10l2 2 3-3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></> },
+                            { title: "Move Faster",            desc: "From idea to live product in weeks, not months.", icon: <><circle cx="10" cy="10" r="7" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5"/><path d="M10 6v4l3 2" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></> },
+                            { title: "Validate Demand",        desc: "Real user signal before a line of production code.", icon: <><path d="M3 10c0 0 2-5 7-5s7 5 7 5-2 5-7 5-7-5-7-5z" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinejoin="round"/><circle cx="10" cy="10" r="2.5" fill="rgba(0,255,221,0.1)" stroke="rgba(0,255,221,0.8)" strokeWidth="1.4"/></> },
+                            { title: "Invest with Confidence", desc: "Every decision backed by data, not assumption.", icon: <><path d="M4 15l3-4 3 2 3-5 3 3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><rect x="3" y="3" width="14" height="14" rx="2" stroke="rgba(0,255,221,0.8)" strokeWidth="1.4"/></> },
                         ].map((p, i) => (
                             <motion.div
                                 key={p.title}
@@ -717,9 +758,12 @@ export default function DigitalProductsPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-40px" }}
                                 transition={{ duration: 0.5, delay: 0.25 + i * 0.08, ease: EASE }}
-                                className="flex flex-col gap-2 pt-10 pb-7 px-6"
+                                className="flex flex-col gap-3 pt-10 pb-7 px-6"
                                 style={{ borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.06)" : "none" }}
                             >
+                                <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(0,255,221,0.06)", border: "1px solid rgba(0,255,221,0.15)" }}>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
+                                </div>
                                 <p className="text-sm font-semibold text-white leading-snug md:text-base">{p.title}</p>
                                 <p className="text-[13px] leading-relaxed text-white/40">{p.desc}</p>
                             </motion.div>
@@ -742,9 +786,8 @@ export default function DigitalProductsPage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">How products</span>
-                            <span className="display-strong-line">get built.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">How products </span><span className="display-strong-line">get built.</span>
                         </h2>
                     </motion.div>
                     <motion.div
@@ -754,10 +797,10 @@ export default function DigitalProductsPage() {
                         transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
                     >
                         {/* Desktop: horizontal flow */}
-                        <div className="hidden items-start justify-center gap-0 md:flex">
+                        <div className="hidden items-start justify-center gap-6 md:flex">
                             {NEW_PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex items-start">
-                                    <div className="flex w-36 flex-col items-center gap-4 text-center">
+                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
                                         <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>{step.num}</span>
                                         <div className="rounded-2xl p-px" style={{ background: "linear-gradient(135deg, rgba(123,85,234,0.55) 0%, rgba(255,255,255,0.06) 50%, rgba(123,85,234,0.45) 100%)", boxShadow: "0 12px 36px rgba(123,85,234,0.15)" }}>
                                             <div className="flex h-24 w-24 items-center justify-center rounded-[15px]" style={{ background: "rgba(10,14,28,0.98)" }}>
@@ -768,10 +811,10 @@ export default function DigitalProductsPage() {
                                             </div>
                                         </div>
                                         <h3 className="text-sm font-semibold tracking-tight text-white md:text-base">{step.title}</h3>
-                                        <p className="text-xs leading-relaxed md:text-sm" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "140px" }}>{step.body}</p>
+                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
                                     </div>
                                     {i < NEW_PROCESS_STEPS.length - 1 && (
-                                        <div className="flex w-16 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
+                                        <div className="flex w-10 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
                                             <div className="relative flex w-full items-center">
                                                 <div className="h-px w-full" style={{ background: "linear-gradient(to right, rgba(123,85,234,0.25), rgba(123,85,234,0.5), rgba(123,85,234,0.25))" }} />
                                                 <svg className="-ml-px flex-shrink-0" width="7" height="12" viewBox="0 0 7 12" fill="none">
@@ -791,7 +834,7 @@ export default function DigitalProductsPage() {
                         <div className="flex flex-col items-center gap-2 md:hidden">
                             {NEW_PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex flex-col items-center">
-                                    <div className="flex w-36 flex-col items-center gap-4 text-center">
+                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
                                         <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>{step.num}</span>
                                         <div className="rounded-2xl p-px" style={{ background: "linear-gradient(135deg, rgba(123,85,234,0.55) 0%, rgba(255,255,255,0.06) 50%, rgba(123,85,234,0.45) 100%)", boxShadow: "0 12px 36px rgba(123,85,234,0.15)" }}>
                                             <div className="flex h-24 w-24 items-center justify-center rounded-[15px]" style={{ background: "rgba(10,14,28,0.98)" }}>
@@ -802,7 +845,7 @@ export default function DigitalProductsPage() {
                                             </div>
                                         </div>
                                         <h3 className="text-sm font-semibold tracking-tight text-white">{step.title}</h3>
-                                        <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
                                     </div>
                                     {i < NEW_PROCESS_STEPS.length - 1 && (
                                         <div className="flex justify-center py-1" aria-hidden>
@@ -833,9 +876,8 @@ export default function DigitalProductsPage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Two product</span>
-                            <span className="display-strong-line">layers we build.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">Two product </span><span className="display-strong-line">layers we build.</span>
                         </h2>
                     </motion.div>
                     <div className="flex flex-col gap-14 md:gap-20">
@@ -875,121 +917,12 @@ export default function DigitalProductsPage() {
                                         </div>
                                     </div>
                                     {/* visual */}
-                                    {i === 0 ? <MVPVisual /> : <SaaSVisual />}
+                                    <div className="hidden sm:block">
+                                        {i === 0 ? <MVPVisual /> : <SaaSVisual />}
+                                    </div>
                                 </motion.div>
                             );
                         })}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── 5. OUTCOMES, 2×2 oversized KPI grid ──────── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="pointer-events-none absolute inset-0 z-0" style={{
-                    background: "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(123, 85, 234,0.05) 0%, transparent 65%)",
-                }} />
-                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-5xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">The numbers founders</span>
-                            <span className="display-strong-line">actually care about.</span>
-                        </h2>
-                    </motion.div>
-                    <div className="grid grid-cols-2 gap-y-14 gap-x-8 md:gap-x-12">
-                        <KPI value={6} suffix="–12wk" label="Average kick-off to launch" />
-                        <KPI value={70} suffix="%" label="Reduction in time-to-market" />
-                        <KPI value={100} suffix="%" label="Of MVPs built AI-ready" animate={false} />
-                        <KPI value={3} suffix="×" label="Higher retention in AI-native products" />
-                    </div>
-                </div>
-            </section>
-
-            {/* ── 6. DELIVERY PROCESS, Vertical process journey ── */}
-            <section id="process" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">From signed kickoff</span>
-                            <span className="display-strong-line">to shipped product.</span>
-                        </h2>
-                    </motion.div>
-
-                    <div className="relative mx-auto max-w-3xl">
-                        {/* Vertical spine */}
-                        <div
-                            aria-hidden
-                            className="absolute left-1/2 top-0 bottom-0 hidden md:block"
-                            style={{ width: 1, transform: "translateX(-50%)", background: "linear-gradient(to bottom, transparent, rgba(123,85,234,0.25) 8%, rgba(123,85,234,0.25) 92%, transparent)" }}
-                        />
-
-                        <div className="flex flex-col gap-0">
-                            {PROCESS_STEPS.map((s, i) => {
-                                const isRight = i % 2 === 0;
-                                return (
-                                    <motion.div
-                                        key={s.num}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true, margin: "-60px" }}
-                                        transition={{ duration: 0.55, delay: i * 0.08, ease: EASE }}
-                                        className="relative grid grid-cols-1 md:grid-cols-2 md:gap-8 pb-12 last:pb-0"
-                                    >
-                                        {/* Centre node */}
-                                        <div
-                                            aria-hidden
-                                            className="absolute left-1/2 top-0 z-10 hidden md:flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full"
-                                            style={{ background: "#0E1014", border: "1.5px solid rgba(255,255,255,0.35)", boxShadow: "0 0 0 4px #0E1014, 0 0 16px rgba(255,255,255,0.1)" }}
-                                        >
-                                            <span className="text-[10px] font-bold" style={{ fontFamily: "var(--font-code)", letterSpacing: "0.1em", color: "rgba(255,255,255,0.85)" }}>{s.num}</span>
-                                        </div>
-
-                                        {/* Content — right side on even, left side on odd (desktop) */}
-                                        {isRight ? (
-                                            <>
-                                                <div className="hidden md:block" /> {/* empty left cell */}
-                                                <div className="flex flex-col gap-2 md:pl-6">
-                                                    <div className="flex items-center gap-3 md:hidden mb-2">
-                                                        <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full" style={{ background: "#0E1014", border: "1.5px solid rgba(255,255,255,0.3)" }}>
-                                                            <span className="text-[9px] font-bold" style={{ color: "rgba(255,255,255,0.85)" }}>{s.num}</span>
-                                                        </div>
-                                                    </div>
-                                                    <h3 className="text-base font-semibold text-white leading-snug md:text-lg">{s.title}</h3>
-                                                    <p className="text-sm leading-relaxed text-white/50 md:text-[15px]">{s.body}</p>
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <div className="flex flex-col gap-2 md:pr-6 md:text-right">
-                                                    <div className="flex items-center gap-3 md:hidden mb-2">
-                                                        <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full" style={{ background: "#0E1014", border: "1.5px solid rgba(255,255,255,0.3)" }}>
-                                                            <span className="text-[9px] font-bold" style={{ color: "rgba(255,255,255,0.85)" }}>{s.num}</span>
-                                                        </div>
-                                                    </div>
-                                                    <h3 className="text-base font-semibold text-white leading-snug md:text-lg">{s.title}</h3>
-                                                    <p className="text-sm leading-relaxed text-white/50 md:text-[15px]">{s.body}</p>
-                                                </div>
-                                                <div className="hidden md:block" /> {/* empty right cell */}
-                                            </>
-                                        )}
-                                    </motion.div>
-                                );
-                            })}
-                        </div>
                     </div>
                 </div>
             </section>
@@ -1006,9 +939,8 @@ export default function DigitalProductsPage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">Founder questions,</span>
-                            <span className="display-strong-line">answered.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">Founder questions, </span><span className="display-strong-line">answered.</span>
                         </h2>
                     </motion.div>
 

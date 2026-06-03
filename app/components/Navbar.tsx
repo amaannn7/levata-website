@@ -539,7 +539,7 @@ export default function Navbar() {
                                     <button
                                         type="button"
                                         onClick={triggerBookCall}
-                                        className="w-full rounded-2xl py-4 text-center text-[15px] font-semibold text-white transition-opacity hover:opacity-90"
+                                        className="w-full rounded-2xl py-4 text-center text-[15px] font-semibold text-white transition-opacity duration-200 hover:opacity-90"
                                         data-cta="primary"
                                     >
                                         Book a Strategy Call

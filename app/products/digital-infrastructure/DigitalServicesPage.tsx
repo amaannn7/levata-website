@@ -220,15 +220,16 @@ const FAQS = [
 function DigitalProblemVisual() {
     return (
         <div className="relative mx-auto w-full max-w-sm">
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">Where growth stalls</p>
-            <svg viewBox="0 0 380 320" className="block h-auto w-full" fill="none">
+            <svg viewBox="0 0 380 380" className="block h-auto w-full" fill="none">
+                <text x="0" y="53" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
+                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">WHERE GROWTH STALLS</text>
                 <defs>
                     <filter id="dp_glow">
                         <feGaussianBlur stdDeviation="3" result="blur" />
                         <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                     </filter>
                 </defs>
-
+                <g transform="translate(0,60)">
                 {/* ── Panel 1: Passive website ── */}
                 <motion.g initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1, ease: EASE }}>
@@ -333,6 +334,7 @@ function DigitalProblemVisual() {
                         transition={{ duration: 0.4, delay: 0.5 + i * 0.08, ease: EASE }}
                     />
                 ))}
+                </g>
             </svg>
         </div>
     );
@@ -496,6 +498,7 @@ export default function DigitalServicesPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+                            className="hidden sm:block"
                         >
                             <DigitalProblemVisual />
                         </motion.div>
@@ -518,7 +521,7 @@ export default function DigitalServicesPage() {
                             transition={{ duration: 0.7, ease: EASE }}
                             className="flex flex-col gap-5"
                         >
-                            <SectionLabel />
+                            <SectionLabelSide />
                             <h2 className="display-section-title">
                                 <span className="display-muted-line">Modern growth requires</span>
                                 <span className="display-strong-line">scalable digital infrastructure.</span>
@@ -549,10 +552,10 @@ export default function DigitalServicesPage() {
                         style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
                     >
                         {[
-                            { title: "Attract Customers",  desc: "Digital presence that converts visitors into leads." },
-                            { title: "Support Operations", desc: "Infrastructure that keeps the business running smoothly." },
-                            { title: "Scale Efficiently",  desc: "Systems built to grow without rebuilding from scratch." },
-                            { title: "Build Advantage",    desc: "Digital assets that compound value over time." },
+                            { title: "Attract Customers",  desc: "Digital presence that converts visitors into leads.", icon: <><path d="M10 3C6.13 3 3 6.13 3 10s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7z" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5"/><path d="M7 10c0-1.66 1.34-3 3-3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="10" r="1.5" fill="rgba(0,255,221,0.8)"/></> },
+                            { title: "Support Operations", desc: "Infrastructure that keeps the business running smoothly.", icon: <><rect x="3" y="3" width="6" height="6" rx="1.5" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5"/><rect x="11" y="3" width="6" height="6" rx="1.5" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5"/><rect x="3" y="11" width="6" height="6" rx="1.5" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5"/><rect x="11" y="11" width="6" height="6" rx="1.5" stroke="rgba(0,255,221,0.8)" strokeWidth="1.4" strokeDasharray="2 1.5"/></> },
+                            { title: "Scale Efficiently",  desc: "Systems built to grow without rebuilding from scratch.", icon: <><path d="M3 14l4-5 3 3 3-4 4-4" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 4h3v3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></> },
+                            { title: "Build Advantage",    desc: "Digital assets that compound value over time.", icon: <><path d="M10 3l2 4h4l-3 3 1 4-4-2.5L6 14l1-4-3-3h4z" stroke="rgba(0,255,221,0.8)" strokeWidth="1.4" strokeLinejoin="round" fill="rgba(0,255,221,0.08)"/></> },
                         ].map((p, i) => (
                             <motion.div
                                 key={p.title}
@@ -560,9 +563,12 @@ export default function DigitalServicesPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-40px" }}
                                 transition={{ duration: 0.5, delay: 0.25 + i * 0.08, ease: EASE }}
-                                className="flex flex-col gap-2 pt-10 pb-7 px-6"
+                                className="flex flex-col gap-3 pt-10 pb-7 px-6"
                                 style={{ borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.06)" : "none" }}
                             >
+                                <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(0,255,221,0.06)", border: "1px solid rgba(0,255,221,0.15)" }}>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
+                                </div>
                                 <p className="text-sm font-semibold text-white leading-snug md:text-base">{p.title}</p>
                                 <p className="text-[13px] leading-relaxed text-white/40">{p.desc}</p>
                             </motion.div>
@@ -585,9 +591,8 @@ export default function DigitalServicesPage() {
                         className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">How infrastructure</span>
-                            <span className="display-strong-line">gets built.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">How infrastructure </span><span className="display-strong-line">gets built.</span>
                         </h2>
                     </motion.div>
 
@@ -598,10 +603,10 @@ export default function DigitalServicesPage() {
                         viewport={{ once: true, margin: "-60px" }}
                         transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
                     >
-                        <div className="hidden items-start justify-center gap-0 md:flex">
+                        <div className="hidden items-start justify-center gap-6 md:flex">
                             {PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex items-start">
-                                    <div className="flex w-36 flex-col items-center gap-4 text-center">
+                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
                                         <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>
                                             {step.num}
                                         </span>
@@ -645,10 +650,10 @@ export default function DigitalServicesPage() {
                                             </div>
                                         </div>
                                         <h3 className="text-sm font-semibold tracking-tight text-white md:text-base">{step.title}</h3>
-                                        <p className="text-xs leading-relaxed md:text-sm" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "140px" }}>{step.body}</p>
+                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
                                     </div>
                                     {i < PROCESS_STEPS.length - 1 && (
-                                        <div className="flex w-16 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
+                                        <div className="flex w-10 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
                                             <div className="relative flex w-full items-center">
                                                 <div className="h-px w-full" style={{ background: "linear-gradient(to right, rgba(123,85,234,0.25), rgba(123,85,234,0.5), rgba(123,85,234,0.25))" }} />
                                                 <svg className="-ml-px flex-shrink-0" width="7" height="12" viewBox="0 0 7 12" fill="none">
@@ -672,7 +677,7 @@ export default function DigitalServicesPage() {
                         <div className="flex flex-col items-center gap-2 md:hidden">
                             {PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex flex-col items-center">
-                                    <div className="flex w-36 flex-col items-center gap-4 text-center">
+                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
                                         <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>
                                             {step.num}
                                         </span>
@@ -691,7 +696,7 @@ export default function DigitalServicesPage() {
                                             </div>
                                         </div>
                                         <h3 className="text-sm font-semibold tracking-tight text-white">{step.title}</h3>
-                                        <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
                                     </div>
                                     {i < PROCESS_STEPS.length - 1 && (
                                         <div className="flex justify-center py-1" aria-hidden>
@@ -778,108 +783,12 @@ export default function DigitalServicesPage() {
                                         </div>
                                     </div>
                                     {/* visual */}
-                                    <div className="mx-auto w-full max-w-lg">
+                                    <div className="hidden sm:block w-full">
                                         <WhatWeBuildVisual kind={svc.visual} />
                                     </div>
                                 </motion.div>
                             );
                         })}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── 5. OUTCOMES, Horizontal metrics strip ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">What the numbers</span>
-                            <span className="display-strong-line">look like.</span>
-                        </h2>
-                    </motion.div>
-
-                    <div
-                        className="grid grid-cols-2 rounded-2xl md:grid-cols-4"
-                        style={{ background: "rgba(23,26,34,0.92)", border: "1px solid rgba(255,255,255,0.07)" }}
-                    >
-                        {OUTCOME_METRICS.map((m, i) => {
-                            // mobile (2-col): all but last two get bottom-border; right column also gets a left-border
-                            // desktop (4-col): all but first get a left-border (no bottom borders)
-                            const mobileBottom = i < OUTCOME_METRICS.length - 2 ? "border-b border-white/[0.07]" : "";
-                            const mobileLeft = i % 2 === 1 ? "border-l border-white/[0.07]" : "";
-                            return (
-                                <div
-                                    key={m.label}
-                                    className={`relative ${mobileBottom} ${mobileLeft} md:border-b-0 md:border-l md:border-white/[0.07] md:first:border-l-0`}
-                                >
-                                    <MetricTile {...m} index={i} />
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </section>
-
-            {/* ── 6. DELIVERY PROCESS, Pipeline ── */}
-            <section id="process" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
-                    >
-                        <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">A pipeline,</span>
-                            <span className="display-strong-line">not a sprint.</span>
-                        </h2>
-                    </motion.div>
-
-                    <div className="relative">
-                        <div
-                            aria-hidden
-                            className="pointer-events-none absolute hidden lg:block lg:left-0 lg:right-0"
-                            style={{
-                                top: "32px",
-                                height: "1px",
-                                background: `linear-gradient(to right, transparent, ${BLUE}55 6%, ${BLUE}55 94%, transparent)`,
-                            }}
-                        />
-                        <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
-                            {PIPELINE.map((step, i) => (
-                                <motion.div
-                                    key={step.num}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-60px" }}
-                                    transition={{ duration: 0.6, delay: i * 0.1, ease: EASE }}
-                                    className="flex flex-col items-center text-center"
-                                >
-                                    <div
-                                        className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full"
-                                        style={{
-                                            background: "#171A22",
-                                            border: `1.5px solid ${BLUE}`,
-                                            boxShadow: `0 0 0 6px #0E1014, 0 0 22px ${BLUE}33`,
-                                        }}
-                                    >
-                                        <span className="text-sm font-bold md:text-base" style={{ color: GREEN }}>{step.num}</span>
-                                    </div>
-                                    <h3 className="mt-4 text-base font-bold text-white md:text-lg">{step.title}</h3>
-                                    <p className="mt-2 max-w-[200px] text-xs leading-relaxed text-white/55 md:text-sm">{step.body}</p>
-                                </motion.div>
-                            ))}
-                        </div>
                     </div>
                 </div>
             </section>
@@ -896,9 +805,8 @@ export default function DigitalServicesPage() {
                         className="mb-10 flex flex-col items-center gap-5 text-center md:mb-14"
                     >
                         <SectionLabel />
-                        <h2 className="display-section-title max-w-2xl text-center">
-                            <span className="display-muted-line">The</span>
-                            <span className="display-strong-line">common questions.</span>
+                        <h2 className="display-section-title display-inline max-w-2xl text-center">
+                            <span className="display-muted-line">The </span><span className="display-strong-line">common questions.</span>
                         </h2>
                     </motion.div>
 

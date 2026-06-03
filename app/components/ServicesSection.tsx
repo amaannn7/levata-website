@@ -339,7 +339,7 @@ const SERVICES = [
     {
         num: "02",
         name: "Product Engineering",
-        description: "Product engineering for founders and businesses — MVPs, SaaS products, and scalable digital systems built for growth.",
+        description: "Product engineering for founders and businesses: MVPs, SaaS products, and scalable digital systems built for growth.",
         points: ["MVPs", "SaaS", "Scalable Architecture", "User-focused experiences"],
         href: "/products/product-engineering",
         Icon: IconBox,
@@ -464,9 +464,8 @@ export default function ServicesSection() {
                     transition={{ duration: 0.7, ease: EASE }}
                     className="mb-12 flex flex-col items-center gap-5 text-center"
                 >
-                    <h2 className="display-section-title max-w-2xl text-center">
-                        <span className="display-muted-line">Four ways we build</span>
-                        <span className="display-strong-line">smarter businesses</span>
+                    <h2 className="display-section-title display-inline max-w-2xl text-center">
+                        <span className="display-muted-line">Four ways we build </span><span className="display-strong-line">smarter businesses</span>
                     </h2>
                 </motion.div>
 
