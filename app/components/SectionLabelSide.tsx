@@ -22,18 +22,20 @@ export default function SectionLabelSide() {
         return () => obs.disconnect();
     }, []);
 
+    // Ref lives on an always-rendered wrapper so the observer fires on mobile too
+    // (the inner beams swap via responsive display, but the wrapper is never hidden).
     return (
-        <>
+        <div ref={ref}>
             {/* Mobile: vertical beam */}
             <div className="flex flex-col items-start gap-0 md:hidden">
                 <span aria-hidden className={`section-label-beam${visible ? " section-label-beam--active" : ""}`} />
                 <span aria-hidden className={`section-label-dot${visible ? " section-label-dot--active" : ""}`} />
             </div>
             {/* Desktop: horizontal beam */}
-            <div ref={ref} className="hidden md:flex flex-row items-center">
+            <div className="hidden md:flex flex-row items-center">
                 <span aria-hidden className={`section-label-beam-side${visible ? " section-label-beam-side--active" : ""}`} />
                 <span aria-hidden className={`section-label-dot-side${visible ? " section-label-dot-side--active" : ""}`} />
             </div>
-        </>
+        </div>
     );
 }

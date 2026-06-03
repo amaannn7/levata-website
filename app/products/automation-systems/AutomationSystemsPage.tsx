@@ -676,7 +676,7 @@ export default function AutomationSystemsPage() {
                                             </ul>
                                         </div>
                                     </div>
-                                    <div className="hidden sm:block w-full">
+                                    <div className="mx-auto block w-full max-w-md sm:max-w-none">
                                         <AutomationVisual kind={svc.visual} />
                                     </div>
                                 </motion.div>

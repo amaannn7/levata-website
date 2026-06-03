@@ -696,7 +696,7 @@ export default function DigitalProductsPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
-                            className="hidden sm:block"
+                            className="block"
                         >
                             <ProductProblemVisual />
                         </motion.div>
@@ -917,7 +917,7 @@ export default function DigitalProductsPage() {
                                         </div>
                                     </div>
                                     {/* visual */}
-                                    <div className="hidden sm:block">
+                                    <div className="mx-auto block w-full max-w-md sm:max-w-none">
                                         {i === 0 ? <MVPVisual /> : <SaaSVisual />}
                                     </div>
                                 </motion.div>

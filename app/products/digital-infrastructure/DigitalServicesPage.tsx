@@ -498,7 +498,7 @@ export default function DigitalServicesPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
-                            className="hidden sm:block"
+                            className="block"
                         >
                             <DigitalProblemVisual />
                         </motion.div>
@@ -783,7 +783,7 @@ export default function DigitalServicesPage() {
                                         </div>
                                     </div>
                                     {/* visual */}
-                                    <div className="hidden sm:block w-full">
+                                    <div className="mx-auto block w-full max-w-md sm:max-w-none">
                                         <WhatWeBuildVisual kind={svc.visual} />
                                     </div>
                                 </motion.div>
