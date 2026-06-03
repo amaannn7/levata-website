@@ -107,17 +107,18 @@ function AIProblemVisual() {
     ];
     const rowH = 38;
     const startY = 50;
+    const ref = useRef<HTMLDivElement>(null);
+    const inView = useReveal(ref);
 
     return (
-        <div className="relative mx-auto w-full max-w-md">
+        <div ref={ref} className="relative mx-auto w-full max-w-md">
             <svg viewBox={`0 0 360 ${startY + rows.length * rowH + 24}`} className="block h-auto w-full" fill="none">
                 <text x="0" y="32" fontFamily={MONO} fontSize="9" fontWeight="700"
                     letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">THE PATTERN WE SEE</text>
                 {rows.map((row, i) => (
                     <motion.g key={row.text}
                         initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
+                        animate={inView ? { opacity: 1, x: 0 } : undefined}
                         transition={{ duration: 0.45, delay: 0.1 + i * 0.08, ease: EASE }}
                     >
                         {/* Row background */}

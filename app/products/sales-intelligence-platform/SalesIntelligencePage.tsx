@@ -109,7 +109,7 @@ function CapabilityIcon({ kind }: { kind: IconKind }) {
 // ── Sales Dashboard SVG Visual ─────────────────────────────────────────────
 function SalesDashboardVisual() {
     const ref = useRef<HTMLDivElement>(null);
-    const observed = useInView(ref, { once: true, margin: "-100px" });
+    const observed = useInView(ref, { once: true, margin: "200px" });
     // Fallback so the dashboard reveals even if the observer never fires (iOS Safari).
     const [forced, setForced] = useState(false);
     useEffect(() => {

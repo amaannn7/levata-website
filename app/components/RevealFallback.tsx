@@ -3,36 +3,19 @@
 import { useEffect } from "react";
 
 /**
- * Mobile reveal safety net.
+ * Reveal safety net for HTML scroll-in wrappers.
  *
- * The product-page "visuals" are SVGs whose pieces animate in via per-element
- * framer-motion `whileInView`. On some mobile browsers (iOS Safari + smooth
- * scroll) those IntersectionObservers don't fire, leaving each piece hidden
- * (framer sets `opacity="0"` as an SVG attribute) — so the whole visual is
- * invisible.
- *
- * On small screens we inject a stylesheet that forces SVG drawing elements
- * visible and clears the leftover slide-in transform. Injecting from JS (rather
- * than relying on globals.css cascade ordering) guarantees it wins reliably in
- * both dev and production. We also sweep stuck HTML reveal wrappers as a backup.
+ * Most reveals use framer-motion `whileInView` with an `initial` opacity of 0.
+ * On some mobile browsers the IntersectionObserver can fail to fire, leaving an
+ * element stuck invisible. This sweeps the DOM shortly after load and on scroll
+ * and force-reveals stuck HTML wrappers. (SVG visuals handle their own reveal
+ * via a parent-level `useReveal` with a timed fallback.)
  */
-const MOBILE_MAX = 767;
-
 export default function RevealFallback() {
     useEffect(() => {
-        // 1) Force SVG visuals visible on phones — independent of the observer.
-        const style = document.createElement("style");
-        style.setAttribute("data-reveal-fallback", "");
-        style.textContent = `
-@media (max-width: ${MOBILE_MAX}px) {
-  svg g, svg path, svg circle, svg line, svg rect,
-  svg polyline, svg polygon, svg ellipse, svg text { opacity: 1 !important; }
-  svg g[style*="translate"] { transform: none !important; }
-}`;
-        document.head.appendChild(style);
-
-        // 2) Sweep stuck HTML scroll-reveal wrappers (opacity:0 + translate) that
-        //    are already in/above view. Skips carousels/overlays/hover reveals.
+        // Sweep stuck HTML scroll-reveal wrappers (opacity:0 + translate) that
+        // are already in/above view. Skips carousels/overlays/hover reveals.
+        // (SVG visuals reveal via their own parent-driven useReveal fallback.)
         let stopped = false;
         const sweep = () => {
             if (stopped) return;
@@ -59,7 +42,6 @@ export default function RevealFallback() {
             stopped = true;
             clearTimeout(t);
             window.removeEventListener("scroll", onScroll);
-            style.remove();
         };
     }, []);
 

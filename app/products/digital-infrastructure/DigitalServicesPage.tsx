@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
@@ -16,6 +16,18 @@ const GREEN = "#FFFFFF";
 const BLUE = "#FFFFFF";
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+// Reveal once in view, with a timed fallback so SVG visuals still animate even if
+// the IntersectionObserver never fires (iOS Safari + smooth scroll).
+function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
+    const observed = useInView(ref, { once: true, margin: "200px" });
+    const [forced, setForced] = useState(false);
+    useEffect(() => {
+        const t = setTimeout(() => setForced(true), 700);
+        return () => clearTimeout(t);
+    }, []);
+    return observed || forced;
+}
 
 // ── Count-up hook ─────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2000) {
@@ -218,8 +230,10 @@ const FAQS = [
 
 // ── Digital Services Problem visual: broken infrastructure ────────────────
 function DigitalProblemVisual() {
+    const ref = useRef<HTMLDivElement>(null);
+    const inView = useReveal(ref);
     return (
-        <div className="relative mx-auto w-full max-w-sm">
+        <div ref={ref} className="relative mx-auto w-full max-w-sm">
             <svg viewBox="0 0 380 380" className="block h-auto w-full" fill="none">
                 <text x="0" y="53" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
                     letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">WHERE GROWTH STALLS</text>
@@ -231,8 +245,8 @@ function DigitalProblemVisual() {
                 </defs>
                 <g transform="translate(0,60)">
                 {/* ── Panel 1: Passive website ── */}
-                <motion.g initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1, ease: EASE }}>
+                <motion.g initial={{ opacity: 0, y: -10 }} animate={inView ? { opacity: 1, y: 0 } : undefined}
+                    transition={{ duration: 0.5, delay: 0.1, ease: EASE }}>
                     {/* Browser chrome */}
                     <rect x="20" y="20" width="160" height="108" rx="7"
                         fill="rgba(10,14,28,0.98)" stroke="rgba(255,80,80,0.22)" strokeWidth="1.2" />
@@ -255,8 +269,8 @@ function DigitalProblemVisual() {
                     {/* Flat conversion bar */}
                     <rect x="30" y="118" width="140" height="4" rx="2" fill="rgba(255,255,255,0.05)" />
                     <motion.rect x="30" y="118" width="14" height="4" rx="2" fill="rgba(255,80,80,0.5)"
-                        initial={{ width: 0 }} whileInView={{ width: 14 }}
-                        viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.8, delay: 0.6, ease: EASE }} />
+                        initial={{ width: 0 }} animate={inView ? { width: 14 } : undefined}
+                        transition={{ duration: 0.8, delay: 0.6, ease: EASE }} />
                     {/* Label */}
                     <text x="100" y="142" textAnchor="middle" fontFamily={MONO} fontSize="8.5" fontWeight="700"
                         letterSpacing="0.12em" fill="rgba(255,255,255,0.6)">PASSIVE WEBSITE</text>
@@ -265,8 +279,8 @@ function DigitalProblemVisual() {
                 </motion.g>
 
                 {/* ── Panel 2: Platform bottleneck ── */}
-                <motion.g initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.22, ease: EASE }}>
+                <motion.g initial={{ opacity: 0, y: -10 }} animate={inView ? { opacity: 1, y: 0 } : undefined}
+                    transition={{ duration: 0.5, delay: 0.22, ease: EASE }}>
                     <rect x="200" y="20" width="160" height="108" rx="7"
                         fill="rgba(10,14,28,0.98)" stroke="rgba(255,80,80,0.22)" strokeWidth="1.2" />
                     {/* Server stack */}
@@ -290,8 +304,8 @@ function DigitalProblemVisual() {
                 </motion.g>
 
                 {/* ── Panel 3: Ecommerce leaking ── */}
-                <motion.g initial={{ opacity: 0, y: -10 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.34, ease: EASE }}>
+                <motion.g initial={{ opacity: 0, y: -10 }} animate={inView ? { opacity: 1, y: 0 } : undefined}
+                    transition={{ duration: 0.5, delay: 0.34, ease: EASE }}>
                     <rect x="110" y="178" width="160" height="108" rx="7"
                         fill="rgba(10,14,28,0.98)" stroke="rgba(255,80,80,0.22)" strokeWidth="1.2" />
                     {/* Cart funnel */}
@@ -304,8 +318,8 @@ function DigitalProblemVisual() {
                     {/* Drop-off arrows */}
                     {[{ x: 248, y: 215 }, { x: 234, y: 233 }].map((pt, i) => (
                         <motion.g key={i}
-                            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-                            viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.4, delay: 0.7 + i * 0.1, ease: EASE }}>
+                            initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : undefined}
+                            transition={{ duration: 0.4, delay: 0.7 + i * 0.1, ease: EASE }}>
                             <path d={`M${pt.x} ${pt.y} L${pt.x + 14} ${pt.y + 10}`}
                                 stroke="rgba(255,80,80,0.5)" strokeWidth="1.2" strokeLinecap="round" />
                             <circle cx={pt.x + 14} cy={pt.y + 10} r="2.5" fill="rgba(255,80,80,0.5)" filter="url(#dp_glow)" />
@@ -329,8 +343,7 @@ function DigitalProblemVisual() {
                     <motion.line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
                         stroke="rgba(255,80,80,0.15)" strokeWidth="1" strokeDasharray="3 4"
                         initial={{ pathLength: 0, opacity: 0 }}
-                        whileInView={{ pathLength: 1, opacity: 1 }}
-                        viewport={{ once: true, margin: "-60px" }}
+                        animate={inView ? { pathLength: 1, opacity: 1 } : undefined}
                         transition={{ duration: 0.4, delay: 0.5 + i * 0.08, ease: EASE }}
                     />
                 ))}

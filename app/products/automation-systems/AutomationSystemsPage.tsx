@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
@@ -16,6 +16,18 @@ const GREEN = "#FFFFFF";
 const BLUE = "rgba(0,255,221,0.9)";
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+// Reveal once in view, with a timed fallback so SVG visuals still animate even if
+// the IntersectionObserver never fires (iOS Safari + smooth scroll).
+function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
+    const observed = useInView(ref, { once: true, margin: "200px" });
+    const [forced, setForced] = useState(false);
+    useEffect(() => {
+        const t = setTimeout(() => setForced(true), 700);
+        return () => clearTimeout(t);
+    }, []);
+    return observed || forced;
+}
 
 // Problem-diagram variants — driven by ONE whileInView on the parent <div>, so the
 // SVG children reveal via variant propagation (reliable on mobile, unlike per-SVG observers).
@@ -287,6 +299,8 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
 export default function AutomationSystemsPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const { open: openBookCall } = useBookCall();
+    const silosRef = useRef<HTMLDivElement>(null);
+    const silosInView = useReveal(silosRef);
 
     return (
         <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
@@ -361,7 +375,7 @@ export default function AutomationSystemsPage() {
                         </motion.div>
 
                         {/* Right: disconnected silos visual */}
-                        <div className="relative mx-auto w-full max-w-sm">
+                        <div ref={silosRef} className="relative mx-auto w-full max-w-sm">
                             <svg viewBox="0 0 400 320" className="block h-auto w-full" fill="none">
                                 <text x="0" y="28" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
                                     letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">DISCONNECTED OPERATIONS</text>
@@ -382,8 +396,7 @@ export default function AutomationSystemsPage() {
                                 ].map((p) => (
                                     <motion.g key={p.label}
                                         initial={{ opacity: 0, scale: 0.8 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        viewport={{ once: true, margin: "-60px" }}
+                                        animate={silosInView ? { opacity: 1, scale: 1 } : undefined}
                                         transition={{ duration: 0.45, delay: p.delay, ease: EASE }}
                                         style={{ transformOrigin: `${p.cx}px ${p.cy}px` }}
                                     >
@@ -421,8 +434,7 @@ export default function AutomationSystemsPage() {
                                         x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
                                         stroke="rgba(255,80,80,0.2)" strokeWidth="1" strokeDasharray="3 5"
                                         initial={{ pathLength: 0, opacity: 0 }}
-                                        whileInView={{ pathLength: 1, opacity: 1 }}
-                                        viewport={{ once: true, margin: "-60px" }}
+                                        animate={silosInView ? { pathLength: 1, opacity: 1 } : undefined}
                                         transition={{ duration: 0.4, delay: 0.45 + i * 0.07, ease: EASE }}
                                     />
                                 ))}
@@ -430,8 +442,7 @@ export default function AutomationSystemsPage() {
                                 {/* Central void — "no automation layer" */}
                                 <motion.g
                                     initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ once: true, margin: "-60px" }}
+                                    animate={silosInView ? { opacity: 1 } : undefined}
                                     transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
                                 >
                                     <rect x="130" y="120" width="140" height="30" rx="15"

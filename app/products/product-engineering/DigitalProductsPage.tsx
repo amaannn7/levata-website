@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
@@ -14,6 +14,19 @@ const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr:
 const GREEN = "#FFFFFF";
 const BLUE = "#FFFFFF";
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+// Reveal once in view, with a timed fallback so SVG visuals still animate even if
+// the IntersectionObserver never fires (iOS Safari + smooth scroll). Drive the
+// visual's children from this single boolean instead of per-element observers.
+function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
+    const observed = useInView(ref, { once: true, margin: "200px" });
+    const [forced, setForced] = useState(false);
+    useEffect(() => {
+        const t = setTimeout(() => setForced(true), 700);
+        return () => clearTimeout(t);
+    }, []);
+    return observed || forced;
+}
 
 // ── Count-up hook ─────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2000) {
@@ -248,13 +261,15 @@ const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 
 // ── Product Problem visual ────────────────────────────────────────────────
 function ProductProblemVisual() {
+    const ref = useRef<HTMLDivElement>(null);
+    const inView = useReveal(ref);
     const stages = [
         { cx: 90,  label: "No validation", sub: "Build starts", icon: "?" },
         { cx: 240, label: "Wrong scope",    sub: "Months in",   icon: "✕" },
         { cx: 390, label: "Technical debt", sub: "At launch",   icon: "!" },
     ];
     return (
-        <div className="relative mx-auto w-full max-w-xl">
+        <div ref={ref} className="relative mx-auto w-full max-w-xl">
             <svg viewBox="0 0 480 290" className="block h-auto w-full" fill="none">
                 <text x="0" y="62" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
                     letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">WHERE PRODUCTS FAIL</text>
@@ -267,22 +282,19 @@ function ProductProblemVisual() {
                 {/* Spine */}
                 <motion.line x1="40" y1="148" x2="440" y2="148"
                     stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="4 4"
-                    initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : undefined}
                     transition={{ duration: 0.8, ease: EASE }}
                 />
                 {/* Declining momentum curve */}
                 <motion.path d="M40 100 Q160 110 240 148 Q320 185 440 220"
                     stroke="rgba(255,80,80,0.25)" strokeWidth="1.5" fill="none" strokeDasharray="5 4"
-                    initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : undefined}
                     transition={{ duration: 1.2, delay: 0.5, ease: EASE }}
                 />
                 {stages.map((s, i) => (
                     <motion.g key={s.label}
                         initial={{ opacity: 0, y: 12 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
+                        animate={inView ? { opacity: 1, y: 0 } : undefined}
                         transition={{ duration: 0.5, delay: 0.15 + i * 0.14, ease: EASE }}
                     >
                         {/* Outer ring */}
@@ -320,16 +332,14 @@ function ProductProblemVisual() {
                 {/* Budget drain bar */}
                 <motion.g
                     initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    animate={inView ? { opacity: 1, y: 0 } : undefined}
                     transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
                 >
                     <rect x="70" y="228" width="340" height="6" rx="3" fill="rgba(255,255,255,0.04)" />
                     <motion.rect x="70" y="228" width="340" height="6" rx="3"
                         fill="rgba(255,80,80,0.35)"
                         style={{ transformOrigin: "70px 231px", scaleX: 0 }}
-                        initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true, margin: "-60px" }}
+                        initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : undefined}
                         transition={{ duration: 1.0, delay: 0.9, ease: EASE }}
                     />
                     <text x="240" y="252"
@@ -348,6 +358,8 @@ function ProductProblemVisual() {
 
 // ── MVP Development visual ────────────────────────────────────────────────
 function MVPVisual() {
+    const ref = useRef<HTMLDivElement>(null);
+    const inView = useReveal(ref);
     const steps = [
         { label: "Idea", sub: "Assumption" },
         { label: "Validate", sub: "Real signal" },
@@ -359,7 +371,7 @@ function MVPVisual() {
     const cy = 120;
 
     return (
-        <div className="relative w-full" style={{ aspectRatio: "5 / 4" }}>
+        <div ref={ref} className="relative w-full" style={{ aspectRatio: "5 / 4" }}>
             <div className="absolute inset-0 flex items-center justify-center p-3">
             <svg viewBox="0 0 480 282" className="h-full w-full" fill="none">
                 <text x="0" y="74" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
@@ -378,8 +390,7 @@ function MVPVisual() {
                         x1={x + 18} y1={cy} x2={cx[i + 1] - 18} y2={cy}
                         stroke="rgba(123,85,234,0.18)" strokeWidth="1" strokeDasharray="4 4"
                         initial={{ pathLength: 0, opacity: 0 }}
-                        whileInView={{ pathLength: 1, opacity: 1 }}
-                        viewport={{ once: true, margin: "-60px" }}
+                        animate={inView ? { pathLength: 1, opacity: 1 } : undefined}
                         transition={{ duration: 0.4, delay: 0.3 + i * 0.12, ease: EASE }}
                     />
                 ))}
@@ -388,12 +399,11 @@ function MVPVisual() {
                 <motion.circle
                     r="3" fill="rgba(123,85,234,0.9)" filter="url(#mvp_glow)"
                     initial={{ opacity: 0 }}
-                    whileInView={{
+                    animate={inView ? {
                         cx: [cx[0], cx[1], cx[2], cx[3], cx[4]],
                         cy: [cy, cy, cy, cy, cy],
                         opacity: [0, 1, 1, 1, 1],
-                    }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    } : undefined}
                     transition={{ duration: 2.4, delay: 1.2, ease: "easeInOut" }}
                 />
 
@@ -402,8 +412,7 @@ function MVPVisual() {
                     return (
                         <motion.g key={s.label}
                             initial={{ opacity: 0, y: 12 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
+                            animate={inView ? { opacity: 1, y: 0 } : undefined}
                             transition={{ duration: 0.5, delay: 0.1 + i * 0.1, ease: EASE }}
                         >
                             {/* Outer glow ring for last node */}
@@ -450,8 +459,7 @@ function MVPVisual() {
                 {/* Outcome chip */}
                 <motion.g
                     initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    animate={inView ? { opacity: 1, y: 0 } : undefined}
                     transition={{ duration: 0.5, delay: 0.9, ease: EASE }}
                 >
                     <rect x="155" y="190" width="170" height="26" rx="13"
@@ -463,8 +471,7 @@ function MVPVisual() {
 
                 {/* Stat strip */}
                 <motion.g initial={{ opacity: 0, y: 5 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    animate={inView ? { opacity: 1, y: 0 } : undefined}
                     transition={{ duration: 0.4, delay: 1.0, ease: EASE }}>
                     <line x1="8" y1="228" x2="472" y2="228" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                     <text x="80"  y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TIME TO VALIDATE</text>
@@ -485,6 +492,8 @@ function MVPVisual() {
 
 // ── SaaS Product visual ───────────────────────────────────────────────────
 function SaaSVisual() {
+    const ref = useRef<HTMLDivElement>(null);
+    const inView = useReveal(ref);
     const layers = [
         { label: "USER INTERFACE", sub: "Design · UX · Flows", accent: 0.9 },
         { label: "APPLICATION", sub: "Logic · APIs · Auth", accent: 0.65 },
@@ -496,7 +505,7 @@ function SaaSVisual() {
     const barX = 20;
 
     return (
-        <div className="relative w-full" style={{ aspectRatio: "5 / 4" }}>
+        <div ref={ref} className="relative w-full" style={{ aspectRatio: "5 / 4" }}>
             <div className="absolute inset-0 flex items-center justify-center p-3">
             <svg viewBox="0 0 360 360" className="h-full w-full" fill="none">
                 <text x="0" y="38" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
@@ -512,8 +521,7 @@ function SaaSVisual() {
                 {layers.slice(0, -1).map((_, i) => (
                     <motion.g key={`conn-${i}`}
                         initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true, margin: "-60px" }}
+                        animate={inView ? { opacity: 1 } : undefined}
                         transition={{ duration: 0.3, delay: 0.4 + i * 0.1, ease: EASE }}
                     >
                         <line x1={barX + barW * 0.35} y1={barY(i) + 20} x2={barX + barW * 0.35} y2={barY(i + 1) - 2}
@@ -526,8 +534,7 @@ function SaaSVisual() {
                 {layers.map((layer, i) => (
                     <motion.g key={layer.label}
                         initial={{ opacity: 0, x: -16 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
+                        animate={inView ? { opacity: 1, x: 0 } : undefined}
                         transition={{ duration: 0.55, delay: 0.1 + i * 0.11, ease: EASE }}
                     >
                         {/* Bar background */}
@@ -582,16 +589,14 @@ function SaaSVisual() {
                 {/* Growth arrow at bottom */}
                 <motion.g
                     initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    animate={inView ? { opacity: 1, y: 0 } : undefined}
                     transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
                 >
                     <motion.path
                         d="M50 278 Q180 260 310 278"
                         stroke="rgba(123,85,234,0.3)" strokeWidth="1.2" fill="none"
                         strokeDasharray="5 4"
-                        initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
-                        viewport={{ once: true, margin: "-60px" }}
+                        initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : undefined}
                         transition={{ duration: 1, delay: 0.8, ease: EASE }}
                     />
                     <path d="M306 274 L312 278 L306 282" stroke="rgba(123,85,234,0.45)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -601,8 +606,7 @@ function SaaSVisual() {
 
                 {/* Stat strip */}
                 <motion.g initial={{ opacity: 0, y: 5 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    animate={inView ? { opacity: 1, y: 0 } : undefined}
                     transition={{ duration: 0.4, delay: 0.9, ease: EASE }}>
                     <line x1="8" y1="310" x2="352" y2="310" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                     <text x="60"  y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">BUILD TIME</text>
