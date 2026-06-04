@@ -489,7 +489,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
 // ── Page ──────────────────────────────────────────────────────────────────
 export default function SalesIntelligencePage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
-    const [activeCap, setActiveCap] = useState(0);
+    const [activeCap, setActiveCap] = useState<number>(0);
     const [openPain, setOpenPain] = useState<number>(-1);
     const [activeCard, setActiveCard] = useState(0);
     const { open: openBookCall } = useBookCall();
@@ -664,53 +664,89 @@ export default function SalesIntelligencePage() {
                         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                         className="grid grid-cols-1 gap-5 md:grid-cols-[1fr_1.25fr] md:gap-7"
                     >
-                        {/* Left: capability list */}
+                        {/* Left: capability list — accordion on mobile, selector on desktop */}
                         <div className="flex flex-col gap-1.5">
                             {CAPABILITIES.map((c, i) => {
                                 const active = activeCap === i;
                                 return (
-                                    <button
-                                        key={c.title}
-                                        type="button"
-                                        onClick={() => setActiveCap(i)}
-                                        className="group relative flex items-center gap-4 overflow-hidden rounded-xl px-4 py-3.5 text-left transition-all duration-300"
-                                        style={{
-                                            background: active ? "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.015) 100%)" : "transparent",
-                                            border: active ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(255,255,255,0.05)",
-                                        }}
-                                        onMouseEnter={(e) => { if (!active) { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.025)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; } }}
-                                        onMouseLeave={(e) => { if (!active) { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.05)"; } }}
-                                        aria-pressed={active}
-                                    >
-                                        <span aria-hidden className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r-full transition-all duration-300"
-                                            style={{ width: active ? 3 : 0, height: active ? 28 : 0, background: "rgba(0,255,221,0.9)", boxShadow: active ? "0 0 12px rgba(0,255,221,0.4)" : "none" }} />
-                                        <span className="flex-shrink-0 text-[10px] font-semibold tabular-nums transition-colors duration-300"
-                                            style={{ fontFamily: MONO, letterSpacing: "0.18em", color: active ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)", minWidth: 18 }}>
-                                            {String(i + 1).padStart(2, "0")}
-                                        </span>
-                                        <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg transition-all duration-300"
-                                            style={{ background: active ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.02)", border: active ? "1px solid rgba(255,255,255,0.28)" : "1px solid rgba(255,255,255,0.08)" }}>
-                                            <CapabilityIcon kind={c.icon} />
-                                        </span>
-                                        <span className="flex flex-1 items-center justify-between gap-2 min-w-0">
-                                            <span className="text-body-sm font-semibold leading-snug transition-colors duration-300"
-                                                style={{ color: active ? "#FFFFFF" : "rgba(255,255,255,0.62)" }}>
-                                                {c.title}
+                                    <div key={c.title} className="flex flex-col">
+                                        <button
+                                            type="button"
+                                            onClick={() => setActiveCap(active ? -1 : i)}
+                                            className="group relative flex items-center gap-4 overflow-hidden rounded-xl px-4 py-3.5 text-left transition-all duration-300"
+                                            style={{
+                                                background: active ? "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.015) 100%)" : "transparent",
+                                                border: active ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(255,255,255,0.05)",
+                                                borderBottomLeftRadius: active ? 0 : undefined,
+                                                borderBottomRightRadius: active ? 0 : undefined,
+                                            }}
+                                            onMouseEnter={(e) => { if (!active) { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.025)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.1)"; } }}
+                                            onMouseLeave={(e) => { if (!active) { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.05)"; } }}
+                                            aria-pressed={active}
+                                        >
+                                            <span aria-hidden className="absolute left-0 top-1/2 -translate-y-1/2 rounded-r-full transition-all duration-300"
+                                                style={{ width: active ? 3 : 0, height: active ? 28 : 0, background: "rgba(0,255,221,0.9)", boxShadow: active ? "0 0 12px rgba(0,255,221,0.4)" : "none" }} />
+                                            <span className="flex-shrink-0 text-[10px] font-semibold tabular-nums transition-colors duration-300"
+                                                style={{ fontFamily: MONO, letterSpacing: "0.18em", color: active ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)", minWidth: 18 }}>
+                                                {String(i + 1).padStart(2, "0")}
                                             </span>
-                                            <span aria-hidden className="flex-shrink-0 transition-all duration-300"
-                                                style={{ color: active ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)", transform: active ? "translateX(3px)" : "none" }}>
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                                                    <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
+                                            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg transition-all duration-300"
+                                                style={{ background: active ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.02)", border: active ? "1px solid rgba(255,255,255,0.28)" : "1px solid rgba(255,255,255,0.08)" }}>
+                                                <CapabilityIcon kind={c.icon} />
                                             </span>
-                                        </span>
-                                    </button>
+                                            <span className="flex flex-1 items-center justify-between gap-2 min-w-0">
+                                                <span className="text-body-sm font-semibold leading-snug transition-colors duration-300"
+                                                    style={{ color: active ? "#FFFFFF" : "rgba(255,255,255,0.62)" }}>
+                                                    {c.title}
+                                                </span>
+                                                <span aria-hidden className="flex-shrink-0 transition-all duration-300 md:block"
+                                                    style={{ color: active ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)", transform: active ? "rotate(90deg)" : "none" }}>
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                                        <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </button>
+
+                                        {/* Inline detail — mobile only */}
+                                        <AnimatePresence initial={false}>
+                                            {active && (
+                                                <motion.div
+                                                    key="mobile-detail"
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                                                    className="overflow-hidden md:hidden"
+                                                >
+                                                    <div className="rounded-b-xl p-5 flex flex-col gap-4"
+                                                        style={{ background: "linear-gradient(160deg, rgba(28,30,38,0.96) 0%, rgba(20,22,28,0.96) 100%)", border: "1px solid rgba(255,255,255,0.18)", borderTop: "none" }}>
+                                                        <p className="text-body-sm text-white/60">{c.description}</p>
+                                                        <div className="h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
+                                                        <p className="text-eyebrow text-white/35">What's included</p>
+                                                        <ul className="flex flex-col gap-2.5">
+                                                            {c.bullets.map((b) => (
+                                                                <li key={b} className="flex items-center gap-3 text-[14px] text-white/85">
+                                                                    <span aria-hidden className="flex h-4 w-4 flex-shrink-0 items-center justify-center">
+                                                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                                                            <path d="M2 5l2 2L8 3" stroke="rgba(0,255,221,0.9)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                                                                        </svg>
+                                                                    </span>
+                                                                    <span className="leading-snug">{b}</span>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
                                 );
                             })}
                         </div>
 
-                        {/* Right: detail panel */}
-                        <div className="relative overflow-hidden rounded-2xl p-px"
+                        {/* Right: detail panel — desktop only */}
+                        <div className="relative hidden md:block overflow-hidden rounded-2xl p-px"
                             style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.14) 100%)" }}>
                             <div className="relative overflow-hidden rounded-[15px] p-7 md:p-9"
                                 style={{ background: "linear-gradient(160deg, rgba(28,30,38,0.96) 0%, rgba(20,22,28,0.96) 100%)", minHeight: 380 }}>
@@ -720,42 +756,44 @@ export default function SalesIntelligencePage() {
                                     style={{ background: "radial-gradient(circle, rgba(0,255,221,0.05) 0%, transparent 70%)" }} />
 
                                 <AnimatePresence mode="wait">
-                                    <motion.div key={activeCap} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }} className="relative flex h-full flex-col gap-5">
-                                        <span aria-hidden className="pointer-events-none absolute right-0 top-0 select-none leading-none"
-                                            style={{ fontFamily: MONO, fontWeight: 700, fontSize: "clamp(5rem, 10vw, 7.5rem)", color: "rgba(255,255,255,0.03)", letterSpacing: "-0.04em" }}>
-                                            {String(activeCap + 1).padStart(2, "0")}
-                                        </span>
-                                        <div className="relative flex items-center justify-between gap-4">
-                                            <span className="flex h-14 w-14 items-center justify-center rounded-xl"
-                                                style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)", border: "1px solid rgba(255,255,255,0.22)", boxShadow: "0 4px 14px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
-                                                <CapabilityIcon kind={CAPABILITIES[activeCap].icon} />
+                                    {activeCap >= 0 && (
+                                        <motion.div key={activeCap} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }} className="relative flex h-full flex-col gap-5">
+                                            <span aria-hidden className="pointer-events-none absolute right-0 top-0 select-none leading-none"
+                                                style={{ fontFamily: MONO, fontWeight: 700, fontSize: "clamp(5rem, 10vw, 7.5rem)", color: "rgba(255,255,255,0.03)", letterSpacing: "-0.04em" }}>
+                                                {String(activeCap + 1).padStart(2, "0")}
                                             </span>
-                                            <span className="text-[10px] font-semibold uppercase tabular-nums text-white/45"
-                                                style={{ fontFamily: MONO, letterSpacing: "0.22em" }}>
-                                                Capability {String(activeCap + 1).padStart(2, "0")} / {String(CAPABILITIES.length).padStart(2, "0")}
-                                            </span>
-                                        </div>
-                                        <h3 className="relative display-feature-title">
-                                            {CAPABILITIES[activeCap].title}
-                                        </h3>
-                                        <p className="relative text-body-sm text-white/60">
-                                            {CAPABILITIES[activeCap].description}
-                                        </p>
-                                        <div aria-hidden className="relative my-1 h-px w-full" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.18) 0%, transparent 100%)" }} />
-                                        <p className="relative -mb-1 text-eyebrow text-white/35">What's included</p>
-                                        <ul className="relative mt-auto flex flex-col gap-2.5">
-                                            {CAPABILITIES[activeCap].bullets.map((b, bi) => (
-                                                <motion.li key={b} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: 0.08 + bi * 0.05, ease: [0.16, 1, 0.3, 1] }} className="flex items-center gap-3 text-[14px] text-white/85">
-                                                    <span aria-hidden className="flex h-4 w-4 flex-shrink-0 items-center justify-center">
-                                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                                                            <path d="M2 5l2 2L8 3" stroke="rgba(0,255,221,0.9)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                    </span>
-                                                    <span className="leading-snug">{b}</span>
-                                                </motion.li>
-                                            ))}
-                                        </ul>
-                                    </motion.div>
+                                            <div className="relative flex items-center justify-between gap-4">
+                                                <span className="flex h-14 w-14 items-center justify-center rounded-xl"
+                                                    style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)", border: "1px solid rgba(255,255,255,0.22)", boxShadow: "0 4px 14px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)" }}>
+                                                    <CapabilityIcon kind={CAPABILITIES[activeCap].icon} />
+                                                </span>
+                                                <span className="text-[10px] font-semibold uppercase tabular-nums text-white/45"
+                                                    style={{ fontFamily: MONO, letterSpacing: "0.22em" }}>
+                                                    Capability {String(activeCap + 1).padStart(2, "0")} / {String(CAPABILITIES.length).padStart(2, "0")}
+                                                </span>
+                                            </div>
+                                            <h3 className="relative display-feature-title">
+                                                {CAPABILITIES[activeCap].title}
+                                            </h3>
+                                            <p className="relative text-body-sm text-white/60">
+                                                {CAPABILITIES[activeCap].description}
+                                            </p>
+                                            <div aria-hidden className="relative my-1 h-px w-full" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.18) 0%, transparent 100%)" }} />
+                                            <p className="relative -mb-1 text-eyebrow text-white/35">What's included</p>
+                                            <ul className="relative mt-auto flex flex-col gap-2.5">
+                                                {CAPABILITIES[activeCap].bullets.map((b, bi) => (
+                                                    <motion.li key={b} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: 0.08 + bi * 0.05, ease: [0.16, 1, 0.3, 1] }} className="flex items-center gap-3 text-[14px] text-white/85">
+                                                        <span aria-hidden className="flex h-4 w-4 flex-shrink-0 items-center justify-center">
+                                                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                                                <path d="M2 5l2 2L8 3" stroke="rgba(0,255,221,0.9)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                                                            </svg>
+                                                        </span>
+                                                        <span className="leading-snug">{b}</span>
+                                                    </motion.li>
+                                                ))}
+                                            </ul>
+                                        </motion.div>
+                                    )}
                                 </AnimatePresence>
                             </div>
                         </div>
