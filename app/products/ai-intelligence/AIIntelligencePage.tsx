@@ -255,10 +255,10 @@ function KPI({ value, suffix, label, index }: { value: number; suffix: string; l
             transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
             className="flex flex-col items-center gap-3 text-center"
         >
-            <span ref={elRef} className="text-4xl font-bold leading-none tracking-tight sm:text-5xl md:text-7xl" style={{ color: GREEN }}>
+            <span ref={elRef} className="display-stat">
                 {count}{suffix}
             </span>
-            <span className="max-w-[140px] text-[13px] font-medium leading-snug text-white/55 tracking-wide sm:max-w-[200px] sm:text-sm">{label}</span>
+            <span className="max-w-[140px] text-caption text-white/55 tracking-wide sm:max-w-[200px]">{label}</span>
         </motion.div>
     );
 }
@@ -267,8 +267,8 @@ function KPI({ value, suffix, label, index }: { value: number; suffix: string; l
 function StepCard({ step }: { step: typeof LIFECYCLE[number] }) {
     return (
         <div className="flex flex-col gap-2">
-            <h3 className="text-base font-semibold leading-tight text-white md:text-lg">{step.title}</h3>
-            <p className="text-sm leading-relaxed text-white/55">{step.body}</p>
+            <h3 className="display-card-title">{step.title}</h3>
+            <p className="text-body-sm text-white/55">{step.body}</p>
         </div>
     );
 }
@@ -895,7 +895,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
                 aria-expanded={isOpen}
                 className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-200 hover:bg-white/[0.02]"
             >
-                <span className="text-base font-semibold text-white md:text-lg">{q}</span>
+                <span className="display-card-title">{q}</span>
                 <span
                     aria-hidden
                     className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300"
@@ -920,7 +920,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
                         transition={{ duration: 0.3, ease: EASE }}
                         className="overflow-hidden"
                     >
-                        <p className="px-6 pb-6 text-sm leading-relaxed text-white/55 md:text-base">{a}</p>
+                        <p className="px-6 pb-6 text-lead text-white/55">{a}</p>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -986,7 +986,7 @@ export default function AIIntelligencePage() {
                         <span className="display-muted-line">Most teams bolt AI on.</span>
                         <span className="display-strong-line">We engineer it in.</span>
                     </h1>
-                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                    <p className="max-w-2xl text-lead text-white/55">
                         We architect AI as a layer within your business, not a tool on the shelf. Connecting
                         data, decisions, and workflows into intelligent systems designed to scale, adapt, and
                         compound over time.
@@ -1028,12 +1028,12 @@ export default function AIIntelligencePage() {
                                 <span className="display-muted-line">The problem isn&apos;t growth.</span>
                                 <span className="display-strong-line">It&apos;s what growth exposes.</span>
                             </h2>
-                            <p className="text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                            <p className="text-lead text-white/55">
                                 As businesses scale, operational gaps become more visible. Systems disconnect,
                                 workflows become inefficient, visibility decreases, and teams spend more time
                                 managing complexity instead of driving momentum.
                             </p>
-                            <p className="text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                            <p className="text-lead text-white/55">
                                 Without a clear intelligence strategy, businesses often end up managing more
                                 technology while gaining little operational advantage.
                             </p>
@@ -1079,7 +1079,7 @@ export default function AIIntelligencePage() {
                             transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
                             className="flex flex-col gap-5"
                         >
-                            <p className="text-base leading-relaxed text-white/65 md:text-[1.05rem]">
+                            <p className="text-lead text-white/55">
                                 Connected intelligence systems help businesses streamline workflows, automate
                                 operations, improve decision-making, and reduce the operational friction that often
                                 comes with growth.
@@ -1112,8 +1112,8 @@ export default function AIIntelligencePage() {
                                 <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(0,255,221,0.06)", border: "1px solid rgba(0,255,221,0.15)" }}>
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
                                 </div>
-                                <p className="text-sm font-semibold text-white leading-snug md:text-base">{p.title}</p>
-                                <p className="text-[13px] leading-relaxed text-white/40">{p.desc}</p>
+                                <p className="display-card-title" style={{ minHeight: "2.6em" }}>{p.title}</p>
+                                <p className="text-caption text-white/40">{p.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -1151,8 +1151,8 @@ export default function AIIntelligencePage() {
                                 const Icon = PROCESS_ICONS[i];
                                 return (
                                     <div key={step.num} className="flex items-start">
-                                        <div className="flex w-44 flex-col items-center gap-4 text-center">
-                                            <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123, 85, 234,0.6)" }}>
+                                        <div className="flex w-52 flex-col items-center gap-4 text-center">
+                                            <span className="text-eyebrow" style={{ color: "rgba(123, 85, 234,0.6)" }}>
                                                 {step.num}
                                             </span>
                                             <div
@@ -1166,8 +1166,8 @@ export default function AIIntelligencePage() {
                                                     <Icon />
                                                 </div>
                                             </div>
-                                            <h3 className="text-sm font-semibold tracking-tight text-white md:text-base">{step.title}</h3>
-                                            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                            <h3 className="display-card-title">{step.title}</h3>
+                                            <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{step.body}</p>
                                         </div>
                                         {i < PROCESS_STEPS.length - 1 && (
                                             <div className="flex w-10 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
@@ -1197,8 +1197,8 @@ export default function AIIntelligencePage() {
                                 const Icon = PROCESS_ICONS[i];
                                 return (
                                     <div key={step.num} className="flex flex-col items-center">
-                                        <div className="flex w-44 flex-col items-center gap-4 text-center">
-                                            <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123, 85, 234,0.6)" }}>
+                                        <div className="flex w-52 flex-col items-center gap-4 text-center">
+                                            <span className="text-eyebrow" style={{ color: "rgba(123, 85, 234,0.6)" }}>
                                                 {step.num}
                                             </span>
                                             <div
@@ -1212,8 +1212,8 @@ export default function AIIntelligencePage() {
                                                     <Icon />
                                                 </div>
                                             </div>
-                                            <h3 className="text-sm font-semibold tracking-tight text-white">{step.title}</h3>
-                                            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                            <h3 className="display-card-title">{step.title}</h3>
+                                            <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{step.body}</p>
                                         </div>
                                         {i < PROCESS_STEPS.length - 1 && (
                                             <div className="flex justify-center py-1" aria-hidden>
@@ -1269,24 +1269,24 @@ export default function AIIntelligencePage() {
                                     {/* text */}
                                     <div className="flex flex-col gap-4">
                                         <div className="flex items-baseline gap-3">
-                                            <span className="text-lg font-bold leading-none tabular-nums" style={{ color: GREEN }}>
+                                            <span className="display-feature-title tabular-nums" style={{ color: GREEN }}>
                                                 {svc.num}.
                                             </span>
-                                            <h3 className="text-xl font-semibold leading-tight tracking-tight text-white md:text-2xl">
+                                            <h3 className="display-feature-title">
                                                 {svc.title}
                                             </h3>
                                         </div>
-                                        <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/50">
+                                        <p className="text-eyebrow text-white/50">
                                             {svc.eyebrow}
                                         </p>
-                                        <p className="max-w-md text-sm leading-relaxed text-white/55 md:text-[15px]">
+                                        <p className="max-w-md text-body-sm text-white/55">
                                             {svc.body}
                                         </p>
                                         <div className="mt-2 flex flex-col gap-3">
-                                            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">What&apos;s included</p>
+                                            <p className="text-eyebrow text-white/45">What&apos;s included</p>
                                             <ul className="flex flex-col gap-2.5">
                                                 {svc.included.map((b) => (
-                                                    <li key={b} className="flex items-start gap-2.5 text-sm text-white/75">
+                                                    <li key={b} className="flex items-start gap-2.5 text-body-sm text-white/75">
                                                         <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full"
                                                             style={{ background: "rgba(0,255,221,0.07)", border: "1px solid rgba(0,255,221,0.30)" }}>
                                                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
@@ -1361,7 +1361,7 @@ export default function AIIntelligencePage() {
                         <span className="display-muted-line">Intelligence becomes</span>
                         <span className="display-strong-line">infrastructure, not a toolset.</span>
                     </h2>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                    <p className="max-w-xl text-lead text-white/55">
                         The companies treating AI as a layer, not a feature, are the ones compounding.
                         Let&apos;s design yours.
                     </p>

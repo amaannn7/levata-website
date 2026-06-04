@@ -275,7 +275,7 @@ export default function OperationsBeforeTerminal() {
         <div
             ref={ref}
             className="relative w-full"
-            style={{ aspectRatio: "6 / 5", minHeight: "clamp(280px, 50vw, 400px)" }}
+            style={{ aspectRatio: "6 / 5", minHeight: "clamp(360px, 80vw, 420px)" }}
         >
             {/* ── TOP: floating pills cluster ── */}
             {inView && (

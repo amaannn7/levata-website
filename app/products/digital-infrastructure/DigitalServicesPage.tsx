@@ -374,7 +374,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
                 aria-expanded={isOpen}
                 className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition-colors duration-200 hover:bg-white/[0.02]"
             >
-                <span className="text-base font-semibold text-white md:text-lg">{q}</span>
+                <span className="display-card-title">{q}</span>
                 <span
                     aria-hidden
                     className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300"
@@ -399,7 +399,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
                         transition={{ duration: 0.3, ease: EASE }}
                         className="overflow-hidden"
                     >
-                        <p className="px-6 pb-6 text-sm leading-relaxed text-white/55 md:text-base">{a}</p>
+                        <p className="px-6 pb-6 text-lead text-white/55">{a}</p>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -421,10 +421,10 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
             className="flex flex-col items-center gap-3 px-4 py-8 text-center md:gap-4"
         >
             <IconSpark />
-            <span ref={elRef} className="text-4xl sm:text-5xl font-bold leading-none tracking-tight md:text-6xl" style={{ color: GREEN }}>
+            <span ref={elRef} className="display-stat">
                 {symbol ? "" : prefix}{display}{symbol ? "" : suffix}
             </span>
-            <span className="text-sm font-medium leading-snug text-white/55">{label}</span>
+            <span className="text-caption text-white/55">{label}</span>
         </motion.div>
     );
 }
@@ -452,7 +452,7 @@ export default function DigitalServicesPage() {
                         <span className="display-muted-line">Digital infrastructure</span>
                         <span className="display-strong-line">built for growth.</span>
                     </h1>
-                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                    <p className="max-w-2xl text-lead text-white/55">
                         Modern businesses are built on digital infrastructure. We design and engineer scalable
                         systems that support growth, enhance customer experiences, and create long-term
                         competitive advantage.
@@ -495,12 +495,12 @@ export default function DigitalServicesPage() {
                                 <span className="display-muted-line">The biggest barrier to growth</span>
                                 <span className="display-strong-line">is hidden in plain sight.</span>
                             </h2>
-                            <p className="text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                            <p className="text-lead text-white/55">
                                 Outdated websites, disconnected platforms, and rigid systems quietly create
                                 friction across the customer journey and daily operations. What worked for the
                                 business yesterday can quickly become a limitation on where it needs to go next.
                             </p>
-                            <p className="text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                            <p className="text-lead text-white/55">
                                 Businesses built for growth need infrastructure built for scale.
                             </p>
                         </motion.div>
@@ -547,7 +547,7 @@ export default function DigitalServicesPage() {
                             transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
                             className="flex flex-col gap-5"
                         >
-                            <p className="text-base leading-relaxed text-white/65 md:text-[1.05rem]">
+                            <p className="text-lead text-white/55">
                                 Businesses that invest in the right digital foundations are better positioned
                                 to attract customers, support operations, and scale efficiently. Infrastructure
                                 becomes more than a business asset. It becomes a platform for sustainable growth.
@@ -582,8 +582,8 @@ export default function DigitalServicesPage() {
                                 <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(0,255,221,0.06)", border: "1px solid rgba(0,255,221,0.15)" }}>
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
                                 </div>
-                                <p className="text-sm font-semibold text-white leading-snug md:text-base">{p.title}</p>
-                                <p className="text-[13px] leading-relaxed text-white/40">{p.desc}</p>
+                                <p className="display-card-title" style={{ minHeight: "2.6em" }}>{p.title}</p>
+                                <p className="text-caption text-white/40">{p.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -619,8 +619,8 @@ export default function DigitalServicesPage() {
                         <div className="hidden items-start justify-center gap-6 md:flex">
                             {PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex items-start">
-                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
-                                        <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>
+                                    <div className="flex w-52 flex-col items-center gap-4 text-center">
+                                        <span className="text-eyebrow" style={{ color: "rgba(123,85,234,0.6)" }}>
                                             {step.num}
                                         </span>
                                         <div
@@ -662,8 +662,8 @@ export default function DigitalServicesPage() {
                                                 )}
                                             </div>
                                         </div>
-                                        <h3 className="text-sm font-semibold tracking-tight text-white md:text-base">{step.title}</h3>
-                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                        <h3 className="display-card-title">{step.title}</h3>
+                                        <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{step.body}</p>
                                     </div>
                                     {i < PROCESS_STEPS.length - 1 && (
                                         <div className="flex w-10 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
@@ -690,8 +690,8 @@ export default function DigitalServicesPage() {
                         <div className="flex flex-col items-center gap-2 md:hidden">
                             {PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex flex-col items-center">
-                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
-                                        <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>
+                                    <div className="flex w-52 flex-col items-center gap-4 text-center">
+                                        <span className="text-eyebrow" style={{ color: "rgba(123,85,234,0.6)" }}>
                                             {step.num}
                                         </span>
                                         <div
@@ -708,8 +708,8 @@ export default function DigitalServicesPage() {
                                                 {i === 3 && <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M4 19V14M9 19V11M14 19V8M19 19V5" stroke="rgba(0,255,221,0.9)" strokeWidth="1.6" strokeLinecap="round" /><path d="M3 11L8 6L13 9L20 3" stroke="rgba(0,255,221,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
                                             </div>
                                         </div>
-                                        <h3 className="text-sm font-semibold tracking-tight text-white">{step.title}</h3>
-                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                        <h3 className="display-card-title">{step.title}</h3>
+                                        <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{step.body}</p>
                                     </div>
                                     {i < PROCESS_STEPS.length - 1 && (
                                         <div className="flex justify-center py-1" aria-hidden>
@@ -765,24 +765,24 @@ export default function DigitalServicesPage() {
                                     {/* text */}
                                     <div className="flex flex-col gap-4">
                                         <div className="flex items-baseline gap-3">
-                                            <span className="text-lg font-bold leading-none tabular-nums" style={{ color: GREEN }}>
+                                            <span className="display-feature-title tabular-nums" style={{ color: GREEN }}>
                                                 {svc.num}.
                                             </span>
-                                            <h3 className="text-xl font-semibold leading-tight tracking-tight text-white md:text-2xl">
+                                            <h3 className="display-feature-title">
                                                 {svc.title}
                                             </h3>
                                         </div>
-                                        <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/50">
+                                        <p className="text-eyebrow text-white/50">
                                             {svc.eyebrow}
                                         </p>
-                                        <p className="max-w-md text-sm leading-relaxed text-white/55 md:text-[15px]">
+                                        <p className="max-w-md text-body-sm text-white/55">
                                             {svc.body}
                                         </p>
                                         <div className="mt-2 flex flex-col gap-3">
-                                            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">What&apos;s included</p>
+                                            <p className="text-eyebrow text-white/45">What&apos;s included</p>
                                             <ul className="flex flex-col gap-2.5">
                                                 {svc.bullets.map((b) => (
-                                                    <li key={b} className="flex items-start gap-2.5 text-sm text-white/75">
+                                                    <li key={b} className="flex items-start gap-2.5 text-body-sm text-white/75">
                                                         <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full"
                                                             style={{ background: "rgba(0,255,221,0.07)", border: "1px solid rgba(0,255,221,0.30)" }}>
                                                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
@@ -857,7 +857,7 @@ export default function DigitalServicesPage() {
                         <span className="display-muted-line">Your digital presence</span>
                         <span className="display-strong-line">is your best team member.</span>
                     </h2>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                    <p className="max-w-xl text-lead text-white/55">
                         Let&apos;s build the platforms and systems that generate revenue, qualify leads, and serve customers while you sleep.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">

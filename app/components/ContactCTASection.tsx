@@ -166,7 +166,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                                 <h2 className="display-section-title display-inline">
                             <span className="display-muted-line">Drop us a </span><span className="display-strong-line">message.</span>
                         </h2>
-                        <p className="mt-4 max-w-md text-sm leading-relaxed text-white/45">
+                        <p className="mt-4 max-w-md text-body-sm text-white/45">
                             Fill in the form and we&apos;ll get back within 48 hours.
                         </p>
                     </div>
@@ -186,13 +186,13 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                             style={{ background: "linear-gradient(160deg,rgba(123, 85, 234,0.15) 0%,rgba(23,26,34,0.98) 100%)" }}
                         >
                             <div>
-                                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/30">
+                                <p className="mb-3 text-eyebrow text-white/30">
                                     Let&apos;s talk
                                 </p>
-                                <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl md:text-3xl">
+                                <h3 className="display-feature-title">
                                     We&apos;d love to hear about your project.
                                 </h3>
-                                <p className="mt-4 text-sm leading-relaxed text-white/45">
+                                <p className="mt-4 text-body-sm text-white/45">
                                     Whether you&apos;re starting from scratch or scaling an existing product, we&apos;re here to help.
                                 </p>
                             </div>
@@ -204,8 +204,8 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                             {item.icon}
                                         </span>
                                         <div>
-                                            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/30">{item.label}</p>
-                                            <p className="mt-0.5 text-sm font-medium text-white/75">{item.value}</p>
+                                            <p className="text-eyebrow text-white/30">{item.label}</p>
+                                            <p className="mt-0.5 text-body-sm font-medium text-white/75">{item.value}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -225,8 +225,8 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                         </svg>
                                     </span>
                                     <div className="flex flex-col gap-2">
-                                        <h3 className="text-xl font-semibold tracking-tight text-white">Inquiry received.</h3>
-                                        <p className="max-w-xs text-sm leading-relaxed text-white/50">
+                                        <h3 className="display-card-title">Inquiry received.</h3>
+                                        <p className="max-w-xs text-body-sm text-white/50">
                                             We&apos;ll get back to you within 48 hours at the email you provided.
                                         </p>
                                     </div>
@@ -249,7 +249,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
                                     {/* Phone with country flag */}
                                     <div data-form-field>
-                                        <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
+                                        <label className="mb-1.5 block text-eyebrow text-white/35">
                                             Phone
                                         </label>
                                         <div className="flex overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] transition-colors focus-within:border-white/22">
@@ -291,7 +291,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
                                     {/* Message */}
                                     <div data-form-field>
-                                        <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
+                                        <label className="mb-1.5 block text-eyebrow text-white/35">
                                             Message <span className="text-white/25">*</span>
                                         </label>
                                         <textarea
@@ -359,7 +359,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
                                     {/* Submit */}
                                     <div className="mt-2 flex items-center justify-between border-t border-white/8 pt-5" data-form-field>
-                                        <p className="text-xs text-white/25">All fields marked * are required</p>
+                                        <p className="text-micro text-white/25">All fields marked * are required</p>
                                         <button
                                             type="submit"
                                             disabled={isLoading}
@@ -394,7 +394,7 @@ function Field({ name, label, required = false, placeholder, type = "text", disa
 }) {
     return (
         <div>
-            <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">
+            <label className="mb-1.5 block text-eyebrow text-white/35">
                 {label} {required && <span className="text-white/25">*</span>}
             </label>
             <input

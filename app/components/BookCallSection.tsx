@@ -26,13 +26,13 @@ export default function BookCallSection() {
                         data-book-heading
                     >
                         <div>
-                                                        <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+                                                        <h2 className="display-section-title">
                                 Book a{" "}
                                 <span className="text-white">
                                     30-minute call.
                                 </span>
                             </h2>
-                            <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/45">
+                            <p className="mt-3 max-w-sm text-body-sm text-white/45">
                                 Skip the form. Pick a slot and we&apos;ll meet you there.
                             </p>
                         </div>
@@ -44,7 +44,7 @@ export default function BookCallSection() {
                             className="group/cta inline-flex shrink-0 items-center gap-4"
                             data-book-button
                         >
-                            <span className="text-sm font-semibold uppercase tracking-[0.22em] text-white/80 transition-colors group-hover/cta:text-white">
+                            <span className="text-eyebrow text-white/80 transition-colors group-hover/cta:text-white">
                                 {open ? "Close" : "Pick a Time"}
                             </span>
                             <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-all duration-300 group-hover/cta:border-[#7B55EA]/60 group-hover/cta:shadow-[0_0_14px_rgba(123, 85, 234,0.35)]">
@@ -71,10 +71,10 @@ export default function BookCallSection() {
                                     </svg>
                                 </span>
                                 <div>
-                                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/30">
+                                    <p className="text-eyebrow text-white/30">
                                         Calendly widget coming soon
                                     </p>
-                                    <p className="mt-2 max-w-xs text-xs text-white/20">
+                                    <p className="mt-2 max-w-xs text-micro text-white/20">
                                         Replace the placeholder in{" "}
                                         <code className="text-white/30">BookCallSection.tsx</code>{" "}
                                         with your Calendly embed URL.

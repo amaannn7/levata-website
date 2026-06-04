@@ -23,7 +23,7 @@ const COLOR_PRESETS: Record<ColorPreset, { edge: string; mid: string }> = {
 const INTENSITY_PRESETS: Record<Intensity, { lines: number; maxAlpha: number; scrollSeconds: number }> = {
     subtle:  { lines: 8,  maxAlpha: 0.14, scrollSeconds: 12 },
     default: { lines: 14, maxAlpha: 0.22, scrollSeconds: 9 },
-    strong:  { lines: 20, maxAlpha: 0.32, scrollSeconds: 7 },
+    strong:  { lines: 14, maxAlpha: 0.48, scrollSeconds: 7 },
 };
 
 export default function HeroHorizon({

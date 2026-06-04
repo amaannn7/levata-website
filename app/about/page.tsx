@@ -125,7 +125,7 @@ export default function AboutPage() {
                         <span className="display-muted-line">Most agencies build assets.</span>
                         <span className="display-strong-line">We build advantage.</span>
                     </h1>
-                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                    <p className="max-w-2xl text-lead text-white/55">
                         Every business has hidden inefficiencies, disconnected systems, and untapped leverage
                         that limit its ability to operate and scale effectively. We help you identify them and
                         engineer smarter ways to operate.
@@ -149,84 +149,57 @@ export default function AboutPage() {
             </section>
 
             {/* ── Who We Are ───────────────────────────────────── */}
-            <section className="relative w-full px-6 py-16 md:py-20 overflow-hidden">
-                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div aria-hidden className="pointer-events-none absolute z-0" style={{
-                    top: "50%", left: "50%", transform: "translate(-50%,-50%)",
-                    width: "120vw", height: "500px",
+            <section className="relative w-full px-6 py-16 md:py-24 overflow-hidden">
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
-                        "radial-gradient(ellipse 30% 60% at 20% 50%, rgba(123, 85, 234,0.07) 0%, transparent 70%)",
-                        "radial-gradient(ellipse 30% 60% at 80% 50%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
+                        "radial-gradient(ellipse 50% 60% at 15% 50%, rgba(123,85,234,0.07) 0%, transparent 65%)",
+                        "radial-gradient(ellipse 40% 50% at 85% 50%, rgba(0,255,221,0.04) 0%, transparent 65%)",
                     ].join(", "),
                 }} />
 
                 <div className="relative z-10 mx-auto w-full max-w-6xl">
-                    {/* Asymmetric: heading left, narrative right */}
-                    <div className="grid grid-cols-1 gap-10 md:grid-cols-[0.8fr_1fr] md:gap-14 lg:gap-20 md:items-start">
+                    <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-80px" }}
                             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                            className="flex flex-col gap-5 md:sticky md:top-28"
+                            className="flex flex-col gap-5"
                         >
                             <SectionLabelSide />
                             <h2 className="display-section-title">
                                 <span className="display-muted-line">Intelligence,</span>
-                                <span className="display-strong-line">Built.</span>
+                                <span className="display-strong-line">built in.</span>
                             </h2>
+                            <p className="text-lead text-white/55">
+                                We founded Levata to help businesses transition into a new era of operation, where
+                                AI, automation, and intelligent layers are embedded into the foundation of how
+                                companies operate, grow, and scale.
+                            </p>
+                            <p className="text-lead text-white/55">
+                                Our approach focuses on building connected systems that improve operations, support
+                                scale, and drive measurable business growth instead of relying on fragmented tools
+                                or short-term solutions.
+                            </p>
                         </motion.div>
 
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-80px" }}
-                            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="flex flex-col gap-5 text-base leading-relaxed text-white/55 md:text-[1.05rem]"
+                            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                            className="rounded-2xl p-7 md:p-9"
+                            style={{
+                                background: "var(--home-card-bg)",
+                                border: "1px solid var(--home-card-border)",
+                            }}
                         >
-                            <p>
-                                We founded Levata to help businesses transition into a new era of operation, where
-                                AI, automation, and intelligent layers are embedded into the foundation of how
-                                companies operate, grow, and scale.
-                            </p>
-                            <p>
-                                Our approach focuses on building connected systems that improve operations, support
-                                scale, and drive measurable business growth instead of relying on fragmented tools
-                                or short-term solutions.
+                            <p className="text-eyebrow text-white/35 mb-5">Our vision</p>
+                            <p className="display-quote text-white/90">
+                                To help businesses unlock scalable growth through intelligent infrastructure.
                             </p>
                         </motion.div>
                     </div>
-
-                    {/* Vision — highlighted statement band */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                        className="mt-14 w-full overflow-hidden rounded-2xl p-px md:mt-20"
-                        style={{
-                            background:
-                                "linear-gradient(135deg, rgba(123,85,234,0.4) 0%, rgba(255,255,255,0.05) 50%, rgba(0,255,221,0.28) 100%)",
-                        }}
-                    >
-                        <div
-                            className="relative overflow-hidden rounded-[15px] p-8 md:p-10"
-                            style={{ background: "rgba(14,16,22,0.98)" }}
-                        >
-                            <div aria-hidden className="absolute left-0 top-0 bottom-0 w-1"
-                                style={{ background: "linear-gradient(180deg, #7B55EA 0%, #00FFDD 100%)" }} />
-                            <div aria-hidden className="pointer-events-none absolute inset-0"
-                                style={{ background: "radial-gradient(ellipse 55% 90% at 0% 50%, rgba(123,85,234,0.12) 0%, transparent 60%)" }} />
-                            <div className="relative flex flex-col gap-3 pl-4 md:pl-6">
-                                <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/35">
-                                    Our vision
-                                </p>
-                                <p className="max-w-3xl text-xl font-medium leading-snug text-white/90 md:text-2xl">
-                                    To help businesses unlock scalable growth through intelligent infrastructure.
-                                </p>
-                            </div>
-                        </div>
-                    </motion.div>
                 </div>
             </section>
 
@@ -252,7 +225,7 @@ export default function AboutPage() {
                             <span className="display-muted-line">The people building</span>
                             <span className="display-strong-line">what&apos;s next.</span>
                         </h2>
-                        <p className="max-w-xl text-base text-white/45 leading-relaxed md:text-[1.05rem]">
+                        <p className="max-w-xl text-lead text-white/45">
                             Bringing together strategy, technology, and operational thinking to help businesses
                             build what comes next.
                         </p>
@@ -276,14 +249,14 @@ export default function AboutPage() {
                                         background: "radial-gradient(circle, rgba(123, 85, 234,0.08) 0%, rgba(8,1,28,0.5) 70%)",
                                     }}
                                 >
-                                    <span className="text-2xl font-bold tracking-tight text-white/85 md:text-3xl">
+                                    <span className="display-feature-title text-white/85">
                                         {initialsFrom(name)}
                                     </span>
                                 </div>
-                                <p className="mt-6 text-lg font-bold text-white md:text-xl">{name}</p>
-                                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">{role}</p>
+                                <p className="mt-6 display-card-title">{name}</p>
+                                <p className="mt-1 text-eyebrow text-white/45">{role}</p>
                                 {bio && (
-                                    <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/55">{bio}</p>
+                                    <p className="mt-3 max-w-xs text-body-sm text-white/55">{bio}</p>
                                 )}
                             </motion.div>
                         ))}
@@ -359,10 +332,10 @@ export default function AboutPage() {
                                             <Icon />
                                         </div>
                                         <div className="flex flex-col gap-2 md:gap-2.5">
-                                            <h3 className="text-lg font-bold leading-snug tracking-tight text-white md:text-xl">
+                                            <h3 className="display-card-title">
                                                 {title}
                                             </h3>
-                                            <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">{body}</p>
+                                            <p className="text-body-sm text-white/55">{body}</p>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -390,7 +363,7 @@ export default function AboutPage() {
                         <span className="display-muted-line">Build the infrastructure</span>
                         <span className="display-strong-line">your business deserves.</span>
                     </h2>
-                    <p className="max-w-xl text-base text-white/50 leading-relaxed">
+                    <p className="max-w-xl text-lead text-white/50">
                         Discover what becomes possible when intelligence is built into the foundation of your
                         business. If you&apos;re ready to improve the way your business operates and scales,
                         we&apos;re ready to talk.

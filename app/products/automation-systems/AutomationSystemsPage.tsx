@@ -229,7 +229,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
             >
                 <div className="flex items-center gap-3">
                     <span className="flex h-2 w-2 rounded-full" style={{ background: GREEN, boxShadow: `0 0 8px ${GREEN}99` }} />
-                    <span className="text-base font-semibold text-white md:text-lg">{q}</span>
+                    <span className="display-card-title">{q}</span>
                 </div>
                 <span
                     aria-hidden
@@ -256,10 +256,10 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
                         className="overflow-hidden"
                     >
                         <div className="flex flex-col gap-3 px-6 pb-6">
-                            <p className="text-sm leading-relaxed text-white/55 md:text-base">{a}</p>
+                            <p className="text-lead text-white/55">{a}</p>
                             <div className="flex items-center gap-3">
                                 <IconSpark />
-                                <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/50">Live monitoring</span>
+                                <span className="text-eyebrow text-white/50">Live monitoring</span>
                             </div>
                         </div>
                     </motion.div>
@@ -287,10 +287,10 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
                 <IconSpark />
                 <span className="flex h-2 w-2 rounded-full" style={{ background: GREEN, boxShadow: `0 0 6px ${GREEN}99` }} />
             </div>
-            <span ref={elRef} className="text-4xl font-bold leading-none tracking-tight md:text-5xl" style={{ color: GREEN }}>
+            <span ref={elRef} className="display-stat">
                 {prefix}{display}{suffix}
             </span>
-            <span className="text-xs font-medium leading-snug text-white/55 md:text-sm">{label}</span>
+            <span className="text-caption text-white/55">{label}</span>
         </motion.div>
     );
 }
@@ -320,7 +320,7 @@ export default function AutomationSystemsPage() {
                         <span className="display-muted-line">Most automations break.</span>
                         <span className="display-strong-line">Ours run your business.</span>
                     </h1>
-                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                    <p className="max-w-2xl text-lead text-white/55">
                         Your people are at their best when they&apos;re solving problems, serving customers, and
                         driving growth. We automate repetitive workflows and manual processes so they can
                         focus on the work that matters most.
@@ -363,12 +363,12 @@ export default function AutomationSystemsPage() {
                                 <span className="display-muted-line">Growth becomes difficult</span>
                                 <span className="display-strong-line">when operations stay manual.</span>
                             </h2>
-                            <p className="text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                            <p className="text-lead text-white/55">
                                 As businesses grow, manual processes become harder to manage. Teams spend more
                                 time on repetitive tasks, information moves slowly between systems, and
                                 operational inefficiencies begin to compound.
                             </p>
-                            <p className="text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                            <p className="text-lead text-white/55">
                                 Without the right systems in place, growth often creates more work instead
                                 of more momentum.
                             </p>
@@ -496,7 +496,7 @@ export default function AutomationSystemsPage() {
                             transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
                             className="flex flex-col gap-5"
                         >
-                            <p className="text-base leading-relaxed text-white/65 md:text-[1.05rem]">
+                            <p className="text-lead text-white/55">
                                 Businesses that scale successfully rely on systems that reduce manual effort
                                 and create operational consistency. Automation helps streamline workflows,
                                 improve efficiency, and give teams more time to focus on higher-value work.
@@ -531,8 +531,8 @@ export default function AutomationSystemsPage() {
                                 <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(0,255,221,0.06)", border: "1px solid rgba(0,255,221,0.15)" }}>
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
                                 </div>
-                                <p className="text-sm font-semibold text-white leading-snug md:text-base">{p.title}</p>
-                                <p className="text-[13px] leading-relaxed text-white/40">{p.desc}</p>
+                                <p className="display-card-title" style={{ minHeight: "2.6em" }}>{p.title}</p>
+                                <p className="text-caption text-white/40">{p.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -568,8 +568,8 @@ export default function AutomationSystemsPage() {
                         <div className="hidden items-start justify-center gap-6 md:flex">
                             {PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex items-start">
-                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
-                                        <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>{step.num}</span>
+                                    <div className="flex w-52 flex-col items-center gap-4 text-center">
+                                        <span className="text-eyebrow" style={{ color: "rgba(123,85,234,0.6)" }}>{step.num}</span>
                                         <div className="rounded-2xl p-px" style={{ background: "linear-gradient(135deg, rgba(123,85,234,0.55) 0%, rgba(255,255,255,0.06) 50%, rgba(123,85,234,0.45) 100%)", boxShadow: "0 12px 36px rgba(123,85,234,0.15)" }}>
                                             <div className="flex h-24 w-24 items-center justify-center rounded-[15px]" style={{ background: "rgba(10,14,28,0.98)" }}>
                                                 {i === 0 && <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden><circle cx="10.5" cy="10.5" r="5.5" stroke="rgba(0,255,221,0.9)" strokeWidth="1.5" /><line x1="14.7" y1="14.7" x2="20" y2="20" stroke="rgba(0,255,221,0.9)" strokeWidth="1.5" strokeLinecap="round" /><circle cx="10.5" cy="10.5" r="1.6" fill="rgba(0,255,221,0.9)" /></svg>}
@@ -578,8 +578,8 @@ export default function AutomationSystemsPage() {
                                                 {i === 3 && <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M4 19V14M9 19V11M14 19V8M19 19V5" stroke="rgba(0,255,221,0.9)" strokeWidth="1.6" strokeLinecap="round" /><path d="M3 11L8 6L13 9L20 3" stroke="rgba(0,255,221,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M17 3h3v3" stroke="rgba(0,255,221,0.45)" strokeWidth="1.5" strokeLinecap="round" /></svg>}
                                             </div>
                                         </div>
-                                        <h3 className="text-sm font-semibold tracking-tight text-white md:text-base">{step.title}</h3>
-                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                        <h3 className="display-card-title">{step.title}</h3>
+                                        <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{step.body}</p>
                                     </div>
                                     {i < PROCESS_STEPS.length - 1 && (
                                         <div className="flex w-10 flex-shrink-0 items-center" aria-hidden style={{ marginTop: "74px" }}>
@@ -603,8 +603,8 @@ export default function AutomationSystemsPage() {
                         <div className="flex flex-col items-center gap-2 md:hidden">
                             {PROCESS_STEPS.map((step, i) => (
                                 <div key={step.num} className="flex flex-col items-center">
-                                    <div className="flex w-44 flex-col items-center gap-4 text-center">
-                                        <span className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "rgba(123,85,234,0.6)" }}>{step.num}</span>
+                                    <div className="flex w-52 flex-col items-center gap-4 text-center">
+                                        <span className="text-eyebrow" style={{ color: "rgba(123,85,234,0.6)" }}>{step.num}</span>
                                         <div className="rounded-2xl p-px" style={{ background: "linear-gradient(135deg, rgba(123,85,234,0.55) 0%, rgba(255,255,255,0.06) 50%, rgba(123,85,234,0.45) 100%)", boxShadow: "0 12px 36px rgba(123,85,234,0.15)" }}>
                                             <div className="flex h-24 w-24 items-center justify-center rounded-[15px]" style={{ background: "rgba(10,14,28,0.98)" }}>
                                                 {i === 0 && <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden><circle cx="10.5" cy="10.5" r="5.5" stroke="rgba(0,255,221,0.9)" strokeWidth="1.5" /><line x1="14.7" y1="14.7" x2="20" y2="20" stroke="rgba(0,255,221,0.9)" strokeWidth="1.5" strokeLinecap="round" /><circle cx="10.5" cy="10.5" r="1.6" fill="rgba(0,255,221,0.9)" /></svg>}
@@ -613,8 +613,8 @@ export default function AutomationSystemsPage() {
                                                 {i === 3 && <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M4 19V14M9 19V11M14 19V8M19 19V5" stroke="rgba(0,255,221,0.9)" strokeWidth="1.6" strokeLinecap="round" /><path d="M3 11L8 6L13 9L20 3" stroke="rgba(0,255,221,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
                                             </div>
                                         </div>
-                                        <h3 className="text-sm font-semibold tracking-tight text-white">{step.title}</h3>
-                                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "200px" }}>{step.body}</p>
+                                        <h3 className="display-card-title">{step.title}</h3>
+                                        <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{step.body}</p>
                                     </div>
                                     {i < PROCESS_STEPS.length - 1 && (
                                         <div className="flex justify-center py-1" aria-hidden>
@@ -665,16 +665,16 @@ export default function AutomationSystemsPage() {
                                 >
                                     <div className="flex flex-col gap-4">
                                         <div className="flex items-baseline gap-3">
-                                            <span className="text-lg font-bold leading-none tabular-nums" style={{ color: GREEN }}>{svc.num}.</span>
-                                            <h3 className="text-xl font-semibold leading-tight tracking-tight text-white md:text-2xl">{svc.title}</h3>
+                                            <span className="display-feature-title tabular-nums" style={{ color: GREEN }}>{svc.num}.</span>
+                                            <h3 className="display-feature-title">{svc.title}</h3>
                                         </div>
-                                        <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/50">{svc.eyebrow}</p>
-                                        <p className="max-w-md text-sm leading-relaxed text-white/55 md:text-[15px]">{svc.body}</p>
+                                        <p className="text-eyebrow text-white/50">{svc.eyebrow}</p>
+                                        <p className="max-w-md text-body-sm text-white/55">{svc.body}</p>
                                         <div className="mt-2 flex flex-col gap-3">
-                                            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/45">What&apos;s included</p>
+                                            <p className="text-eyebrow text-white/45">What&apos;s included</p>
                                             <ul className="flex flex-col gap-2.5">
                                                 {svc.bullets.map((b) => (
-                                                    <li key={b} className="flex items-start gap-2.5 text-sm text-white/75">
+                                                    <li key={b} className="flex items-start gap-2.5 text-body-sm text-white/75">
                                                         <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full"
                                                             style={{ background: "rgba(0,255,221,0.07)", border: "1px solid rgba(0,255,221,0.30)" }}>
                                                             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden>
@@ -748,7 +748,7 @@ export default function AutomationSystemsPage() {
                         <span className="display-muted-line">What if manual operations</span>
                         <span className="display-strong-line">weren&apos;t a constraint?</span>
                     </h2>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                    <p className="max-w-xl text-lead text-white/55">
                         Map your operation. Eliminate the manual layer. Deploy the systems that let your team scale without scaling the headcount.
                     </p>
                     <div className="mt-2 flex flex-col items-center gap-2.5 sm:flex-row">

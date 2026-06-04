@@ -52,11 +52,11 @@ function AnimatedStat({ value, suffix, label, animate = true }: { value: number;
     const { count, elRef } = useCountUp(animate ? value : 0, 1800);
     return (
         <div className="flex flex-col items-center gap-3 text-center">
-            <span ref={elRef} className="text-4xl sm:text-5xl font-thin leading-none tracking-tight md:text-6xl" style={{ color: "#FFFFFF" }}>
+            <span ref={elRef} className="display-stat font-thin">
                 {animate ? count : value}
-                <span style={{ color: "#FFFFFF" }}>{suffix}</span>
+                <span>{suffix}</span>
             </span>
-            <span className="max-w-[160px] sm:max-w-[200px] text-sm font-medium leading-snug text-white/45 tracking-wide">{label}</span>
+            <span className="max-w-[160px] sm:max-w-[200px] text-caption text-white/45 tracking-wide">{label}</span>
         </div>
     );
 }
@@ -467,7 +467,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
             style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${isOpen ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.06)"}`, transition: "border-color 300ms ease" }}
         >
             <button type="button" onClick={onToggle} aria-expanded={isOpen} className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left hover:bg-white/[0.02] transition-colors duration-200">
-                <span className="text-base font-semibold text-white md:text-lg">{q}</span>
+                <span className="display-card-title">{q}</span>
                 <span aria-hidden className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300"
                     style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.18)", transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}>
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -478,7 +478,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
             <AnimatePresence initial={false}>
                 {isOpen && (
                     <motion.div key="content" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
-                        <p className="px-6 pb-6 text-sm leading-relaxed text-white/55 md:text-base">{a}</p>
+                        <p className="px-6 pb-6 text-lead text-white/55">{a}</p>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -512,7 +512,7 @@ export default function SalesIntelligencePage() {
                         <span className="display-muted-line">Most lead lists go cold.</span>
                         <span className="display-strong-line">Ours turn into pipeline.</span>
                     </h1>
-                    <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-[1.05rem]">
+                    <p className="max-w-2xl text-lead text-white/55">
                         Research, qualification, outreach, and follow-up often consume more time than the conversations that drive revenue.
                         Our AI-powered workspace turns raw lead lists into prioritized, researched, ready-to-action pipeline. In hours, not weeks.
                     </p>
@@ -532,7 +532,7 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 2. PROBLEM ────────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-36 md:pb-16 md:pt-40">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 55% 60% at 15% 40%, rgba(255,80,80,0.05) 0%, transparent 65%)",
@@ -541,16 +541,16 @@ export default function SalesIntelligencePage() {
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-6xl">
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-12 md:gap-16 items-start">
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-8 md:gap-16 items-center">
 
-                        {/* Left: sticky heading */}
-                        <div className="flex flex-col gap-5 md:sticky md:top-20">
+                        {/* Left: heading */}
+                        <div className="flex flex-col gap-4">
                             <SectionLabelSide />
                             <h2 className="display-section-title">
                                 <span className="display-muted-line">Too much effort.</span>
                                 <span className="display-strong-line">Not enough selling.</span>
                             </h2>
-                            <p className="text-base leading-relaxed text-white/45 max-w-sm">
+                            <p className="text-lead text-white/45 max-w-sm">
                                 Research, qualification, outreach, and follow-up often consume more time than the conversations that drive revenue. As sales operations become fragmented, productivity declines and pipeline growth becomes harder to sustain.
                             </p>
                         </div>
@@ -617,7 +617,7 @@ export default function SalesIntelligencePage() {
                                                 >
                                                     <div className="px-6 pb-6 flex flex-col gap-3">
                                                         <div className="h-px" style={{ background: "rgba(255,255,255,0.07)" }} />
-                                                        <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">
+                                                        <p className="text-body-sm text-white/55">
                                                             {pp.body}
                                                         </p>
                                                     </div>
@@ -693,7 +693,7 @@ export default function SalesIntelligencePage() {
                                             <CapabilityIcon kind={c.icon} />
                                         </span>
                                         <span className="flex flex-1 items-center justify-between gap-2 min-w-0">
-                                            <span className="text-sm font-semibold leading-snug transition-colors duration-300 md:text-[15px]"
+                                            <span className="text-body-sm font-semibold leading-snug transition-colors duration-300"
                                                 style={{ color: active ? "#FFFFFF" : "rgba(255,255,255,0.62)" }}>
                                                 {c.title}
                                             </span>
@@ -735,14 +735,14 @@ export default function SalesIntelligencePage() {
                                                 Capability {String(activeCap + 1).padStart(2, "0")} / {String(CAPABILITIES.length).padStart(2, "0")}
                                             </span>
                                         </div>
-                                        <h3 className="relative text-[1.5rem] font-semibold leading-[1.15] tracking-tight text-white md:text-[1.75rem]">
+                                        <h3 className="relative display-feature-title">
                                             {CAPABILITIES[activeCap].title}
                                         </h3>
-                                        <p className="relative text-[15px] leading-relaxed text-white/60 md:text-base">
+                                        <p className="relative text-body-sm text-white/60">
                                             {CAPABILITIES[activeCap].description}
                                         </p>
                                         <div aria-hidden className="relative my-1 h-px w-full" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.18) 0%, transparent 100%)" }} />
-                                        <p className="relative -mb-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">What's included</p>
+                                        <p className="relative -mb-1 text-eyebrow text-white/35">What's included</p>
                                         <ul className="relative mt-auto flex flex-col gap-2.5">
                                             {CAPABILITIES[activeCap].bullets.map((b, bi) => (
                                                 <motion.li key={b} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: 0.08 + bi * 0.05, ease: [0.16, 1, 0.3, 1] }} className="flex items-center gap-3 text-[14px] text-white/85">
@@ -825,8 +825,8 @@ export default function SalesIntelligencePage() {
                                             {step.num}
                                         </span>
                                     </div>
-                                    <h3 className="mt-4 text-base font-semibold leading-snug tracking-tight text-white md:text-lg">{step.title}</h3>
-                                    <p className="mt-2 max-w-[180px] text-xs leading-relaxed text-white/55 md:text-sm">{step.body}</p>
+                                    <h3 className="mt-4 display-card-title" style={{ minHeight: "2.8em" }}>{step.title}</h3>
+                                    <p className="mt-2 max-w-[180px] text-caption text-white/55">{step.body}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -872,7 +872,7 @@ export default function SalesIntelligencePage() {
                                         <path d="M2 5l2.5 2.5L8 3" stroke="rgba(0,255,221,0.9)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                 </span>
-                                <span className="text-sm leading-relaxed text-white/75">{line}</span>
+                                <span className="text-body-sm text-white/75">{line}</span>
                             </motion.div>
                         ))}
                     </div>
@@ -917,7 +917,7 @@ export default function SalesIntelligencePage() {
                     <h2 className="display-section-title display-inline max-w-2xl text-center">
                         <span className="display-muted-line">Your reps should be </span><span className="display-strong-line">closing, not researching.</span>
                     </h2>
-                    <p className="max-w-xl text-base leading-relaxed text-white/55 md:text-lg">
+                    <p className="max-w-xl text-lead text-white/55">
                         Give your team the AI workspace that does the heavy lifting before every email and every call.
                     </p>
                     <div>

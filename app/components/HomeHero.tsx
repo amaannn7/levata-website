@@ -308,6 +308,63 @@ function CardRevenue() {
     );
 }
 
+// ── Scroll indicator ──────────────────────────────────────────────────────
+function ScrollIndicator() {
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        const onScroll = () => { if (window.scrollY > 60) setVisible(false); };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    return (
+        <motion.div
+            aria-hidden
+            initial={{ opacity: 0 }}
+            animate={{ opacity: visible ? 1 : 0 }}
+            transition={{ duration: 0.6, delay: 1.8, ease: EASE }}
+            className="pointer-events-none absolute bottom-8 left-1/2 z-30 -translate-x-1/2 flex flex-col items-center gap-2"
+        >
+            {/* SCROLL label */}
+            <span
+                style={{
+                    fontFamily: "var(--font-code), ui-monospace, monospace",
+                    fontSize: "9px",
+                    letterSpacing: "0.28em",
+                    color: "rgba(255,255,255,0.3)",
+                    textTransform: "uppercase",
+                }}
+            >
+                scroll
+            </span>
+
+            {/* Track line + traveling dot */}
+            <div className="relative flex flex-col items-center" style={{ width: 1, height: 48 }}>
+                {/* Static track */}
+                <div
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(to bottom, rgba(123,85,234,0.15), rgba(0,255,221,0.25), rgba(123,85,234,0.0))" }}
+                />
+                {/* First dot — staggered */}
+                <motion.div
+                    className="absolute rounded-full"
+                    style={{ width: 3, height: 3, left: -1, background: "rgba(0,255,221,0.9)", boxShadow: "0 0 6px rgba(0,255,221,0.8)" }}
+                    animate={{ top: ["0%", "100%"] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "linear", repeatDelay: 0.3 }}
+                />
+                {/* Second dot — offset */}
+                <motion.div
+                    className="absolute rounded-full"
+                    style={{ width: 3, height: 3, left: -1, background: "rgba(123,85,234,0.9)", boxShadow: "0 0 6px rgba(123,85,234,0.8)" }}
+                    animate={{ top: ["0%", "100%"] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "linear", delay: 0.7, repeatDelay: 0.3 }}
+                />
+            </div>
+        </motion.div>
+    );
+}
+
 // ── Page hero ─────────────────────────────────────────────────────────────
 export default function HomeHero() {
     const heroRef = useRef<HTMLElement>(null);
@@ -365,7 +422,7 @@ export default function HomeHero() {
                         transition={{ duration: 0.7, delay: 0.32, ease: EASE }}
                         className="mt-5 max-w-[480px]"
                     >
-                        <p className="text-sm leading-relaxed text-white/55 md:text-base">
+                        <p className="text-lead text-white/55">
                             Levata builds AI systems and automation that transform how your business operates, not just supports it.
                         </p>
                     </motion.div>
@@ -402,6 +459,7 @@ export default function HomeHero() {
                 </div>
             </div>
 
+            <ScrollIndicator />
             <HeroHorizon />
         </section>
     );

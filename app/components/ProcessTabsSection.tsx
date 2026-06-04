@@ -74,16 +74,16 @@ function StepCard({ step }: { step: Step }) {
             <div className="flex items-center gap-2.5">
                 <span className="h-2 w-2 rounded-full" style={{ background: "#7B55EA" }} />
                 <span
-                    className="text-[10px] font-bold uppercase tracking-[0.22em]"
+                    className="text-eyebrow"
                     style={{ color: "#7B55EA" }}
                 >
                     Phase {step.num} / {step.label}
                 </span>
             </div>
-            <p className="text-sm leading-relaxed text-white/50">{step.description}</p>
+            <p className="text-body-sm text-white/50">{step.description}</p>
             <ul className="flex flex-col gap-3">
                 {step.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-3 text-sm leading-relaxed text-white/70 md:text-[15px]">
+                    <li key={b} className="flex items-start gap-3 text-body-sm text-white/70">
                         <span
                             className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full"
                             style={{ background: "#7B55EA", opacity: 0.7 }}
@@ -145,7 +145,7 @@ export default function ProcessTabsSection() {
                                                         <h2 className="display-section-title display-inline">
                                 <span className="display-muted-line">From strategy to </span><span className="display-strong-line">compounding success.</span>
                             </h2>
-                            <p className="text-[15px] leading-[1.65] text-white/50">
+                            <p className="text-lead text-white/50">
                                 A repeatable system that turns strategic clarity into measurable outcomes fast.
                             </p>
                             {/* Step progress */}
@@ -205,7 +205,7 @@ export default function ProcessTabsSection() {
                             <span className="display-muted-line">From strategy to</span>
                             <span className="display-strong-line">compounding success.</span>
                         </h2>
-                        <p className="max-w-xl text-base leading-relaxed text-white/50">A repeatable system that turns strategic clarity into measurable outcomes fast.</p>
+                        <p className="max-w-xl text-lead text-white/50">A repeatable system that turns strategic clarity into measurable outcomes fast.</p>
                     </motion.div>
 
                     <div className="relative">
@@ -225,18 +225,18 @@ export default function ProcessTabsSection() {
                                     </div>
                                     <div className="flex flex-1 flex-col gap-4 pt-1">
                                         <div>
-                                            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/35">Phase {step.num}</span>
-                                            <h3 className="mt-1 text-xl font-bold leading-tight tracking-tight text-white">{step.label}</h3>
+                                            <span className="text-eyebrow text-white/35">Phase {step.num}</span>
+                                            <h3 className="mt-1 display-card-title">{step.label}</h3>
                                         </div>
                                         <ul className="flex flex-col gap-2.5">
                                             {step.bullets.map((b) => (
-                                                <li key={b} className="flex items-start gap-3 text-sm leading-relaxed text-white/60">
+                                                <li key={b} className="flex items-start gap-3 text-body-sm text-white/60">
                                                     <span className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ background: "rgba(91,100,119,0.4)" }} />
                                                     {b}
                                                 </li>
                                             ))}
                                         </ul>
-                                        <p className="rounded-lg px-4 py-3 text-sm leading-relaxed text-white/50" style={{ background: "var(--home-card-muted-bg, rgba(255,255,255,0.02))", border: "1px solid var(--home-card-muted-border, rgba(255,255,255,0.06))" }}>
+                                        <p className="rounded-lg px-4 py-3 text-body-sm text-white/50" style={{ background: "var(--home-card-muted-bg, rgba(255,255,255,0.02))", border: "1px solid var(--home-card-muted-border, rgba(255,255,255,0.06))" }}>
                                             <span className="font-semibold text-white/75">Result: </span>{step.result}
                                         </p>
                                     </div>

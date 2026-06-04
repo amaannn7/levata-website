@@ -406,18 +406,18 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
                     >
                         <service.Icon />
                     </span>
-                    <span className="text-[11px] font-bold tracking-[0.18em] text-white/25">{service.num}</span>
+                    <span className="text-eyebrow text-white/25">{service.num}</span>
                 </div>
 
                 {/* Always visible: name */}
-                <h3 className="relative z-10 mt-5 text-base font-semibold leading-snug text-white md:text-lg">{service.name}</h3>
+                <h3 className="relative z-10 mt-5 display-feature-title">{service.name}</h3>
 
                 {/* Always visible: bullet points */}
                 <ul className="relative z-10 mt-4 flex flex-col gap-2">
                     {service.points.map((pt) => (
                         <li key={pt} className="flex items-center gap-2.5">
                             <span className="h-1 w-1 flex-shrink-0 rounded-full" style={{ background: "rgba(123,85,234,0.7)" }} />
-                            <span className="text-[12.5px] font-medium text-white/50">{pt}</span>
+                            <span className="text-body-sm text-white/50">{pt}</span>
                         </li>
                     ))}
                 </ul>
@@ -426,9 +426,9 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
                 <div className="relative z-10 grid grid-rows-[0fr] opacity-0 transition-all duration-[380ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100">
                     <div className="overflow-hidden">
                         <div className="mt-5 border-t pt-4" style={{ borderColor: "rgba(123,85,234,0.15)" }}>
-                            <p className="text-sm leading-relaxed text-white/55">{service.description}</p>
+                            <p className="text-body-sm text-white/55">{service.description}</p>
                             <span
-                                className="mt-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em]"
+                                className="mt-4 inline-flex items-center gap-2 text-eyebrow"
                                 style={{ color: BLUE }}
                             >
                                 Explore

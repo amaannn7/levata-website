@@ -10,6 +10,24 @@
   --text-secondary: #A3A3AC;
   --text-muted: #6E6E7E;
   --text-disabled: #4A4A5A;
+
+  /* ── Type scale tokens — single source of truth for every text size ──
+     Tune the whole site's typography from here. Every heading rule and text
+     utility below reads from these variables; nothing hardcodes a size. */
+  --text-hero: clamp(2.5rem, 3.8vw, 3.5rem);   /* h1 / hero title        */
+  --text-h1: clamp(2.25rem, 3.4vw, 3rem);      /* page h1 (non-hero)     */
+  --text-h2: clamp(1.75rem, 2.8vw, 2.75rem);   /* section title          */
+  --text-h3: clamp(1.5rem, 2.2vw, 1.875rem);   /* feature / large card   */
+  --text-h4: clamp(1.125rem, 1rem + 0.6vw, 1.375rem); /* card / subhead  */
+  --text-stat: clamp(2.5rem, 2rem + 2.4vw, 3.75rem); /* big count-up metric numbers */
+  --text-quote: clamp(1.25rem, 1rem + 1.4vw, 1.875rem); /* testimonial / pull quote */
+  --text-lead: clamp(1rem, 0.95rem + 0.3vw, 1.125rem); /* section intro  */
+  --text-body: 1rem;                            /* body copy             */
+  --text-body-sm: 0.9375rem;                    /* dense / card body     */
+  --text-caption: 0.8125rem;                    /* captions (13px)       */
+  --text-micro: 0.75rem;                        /* fine print (12px)     */
+  --text-eyebrow: 0.6875rem;                    /* uppercase kicker (11px)*/
+
   --accent: #CC01FF;
   --accent-secondary: #00FFDD;
   --font-ui: "Switzer", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -117,30 +135,30 @@ label {
 }
 
 h1 {
-  font-size: clamp(3rem, 4vw, 3.5rem);
-  line-height: 1.05;
+  font-size: var(--text-h1);
+  line-height: 1.08;
   font-weight: 400;
   letter-spacing: -0.02em;
 }
 
 h2 {
-  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-size: var(--text-h2);
   line-height: 1.1;
   font-weight: 400;
   letter-spacing: -0.02em;
 }
 
 h3 {
-  font-size: clamp(1.5rem, 2vw, 1.75rem);
+  font-size: var(--text-h3);
   line-height: 1.15;
   font-weight: 400;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
 }
 
 h4 {
-  font-size: 1.25rem;
-  line-height: 1.2;
-  font-weight: 400;
+  font-size: var(--text-h4);
+  line-height: 1.25;
+  font-weight: 500;
 }
 
 p,
@@ -150,13 +168,13 @@ dt,
 input,
 textarea,
 select {
-  font-size: 1rem;
+  font-size: var(--text-body);
   line-height: 1.6;
   color: var(--text-secondary);
 }
 
 small {
-  font-size: 0.75rem;
+  font-size: var(--text-caption);
   line-height: 1.5;
 }
 
@@ -171,13 +189,13 @@ a {
 }
 
 .display-hero-title {
-  font-size: clamp(2.5rem, 3.8vw, 3.5rem);
+  font-size: var(--text-hero);
   line-height: 1.18;
   letter-spacing: -0.02em;
 }
 
 .display-section-title {
-  font-size: clamp(1.75rem, 2.8vw, 2.75rem);
+  font-size: var(--text-h2);
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
@@ -210,6 +228,94 @@ h4,
 h5,
 h6 {
   padding-bottom: 0.05em;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Semantic type scale — one consistent role-based system across the whole site.
+   Use these instead of ad-hoc text-sm/text-base/md:text-[...] combinations so
+   the same role is the same size on every page.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Section intro / lead paragraph (under a section title) */
+.text-lead {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* Standard body paragraph */
+.text-body {
+  font-size: var(--text-body);
+  line-height: 1.65;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* Smaller supporting copy — card body, captions, list items in dense UI */
+.text-body-sm {
+  font-size: var(--text-body-sm);
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* Card / feature heading (h3 in cards, accordions, list panels) — = h4 token */
+.display-card-title {
+  font-size: var(--text-h4);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* Larger feature heading (prominent h3, e.g. featured panels) — = h3 token */
+.display-feature-title {
+  font-size: var(--text-h3);
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Eyebrow / kicker label — the uppercase tracked micro-labels */
+.text-eyebrow {
+  font-size: var(--text-eyebrow);
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Big count-up metric number (By the Numbers, KPI rows) */
+.display-stat {
+  font-size: var(--text-stat);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Testimonial / pull quote */
+.display-quote {
+  font-size: var(--text-quote);
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* Caption (13px) and fine print (12px) */
+.text-caption {
+  font-size: var(--text-caption);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.text-micro {
+  font-size: var(--text-micro);
+  line-height: 1.5;
+  color: var(--text-secondary);
 }
 
 .section-gradient-divider {
@@ -351,15 +457,16 @@ h6 {
       rgba(255, 255, 255, 0) 100%);
 }
 
+/* Mobile: retune the size tokens (everything reading them scales together) */
 @media (max-width: 767px) {
-  .display-hero-title {
-    font-size: clamp(2.25rem, 8.5vw, 3rem);
-    line-height: 1.18;
-  }
-
-  .display-section-title {
-    font-size: clamp(1.75rem, 6.8vw, 2.25rem);
-    line-height: 1.2;
+  :root {
+    --text-hero: clamp(2.25rem, 8.5vw, 3rem);
+    --text-h1: clamp(2.25rem, 8.5vw, 2.75rem);
+    --text-h2: clamp(1.75rem, 6.8vw, 2.25rem);
+    --text-h3: clamp(1.375rem, 5.2vw, 1.625rem);
+    --text-h4: clamp(1.0625rem, 3.6vw, 1.25rem);
+    --text-stat: clamp(2rem, 9vw, 2.75rem);
+    --text-quote: clamp(1.25rem, 5.6vw, 1.625rem);
   }
 }
 
@@ -398,22 +505,21 @@ h6 {
   transition: opacity 0.3s ease;
 }
 
-/* Primary CTA — gradient-border ghost. Dark interior + gradient ring, fills on hover.
-   Applied via data-cta="primary" so existing button classes (shape, padding) stay. */
+/* Primary CTA */
 [data-cta="primary"] {
   color: #ffffff;
   background:
     linear-gradient(#0E1014, #0E1014) padding-box,
     linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%) border-box;
   border: 1.5px solid transparent;
-  transition: background 0.35s ease, color 0.3s ease, box-shadow 0.35s ease;
+  transition: background 0.35s ease, box-shadow 0.35s ease;
 }
 [data-cta="primary"]:hover {
   background:
-    linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%) padding-box,
+    linear-gradient(#0E1014, #0E1014) padding-box,
     linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%) border-box;
-  color: #07080F;
-  box-shadow: 0 8px 30px rgba(123, 85, 234, 0.28);
+  box-shadow: 0 0 24px rgba(123,85,234,0.3);
+  opacity: 1 !important;
 }
 
 .text-primary {

@@ -99,12 +99,12 @@ export default function TestimonialsSection() {
                                     transition: "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
                                 }}
                             >
-                                <blockquote className="text-xl sm:text-2xl md:text-3xl font-medium leading-snug tracking-tight max-w-3xl" style={{ color: "#F0F0F2" }}>
+                                <blockquote className="display-quote max-w-3xl" style={{ color: "#F0F0F2" }}>
                                     &ldquo;{t.quote}&rdquo;
                                 </blockquote>
                                 <div className="mt-10 flex flex-col items-center gap-1">
-                                    <p className="text-sm font-semibold" style={{ color: "rgba(240,240,242,0.85)" }}>{t.author}</p>
-                                    <p className="text-xs" style={{ color: "rgba(240,240,242,0.4)" }}>{t.role}</p>
+                                    <p className="text-body-sm font-semibold" style={{ color: "rgba(240,240,242,0.85)" }}>{t.author}</p>
+                                    <p className="text-caption" style={{ color: "rgba(240,240,242,0.4)" }}>{t.role}</p>
                                 </div>
                             </div>
                         );

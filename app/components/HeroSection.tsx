@@ -59,16 +59,15 @@ function StatCounter({ leadNumber, suffix, label, title }: { leadNumber: number;
     const { count, elRef } = useCountUp(leadNumber, 2000);
     return (
         <div className="flex flex-col items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">{title}</span>
+            <span className="text-eyebrow text-white/40">{title}</span>
             <span
                 ref={elRef}
-                className="text-[2rem] font-bold leading-none tracking-tight sm:text-4xl md:text-5xl"
-                style={{ color: "var(--text-primary)" }}
+                className="display-stat"
             >
                 {count}
-                <span style={{ color: "var(--text-primary)" }}>{suffix}</span>
+                <span>{suffix}</span>
             </span>
-            <span className="max-w-[160px] text-center text-sm font-medium leading-snug text-white/40">
+            <span className="max-w-[160px] text-center text-body-sm font-medium leading-snug text-white/40">
                 {label}
             </span>
         </div>
@@ -162,7 +161,7 @@ function TechStackSection() {
                     <h2 className="display-section-title display-inline max-w-2xl text-center">
                         <span className="display-muted-line">Built on tech that </span><span className="display-strong-line">compounds.</span>
                     </h2>
-                    <p className="max-w-xl text-base leading-relaxed text-white/45 md:text-[1.05rem]">
+                    <p className="max-w-xl text-lead text-white/45">
                         Battle-tested infrastructure paired with cutting-edge AI, chosen for longevity, not novelty.
                     </p>
                 </div>
@@ -382,7 +381,7 @@ function ServicesAccordion() {
                             <span className="flex-shrink-0">
                                 <ServiceIconSquare icon={card.icon} accent={card.accent} size="sm" />
                             </span>
-                            <span className="flex-1 text-[1.25rem] font-bold leading-tight tracking-tight text-white md:text-[1.4rem]">
+                            <span className="flex-1 display-card-title text-white">
                                 {card.title}
                             </span>
                             <span
@@ -414,7 +413,7 @@ function ServicesAccordion() {
                                             {card.subServices.map((s) => (
                                                 <li
                                                     key={s}
-                                                    className="flex items-start gap-3 text-sm leading-relaxed text-white md:text-[15px]"
+                                                    className="flex items-start gap-3 text-body-sm text-white"
                                                 >
                                                     <span
                                                         aria-hidden
@@ -510,22 +509,22 @@ function ServicesExplorer() {
                             />
                         </div>
                         <span
-                            className="text-[10px] font-bold uppercase tracking-[0.22em]"
+                            className="text-eyebrow"
                             style={{ color: `${card.accent}CC` }}
                         >
                             Service {String(active + 1).padStart(2, "0")}
                         </span>
-                        <h3 className="text-[1.5rem] font-bold leading-snug tracking-tight text-white md:text-[1.75rem]">
+                        <h3 className="display-feature-title">
                             {card.title}
                         </h3>
-                        <p className="text-sm leading-relaxed text-white/55 md:text-[15px]">
+                        <p className="text-body-sm text-white/55">
                             {card.description}
                         </p>
                         <ul className="flex flex-col gap-3">
                             {card.subServices.map((s) => (
                                 <li
                                     key={s}
-                                    className="flex items-start gap-3 text-sm leading-relaxed text-white md:text-[15px]"
+                                    className="flex items-start gap-3 text-body-sm text-white"
                                 >
                                     <span
                                         aria-hidden
@@ -821,7 +820,7 @@ function ServicesCarousel() {
                         {/* Bottom content */}
                         <div className="relative z-10 mt-auto p-6 md:p-7">
                             {/* Title — always visible, no lift */}
-                            <h3 className="text-[1.35rem] font-medium leading-snug tracking-tight text-white md:text-[1.5rem]">
+                            <h3 className="display-feature-title">
                                 {card.title}
                             </h3>
 
@@ -853,7 +852,7 @@ function ServicesCarousel() {
                             {/* Hover reveal: description + Explore link */}
                             <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100">
                                 <div className="overflow-hidden">
-                                    <p className="mt-4 text-[13px] leading-relaxed text-white/60">
+                                    <p className="mt-4 text-caption text-white/60">
                                         {card.description}
                                     </p>
                                     <span
@@ -1039,10 +1038,7 @@ function WhyLevataCard({ active }: { active: number }) {
                     <span
                         className="block font-semibold leading-none tabular-nums tracking-tight"
                         style={{
-                            color: "transparent",
-                            background: "linear-gradient(180deg, rgba(123,85,234,0.95) 0%, rgba(204,1,255,0.55) 100%)",
-                            WebkitBackgroundClip: "text",
-                            backgroundClip: "text",
+                            color: "var(--text-primary)",
                             fontSize: "clamp(2.5rem, 4vw, 3.5rem)",
                         }}
                     >
@@ -1056,17 +1052,17 @@ function WhyLevataCard({ active }: { active: number }) {
                     />
 
                     {/* Big bold title */}
-                    <h3 className="text-3xl font-semibold leading-[1.1] tracking-tight text-white md:text-[2.25rem] max-w-lg">
+                    <h3 className="display-feature-title max-w-lg">
                         {w.title}
                     </h3>
 
                     {/* Body */}
-                    <p className="mt-5 text-base leading-relaxed max-w-md md:text-[1.05rem]" style={{ color: "rgba(255,255,255,0.55)" }}>
+                    <p className="mt-5 text-lead max-w-md" style={{ color: "rgba(255,255,255,0.55)" }}>
                         {w.body}
                     </p>
 
                     {/* Eyebrow tags at bottom */}
-                    <p className="mt-7 font-mono text-[10px] font-semibold uppercase tracking-[0.24em]" style={{ color: "rgba(255,255,255,0.38)" }}>
+                    <p className="mt-7 font-mono text-eyebrow" style={{ color: "rgba(255,255,255,0.38)" }}>
                         {w.tags.join("  ·  ")}
                     </p>
                 </motion.div>
@@ -1199,7 +1195,7 @@ function FlowNode({ num, title, caption, icon, accent }: typeof FLOW_NODES[numbe
         <div className="flex flex-col items-center gap-4 text-center w-36">
             {/* Number badge above node */}
             <span
-                className="text-xs font-bold uppercase tracking-[0.2em]"
+                className="text-eyebrow"
                 style={{ color: "rgba(123, 85, 234,0.6)" }}
             >
                 {num}
@@ -1219,8 +1215,8 @@ function FlowNode({ num, title, caption, icon, accent }: typeof FLOW_NODES[numbe
                     <ServiceIcon kind={icon} accent={accent} size={36} />
                 </div>
             </div>
-            <h3 className="text-sm font-semibold tracking-tight text-white md:text-base">{title}</h3>
-            <p className="text-xs leading-relaxed md:text-sm" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "140px" }}>{caption}</p>
+            <h3 className="display-card-title" style={{ fontWeight: 500 }}>{title}</h3>
+            <p className="text-caption leading-relaxed" style={{ color: "rgba(255,255,255,0.45)", maxWidth: "140px" }}>{caption}</p>
         </div>
     );
 }
@@ -1408,48 +1404,167 @@ function ProblemSpider() {
                             {/* Title */}
                             <text
                                 x={titleX}
-                                y={end.y - 8}
+                                y={end.y - 10}
                                 textAnchor={textAnchor}
-                                fontSize="15"
-                                fontWeight="600"
+                                fontSize="17"
+                                fontWeight="500"
                                 fontFamily="var(--font-dm-sans)"
+                                letterSpacing="-0.01em"
                                 fill="rgba(240,240,242,0.95)"
                             >
                                 {PAIN_POINTS[i].title}
                             </text>
-                            {/* Description */}
+                            {/* Description — wrap at ~38 chars to keep lines tidy */}
                             <text
                                 x={descX}
-                                y={end.y + 12}
+                                y={end.y + 14}
                                 textAnchor={textAnchor}
-                                fontSize="12.5"
+                                fontSize="13"
                                 fontWeight="400"
                                 fontFamily="var(--font-dm-sans)"
                                 fill="rgba(255,255,255,0.42)"
                             >
-                                {PAIN_POINTS[i].desc.length > 42
-                                    ? <>
-                                        <tspan x={descX} dy="0">{PAIN_POINTS[i].desc.slice(0, PAIN_POINTS[i].desc.lastIndexOf(" ", 42))}</tspan>
-                                        <tspan x={descX} dy="17">{PAIN_POINTS[i].desc.slice(PAIN_POINTS[i].desc.lastIndexOf(" ", 42) + 1)}</tspan>
-                                      </>
-                                    : PAIN_POINTS[i].desc
-                                }
+                                {(() => {
+                                    const words = PAIN_POINTS[i].desc.split(" ");
+                                    const lines: string[] = [];
+                                    let current = "";
+                                    for (const word of words) {
+                                        const test = current ? `${current} ${word}` : word;
+                                        if (test.length > 38 && current) {
+                                            lines.push(current);
+                                            current = word;
+                                        } else {
+                                            current = test;
+                                        }
+                                    }
+                                    if (current) lines.push(current);
+                                    return lines.map((line, li) => (
+                                        <tspan key={li} x={descX} dy={li === 0 ? "0" : "16"}>{line}</tspan>
+                                    ));
+                                })()}
                             </text>
                         </motion.g>
                     );
                 })}
             </svg>
 
-            {/* Center visual */}
+            {/* Center visual — laptop + pills + orbiters */}
             <motion.div
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-                style={{ width: "20%", maxWidth: 180 }}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.3, delay: 0, ease: EASE }}
             >
-                <OperationsBeforeTerminal />
+                {/* Laptop is the centering anchor — pills sit absolutely above it */}
+                <div className="relative" style={{ width: 186 }}>
+                    {/* Log pills — absolutely above the laptop, don't affect layout width */}
+                    <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1" style={{ bottom: "100%", marginBottom: 8, zIndex: 20 }}>
+                        {[
+                            { text: "Manual research", offset: 0, delay: 0.05 },
+                            { text: "Spreadsheet chaos", offset: -16, delay: 0.12 },
+                            { text: "Manual outreach", offset: 10, delay: 0.19 },
+                        ].map(({ text, offset, delay }) => (
+                            <motion.div
+                                key={text}
+                                initial={{ opacity: 0, y: -6, scale: 0.96 }}
+                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                viewport={{ once: true, margin: "-60px" }}
+                                transition={{ duration: 0.45, delay, ease: EASE }}
+                                className="inline-flex items-center gap-2 whitespace-nowrap rounded-full"
+                                style={{
+                                    marginLeft: offset,
+                                    padding: "4px 10px 4px 8px",
+                                    background: "linear-gradient(135deg, rgba(20,20,24,0.9) 0%, rgba(14,14,18,0.92) 100%)",
+                                    border: "1px solid rgba(255,255,255,0.14)",
+                                    boxShadow: "0 4px 16px rgba(7,8,15,0.45), inset 0 1px 0 rgba(255,255,255,0.05)",
+                                    backdropFilter: "blur(10px)",
+                                    WebkitBackdropFilter: "blur(10px)",
+                                }}
+                            >
+                                <span className="text-[9px] font-semibold tabular-nums" style={{ color: "rgba(255,168,72,0.95)", fontFamily: "ui-monospace, monospace" }}>{"{1}"}</span>
+                                <span className="text-[10px] text-white/85">{text}</span>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Laptop SVG */}
+                    <div className="relative" style={{ zIndex: 10 }}>
+                        <svg width="186" height="138" viewBox="0 0 230 170" fill="none">
+                            <defs>
+                                <linearGradient id="prob_screenFill" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="rgba(24,24,28,0.95)" />
+                                    <stop offset="100%" stopColor="rgba(14,14,18,0.95)" />
+                                </linearGradient>
+                                <linearGradient id="prob_screenStroke" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stopColor="rgba(255,255,255,0.32)" />
+                                    <stop offset="55%" stopColor="rgba(255,255,255,0.10)" />
+                                    <stop offset="100%" stopColor="rgba(255,255,255,0.28)" />
+                                </linearGradient>
+                                <radialGradient id="prob_screenGlow" cx="0.5" cy="0.5">
+                                    <stop offset="0%" stopColor="rgba(255,255,255,0.06)" />
+                                    <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                                </radialGradient>
+                                <radialGradient id="prob_floor" cx="0.5" cy="0.5">
+                                    <stop offset="0%" stopColor="rgba(255,255,255,0.14)" />
+                                    <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                                </radialGradient>
+                            </defs>
+                            <ellipse cx="115" cy="158" rx="100" ry="9" fill="url(#prob_floor)" opacity="0.75" />
+                            <rect x="34" y="14" width="162" height="104" rx="10"
+                                fill="url(#prob_screenFill)" stroke="url(#prob_screenStroke)" strokeWidth="1.3" />
+                            <rect x="42" y="22" width="146" height="84" rx="3.5"
+                                fill="url(#prob_screenGlow)" stroke="rgba(255,255,255,0.05)" strokeWidth="0.8" />
+                            <g opacity="0.42">
+                                <line x1="42" y1="42" x2="188" y2="42" stroke="rgba(255,255,255,0.5)" strokeWidth="0.5" strokeDasharray="2 2.5" />
+                                <line x1="42" y1="62" x2="188" y2="62" stroke="rgba(255,255,255,0.5)" strokeWidth="0.5" strokeDasharray="2 2.5" />
+                                <line x1="42" y1="84" x2="188" y2="84" stroke="rgba(255,255,255,0.5)" strokeWidth="0.5" strokeDasharray="2 2.5" />
+                                <line x1="82" y1="22" x2="82" y2="106" stroke="rgba(255,255,255,0.5)" strokeWidth="0.5" strokeDasharray="2 2.5" />
+                                <line x1="122" y1="22" x2="122" y2="106" stroke="rgba(255,255,255,0.5)" strokeWidth="0.5" strokeDasharray="2 2.5" />
+                                <line x1="158" y1="22" x2="158" y2="106" stroke="rgba(255,255,255,0.5)" strokeWidth="0.5" strokeDasharray="2 2.5" />
+                            </g>
+                            <motion.g
+                                animate={{ opacity: [0.82, 1, 0.82] }}
+                                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                <circle cx="115" cy="64" r="17" stroke="rgba(255,95,95,0.72)" strokeWidth="1.4" fill="rgba(255,95,95,0.08)" />
+                                <line x1="115" y1="55" x2="115" y2="66" stroke="rgba(255,115,115,0.95)" strokeWidth="1.7" strokeLinecap="round" />
+                                <circle cx="115" cy="71" r="1.3" fill="rgba(255,115,115,0.95)" />
+                            </motion.g>
+                            <path d="M16 120 L214 120 L222 144 L8 144 Z"
+                                fill="url(#prob_screenFill)" stroke="url(#prob_screenStroke)" strokeWidth="1.3" strokeLinejoin="round" />
+                            <rect x="98" y="127" width="34" height="3" rx="1.5" fill="rgba(255,255,255,0.07)" />
+                        </svg>
+
+                        {/* Orbiters around laptop */}
+                        {[
+                            { style: { left: -44, top: 14 }, delay: 0.22, icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2.5" stroke="rgba(255,255,255,0.82)" strokeWidth="1.3"/><line x1="3" y1="9" x2="21" y2="9" stroke="rgba(255,255,255,0.55)" strokeWidth="1"/><line x1="3" y1="15" x2="21" y2="15" stroke="rgba(255,255,255,0.55)" strokeWidth="1"/><line x1="9" y1="3" x2="9" y2="21" stroke="rgba(255,255,255,0.55)" strokeWidth="1"/><line x1="15" y1="3" x2="15" y2="21" stroke="rgba(255,255,255,0.55)" strokeWidth="1"/></svg> },
+                            { style: { left: -14, top: 68 }, delay: 0.28, icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="rgba(255,255,255,0.82)" strokeWidth="1.4"/><line x1="16" y1="16" x2="20.5" y2="20.5" stroke="rgba(255,255,255,0.82)" strokeWidth="1.4" strokeLinecap="round"/></svg> },
+                            { style: { right: -14, top: 68 }, delay: 0.32, icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="rgba(255,255,255,0.82)" strokeWidth="1.3"/><path d="M12 7 V12 L15.5 14.5" stroke="rgba(255,255,255,0.82)" strokeWidth="1.3" strokeLinecap="round"/></svg> },
+                            { style: { right: -44, top: 14 }, delay: 0.36, icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="1.6" stroke="rgba(255,255,255,0.82)" strokeWidth="1.3"/><path d="M3 8 L12 14 L21 8" stroke="rgba(255,255,255,0.82)" strokeWidth="1.3" strokeLinejoin="round"/><line x1="6" y1="6" x2="18" y2="19" stroke="rgba(255,95,95,0.92)" strokeWidth="1.3" strokeLinecap="round"/></svg> },
+                        ].map(({ style, delay, icon }, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.78 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true, margin: "-60px" }}
+                                transition={{ duration: 0.5, delay, ease: EASE }}
+                                className="absolute flex items-center justify-center rounded-full"
+                                style={{
+                                    width: 32, height: 32,
+                                    background: "linear-gradient(135deg, rgba(22,22,26,0.92) 0%, rgba(14,14,18,0.92) 100%)",
+                                    border: "1px solid rgba(255,255,255,0.14)",
+                                    boxShadow: "0 4px 18px rgba(7,8,15,0.55), inset 0 1px 0 rgba(255,255,255,0.06)",
+                                    backdropFilter: "blur(8px)",
+                                    WebkitBackdropFilter: "blur(8px)",
+                                    ...style,
+                                }}
+                            >
+                                {icon}
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
             </motion.div>
         </motion.div>
     );
@@ -1502,8 +1617,8 @@ export default function HeroSection() {
                             >
                                 <span className="mt-[5px] h-2 w-2 flex-shrink-0 rounded-full" style={{ background: "rgba(255,80,80,0.85)", boxShadow: "0 0 10px rgba(255,80,80,0.5)" }} />
                                 <div className="flex flex-col gap-0.5">
-                                    <p className="text-base font-semibold leading-snug text-white/90">{p.title}</p>
-                                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.42)" }}>{p.desc}</p>
+                                    <p className="text-body font-semibold leading-snug text-white/90">{p.title}</p>
+                                    <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.42)" }}>{p.desc}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -1549,7 +1664,7 @@ export default function HeroSection() {
                             <span className="display-muted-line">We don&apos;t sell services.</span>
                             <span className="display-strong-line">We build infrastructure.</span>
                         </h2>
-                        <p className="max-w-2xl text-base leading-relaxed text-white/55 md:text-lg">
+                        <p className="max-w-2xl text-lead text-white/55">
                             Levata designs and operates custom intelligence systems built for your business. Strategy, automation, technology, and digital experience, all aligned under one team, one vision.
                         </p>
                     </motion.div>
@@ -1620,7 +1735,7 @@ export default function HeroSection() {
                     <h2 className="display-section-title display-inline max-w-2xl text-center">
                         <span className="display-muted-line">Your next level </span><span className="display-strong-line">starts here.</span>
                     </h2>
-                    <p className="max-w-xl text-sm leading-relaxed text-white/55 md:text-base">
+                    <p className="max-w-xl text-lead text-white/55">
                         Let&apos;s uncover what&apos;s slowing your growth, and what fixes it.
                     </p>
                     <div className="flex flex-col items-center gap-3 sm:flex-row">
@@ -1669,7 +1784,7 @@ export default function HeroSection() {
                         <span className="display-muted-line">Sales Intelligence Platform</span>
                         <span className="display-strong-line">Built for B2B Teams.</span>
                     </h2>
-                    <p className="max-w-2xl text-sm leading-relaxed text-white/45 md:text-base">
+                    <p className="max-w-2xl text-lead text-white/45">
                         Turn your raw lead list into a researched, prioritized, and actionable pipeline, in hours,
                         not days.
                     </p>
@@ -1700,16 +1815,16 @@ export default function HeroSection() {
                                             Sales Intelligence Platform
                                         </span>
                                     </div>
-                                    <h3 className="text-2xl font-semibold tracking-tight text-white md:text-3xl leading-tight">
+                                    <h3 className="display-feature-title">
                                         Pipeline that builds itself.
                                     </h3>
-                                    <p className="text-sm text-white/50 leading-relaxed">
+                                    <p className="text-body-sm text-white/50 leading-relaxed">
                                         Perfect for B2B sales teams, founder-led outbound, and agencies running
                                         lead generation campaigns.
                                     </p>
                                     <ul className="flex flex-col gap-2.5">
                                         {PRODUCT_FEATURES.map((feat) => (
-                                            <li key={feat} className="flex items-start gap-3 text-sm text-white/65">
+                                            <li key={feat} className="flex items-start gap-3 text-body-sm text-white/65">
                                                 <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center"
                                                     style={{ background: "rgba(123, 85, 234,0.15)", border: "1px solid rgba(123, 85, 234,0.3)" }}>
                                                     <svg viewBox="0 0 10 10" fill="none" className="w-2.5 h-2.5" aria-hidden="true">
@@ -1924,8 +2039,8 @@ export default function HeroSection() {
                                 <div className="flex items-center justify-between mb-5">
                                     <span className="text-3xl font-bold tabular-nums" style={{ color: "rgba(123,85,234,0.7)" }}>{w.num}.</span>
                                 </div>
-                                <h3 className="text-lg font-semibold text-white mb-2">{w.title}</h3>
-                                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{w.body}</p>
+                                <h3 className="display-card-title mb-2">{w.title}</h3>
+                                <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{w.body}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -1952,7 +2067,7 @@ export default function HeroSection() {
                         <span className="display-muted-line">Ready to build intelligence</span>
                         <span className="display-strong-line">into your operations?</span>
                     </h2>
-                    <p className="max-w-lg text-sm leading-relaxed text-white/55">
+                    <p className="max-w-lg text-body-sm text-white/55">
                         Book a free strategy call. We&apos;ll map out the system your business needs.
                     </p>
                     <button

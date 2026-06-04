@@ -60,10 +60,10 @@ export default function Footer() {
                             <div style={{ overflow: "hidden", width: 32, height: 32, flexShrink: 0, WebkitMaskImage: "linear-gradient(to right, black 80%, transparent 100%)", maskImage: "linear-gradient(to right, black 80%, transparent 100%)" }}>
                                 <img src="/levatalogo.png" alt="" style={{ height: 32, width: "auto", maxWidth: "none", display: "block" }} />
                             </div>
-                            <span style={{ color: "#E6E6E6", fontWeight: 700, fontSize: "1.1rem", letterSpacing: "-0.02em", lineHeight: 1 }}>Levata</span>
+                            <span className="text-lead font-semibold" style={{ color: "#E6E6E6", letterSpacing: "-0.02em", lineHeight: 1 }}>Levata</span>
                         </Link>
 
-                        <p className="max-w-[260px] text-sm leading-relaxed text-white/45">
+                        <p className="max-w-[260px] text-body-sm text-white/45">
                             AI-native systems, platforms, and automation built for businesses that want to compound.
                         </p>
 
@@ -112,17 +112,17 @@ export default function Footer() {
 
                     {/* Connect */}
                     <div className="flex flex-col gap-4">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">Connect</p>
+                        <p className="text-eyebrow text-white/35">Connect</p>
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="text-left text-sm font-medium text-white/55 transition-colors hover:text-white"
+                            className="text-left text-body-sm font-medium text-white/55 transition-colors hover:text-white"
                         >
                             Book a strategy call
                         </button>
                         <a
                             href="mailto:hello@levatahq.com"
-                            className="text-sm text-white/55 transition-colors hover:text-white"
+                            className="text-body-sm text-white/55 transition-colors hover:text-white"
                         >
                             hello@levatahq.com
                         </a>
@@ -131,7 +131,7 @@ export default function Footer() {
 
                 {/* Bottom bar */}
                 <div className="flex items-center justify-center border-t border-white/[0.07] py-6">
-                    <p className="text-xs text-white/30">
+                    <p className="text-micro text-white/30">
                         &copy; {new Date().getFullYear()} Levata. All rights reserved.
                     </p>
                 </div>
@@ -144,13 +144,13 @@ export default function Footer() {
 function FooterColumn({ heading, items }: { heading: string; items: { label: string; href: string }[] }) {
     return (
         <div className="flex flex-col gap-4">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/35">{heading}</p>
+            <p className="text-eyebrow text-white/35">{heading}</p>
             <ul className="flex flex-col gap-2.5">
                 {items.map((link) => (
                     <li key={link.label}>
                         <Link
                             href={link.href}
-                            className="text-sm text-white/55 transition-colors duration-200 hover:text-white"
+                            className="text-body-sm text-white/55 transition-colors duration-200 hover:text-white"
                         >
                             {link.label}
                         </Link>

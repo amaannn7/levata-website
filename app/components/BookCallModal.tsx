@@ -152,8 +152,8 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                                 </svg>
                                             </span>
                                             <div className="flex flex-col gap-1.5">
-                                                <h3 className="text-xl font-semibold tracking-tight text-white">Request received.</h3>
-                                                <p className="text-sm leading-relaxed text-white/55">
+                                                <h3 className="display-card-title">Request received.</h3>
+                                                <p className="text-body-sm text-white/55">
                                                     We&apos;ll be in touch within 48 hours at the email you provided.
                                                 </p>
                                             </div>
@@ -170,7 +170,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                                         <>
                                             {/* Header */}
                                             <div className="mb-4 flex flex-col gap-1.5 pr-8 sm:mb-6 sm:gap-2">
-                                                                                                <h2 className="text-xl font-semibold leading-tight tracking-tight text-white md:text-2xl">
+                                                                                                <h2 className="display-card-title">
                                                     Tell us what you&apos;re building.
                                                 </h2>
                                                 <p className="text-xs leading-relaxed text-white/45 md:text-[13px]">
@@ -189,7 +189,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
 
                                                 {/* Phone with country picker */}
                                                 <div>
-                                                    <label className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40 sm:mb-1.5">
+                                                    <label className="mb-1 block text-eyebrow text-white/40 sm:mb-1.5">
                                                         Phone
                                                     </label>
                                                     <div
@@ -238,7 +238,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
 
                                                 {/* Message */}
                                                 <div>
-                                                    <label className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40 sm:mb-1.5">
+                                                    <label className="mb-1 block text-eyebrow text-white/40 sm:mb-1.5">
                                                         What can we help with? <span className="text-white/50">*</span>
                                                     </label>
                                                     <textarea
@@ -297,7 +297,7 @@ function ModalField({ label, name, type = "text", placeholder, required, disable
 }) {
     return (
         <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40 sm:mb-1.5">
+            <label className="mb-1 block text-eyebrow text-white/40 sm:mb-1.5">
                 {label}{required && <span className="ml-1 text-white/50">*</span>}
             </label>
             <input
