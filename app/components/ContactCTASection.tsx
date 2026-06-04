@@ -363,7 +363,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                         <button
                                             type="submit"
                                             disabled={isLoading}
-                                            className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90 sm:px-6 sm:py-3 disabled:opacity-60 disabled:cursor-not-allowed"
+                                            className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white  sm:px-6 sm:py-3 disabled:opacity-60 disabled:cursor-not-allowed"
                                             data-cta="primary"
                                         >
                                             {isLoading ? (

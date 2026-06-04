@@ -411,7 +411,7 @@ export default function Navbar() {
                     <div className="flex items-center gap-3">
                         <Link
                             href="/contact"
-                            className="hidden md:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-white transition-opacity duration-200 hover:opacity-90"
+                            className="hidden md:inline-flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold text-white "
                             data-cta="primary"
                         >
                             Contact Us
@@ -539,7 +539,7 @@ export default function Navbar() {
                                     <button
                                         type="button"
                                         onClick={triggerBookCall}
-                                        className="w-full rounded-2xl py-4 text-center text-[15px] font-semibold text-white transition-opacity duration-200 hover:opacity-90"
+                                        className="w-full rounded-2xl py-4 text-center text-[15px] font-semibold text-white "
                                         data-cta="primary"
                                     >
                                         Book a Strategy Call

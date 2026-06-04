@@ -436,7 +436,7 @@ export default function HomeHero() {
                         <button
                             type="button"
                             onClick={openBookCall}
-                            className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-opacity duration-200 cursor-pointer hover:opacity-90 sm:py-3.5"
+                            className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white cursor-pointer sm:py-3.5"
                             data-cta="primary"
                         >
                             Book a Consultation Call
