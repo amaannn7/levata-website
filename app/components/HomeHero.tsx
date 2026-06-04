@@ -189,7 +189,7 @@ function CardAIMetrics() {
                             fill="url(#card1Fill)"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 1.55, ease: "easeOut" }}
+                            transition={{ duration: 0.8, delay: 0.55, ease: "easeOut" }}
                         />
                         <motion.polyline
                             points="0,55 20,48 40,50 60,42 80,36 100,32 120,26 140,22 160,16 180,12 200,8"
@@ -200,13 +200,13 @@ function CardAIMetrics() {
                             strokeLinejoin="round"
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
-                            transition={{ duration: 1.2, delay: 0.85, ease: EASE }}
+                            transition={{ duration: 1.0, delay: 0.3, ease: EASE }}
                         />
                         <motion.circle
                             cx="200" cy="8" r="2.5" fill="rgba(255,255,255,0.85)"
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4, delay: 1.95, ease: "easeOut" }}
+                            transition={{ duration: 0.4, delay: 1.25, ease: "easeOut" }}
                         />
                     </svg>
                     <div className="mt-1 flex items-center justify-between">
@@ -248,7 +248,7 @@ function CardWorkflow() {
                             key={box.label}
                             initial={{ opacity: 0, x: 8 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.45, delay: 0.9 + i * 0.1, ease: EASE }}
+                            transition={{ duration: 0.45, delay: 0.3 + i * 0.08, ease: EASE }}
                             className="relative flex flex-col items-center justify-center rounded-md py-2"
                             style={{ border: "1px dashed rgba(255,255,255,0.18)" }}
                         >
@@ -286,7 +286,7 @@ function CardRevenue() {
                         className="text-[24px] font-bold leading-none tracking-tight text-white"
                         initial={{ opacity: 0, scale: 0.92 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.55, delay: 1.05, ease: EASE }}
+                        transition={{ duration: 0.55, delay: 0.35, ease: EASE }}
                     >
                         +38%
                     </motion.p>
@@ -297,7 +297,7 @@ function CardRevenue() {
                         }}
                         initial={{ opacity: 0, x: 12 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.55, delay: 1.15, ease: EASE }}
+                        transition={{ duration: 0.55, delay: 0.4, ease: EASE }}
                     />
                 </div>
                 <p className="mt-2.5 text-[11px] leading-snug text-white/55">
@@ -313,7 +313,7 @@ function ScrollIndicator() {
     const [visible, setVisible] = useState(true);
 
     useEffect(() => {
-        const onScroll = () => { if (window.scrollY > 60) setVisible(false); };
+        const onScroll = () => { if (window.scrollY > 40) setVisible(false); };
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
@@ -321,10 +321,10 @@ function ScrollIndicator() {
     return (
         <motion.div
             aria-hidden
-            initial={{ opacity: 0 }}
-            animate={{ opacity: visible ? 1 : 0 }}
-            transition={{ duration: 0.6, delay: 1.8, ease: EASE }}
-            className="pointer-events-none absolute bottom-8 left-1/2 z-30 -translate-x-1/2 flex flex-col items-center gap-2"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 12 }}
+            transition={{ duration: 0.6, delay: visible ? 0.9 : 0, ease: EASE }}
+            className="pointer-events-none absolute bottom-[200px] left-1/2 z-30 -translate-x-1/2 flex flex-col items-center gap-2 md:bottom-[240px]"
         >
             {/* SCROLL label */}
             <span
@@ -407,7 +407,7 @@ export default function HomeHero() {
                         id="hero-heading"
                         initial={{ opacity: 0, y: 18 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.85, delay: 0.18, ease: EASE }}
+                        transition={{ duration: 0.65, delay: 0.05, ease: EASE }}
                         className="display-hero-title max-w-4xl"
                     >
                         <span className="display-muted-line">Custom intelligence for</span>
@@ -419,7 +419,7 @@ export default function HomeHero() {
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.32, ease: EASE }}
+                        transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
                         className="mt-5 max-w-[480px]"
                     >
                         <p className="text-lead text-white/55">
@@ -430,7 +430,7 @@ export default function HomeHero() {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.46, ease: EASE }}
+                        transition={{ duration: 0.5, delay: 0.25, ease: EASE }}
                         className="mt-6"
                     >
                         <button
@@ -452,7 +452,7 @@ export default function HomeHero() {
                         style={{ height: "380px" }}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
+                        transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
                     >
                         <AIGlobe />
                     </motion.div>
