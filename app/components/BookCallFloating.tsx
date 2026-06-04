@@ -34,9 +34,8 @@ export default function BookCallFloating() {
                 initial={{ opacity: 0, scale: 0.6 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.55, ease: EASE, delay: 0.5 }}
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.94 }}
-                transition={{ scale: { duration: 0.12, ease: "easeOut" } }}
+                whileHover={{ scale: 1.08, transition: { duration: 0.12, ease: "easeOut" } }}
+                whileTap={{ scale: 0.94, transition: { duration: 0.1 } }}
                 className="relative flex items-center justify-center cursor-pointer"
                 style={{ width: 54, height: 54 }}
             >
