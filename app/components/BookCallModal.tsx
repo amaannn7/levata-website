@@ -22,18 +22,24 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
 
         // Mobile: use Calendly's own native popup widget — fully handles touch
         if (isTouchDevice()) {
+            // Always close any existing popup first, then re-launch after a tick
+            window.Calendly?.closePopupWidget?.();
             const launch = () => window.Calendly?.initPopupWidget({ url: CALENDLY_URL });
-            if (window.Calendly) {
-                launch();
-            } else {
-                const t = setTimeout(launch, 500);
-                return () => clearTimeout(t);
-            }
+            const t = setTimeout(() => {
+                if (window.Calendly) {
+                    launch();
+                } else {
+                    setTimeout(launch, 500);
+                }
+            }, 50);
             const onMsg = (e: MessageEvent) => {
                 if (e.data?.event === "calendly.popup_closed") onClose();
             };
             window.addEventListener("message", onMsg);
-            return () => window.removeEventListener("message", onMsg);
+            return () => {
+                clearTimeout(t);
+                window.removeEventListener("message", onMsg);
+            };
         }
 
         // Desktop: iframe modal

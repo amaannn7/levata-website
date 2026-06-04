@@ -18,6 +18,7 @@ export function useBookCall(): BookCallContextValue {
 }
 
 export default function BookCallProvider({ children }: { children: React.ReactNode }) {
+    const [openCount, setOpenCount] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
 
@@ -25,6 +26,8 @@ export default function BookCallProvider({ children }: { children: React.ReactNo
         if (pathname === "/contact") {
             document.getElementById("book-call")?.scrollIntoView({ behavior: "smooth", block: "start" });
         } else {
+            // Increment count to force useEffect re-run even if already open
+            setOpenCount((c) => c + 1);
             setIsOpen(true);
         }
     }, [pathname]);
@@ -35,7 +38,7 @@ export default function BookCallProvider({ children }: { children: React.ReactNo
     return (
         <BookCallContext.Provider value={value}>
             {children}
-            <BookCallModal open={isOpen} onClose={close} />
+            <BookCallModal key={openCount} open={isOpen} onClose={close} />
         </BookCallContext.Provider>
     );
 }
