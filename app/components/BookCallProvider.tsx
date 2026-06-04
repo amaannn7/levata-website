@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import BookCallModal from "@/app/components/BookCallModal";
 
 type BookCallContextValue = {
@@ -18,7 +19,16 @@ export function useBookCall(): BookCallContextValue {
 
 export default function BookCallProvider({ children }: { children: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
-    const open = useCallback(() => setIsOpen(true), []);
+    const pathname = usePathname();
+
+    const open = useCallback(() => {
+        if (pathname === "/contact") {
+            document.getElementById("book-call")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+            setIsOpen(true);
+        }
+    }, [pathname]);
+
     const close = useCallback(() => setIsOpen(false), []);
     const value = useMemo(() => ({ open, close }), [open, close]);
 
