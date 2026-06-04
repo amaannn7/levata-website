@@ -847,7 +847,7 @@ h6 {
 
 @keyframes auroraFlowSweep {
   0%   { clip-path: inset(0 100% 0 0); opacity: 1; }
-  50%  { clip-path: inset(0 0%   0 0); opacity: 1; }
+  60%  { clip-path: inset(0 0%   0 0); opacity: 1; }
   100% { clip-path: inset(0 0%   0 0); opacity: 0; }
 }
 

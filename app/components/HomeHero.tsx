@@ -18,7 +18,7 @@ function RotatingWord() {
     const INTERVAL = 2600;
 
     const [index, setIndex] = useState(0);
-    const [sweepKey, setSweepKey] = useState(0);
+    const [sweepKey, setSweepKey] = useState(1);
     const [targetWidth, setTargetWidth] = useState<number | null>(null);
 
     const measureRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -26,16 +26,17 @@ function RotatingWord() {
     // Delay width update to match when new word starts entering (after exit anim ~500ms)
     useEffect(() => {
         if (targetWidth === null) {
-            // initial mount — set immediately
+            // initial mount — set width and fire sweep immediately
             setTargetWidth(measureRefs.current[index]?.offsetWidth ?? null);
+            setSweepKey(k => k + 1);
             return;
         }
         // Wait for exit animation to finish before resizing line
         const wt = setTimeout(() => {
             setTargetWidth(measureRefs.current[index]?.offsetWidth ?? null);
         }, 500);
-        // Sweep after word + line are fully in
-        const st = setTimeout(() => setSweepKey(k => k + 1), 900);
+        // Sweep fires as the new word lands
+        const st = setTimeout(() => setSweepKey(k => k + 1), 550);
         return () => { clearTimeout(wt); clearTimeout(st); };
     }, [index]);
 
@@ -92,7 +93,7 @@ function RotatingWord() {
                     display: "block",
                     borderRadius: "9999px",
                     background: "rgba(255,255,255,0.1)",
-                    transition: "width 0.7s cubic-bezier(0.25,1,0.5,1)",
+                    transition: "width 1.2s cubic-bezier(0.25,1,0.5,1)",
                 }}
             />
 
@@ -109,8 +110,8 @@ function RotatingWord() {
                     display: "block",
                     borderRadius: "9999px",
                     background: "linear-gradient(90deg, #00FFDD 0%, #7B55EA 50%, #CC01FF 100%)",
-                    transition: "width 0.7s cubic-bezier(0.25,1,0.5,1)",
-                    animation: "auroraFlowSweep 1s ease-out forwards",
+                    transition: "width 1.2s cubic-bezier(0.25,1,0.5,1)",
+                    animation: "auroraFlowSweep 1.6s ease-in-out forwards",
                 }}
             />
         </span>
