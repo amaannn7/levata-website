@@ -7,14 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 const CALENDLY_URL = "https://calendly.com/levatahq/30min?hide_gdpr_banner=1&primary_color=7B55EA";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-declare global {
-    interface Window {
-        Calendly?: {
-            initPopupWidget: (opts: { url: string }) => void;
-            closePopupWidget: () => void;
-        };
-    }
-}
 
 function isTouchDevice() {
     return typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
