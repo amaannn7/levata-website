@@ -324,7 +324,7 @@ function ScrollIndicator() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 12 }}
             transition={{ duration: 0.6, delay: visible ? 0.9 : 0, ease: EASE }}
-            className="pointer-events-none absolute bottom-[200px] left-1/2 z-30 -translate-x-1/2 flex flex-col items-center gap-2 md:bottom-[240px]"
+            className="pointer-events-none absolute bottom-8 left-1/2 z-30 -translate-x-1/2 flex flex-col items-center gap-2 md:bottom-10"
         >
             {/* SCROLL label */}
             <span

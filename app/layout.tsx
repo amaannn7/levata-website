@@ -7,6 +7,7 @@ import SmoothScrollProvider from "./components/SmoothScrollProvider";
 import TextReveal from "./components/TextReveal";
 import RevealFallback from "./components/RevealFallback";
 import BookCallProvider from "./components/BookCallProvider";
+import BookCallFloating from "./components/BookCallFloating";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -34,8 +35,10 @@ export default function RootLayout({
     >
       <head>
         <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" />
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+        <script src="https://assets.calendly.com/assets/external/widget.js" async />
       </head>
-      <body className="min-h-screen bg-[#0E1014] text-[#E6E6E6] overflow-x-hidden">
+      <body className="min-h-screen bg-[#0E1014] text-[#E6E6E6]">
         <SmoothScrollProvider>
           <BookCallProvider>
             <TextReveal />
@@ -43,6 +46,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
+            <BookCallFloating />
           </BookCallProvider>
         </SmoothScrollProvider>
       </body>

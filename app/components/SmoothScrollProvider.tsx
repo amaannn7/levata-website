@@ -7,6 +7,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
+        // Don't init Lenis on touch devices — it intercepts touch events
+        // and breaks iframes (Calendly, etc.)
+        if ("ontouchstart" in window) return;
+
         gsap.registerPlugin(ScrollTrigger);
 
         const lenis = new Lenis({
@@ -14,10 +18,8 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
 
-        // Keep ScrollTrigger in sync with Lenis scroll position
         lenis.on("scroll", ScrollTrigger.update);
 
-        // Drive Lenis via GSAP ticker so everything is frame-synced
         const ticker = (time: number) => lenis.raf(time * 1000);
         gsap.ticker.add(ticker);
         gsap.ticker.lagSmoothing(0);

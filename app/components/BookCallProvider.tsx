@@ -12,14 +12,7 @@ const BookCallContext = createContext<BookCallContextValue | null>(null);
 
 export function useBookCall(): BookCallContextValue {
     const ctx = useContext(BookCallContext);
-    if (!ctx) {
-        return {
-            open: () => {
-                if (typeof window !== "undefined") window.location.href = "/contact";
-            },
-            close: () => {},
-        };
-    }
+    if (!ctx) return { open: () => {}, close: () => {} };
     return ctx;
 }
 
