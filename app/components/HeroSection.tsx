@@ -1322,7 +1322,7 @@ function ProblemSpider() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: EASE }}
             className="relative mx-auto w-full max-w-4xl"
-            style={{ aspectRatio: `${W} / ${H}` }}
+            style={{ aspectRatio: `${W} / ${H}`, minHeight: "clamp(260px, 60vw, 480px)" }}
         >
             <svg
                 viewBox={`0 0 ${W} ${H}`}
@@ -1645,7 +1645,7 @@ export default function HeroSection() {
                         </h2>
                     </motion.div>
 
-                    {/* ── Mobile: stacked pain points + terminal visual ── */}
+                    {/* ── Mobile: stacked pain points + visual ── */}
                     <div className="flex flex-col gap-5 lg:hidden">
                         {PAIN_POINTS.map((p, i) => (
                             <motion.div
