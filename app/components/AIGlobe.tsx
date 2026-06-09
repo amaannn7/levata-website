@@ -406,7 +406,7 @@ export default function AIGlobe() {
             >
                 <Suspense fallback={null}>
                     <Scene />
-                    <EffectComposer disableNormalPass>
+                    <EffectComposer>
                         <Bloom mipmapBlur intensity={0.4} luminanceThreshold={0.2} luminanceSmoothing={0.9} radius={0.7} />
                     </EffectComposer>
                 </Suspense>

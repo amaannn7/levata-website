@@ -20,11 +20,12 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
     // Preload iframe after page is idle — so it's ready before user clicks
     useEffect(() => {
         if (isTouchDevice()) return;
-        const id = requestIdleCallback
+        const hasIdle = typeof requestIdleCallback === "function";
+        const id = hasIdle
             ? requestIdleCallback(() => setPreloaded(true), { timeout: 3000 })
-            : setTimeout(() => setPreloaded(true), 2000) as unknown as number;
+            : (setTimeout(() => setPreloaded(true), 2000) as unknown as number);
         return () => {
-            if (requestIdleCallback) cancelIdleCallback(id);
+            if (hasIdle) cancelIdleCallback(id);
             else clearTimeout(id as unknown as ReturnType<typeof setTimeout>);
         };
     }, []);
