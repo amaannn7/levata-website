@@ -111,8 +111,8 @@ function AIProblemVisual() {
     const inView = useReveal(ref);
 
     return (
-        <div ref={ref} className="relative mx-auto w-full max-w-md">
-            <svg viewBox={`0 0 360 ${startY + rows.length * rowH + 24}`} className="block h-auto w-full" fill="none">
+        <div ref={ref} className="relative mx-auto w-full max-w-md sm:max-w-none" style={{ aspectRatio: "5 / 4" }}>
+            <svg viewBox={`0 0 360 ${startY + rows.length * rowH + 24}`} className="block h-full w-full" fill="none">
                 <text x="0" y="32" fontFamily={MONO} fontSize="9" fontWeight="700"
                     letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">THE PATTERN WE SEE</text>
                 {rows.map((row, i) => (
@@ -124,9 +124,11 @@ function AIProblemVisual() {
                         {/* Row background */}
                         <rect x="0" y={startY + i * rowH} width="360" height={rowH - 4} rx="7"
                             fill="rgba(10,14,28,0.95)" stroke="rgba(255,80,80,0.18)" strokeWidth="1" />
-                        {/* Left accent bar */}
-                        <rect x="0" y={startY + i * rowH} width="3" height={rowH - 4} rx="1.5"
-                            fill="rgba(255,80,80,0.55)" />
+                        {/* Left accent bar — slow looping pulse, staggered per row */}
+                        <motion.rect x="0" y={startY + i * rowH} width="3" height={rowH - 4} rx="1.5"
+                            fill="rgba(255,80,80,0.55)"
+                            animate={inView ? { opacity: [0.45, 1, 0.45] } : undefined}
+                            transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.35, ease: "easeInOut" }} />
                         {/* Icon badge */}
                         <rect x="8" y={startY + i * rowH + 6} width="22" height="22" rx="5"
                             fill="rgba(255,80,80,0.08)" stroke="rgba(255,80,80,0.22)" strokeWidth="0.8" />
@@ -1006,7 +1008,7 @@ export default function AIIntelligencePage() {
             </section>
 
             {/* ── 2. PROBLEM ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 55% 60% at 15% 40%, rgba(255,80,80,0.05) 0%, transparent 65%)",
@@ -1014,7 +1016,7 @@ export default function AIIntelligencePage() {
                     ].join(", "),
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -1052,7 +1054,7 @@ export default function AIIntelligencePage() {
             </section>
 
             {/* ── 3. SOLUTION ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 40%, rgba(123,85,234,0.08) 0%, transparent 65%)",
                 }} />
@@ -1113,7 +1115,7 @@ export default function AIIntelligencePage() {
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
                                 </div>
                                 <p className="display-card-title" style={{ minHeight: "2.6em" }}>{p.title}</p>
-                                <p className="text-caption text-white/40">{p.desc}</p>
+                                <p className="text-body-sm text-white/45">{p.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -1121,17 +1123,17 @@ export default function AIIntelligencePage() {
             </section>
 
             {/* ── OUR PROCESS ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
                 }} />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -1238,14 +1240,14 @@ export default function AIIntelligencePage() {
             </section>
 
             {/* ── Block 5. OUR SERVICES ─────────────────────── */}
-            <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
+            <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -1267,7 +1269,7 @@ export default function AIIntelligencePage() {
                                     className={`grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-16 lg:gap-20 ${isOdd ? "md:[&>div:first-child]:order-2" : ""}`}
                                 >
                                     {/* text */}
-                                    <div className="flex flex-col gap-4">
+                                    <div className={`flex flex-col gap-4 ${isOdd ? "md:ml-auto md:w-full md:max-w-md" : ""}`}>
                                         <div className="flex items-baseline gap-3">
                                             <span className="display-feature-title tabular-nums" style={{ color: GREEN }}>
                                                 {svc.num}.
@@ -1311,7 +1313,7 @@ export default function AIIntelligencePage() {
             </section>
 
             {/* ── FAQ ───────────────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
@@ -1319,7 +1321,7 @@ export default function AIIntelligencePage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center gap-5 text-center md:mb-14"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -1343,7 +1345,7 @@ export default function AIIntelligencePage() {
             </section>
 
             {/* ── FINAL CTA ─────────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"

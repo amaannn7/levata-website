@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
@@ -149,7 +149,7 @@ export default function AboutPage() {
             </section>
 
             {/* ── Who We Are ───────────────────────────────────── */}
-            <section className="relative w-full px-6 py-16 md:py-24 overflow-hidden">
+            <section className="relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 50% 60% at 15% 50%, rgba(123,85,234,0.07) 0%, transparent 65%)",
@@ -204,7 +204,7 @@ export default function AboutPage() {
             </section>
 
             {/* ── Team ─────────────────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-6 py-16 md:py-24">
+            <section className="relative w-full overflow-hidden px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0" style={{
                     background: [
                         "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(123, 85, 234,0.07) 0%, transparent 70%)",
@@ -212,13 +212,13 @@ export default function AboutPage() {
                     ].join(", "),
                 }} />
 
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-12 flex flex-col items-center text-center gap-5"
+                        className="mb-10 flex flex-col items-center text-center gap-3"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -265,7 +265,7 @@ export default function AboutPage() {
             </section>
 
             {/* ── Why Clients Choose Us ────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-6 py-16 md:py-24">
+            <section className="relative w-full overflow-hidden px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0" style={{
                     background: [
                         "radial-gradient(ellipse 60% 60% at 50% 30%, rgba(123, 85, 234,0.08) 0%, transparent 70%)",
@@ -274,13 +274,13 @@ export default function AboutPage() {
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-bg" />
 
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-12 flex flex-col items-center text-center gap-4"
+                        className="mb-10 flex flex-col items-center text-center gap-4"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -346,7 +346,7 @@ export default function AboutPage() {
             </section>
 
             {/* ── Final CTA ────────────────────────────────────── */}
-            <section ref={ctaRef} className="relative w-full px-6 py-20 md:py-28 overflow-hidden">
+            <section ref={ctaRef} className="relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <CTAAurora variant={3} />
                 <div aria-hidden className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-32"
                     style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.4), transparent)" }}

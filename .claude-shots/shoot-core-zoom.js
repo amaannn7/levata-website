@@ -6,8 +6,14 @@ const { chromium } = require("playwright");
   await page.goto("http://localhost:3001/", { waitUntil: "load", timeout: 120000 });
   await page.waitForTimeout(4000);
   await page.locator("#problem").scrollIntoViewIfNeeded();
-  await page.waitForTimeout(2200);
-  await page.locator("#problem").screenshot({ path: ".claude-shots/problem-close.png" });
+  await page.waitForTimeout(2500);
+  const box = await page.locator("#problem").boundingBox();
+  const cx = box.x + box.width / 2;
+  const cy = box.y + box.height / 2 + 40;
+  await page.screenshot({
+    path: ".claude-shots/core-zoom.png",
+    clip: { x: cx - 260, y: cy - 220, width: 520, height: 440 },
+  });
   await browser.close();
   console.log("done");
 })();

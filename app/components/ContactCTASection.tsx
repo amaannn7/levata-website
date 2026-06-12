@@ -1,9 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { COUNTRIES } from "@/app/lib/countries";
-import SectionLabel from "@/app/components/SectionLabel";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -159,7 +158,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
     return (
         <section ref={sectionRef} id="contact-cta" className="relative w-full bg-[#0E1014] px-5 py-8 sm:px-6 md:py-14">
-            <div className="relative z-10 mx-auto max-w-6xl">
+            <div className="relative z-10 mx-auto max-w-[1120px]">
 
                 {showHeading && (
                     <div className="mb-12" data-form-heading>
@@ -215,7 +214,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                         {/* Right form panel */}
                         <div className="bg-[#0E1014] p-6 sm:p-8 md:p-10">
                             {status === "success" ? (
-                                <div className="flex h-full min-h-[320px] flex-col items-center justify-center gap-5 text-center">
+                                <div className="flex h-full min-h-[320px] flex-col items-center justify-center gap-3 text-center">
                                     <span
                                         className="flex h-14 w-14 items-center justify-center rounded-full"
                                         style={{ background: "rgba(123, 85, 234,0.10)", border: "1px solid rgba(123, 85, 234,0.28)" }}

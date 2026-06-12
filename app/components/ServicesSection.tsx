@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -447,7 +447,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
 // ── Section ───────────────────────────────────────────────────────────────
 export default function ServicesSection() {
     return (
-        <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+        <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-14 md:py-20">
             <div className="pointer-events-none absolute inset-0 z-0" style={{
                 background: [
                     "radial-gradient(ellipse 55% 50% at 20% 20%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
@@ -455,14 +455,14 @@ export default function ServicesSection() {
                 ].join(", "),
             }} />
 
-            <div className="relative z-10 mx-auto max-w-6xl">
+            <div className="relative z-10 mx-auto max-w-[1120px]">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.7, ease: EASE }}
-                    className="mb-12 flex flex-col items-center gap-5 text-center"
+                    className="mb-10 flex flex-col items-center gap-3 text-center"
                 >
                     <h2 className="display-section-title display-inline max-w-2xl text-center">
                         <span className="display-muted-line">Four ways we build </span><span className="display-strong-line">smarter businesses</span>

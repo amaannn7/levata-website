@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
@@ -233,8 +233,8 @@ function DigitalProblemVisual() {
     const ref = useRef<HTMLDivElement>(null);
     const inView = useReveal(ref);
     return (
-        <div ref={ref} className="relative mx-auto w-full max-w-sm">
-            <svg viewBox="0 0 380 380" className="block h-auto w-full" fill="none">
+        <div ref={ref} className="relative mx-auto w-full max-w-md sm:max-w-none" style={{ aspectRatio: "5 / 4" }}>
+            <svg viewBox="0 0 380 380" className="block h-full w-full" fill="none">
                 <text x="0" y="53" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
                     letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">WHERE GROWTH STALLS</text>
                 <defs>
@@ -252,7 +252,9 @@ function DigitalProblemVisual() {
                         fill="rgba(10,14,28,0.98)" stroke="rgba(255,80,80,0.22)" strokeWidth="1.2" />
                     <rect x="20" y="20" width="160" height="22" rx="7"
                         fill="rgba(255,80,80,0.06)" />
-                    <circle cx="34" cy="31" r="3.5" fill="rgba(255,80,80,0.3)" />
+                    <motion.circle cx="34" cy="31" r="3.5" fill="rgba(255,80,80,0.3)"
+                        animate={inView ? { opacity: [0.5, 1, 0.5] } : undefined}
+                        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} />
                     <circle cx="46" cy="31" r="3.5" fill="rgba(255,255,255,0.12)" />
                     <circle cx="58" cy="31" r="3.5" fill="rgba(255,255,255,0.12)" />
                     <rect x="68" y="25" width="96" height="12" rx="6"
@@ -288,7 +290,9 @@ function DigitalProblemVisual() {
                         <g key={idx}>
                             <rect x="214" y={36 + idx * 26} width="132" height="18" rx="4"
                                 fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.09)" strokeWidth="0.8" />
-                            <circle cx="224" cy={45 + idx * 26} r="3" fill={idx === 1 ? "rgba(255,80,80,0.7)" : "rgba(255,255,255,0.15)"} />
+                            <motion.circle cx="224" cy={45 + idx * 26} r="3" fill={idx === 1 ? "rgba(255,80,80,0.7)" : "rgba(255,255,255,0.15)"}
+                                animate={inView && idx === 1 ? { opacity: [0.4, 1, 0.4] } : undefined}
+                                transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }} />
                             <rect x="232" y={41 + idx * 26} width={idx === 1 ? 60 : 88} height="8" rx="2"
                                 fill={idx === 1 ? "rgba(255,80,80,0.12)" : "rgba(255,255,255,0.06)"} />
                         </g>
@@ -322,14 +326,21 @@ function DigitalProblemVisual() {
                             transition={{ duration: 0.4, delay: 0.7 + i * 0.1, ease: EASE }}>
                             <path d={`M${pt.x} ${pt.y} L${pt.x + 14} ${pt.y + 10}`}
                                 stroke="rgba(255,80,80,0.5)" strokeWidth="1.2" strokeLinecap="round" />
-                            <circle cx={pt.x + 14} cy={pt.y + 10} r="2.5" fill="rgba(255,80,80,0.5)" filter="url(#dp_glow)" />
+                            <motion.circle cx={pt.x + 14} cy={pt.y + 10} r="2.5" fill="rgba(255,80,80,0.5)" filter="url(#dp_glow)"
+                                animate={inView ? { opacity: [0.4, 1, 0.4] } : undefined}
+                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }} />
                         </motion.g>
                     ))}
-                    {/* Lost revenue */}
-                    <rect x="122" y="252" width="136" height="18" rx="4"
-                        fill="rgba(255,80,80,0.05)" stroke="rgba(255,80,80,0.2)" strokeWidth="0.8" />
-                    <text x="190" y="264" textAnchor="middle" fontFamily={MONO} fontSize="7.5" fontWeight="700"
-                        letterSpacing="0.1em" fill="rgba(255,80,80,0.6)">REVENUE LOST AT CHECKOUT</text>
+                    {/* Lost revenue — slow looping pulse */}
+                    <motion.g
+                        animate={inView ? { opacity: [0.6, 1, 0.6] } : undefined}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                        <rect x="122" y="252" width="136" height="18" rx="4"
+                            fill="rgba(255,80,80,0.05)" stroke="rgba(255,80,80,0.2)" strokeWidth="0.8" />
+                        <text x="190" y="264" textAnchor="middle" fontFamily={MONO} fontSize="7.5" fontWeight="700"
+                            letterSpacing="0.1em" fill="rgba(255,80,80,0.6)">REVENUE LOST AT CHECKOUT</text>
+                    </motion.g>
                     <text x="190" y="300" textAnchor="middle" fontFamily={MONO} fontSize="8.5" fontWeight="700"
                         letterSpacing="0.12em" fill="rgba(255,255,255,0.6)">LEAKING ECOMMERCE</text>
                 </motion.g>
@@ -472,7 +483,7 @@ export default function DigitalServicesPage() {
             </section>
 
             {/* ── 2. PROBLEM ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 55% 60% at 15% 40%, rgba(255,80,80,0.05) 0%, transparent 65%)",
@@ -480,7 +491,7 @@ export default function DigitalServicesPage() {
                     ].join(", "),
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
                         {/* Left: heading + paragraph */}
                         <motion.div
@@ -520,7 +531,7 @@ export default function DigitalServicesPage() {
             </section>
 
             {/* ── 3. SOLUTION ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 40%, rgba(123,85,234,0.08) 0%, transparent 65%)",
                 }} />
@@ -583,7 +594,7 @@ export default function DigitalServicesPage() {
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
                                 </div>
                                 <p className="display-card-title" style={{ minHeight: "2.6em" }}>{p.title}</p>
-                                <p className="text-caption text-white/40">{p.desc}</p>
+                                <p className="text-body-sm text-white/45">{p.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -591,17 +602,17 @@ export default function DigitalServicesPage() {
             </section>
 
             {/* ── 4. OUR PROCESS ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123,85,234,0.06) 0%, transparent 70%)",
                 }} />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -733,14 +744,14 @@ export default function DigitalServicesPage() {
             </section>
 
             {/* ── 5. OUR SERVICES ── */}
-            <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
+            <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -763,7 +774,7 @@ export default function DigitalServicesPage() {
                                     className={`grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-16 lg:gap-20 ${isOdd ? "md:[&>div:first-child]:order-2" : ""}`}
                                 >
                                     {/* text */}
-                                    <div className="flex flex-col gap-4">
+                                    <div className={`flex flex-col gap-4 ${isOdd ? "md:ml-auto md:w-full md:max-w-md" : ""}`}>
                                         <div className="flex items-baseline gap-3">
                                             <span className="display-feature-title tabular-nums" style={{ color: GREEN }}>
                                                 {svc.num}.
@@ -807,7 +818,7 @@ export default function DigitalServicesPage() {
             </section>
 
             {/* ── 7. FAQ ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
@@ -815,7 +826,7 @@ export default function DigitalServicesPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center gap-5 text-center md:mb-14"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -839,7 +850,7 @@ export default function DigitalServicesPage() {
             </section>
 
             {/* ── 8. FINAL CTA ── */}
-            <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"

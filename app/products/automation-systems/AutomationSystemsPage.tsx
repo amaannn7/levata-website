@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
@@ -340,7 +340,7 @@ export default function AutomationSystemsPage() {
             </section>
 
             {/* ── 2. PROBLEM ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 55% 60% at 15% 40%, rgba(255,80,80,0.05) 0%, transparent 65%)",
@@ -348,7 +348,7 @@ export default function AutomationSystemsPage() {
                     ].join(", "),
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
                         {/* Left: heading + paragraphs */}
                         <motion.div
@@ -375,8 +375,8 @@ export default function AutomationSystemsPage() {
                         </motion.div>
 
                         {/* Right: disconnected silos visual */}
-                        <div ref={silosRef} className="relative mx-auto w-full max-w-sm">
-                            <svg viewBox="0 0 400 320" className="block h-auto w-full" fill="none">
+                        <div ref={silosRef} className="relative mx-auto w-full max-w-md sm:max-w-none" style={{ aspectRatio: "5 / 4" }}>
+                            <svg viewBox="0 0 400 320" className="block h-full w-full" fill="none">
                                 <text x="0" y="28" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
                                     letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">DISCONNECTED OPERATIONS</text>
                                 <defs>
@@ -409,8 +409,10 @@ export default function AutomationSystemsPage() {
                                         <rect x={p.cx - 52} y={p.cy - 22} width="3" height="44" rx="1.5"
                                             fill="rgba(255,80,80,0.5)"
                                         />
-                                        {/* Warning dot */}
-                                        <circle cx={p.cx - 33} cy={p.cy - 4} r="3.5" fill="rgba(255,80,80,0.6)" filter="url(#auto_prob_glow)" />
+                                        {/* Warning dot — looping blink, staggered per silo */}
+                                        <motion.circle cx={p.cx - 33} cy={p.cy - 4} r="3.5" fill="rgba(255,80,80,0.6)" filter="url(#auto_prob_glow)"
+                                            animate={silosInView ? { opacity: [0.4, 1, 0.4] } : undefined}
+                                            transition={{ duration: 2, repeat: Infinity, delay: p.delay * 4, ease: "easeInOut" }} />
                                         <text x={p.cx - 22} y={p.cy - 1}
                                             fontFamily={MONO} fontSize="10" fontWeight="700" letterSpacing="0.14em"
                                             fill="rgba(255,255,255,0.75)">{p.label}
@@ -445,16 +447,21 @@ export default function AutomationSystemsPage() {
                                     animate={silosInView ? { opacity: 1 } : undefined}
                                     transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
                                 >
-                                    <rect x="130" y="120" width="140" height="30" rx="15"
-                                        fill="rgba(255,60,60,0.05)"
-                                        stroke="rgba(255,60,60,0.22)"
-                                        strokeWidth="1"
-                                        strokeDasharray="4 3"
-                                    />
-                                    <text x="200" y="139"
-                                        textAnchor="middle" fontFamily={MONO} fontSize="8" fontWeight="700"
-                                        letterSpacing="0.18em" fill="rgba(255,80,80,0.65)">NO AUTOMATION
-                                    </text>
+                                    <motion.g
+                                        animate={silosInView ? { opacity: [0.55, 1, 0.55] } : undefined}
+                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                    >
+                                        <rect x="130" y="120" width="140" height="30" rx="15"
+                                            fill="rgba(255,60,60,0.05)"
+                                            stroke="rgba(255,60,60,0.22)"
+                                            strokeWidth="1"
+                                            strokeDasharray="4 3"
+                                        />
+                                        <text x="200" y="139"
+                                            textAnchor="middle" fontFamily={MONO} fontSize="8" fontWeight="700"
+                                            letterSpacing="0.18em" fill="rgba(255,80,80,0.65)">NO AUTOMATION
+                                        </text>
+                                    </motion.g>
                                 </motion.g>
 
                                 {/* Bottom caption */}
@@ -469,7 +476,7 @@ export default function AutomationSystemsPage() {
             </section>
 
             {/* ── 3. SOLUTION ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 40%, rgba(123,85,234,0.08) 0%, transparent 65%)",
                 }} />
@@ -532,7 +539,7 @@ export default function AutomationSystemsPage() {
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
                                 </div>
                                 <p className="display-card-title" style={{ minHeight: "2.6em" }}>{p.title}</p>
-                                <p className="text-caption text-white/40">{p.desc}</p>
+                                <p className="text-body-sm text-white/45">{p.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -540,17 +547,17 @@ export default function AutomationSystemsPage() {
             </section>
 
             {/* ── 4. OUR PROCESS ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123,85,234,0.06) 0%, transparent 70%)",
                 }} />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -635,14 +642,14 @@ export default function AutomationSystemsPage() {
             </section>
 
             {/* ── 5. OUR SERVICES ── */}
-            <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
+            <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -663,7 +670,7 @@ export default function AutomationSystemsPage() {
                                     transition={{ duration: 0.7, ease: EASE }}
                                     className={`grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-16 lg:gap-20 ${isOdd ? "md:[&>div:first-child]:order-2" : ""}`}
                                 >
-                                    <div className="flex flex-col gap-4">
+                                    <div className={`flex flex-col gap-4 ${isOdd ? "md:ml-auto md:w-full md:max-w-md" : ""}`}>
                                         <div className="flex items-baseline gap-3">
                                             <span className="display-feature-title tabular-nums" style={{ color: GREEN }}>{svc.num}.</span>
                                             <h3 className="display-feature-title">{svc.title}</h3>
@@ -698,7 +705,7 @@ export default function AutomationSystemsPage() {
             </section>
 
             {/* ── 7. FAQ, Console style ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
@@ -706,7 +713,7 @@ export default function AutomationSystemsPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
+                        className="mb-10 flex flex-col items-center md:mb-12 gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -730,7 +737,7 @@ export default function AutomationSystemsPage() {
             </section>
 
             {/* ── 8. FINAL CTA ── */}
-            <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div
                     aria-hidden
                     className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl"

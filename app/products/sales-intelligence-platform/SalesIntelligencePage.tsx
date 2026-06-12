@@ -532,7 +532,7 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 2. PROBLEM ────────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 pb-14 pt-28 sm:px-6 sm:pb-20 sm:pt-36 md:pb-16 md:pt-40">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 55% 60% at 15% 40%, rgba(255,80,80,0.05) 0%, transparent 65%)",
@@ -540,7 +540,7 @@ export default function SalesIntelligencePage() {
                     ].join(", "),
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-8 md:gap-16 items-center">
 
                         {/* Left: heading */}
@@ -633,16 +633,16 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 3. CORE CAPABILITIES ──────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(0,255,221,0.04) 0%, transparent 70%)" }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
+                        className="mb-10 flex flex-col items-center md:mb-12 gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -802,16 +802,16 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 4. KEY OUTCOMES (STATS) ───────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-24 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(204,1,255,0.07) 0%, transparent 65%)" }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
+                        className="mb-10 flex flex-col items-center md:mb-12 gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -827,15 +827,15 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 5. HOW IT WORKS (STEPS) ───────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: ["radial-gradient(ellipse 50% 50% at 20% 30%, rgba(0,255,221,0.04) 0%, transparent 70%)", "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(204,1,255,0.04) 0%, transparent 70%)"].join(", ") }} />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-10 flex flex-col items-center md:mb-14 gap-5 text-center"
+                        className="mb-10 flex flex-col items-center md:mb-12 gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -873,15 +873,15 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 6. BUILT FOR TEAMS ────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
+            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: ["radial-gradient(ellipse 50% 50% at 20% 50%, rgba(204,1,255,0.06) 0%, transparent 70%)", "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(0,255,221,0.05) 0%, transparent 70%)"].join(", ") }} />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center"
+                        className="mb-10 flex flex-col items-center gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -918,7 +918,7 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 7. FAQ ───────────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
+            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
@@ -926,7 +926,7 @@ export default function SalesIntelligencePage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center"
+                        className="mb-10 flex flex-col items-center gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -942,7 +942,7 @@ export default function SalesIntelligencePage() {
             </section>
 
             {/* ── 8. FINAL CTA ─────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <CTAAurora variant={2} />
                 <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }} />
                 <motion.div

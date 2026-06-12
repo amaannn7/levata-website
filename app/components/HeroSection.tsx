@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -145,7 +145,7 @@ function TechMarqueeRow({ items, direction, duration }: { items: TechItem[]; dir
 
 function TechStackSection() {
     return (
-        <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-24 overflow-hidden">
+        <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 md:py-20 overflow-hidden">
             <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                 <div className="absolute inset-0" style={{
                     background: [
@@ -154,8 +154,8 @@ function TechStackSection() {
                     ].join(", ")
                 }} />
             </div>
-            <div className="relative z-10 mx-auto max-w-6xl">
-                <div className="mb-12 flex flex-col items-center text-center gap-5">
+            <div className="relative z-10 mx-auto max-w-[1120px]">
+                <div className="mb-10 flex flex-col items-center text-center gap-3">
                     <SectionBeam />
                     <h2 className="display-section-title display-inline max-w-2xl text-center">
                         <span className="display-muted-line">Built on tech that </span><span className="display-strong-line">compounds.</span>
@@ -722,7 +722,7 @@ function ServicesCarousel() {
     return (
         <div>
             {/* Header */}
-            <div className="mb-12 flex flex-col items-center gap-4 text-center md:mb-16">
+            <div className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12">
                 <SectionBeam />
                 <h2 className="display-section-title display-inline max-w-2xl text-center">
                     <span className="display-muted-line">Four ways we build </span><span className="display-strong-line">smarter businesses</span>
@@ -1084,15 +1084,10 @@ function WhyLevataDeck() {
             const scrolled = Math.max(0, Math.min(total, -rect.top));
             const progress = total > 0 ? scrolled / total : 0;
             const n = WHY_LEVATA.length;
-            // Use midpoint thresholds so each step covers a full segment
-            // Step i is active when progress is in [i/n, (i+1)/n)
-            // Add a small hysteresis band so fast scrollers don't skip
             const segSize = 1 / n;
             let idx = Math.min(n - 1, Math.floor(progress * n));
-            // Snap to last step slightly earlier to avoid missing it
             if (progress >= 1 - segSize * 0.15) idx = n - 1;
             setActive((prev) => {
-                // Only advance one step at a time to prevent skipping
                 if (idx > prev + 1) return prev + 1;
                 if (idx < prev - 1) return prev - 1;
                 return idx;
@@ -1104,8 +1099,8 @@ function WhyLevataDeck() {
     }, []);
 
     return (
-        <div ref={containerRef} className="hidden lg:block relative" style={{ height: `${WHY_LEVATA.length * 90 + 60}vh` }}>
-            <div className="sticky top-0 h-screen w-full flex items-center">
+        <div ref={containerRef} className="hidden lg:block relative py-14 md:py-20" style={{ height: `${WHY_LEVATA.length * 100}vh` }}>
+            <div className="sticky w-full" style={{ top: "max(24px, calc(50vh - 220px))" }}>
                 <div className="mx-auto w-full max-w-6xl px-6">
                     <div className="grid grid-cols-2 gap-16 items-center">
                         <div className="flex flex-col gap-6">
@@ -1191,7 +1186,7 @@ function ImagePlaceholder({
 // ── §4 SOLUTION: flow node + animated connector ──
 function FlowNode({ num, title, caption, icon, accent }: typeof FLOW_NODES[number]) {
     return (
-        <div className="flex flex-col items-center gap-4 text-center w-36">
+        <div className="flex flex-col items-center gap-3 text-center w-36">
             {/* Number badge above node */}
             <span
                 className="text-eyebrow"
@@ -1309,6 +1304,7 @@ function ProblemCore({ size = 230 }: { size?: number }) {
         { x: 182, y: 58, delay: 1.6 },
         { x: 188, y: 176, delay: 2.8 },
     ];
+    const lapW = size * 1.45;
     return (
         <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
             {/* Ambient glow */}
@@ -1322,7 +1318,78 @@ function ProblemCore({ size = 230 }: { size?: number }) {
                     transform: "scale(1.7)",
                 }}
             />
-            <svg width={size} height={size} viewBox="0 0 240 240" fill="none" className="relative overflow-visible" aria-hidden>
+
+            {/* Laptop behind the core — screen in error state */}
+            <div
+                aria-hidden
+                className="pointer-events-none absolute left-1/2"
+                style={{ width: lapW, top: "50%", transform: "translate(-50%, -32%)", zIndex: 0 }}
+            >
+                <svg viewBox="0 0 240 190" width="100%" style={{ display: "block" }} fill="none">
+                    <defs>
+                        <linearGradient id="pcore_lap_fill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="rgba(22,17,36,0.96)" />
+                            <stop offset="100%" stopColor="rgba(10,8,20,0.98)" />
+                        </linearGradient>
+                        <linearGradient id="pcore_lap_stroke" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stopColor="rgba(255,75,75,0.5)" />
+                            <stop offset="50%" stopColor="rgba(255,255,255,0.12)" />
+                            <stop offset="100%" stopColor="rgba(255,75,75,0.4)" />
+                        </linearGradient>
+                        <radialGradient id="pcore_lap_floor" cx="0.5" cy="0.5">
+                            <stop offset="0%" stopColor="rgba(255,75,75,0.15)" />
+                            <stop offset="100%" stopColor="rgba(255,75,75,0)" />
+                        </radialGradient>
+                    </defs>
+                    {/* Floor glow */}
+                    <ellipse cx="120" cy="172" rx="104" ry="9" fill="url(#pcore_lap_floor)" />
+
+                    {/* Screen bezel + display */}
+                    <rect x="42" y="8" width="156" height="106" rx="8"
+                        fill="url(#pcore_lap_fill)" stroke="url(#pcore_lap_stroke)" strokeWidth="1.4" />
+                    <rect x="50" y="16" width="140" height="86" rx="4"
+                        fill="rgba(255,75,75,0.03)" stroke="rgba(255,75,75,0.1)" strokeWidth="0.8" />
+                    {/* Camera notch */}
+                    <circle cx="120" cy="12" r="1.2" fill="rgba(255,255,255,0.2)" />
+                    {/* Window chrome dots */}
+                    <circle cx="57" cy="22.5" r="1.6" fill="rgba(255,75,75,0.6)" />
+                    <circle cx="63" cy="22.5" r="1.6" fill="rgba(255,255,255,0.18)" />
+                    <circle cx="69" cy="22.5" r="1.6" fill="rgba(255,255,255,0.18)" />
+                    {/* Blinking ERR badge */}
+                    <motion.g
+                        animate={{ opacity: [0.4, 1, 0.4] }}
+                        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                        <rect x="156" y="18" width="28" height="10" rx="2.5"
+                            fill="rgba(255,75,75,0.12)" stroke="rgba(255,75,75,0.5)" strokeWidth="0.7" />
+                        <text x="170" y="25.5" textAnchor="middle" fontSize="6" fontWeight="700"
+                            letterSpacing="0.12em" fontFamily="ui-monospace, monospace"
+                            fill="rgba(255,110,110,0.95)">ERR</text>
+                    </motion.g>
+                    {/* Dim error log lines at screen edges */}
+                    <g opacity="0.55">
+                        <rect x="56" y="88" width="40" height="3" rx="1.5" fill="rgba(255,75,75,0.35)" />
+                        <rect x="56" y="94" width="28" height="3" rx="1.5" fill="rgba(255,255,255,0.12)" />
+                        <rect x="146" y="91" width="38" height="3" rx="1.5" fill="rgba(255,255,255,0.1)" />
+                    </g>
+
+                    {/* Hinge */}
+                    <rect x="42" y="114" width="156" height="3.5" rx="1.75" fill="rgba(255,255,255,0.06)" />
+
+                    {/* Keyboard deck */}
+                    <path d="M22 118 L218 118 L238 160 L2 160 Z"
+                        fill="url(#pcore_lap_fill)" stroke="url(#pcore_lap_stroke)" strokeWidth="1.4" strokeLinejoin="round" />
+                    {/* Key rows — dashed strips with perspective */}
+                    <line x1="38" y1="126" x2="202" y2="126" stroke="rgba(255,255,255,0.08)" strokeWidth="4" strokeDasharray="7 3" />
+                    <line x1="33" y1="133.5" x2="207" y2="133.5" stroke="rgba(255,255,255,0.07)" strokeWidth="4" strokeDasharray="7 3" />
+                    <line x1="28" y1="141" x2="212" y2="141" stroke="rgba(255,255,255,0.06)" strokeWidth="4" strokeDasharray="8 3" />
+                    {/* Trackpad */}
+                    <rect x="100" y="147" width="40" height="8" rx="2.5"
+                        fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.8" />
+                </svg>
+            </div>
+
+            <svg width={size} height={size} viewBox="0 0 240 240" fill="none" className="relative z-10 overflow-visible" aria-hidden>
                 <defs>
                     <radialGradient id="pcore_fill" cx="50%" cy="40%" r="65%">
                         <stop offset="0%" stopColor="rgba(123,85,234,0.28)" />
@@ -1596,7 +1663,7 @@ function ProblemSpider() {
                                         style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.14), transparent)" }}
                                     />
                                 </div>
-                                <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-white/95">
+                                <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em]" style={{ color: "rgba(255,105,105,0.95)" }}>
                                     {PAIN_POINTS[i].title}
                                 </p>
                                 <p className="text-[12.5px] leading-relaxed text-white/55">
@@ -1641,13 +1708,13 @@ export default function HeroSection() {
                     ].join(", "),
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-10 flex flex-col items-center text-center gap-5 md:mb-12"
+                        className="mb-10 flex flex-col items-center text-center gap-3 md:mb-12"
                     >
                         <SectionBeam />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -1688,7 +1755,7 @@ export default function HeroSection() {
                                             style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.14), transparent)" }}
                                         />
                                     </div>
-                                    <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-white/95">{p.title}</p>
+                                    <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em]" style={{ color: "rgba(255,105,105,0.95)" }}>{p.title}</p>
                                     <p className="text-[12.5px] leading-relaxed text-white/55">{p.desc}</p>
                                 </div>
                             </motion.div>
@@ -1698,7 +1765,7 @@ export default function HeroSection() {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true, margin: "-40px" }}
                             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="mt-6 flex justify-center"
+                            className="mt-6 flex justify-center pb-16"
                         >
                             <ProblemCore size={210} />
                         </motion.div>
@@ -1712,7 +1779,7 @@ export default function HeroSection() {
             </section>
 
             {/* ── 3. OUR SOLUTION (with 4-node flow diagram) ───── */}
-            <section id="solution" className="home-theme-dark relative w-full px-6 pt-10 pb-24 md:pt-14 md:pb-28 overflow-hidden">
+            <section id="solution" className="home-theme-dark relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0" style={{
                         background: [
@@ -1722,13 +1789,13 @@ export default function HeroSection() {
                     }} />
                 </div>
                 <div aria-hidden className="pointer-events-none absolute inset-0 home-ai-grid opacity-[0.3]" />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="mx-auto mb-16 flex max-w-4xl flex-col items-center text-center gap-5"
+                        className="mx-auto mb-10 flex max-w-4xl flex-col items-center text-center gap-3"
                     >
                         <SectionBeam />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -1774,12 +1841,12 @@ export default function HeroSection() {
             {/* §5 Featured Product moved to §7, see below */}
 
             {/* ── 4. SERVICE CATEGORIES (Horizontal carousel) ──── */}
-            <section id="services" className="home-theme-dark relative w-full px-5 py-14 sm:px-6 sm:py-20 md:py-28 overflow-hidden">
+            <section id="services" className="home-theme-dark relative w-full px-5 py-14 sm:px-6 md:py-20 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
                 }} />
 
-                <div className="relative z-10 mx-auto max-w-7xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -1794,7 +1861,7 @@ export default function HeroSection() {
             <SectionDivider />
 
             {/* ── 5. MID-PAGE CTA ──────────────────────────────── */}
-            <section className="home-theme-dark relative w-full px-5 py-16 sm:px-6 sm:py-20 overflow-hidden">
+            <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 md:py-20 overflow-hidden">
                 <CTAAurora variant={2} />
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -1833,7 +1900,7 @@ export default function HeroSection() {
             <SectionDivider />
 
             {/* ── 7. FEATURED PRODUCT, Sales Intelligence Platform ── */}
-            <section className="home-theme-dark relative w-full px-6 pt-20 pb-10 md:pt-24 md:pb-14 overflow-hidden">
+            <section className="home-theme-dark relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0" style={{
                         background: [
@@ -1848,7 +1915,7 @@ export default function HeroSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 mx-auto mb-12 flex max-w-3xl flex-col items-center text-center gap-5"
+                    className="relative z-10 mx-auto mb-10 flex max-w-3xl flex-col items-center text-center gap-3"
                 >
                     <SectionBeam />
                     <h2 className="display-section-title max-w-2xl text-center">
@@ -2040,18 +2107,18 @@ export default function HeroSection() {
             <SectionDivider />
 
             {/* ── 8. BY THE NUMBERS (clean 4-counter row) ──────── */}
-            <section id="numbers" className="home-theme-dark relative w-full px-6 pt-10 pb-20 md:pt-14 md:pb-24">
+            <section id="numbers" className="home-theme-dark relative w-full px-6 py-14 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background:
                         "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
                 }} />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-10 flex flex-col items-center md:mb-14 text-center gap-5"
+                        className="mb-10 flex flex-col items-center md:mb-12 text-center gap-3"
                     >
                         <SectionBeam />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -2089,8 +2156,8 @@ export default function HeroSection() {
                 }} />
 
                 {/* Mobile fallback */}
-                <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-6 block lg:hidden py-14 sm:py-20">
-                    <div className="mb-10 flex flex-col gap-5">
+                <div className="relative z-10 mx-auto max-w-[1120px] px-5 sm:px-6 block lg:hidden py-14 md:py-20">
+                    <div className="mb-10 flex flex-col gap-3">
                         <SectionLabelSide />
                         <h2 className="display-section-title display-inline">
                             <span className="display-muted-line">Why teams pick Levata. </span><span className="display-strong-line">Outcomes, not outputs.</span>
@@ -2124,7 +2191,7 @@ export default function HeroSection() {
             <SectionDivider />
 
             {/* ── 12. FINAL CTA ──────────────────────────────── */}
-            <section className="home-theme-dark relative w-full overflow-hidden px-5 py-12 sm:px-6 sm:py-16 md:py-20">
+            <section className="home-theme-dark relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <CTAAurora variant={1} />
                 <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.5), transparent)" }} />
                 <motion.div
@@ -2132,19 +2199,19 @@ export default function HeroSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-60px" }}
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-5 text-center"
+                    className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center"
                 >
                     <h2 className="display-section-title max-w-2xl text-center">
                         <span className="display-muted-line">Ready to build intelligence</span>
                         <span className="display-strong-line">into your operations?</span>
                     </h2>
-                    <p className="max-w-lg text-body-sm text-white/55">
+                    <p className="mt-4 max-w-md text-body-sm text-white/55">
                         Book a free strategy call. We&apos;ll map out the system your business needs.
                     </p>
                     <button
                         type="button"
                         onClick={openBookCall}
-                        className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white cursor-pointer"
+                        className="group mt-7 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white cursor-pointer"
                         data-cta="primary"
                     >
                         Book a Strategy Call

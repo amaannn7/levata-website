@@ -51,7 +51,7 @@ function ClientItem({ client }: { client: typeof CLIENTS[number] }) {
 
 export default function ClientsMarquee() {
     return (
-        <section className="home-theme-dark relative w-full overflow-hidden px-5 py-10 sm:px-6 md:py-14">
+        <section className="home-theme-dark relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
             <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                 <div
                     className="absolute inset-0"
@@ -61,8 +61,8 @@ export default function ClientsMarquee() {
                     }}
                 />
             </div>
-            <div className="relative z-10 mx-auto max-w-6xl">
-                <div className="mb-10 flex flex-col items-center gap-5 text-center md:mb-12">
+            <div className="relative z-10 mx-auto max-w-[1120px]">
+                <div className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12">
                     <SectionBeam />
                     <h2 className="display-section-title max-w-2xl text-center">
                         <span className="display-muted-line">Trusted by teams that</span>

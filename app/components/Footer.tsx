@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { FaLinkedinIn, FaInstagram, FaFacebookF } from "react-icons/fa6";
@@ -49,7 +49,7 @@ export default function Footer() {
                 }}
             />
 
-            <div className="relative mx-auto max-w-7xl px-5 sm:px-8 md:px-10">
+            <div className="relative mx-auto max-w-[1120px] px-5 sm:px-8 md:px-10">
 
                 {/* Main footer body */}
                 <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:grid-cols-2 md:grid-cols-[1.7fr_1fr_1fr_1fr_1fr] md:gap-8 md:py-14">

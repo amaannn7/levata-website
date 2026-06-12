@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
@@ -269,8 +269,8 @@ function ProductProblemVisual() {
         { cx: 390, label: "Technical debt", sub: "At launch",   icon: "!" },
     ];
     return (
-        <div ref={ref} className="relative mx-auto w-full max-w-xl">
-            <svg viewBox="0 0 480 290" className="block h-auto w-full" fill="none">
+        <div ref={ref} className="relative mx-auto w-full max-w-md sm:max-w-none" style={{ aspectRatio: "5 / 4" }}>
+            <svg viewBox="0 0 480 290" className="block h-full w-full" fill="none">
                 <text x="0" y="62" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
                     letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">WHERE PRODUCTS FAIL</text>
                 <defs>
@@ -297,9 +297,12 @@ function ProductProblemVisual() {
                         animate={inView ? { opacity: 1, y: 0 } : undefined}
                         transition={{ duration: 0.5, delay: 0.15 + i * 0.14, ease: EASE }}
                     >
-                        {/* Outer ring */}
-                        <circle cx={s.cx} cy="148" r="30"
-                            fill="rgba(10,14,28,0.0)" stroke="rgba(255,80,80,0.12)" strokeWidth="1" />
+                        {/* Outer ring — looping radar pulse, staggered per node */}
+                        <motion.circle cx={s.cx} cy="148" r="30"
+                            fill="rgba(10,14,28,0.0)" stroke="rgba(255,80,80,0.12)" strokeWidth="1"
+                            style={{ transformOrigin: `${s.cx}px 148px` }}
+                            animate={inView ? { scale: [1, 1.18, 1], opacity: [0.9, 0.25, 0.9] } : undefined}
+                            transition={{ duration: 2.6, repeat: Infinity, delay: i * 0.6, ease: "easeInOut" }} />
                         {/* Node */}
                         <circle cx={s.cx} cy="148" r="22"
                             fill="rgba(10,14,28,0.98)" stroke="rgba(255,80,80,0.35)" strokeWidth="1.2" />
@@ -342,10 +345,12 @@ function ProductProblemVisual() {
                         initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : undefined}
                         transition={{ duration: 1.0, delay: 0.9, ease: EASE }}
                     />
-                    <text x="240" y="252"
+                    <motion.text x="240" y="252"
                         textAnchor="middle" fontFamily={MONO} fontSize="8.5" fontWeight="700"
-                        letterSpacing="0.18em" fill="rgba(255,80,80,0.5)">RUNWAY LOST
-                    </text>
+                        letterSpacing="0.18em" fill="rgba(255,80,80,0.5)"
+                        animate={inView ? { opacity: [0.6, 1, 0.6] } : undefined}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}>RUNWAY LOST
+                    </motion.text>
                     <text x="240" y="268"
                         textAnchor="middle" fontFamily={MONO} fontSize="7.5"
                         letterSpacing="0.12em" fill="rgba(255,255,255,0.2)">TIME · BUDGET · MOMENTUM
@@ -667,7 +672,7 @@ export default function DigitalProductsPage() {
             </section>
 
             {/* ── 2. PROBLEM ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 55% 60% at 15% 40%, rgba(255,80,80,0.05) 0%, transparent 65%)",
@@ -675,7 +680,7 @@ export default function DigitalProductsPage() {
                     ].join(", "),
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -709,7 +714,7 @@ export default function DigitalProductsPage() {
             </section>
 
             {/* ── 3. SOLUTION ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 40%, rgba(123,85,234,0.08) 0%, transparent 65%)",
                 }} />
@@ -769,7 +774,7 @@ export default function DigitalProductsPage() {
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>{p.icon}</svg>
                                 </div>
                                 <p className="display-card-title" style={{ minHeight: "2.6em" }}>{p.title}</p>
-                                <p className="text-caption text-white/40">{p.desc}</p>
+                                <p className="text-body-sm text-white/45">{p.desc}</p>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -777,17 +782,17 @@ export default function DigitalProductsPage() {
             </section>
 
             {/* ── 4. OUR PROCESS ── */}
-            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123,85,234,0.06) 0%, transparent 70%)",
                 }} />
-                <div className="relative z-10 mx-auto max-w-6xl">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -870,14 +875,14 @@ export default function DigitalProductsPage() {
             </section>
 
             {/* ── 5. OUR SERVICES ── */}
-            <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-20 md:py-28">
-                <div className="relative z-10 mx-auto max-w-6xl">
+            <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
+                <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center md:mb-16"
+                        className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -896,7 +901,7 @@ export default function DigitalProductsPage() {
                                     transition={{ duration: 0.7, ease: EASE }}
                                     className={`grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-16 lg:gap-20 ${isOdd ? "md:[&>div:first-child]:order-2" : ""}`}
                                 >
-                                    <div className="flex flex-col gap-4">
+                                    <div className={`flex flex-col gap-4 ${isOdd ? "md:ml-auto md:w-full md:max-w-md" : ""}`}>
                                         <div className="flex items-baseline gap-3">
                                             <span className="display-feature-title tabular-nums" style={{ color: GREEN }}>{svc.num}.</span>
                                             <h3 className="display-feature-title">{svc.title}</h3>
@@ -932,7 +937,7 @@ export default function DigitalProductsPage() {
             </section>
 
             {/* ── 7. FAQ ── */}
-            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-20 md:py-24">
+            <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
@@ -940,7 +945,7 @@ export default function DigitalProductsPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-12 flex flex-col items-center gap-5 text-center"
+                        className="mb-10 flex flex-col items-center gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -964,7 +969,7 @@ export default function DigitalProductsPage() {
             </section>
 
             {/* ── 8. FINAL CTA ──────────────────────────────── */}
-            <section className="relative w-full overflow-hidden px-5 py-16 sm:px-6 sm:py-24 md:py-32">
+            <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <CTAAurora variant={1} />
                 <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }} />
                 <motion.div

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import SectionBeam from "@/app/components/SectionBeam";
@@ -61,7 +61,7 @@ export default function TestimonialsSection() {
     return (
         <section
             ref={sectionRef}
-            className="home-theme-dark relative w-full px-6 py-20 md:py-28 overflow-hidden"
+            className="home-theme-dark relative w-full px-6 py-14 md:py-20 overflow-hidden"
             style={{ background: "#07080F", color: "#F0F0F2" }}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
@@ -76,7 +76,7 @@ export default function TestimonialsSection() {
             </div>
             <div className="relative z-10 mx-auto max-w-4xl">
                 {/* Label */}
-                <div className="mb-12 flex flex-col items-center text-center gap-5">
+                <div className="mb-10 flex flex-col items-center text-center gap-3">
                     <SectionBeam />
                     <h2 className="display-section-title display-inline max-w-2xl text-center">
                         <span className="display-muted-line">Don&apos;t take our word for it. </span><span className="display-strong-line">What clients say.</span>
