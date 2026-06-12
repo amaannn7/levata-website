@@ -12,7 +12,6 @@ import ClientsMarquee from "@/app/components/ClientsMarquee";
 import { CircleArrow } from "@/app/components/ServicesSection";
 import TestimonialsSection from "@/app/components/TestimonialsSection";
 import HomeHero from "@/app/components/HomeHero";
-import OperationsBeforeTerminal from "@/app/components/OperationsBeforeTerminal";
 import CTAAurora from "@/app/components/CTAAurora";
 import SectionLabel from "@/app/components/SectionLabel";
 import SectionBeamShared from "@/app/components/SectionBeam";
@@ -1259,14 +1258,15 @@ function FlowConnector({ vertical = false }: { vertical?: boolean }) {
 
 // ── Problem spider: hub-and-spoke layout (desktop only) ───────────────────
 // Canvas: 960 × 480. Center: (480, 240).
-// Spoke ends are chosen so nodes have ~180px of horizontal room each side.
-const SPIDER_W = 960, SPIDER_H = 480, SPIDER_CX = 480, SPIDER_CY = 240;
+// Pain-point copy renders as HTML cards anchored at the spoke tips, so the
+// tips are pulled inward to leave card room between them and the edges.
+const SPIDER_W = 960, SPIDER_H = 400, SPIDER_CX = 480, SPIDER_CY = 200;
 // Spoke tips — lines terminate here, node dot sits exactly here.
 const SPOKE_ENDS = [
-    { x: 230, y: 110 },  // TL
-    { x: 730, y: 110 },  // TR
-    { x: 230, y: 370 },  // BL
-    { x: 730, y: 370 },  // BR
+    { x: 272, y: 88 },   // TL
+    { x: 688, y: 88 },   // TR
+    { x: 272, y: 312 },  // BL
+    { x: 688, y: 312 },  // BR
 ] as const;
 
 function TravelDot({ x1, y1, x2, y2, delay, dur = 2.2, color = "rgba(255,75,75,0.95)" }: {
@@ -1297,6 +1297,134 @@ function TravelDot({ x1, y1, x2, y2, delay, dur = 2.2, color = "rgba(255,75,75,0
     );
 }
 
+// ── Problem core: overloaded system hub (shared mobile + desktop) ─────────
+function ProblemCore({ size = 230 }: { size?: number }) {
+    const shards = [
+        { x: 172, y: 112, rot: 0, delay: 0 },
+        { x: 96, y: 170, rot: 30, delay: 0.9 },
+        { x: 76, y: 92, rot: -20, delay: 1.7 },
+    ];
+    const blips = [
+        { x: 64, y: 66, delay: 0.4 },
+        { x: 182, y: 58, delay: 1.6 },
+        { x: 188, y: 176, delay: 2.8 },
+    ];
+    return (
+        <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
+            {/* Ambient glow */}
+            <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                    borderRadius: "50%",
+                    background:
+                        "radial-gradient(circle at 50% 50%, rgba(255,75,75,0.09) 0%, rgba(123,85,234,0.07) 42%, transparent 70%)",
+                    transform: "scale(1.7)",
+                }}
+            />
+            <svg width={size} height={size} viewBox="0 0 240 240" fill="none" className="relative overflow-visible" aria-hidden>
+                <defs>
+                    <radialGradient id="pcore_fill" cx="50%" cy="40%" r="65%">
+                        <stop offset="0%" stopColor="rgba(123,85,234,0.28)" />
+                        <stop offset="55%" stopColor="rgba(36,20,64,0.6)" />
+                        <stop offset="100%" stopColor="rgba(12,8,24,0.96)" />
+                    </radialGradient>
+                    <filter id="pcore_glow" x="-80%" y="-80%" width="260%" height="260%">
+                        <feGaussianBlur stdDeviation="4" result="blur" />
+                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                    </filter>
+                </defs>
+
+                {/* Expanding pulse rings */}
+                {[0, 1.3].map((delay) => (
+                    <motion.circle
+                        key={delay}
+                        cx="120" cy="120" r="70"
+                        fill="none" stroke="rgba(255,75,75,0.3)" strokeWidth="1"
+                        initial={{ opacity: 0 }}
+                        animate={{ r: [68, 100], opacity: [0.4, 0] }}
+                        transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut", delay }}
+                    />
+                ))}
+
+                {/* Rotating segmented rings */}
+                <motion.circle
+                    cx="120" cy="120" r="86"
+                    fill="none" stroke="rgba(123,85,234,0.3)" strokeWidth="1.2"
+                    strokeDasharray="66 32" strokeLinecap="round"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                    style={{ transformOrigin: "120px 120px" }}
+                />
+                <motion.circle
+                    cx="120" cy="120" r="64"
+                    fill="none" stroke="rgba(255,75,75,0.22)" strokeWidth="1"
+                    strokeDasharray="10 16"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+                    style={{ transformOrigin: "120px 120px" }}
+                />
+
+                {/* Orbiting debris shards */}
+                <motion.g
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+                    style={{ transformOrigin: "120px 120px" }}
+                >
+                    {shards.map(({ x, y, rot, delay }, i) => (
+                        <motion.rect
+                            key={i}
+                            x={x} y={y} width="6" height="6" rx="1.2"
+                            fill="rgba(255,75,75,0.8)"
+                            transform={`rotate(${rot} ${x + 3} ${y + 3})`}
+                            animate={{ opacity: [0.25, 0.9, 0.25] }}
+                            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay }}
+                        />
+                    ))}
+                </motion.g>
+
+                {/* Core orb */}
+                <circle cx="120" cy="120" r="42" fill="url(#pcore_fill)" stroke="rgba(123,85,234,0.4)" strokeWidth="1.2" />
+                <circle cx="120" cy="120" r="30" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+
+                {/* Strained vitals trace drawing across the core */}
+                <g filter="url(#pcore_glow)">
+                    <motion.path
+                        d="M88 120 H102 L108 104 L116 136 L122 110 L127 120 H152"
+                        stroke="rgba(255,75,75,0.95)" strokeWidth="1.6"
+                        strokeLinecap="round" strokeLinejoin="round" fill="none"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: [0, 1, 1], opacity: [1, 1, 0] }}
+                        transition={{ duration: 2.4, times: [0, 0.7, 1], repeat: Infinity, ease: "easeInOut" }}
+                    />
+                </g>
+
+                {/* Hairline cracks flickering on the core */}
+                <motion.path
+                    d="M120 78 L114 96 L124 104 M150 144 L136 138 L132 148"
+                    stroke="rgba(255,75,75,0.55)" strokeWidth="1" fill="none" strokeLinecap="round"
+                    animate={{ opacity: [0, 0.8, 0] }}
+                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+                />
+
+                {/* Warning blips */}
+                {blips.map(({ x, y, delay }, i) => (
+                    <motion.g
+                        key={i}
+                        animate={{ opacity: [0, 1, 0], scale: [0.8, 1, 0.8] }}
+                        transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay }}
+                        style={{ transformOrigin: `${x}px ${y}px` }}
+                    >
+                        <circle cx={x} cy={y} r="9" fill="rgba(14,12,24,0.95)" stroke="rgba(255,75,75,0.4)" strokeWidth="1" />
+                        <line x1={x} y1={y - 4} x2={x} y2={y + 1.5} stroke="rgba(255,100,100,0.95)" strokeWidth="1.4" strokeLinecap="round" />
+                        <circle cx={x} cy={y + 4.5} r="1" fill="rgba(255,100,100,0.95)" />
+                    </motion.g>
+                ))}
+            </svg>
+        </div>
+    );
+}
+
 function ProblemSpider() {
     const EASE = [0.16, 1, 0.3, 1] as const;
     const W = SPIDER_W, H = SPIDER_H, cx = SPIDER_CX, cy = SPIDER_CY;
@@ -1310,9 +1438,9 @@ function ProblemSpider() {
 
     const dotColors = [
         "rgba(255,75,75,0.95)",
-        "rgba(255,120,60,0.95)",
         "rgba(255,75,75,0.95)",
-        "rgba(255,120,60,0.95)",
+        "rgba(255,75,75,0.95)",
+        "rgba(255,75,75,0.95)",
     ];
 
     return (
@@ -1321,8 +1449,8 @@ function ProblemSpider() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="relative mx-auto w-full max-w-4xl"
-            style={{ aspectRatio: `${W} / ${H}`, minHeight: "clamp(260px, 60vw, 480px)" }}
+            className="relative mx-auto w-full max-w-5xl"
+            style={{ aspectRatio: `${W} / ${H}`, minHeight: "clamp(240px, 42vw, 430px)" }}
         >
             <svg
                 viewBox={`0 0 ${W} ${H}`}
@@ -1338,25 +1466,17 @@ function ProblemSpider() {
                         <feGaussianBlur stdDeviation="6" result="blur" />
                         <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                     </filter>
-                    <filter id="prob_hub_glow" x="-100%" y="-100%" width="300%" height="300%">
-                        <feGaussianBlur stdDeviation="8" result="blur" />
-                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                    </filter>
-                    <radialGradient id="hubFill" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="rgba(123,85,234,0.18)" />
-                        <stop offset="100%" stopColor="rgba(123,85,234,0.02)" />
-                    </radialGradient>
                     {spokes.map(({ x1, y1, x2, y2, grad }, i) => (
                         <linearGradient key={grad} id={grad} x1={x1} y1={y1} x2={x2} y2={y2} gradientUnits="userSpaceOnUse">
                             <stop offset="0%"   stopColor="rgba(123,85,234,0.0)" />
-                            <stop offset="30%"  stopColor={i % 2 === 0 ? "rgba(204,1,255,0.3)" : "rgba(255,75,75,0.25)"} />
-                            <stop offset="100%" stopColor={i % 2 === 0 ? "rgba(255,75,75,0.35)" : "rgba(255,120,60,0.3)"} />
+                            <stop offset="30%"  stopColor="rgba(255,75,75,0.25)" />
+                            <stop offset="100%" stopColor="rgba(255,75,75,0.35)" />
                         </linearGradient>
                     ))}
                 </defs>
 
                 {/* Ambient rings around hub */}
-                {[60, 90, 130].map((r, i) => (
+                {[130, 165].map((r, i) => (
                     <motion.circle
                         key={r}
                         cx={cx} cy={cy} r={r}
@@ -1390,30 +1510,11 @@ function ProblemSpider() {
                     <TravelDot key={i} x1={x1} y1={y1} x2={x2} y2={y2} delay={dotDelay} dur={2.2 + i * 0.3} color={dotColors[i]} />
                 ))}
 
-                {/* Hub — layered rings */}
-                <g filter="url(#prob_hub_glow)">
-                    <circle cx={cx} cy={cy} r="42" fill="url(#hubFill)" stroke="rgba(123,85,234,0.15)" strokeWidth="1" />
-                </g>
-                <motion.circle
-                    cx={cx} cy={cy} r="42"
-                    fill="none"
-                    stroke="rgba(123,85,234,0.2)"
-                    strokeWidth="1"
-                    animate={{ r: [38, 48, 38], opacity: [0.4, 0.08, 0.4] }}
-                    transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <circle cx={cx} cy={cy} r="28" fill="rgba(10,8,20,0.95)" stroke="rgba(123,85,234,0.35)" strokeWidth="1" />
-                <circle cx={cx} cy={cy} r="18" fill="rgba(123,85,234,0.08)" stroke="rgba(123,85,234,0.5)" strokeWidth="0.8" />
-
-                {/* Pain point nodes */}
+                {/* Pain point node dots */}
                 {SPOKE_ENDS.map((end, i) => {
-                    const isLeft = end.x < cx;
                     const nodeDelay = 0.3 + i * 0.1;
-                    const textAnchor = isLeft ? "end" : "start";
-                    const titleX = isLeft ? end.x - 18 : end.x + 18;
-                    const descX  = isLeft ? end.x - 18 : end.x + 18;
-                    const nodeColor = i % 2 === 0 ? "rgba(255,75,75,0.95)" : "rgba(255,120,60,0.95)";
-                    const nodeGlow  = i % 2 === 0 ? "rgba(255,75,75,0.5)"  : "rgba(255,120,60,0.5)";
+                    const nodeColor = "rgba(255,75,75,0.95)";
+                    const nodeGlow  = "rgba(255,75,75,0.5)";
 
                     return (
                         <motion.g
@@ -1439,51 +1540,75 @@ function ProblemSpider() {
                             <circle cx={end.x} cy={end.y} r="6" fill={nodeColor} opacity="0.15" />
                             <circle cx={end.x} cy={end.y} r="4" fill={nodeColor} />
                             <circle cx={end.x} cy={end.y} r="2" fill="rgba(255,255,255,0.9)" />
-
-                            {/* Title */}
-                            <text
-                                x={titleX}
-                                y={end.y - 12}
-                                textAnchor={textAnchor}
-                                fontSize="16"
-                                fontWeight="600"
-                                fontFamily="var(--font-dm-sans)"
-                                letterSpacing="-0.01em"
-                                fill="rgba(240,240,242,0.95)"
-                            >
-                                {PAIN_POINTS[i].title}
-                            </text>
-                            {/* Description */}
-                            <text
-                                x={descX}
-                                y={end.y + 12}
-                                textAnchor={textAnchor}
-                                fontSize="12.5"
-                                fontWeight="400"
-                                fontFamily="var(--font-dm-sans)"
-                                fill="rgba(255,255,255,0.38)"
-                            >
-                                {(() => {
-                                    const words = PAIN_POINTS[i].desc.split(" ");
-                                    const lines: string[] = [];
-                                    let current = "";
-                                    for (const word of words) {
-                                        const test = current ? `${current} ${word}` : word;
-                                        if (test.length > 36 && current) { lines.push(current); current = word; }
-                                        else { current = test; }
-                                    }
-                                    if (current) lines.push(current);
-                                    return lines.map((line, li) => (
-                                        <tspan key={li} x={descX} dy={li === 0 ? "0" : "15"}>{line}</tspan>
-                                    ));
-                                })()}
-                            </text>
                         </motion.g>
                     );
                 })}
             </svg>
 
-            {/* Center visual — laptop + pills + orbiters */}
+            {/* Pain point cards — HTML for crisp, readable text */}
+            {SPOKE_ENDS.map((end, i) => {
+                const isLeft = end.x < cx;
+                const xPct = (end.x / W) * 100;
+                const yPct = (end.y / H) * 100;
+                const accent = "rgba(255,75,75,0.9)";
+                const accentSoft = "rgba(255,75,75,0.38)";
+                return (
+                    <div
+                        key={i}
+                        className="absolute"
+                        style={{
+                            top: `${yPct}%`,
+                            transform: "translateY(-50%)",
+                            ...(isLeft
+                                ? { left: 0, width: `calc(${xPct}% - 24px)` }
+                                : { right: 0, width: `calc(${100 - xPct}% - 24px)` }),
+                        }}
+                    >
+                        <motion.div
+                            initial={{ opacity: 0, x: isLeft ? 14 : -14 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.55, delay: 0.35 + i * 0.1, ease: EASE }}
+                            className="rounded-2xl p-px"
+                            style={{
+                                background: `linear-gradient(135deg, ${accentSoft} 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.05) 100%)`,
+                                boxShadow: "0 16px 40px rgba(0,0,0,0.4)",
+                            }}
+                        >
+                            <div
+                                className="flex flex-col gap-1.5 rounded-[15px] px-5 py-4"
+                                style={{
+                                    background: "linear-gradient(180deg, rgba(19,16,30,0.96) 0%, rgba(11,9,20,0.98) 100%)",
+                                    backdropFilter: "blur(10px)",
+                                    WebkitBackdropFilter: "blur(10px)",
+                                }}
+                            >
+                                <div className="flex items-center gap-2.5">
+                                    <span
+                                        className="text-[10px] font-semibold tabular-nums tracking-[0.2em]"
+                                        style={{ color: accent, fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" }}
+                                    >
+                                        {String(i + 1).padStart(2, "0")}
+                                    </span>
+                                    <span
+                                        aria-hidden
+                                        className="h-px flex-1"
+                                        style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.14), transparent)" }}
+                                    />
+                                </div>
+                                <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-white/95">
+                                    {PAIN_POINTS[i].title}
+                                </p>
+                                <p className="text-[12.5px] leading-relaxed text-white/55">
+                                    {PAIN_POINTS[i].desc}
+                                </p>
+                            </div>
+                        </motion.div>
+                    </div>
+                );
+            })}
+
+            {/* Center visual — overloaded system core */}
             <motion.div
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
                 initial={{ opacity: 0, scale: 0.85 }}
@@ -1491,121 +1616,7 @@ function ProblemSpider() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             >
-                <div className="relative" style={{ width: 186 }}>
-                    {/* Log pills above laptop */}
-                    <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1" style={{ bottom: "100%", marginBottom: 10, zIndex: 20 }}>
-                        {[
-                            { text: "Manual research", offset: 0, delay: 0.3 },
-                            { text: "Spreadsheet chaos", offset: -16, delay: 0.42 },
-                            { text: "Manual outreach", offset: 10, delay: 0.54 },
-                        ].map(({ text, offset, delay }) => (
-                            <motion.div
-                                key={text}
-                                initial={{ opacity: 0, y: -8 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.5, delay, ease: EASE }}
-                                className="inline-flex items-center gap-2 whitespace-nowrap rounded-full"
-                                style={{
-                                    marginLeft: offset,
-                                    padding: "4px 11px 4px 9px",
-                                    background: "rgba(14,12,24,0.92)",
-                                    border: "1px solid rgba(255,75,75,0.25)",
-                                    boxShadow: "0 0 16px rgba(255,75,75,0.1), 0 4px 16px rgba(0,0,0,0.5)",
-                                    backdropFilter: "blur(12px)",
-                                    WebkitBackdropFilter: "blur(12px)",
-                                }}
-                            >
-                                <span className="h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ background: "rgba(255,120,60,0.9)", boxShadow: "0 0 6px rgba(255,120,60,0.6)" }} />
-                                <span className="text-[10px] text-white/75" style={{ fontFamily: "ui-monospace, monospace" }}>{text}</span>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    {/* Laptop SVG — improved screen content */}
-                    <div className="relative" style={{ zIndex: 10 }}>
-                        <svg width="186" height="138" viewBox="0 0 230 170" fill="none">
-                            <defs>
-                                <linearGradient id="prob_screenFill" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stopColor="rgba(18,14,30,0.98)" />
-                                    <stop offset="100%" stopColor="rgba(10,8,20,0.99)" />
-                                </linearGradient>
-                                <linearGradient id="prob_screenStroke" x1="0" y1="0" x2="1" y2="1">
-                                    <stop offset="0%" stopColor="rgba(255,75,75,0.4)" />
-                                    <stop offset="50%" stopColor="rgba(255,255,255,0.08)" />
-                                    <stop offset="100%" stopColor="rgba(255,75,75,0.3)" />
-                                </linearGradient>
-                                <radialGradient id="prob_screenGlow" cx="0.5" cy="0.5">
-                                    <stop offset="0%" stopColor="rgba(255,75,75,0.05)" />
-                                    <stop offset="100%" stopColor="rgba(255,75,75,0)" />
-                                </radialGradient>
-                                <radialGradient id="prob_floor" cx="0.5" cy="0.5">
-                                    <stop offset="0%" stopColor="rgba(255,75,75,0.12)" />
-                                    <stop offset="100%" stopColor="rgba(255,75,75,0)" />
-                                </radialGradient>
-                            </defs>
-                            {/* Floor glow — red tinted */}
-                            <ellipse cx="115" cy="158" rx="90" ry="8" fill="url(#prob_floor)" opacity="0.8" />
-                            {/* Screen body */}
-                            <rect x="34" y="14" width="162" height="104" rx="10"
-                                fill="url(#prob_screenFill)" stroke="url(#prob_screenStroke)" strokeWidth="1.3" />
-                            <rect x="42" y="22" width="146" height="84" rx="3.5"
-                                fill="url(#prob_screenGlow)" stroke="rgba(255,75,75,0.08)" strokeWidth="0.8" />
-                            {/* Screen content — broken bar chart */}
-                            <g opacity="0.5">
-                                <rect x="55" y="75" width="12" height="25" rx="1.5" fill="rgba(255,75,75,0.6)" />
-                                <rect x="75" y="58" width="12" height="42" rx="1.5" fill="rgba(255,120,60,0.5)" />
-                                <rect x="95" y="65" width="12" height="35" rx="1.5" fill="rgba(255,75,75,0.5)" />
-                                <rect x="115" y="45" width="12" height="55" rx="1.5" fill="rgba(255,120,60,0.6)" />
-                                <rect x="135" y="70" width="12" height="30" rx="1.5" fill="rgba(255,75,75,0.4)" />
-                                <rect x="155" y="82" width="12" height="18" rx="1.5" fill="rgba(255,120,60,0.4)" />
-                                {/* X axis */}
-                                <line x1="50" y1="100" x2="175" y2="100" stroke="rgba(255,255,255,0.15)" strokeWidth="0.8" />
-                            </g>
-                            {/* Pulsing alert */}
-                            <motion.g
-                                animate={{ opacity: [0.7, 1, 0.7] }}
-                                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                            >
-                                <circle cx="115" cy="57" r="14" stroke="rgba(255,75,75,0.6)" strokeWidth="1.2" fill="rgba(255,75,75,0.07)" />
-                                <line x1="115" y1="49" x2="115" y2="59" stroke="rgba(255,100,100,0.95)" strokeWidth="1.6" strokeLinecap="round" />
-                                <circle cx="115" cy="64" r="1.2" fill="rgba(255,100,100,0.95)" />
-                            </motion.g>
-                            {/* Keyboard base */}
-                            <path d="M16 120 L214 120 L222 144 L8 144 Z"
-                                fill="url(#prob_screenFill)" stroke="url(#prob_screenStroke)" strokeWidth="1.3" strokeLinejoin="round" />
-                            <rect x="98" y="127" width="34" height="3" rx="1.5" fill="rgba(255,255,255,0.06)" />
-                        </svg>
-
-                        {/* Orbiters — styled with red tint */}
-                        {[
-                            { style: { left: -44, top: 14 }, delay: 0.45, icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2.5" stroke="rgba(255,255,255,0.7)" strokeWidth="1.3"/><line x1="3" y1="9" x2="21" y2="9" stroke="rgba(255,75,75,0.6)" strokeWidth="1"/><line x1="3" y1="15" x2="21" y2="15" stroke="rgba(255,75,75,0.6)" strokeWidth="1"/><line x1="9" y1="3" x2="9" y2="21" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/><line x1="15" y1="3" x2="15" y2="21" stroke="rgba(255,255,255,0.25)" strokeWidth="1"/></svg> },
-                            { style: { left: -14, top: 68 }, delay: 0.55, icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="rgba(255,255,255,0.7)" strokeWidth="1.4"/><line x1="16" y1="16" x2="20.5" y2="20.5" stroke="rgba(255,255,255,0.7)" strokeWidth="1.4" strokeLinecap="round"/></svg> },
-                            { style: { right: -14, top: 68 }, delay: 0.62, icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="rgba(255,255,255,0.7)" strokeWidth="1.3"/><path d="M12 7 V12 L15.5 14.5" stroke="rgba(255,120,60,0.9)" strokeWidth="1.3" strokeLinecap="round"/></svg> },
-                            { style: { right: -44, top: 14 }, delay: 0.7, icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="1.6" stroke="rgba(255,255,255,0.7)" strokeWidth="1.3"/><path d="M3 8 L12 14 L21 8" stroke="rgba(255,255,255,0.7)" strokeWidth="1.3" strokeLinejoin="round"/><line x1="6" y1="6" x2="18" y2="19" stroke="rgba(255,75,75,0.9)" strokeWidth="1.3" strokeLinecap="round"/></svg> },
-                        ].map(({ style, delay, icon }, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, scale: 0.7 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.5, delay, ease: EASE }}
-                                className="absolute flex items-center justify-center rounded-full"
-                                style={{
-                                    width: 32, height: 32,
-                                    background: "rgba(14,12,24,0.95)",
-                                    border: "1px solid rgba(255,75,75,0.2)",
-                                    boxShadow: "0 0 14px rgba(255,75,75,0.1), 0 4px 14px rgba(0,0,0,0.6)",
-                                    backdropFilter: "blur(8px)",
-                                    WebkitBackdropFilter: "blur(8px)",
-                                    ...style,
-                                }}
-                            >
-                                {icon}
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
+                <ProblemCore size={200} />
             </motion.div>
         </motion.div>
     );
@@ -1622,7 +1633,7 @@ export default function HeroSection() {
             <SectionDivider />
 
             {/* ── 2. THE PROBLEM ────────── */}
-            <section id="problem" className="home-theme-dark relative w-full px-6 py-20 md:py-28 overflow-hidden">
+            <section id="problem" className="home-theme-dark relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
                         "radial-gradient(ellipse 50% 55% at 50% 45%, rgba(255,80,80,0.06) 0%, transparent 65%)",
@@ -1636,7 +1647,7 @@ export default function HeroSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-20 flex flex-col items-center text-center gap-5"
+                        className="mb-10 flex flex-col items-center text-center gap-5 md:mb-12"
                     >
                         <SectionBeam />
                         <h2 className="display-section-title max-w-2xl text-center">
@@ -1645,8 +1656,8 @@ export default function HeroSection() {
                         </h2>
                     </motion.div>
 
-                    {/* ── Mobile: stacked pain points + visual ── */}
-                    <div className="flex flex-col gap-5 lg:hidden">
+                    {/* ── Mobile: stacked pain point cards + visual ── */}
+                    <div className="flex flex-col gap-4 lg:hidden">
                         {PAIN_POINTS.map((p, i) => (
                             <motion.div
                                 key={i}
@@ -1654,12 +1665,31 @@ export default function HeroSection() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-40px" }}
                                 transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                                className="flex items-start gap-3"
+                                className="rounded-2xl p-px"
+                                style={{
+                                    background: "linear-gradient(135deg, rgba(255,75,75,0.38) 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.05) 100%)",
+                                    boxShadow: "0 16px 40px rgba(0,0,0,0.4)",
+                                }}
                             >
-                                <span className="mt-[5px] h-2 w-2 flex-shrink-0 rounded-full" style={{ background: "rgba(255,80,80,0.85)", boxShadow: "0 0 10px rgba(255,80,80,0.5)" }} />
-                                <div className="flex flex-col gap-0.5">
-                                    <p className="text-body font-semibold leading-snug text-white/90">{p.title}</p>
-                                    <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.42)" }}>{p.desc}</p>
+                                <div
+                                    className="flex flex-col gap-1.5 rounded-[15px] px-5 py-4"
+                                    style={{ background: "linear-gradient(180deg, rgba(19,16,30,0.96) 0%, rgba(11,9,20,0.98) 100%)" }}
+                                >
+                                    <div className="flex items-center gap-2.5">
+                                        <span
+                                            className="text-[10px] font-semibold tabular-nums tracking-[0.2em]"
+                                            style={{ color: "rgba(255,75,75,0.9)", fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" }}
+                                        >
+                                            {String(i + 1).padStart(2, "0")}
+                                        </span>
+                                        <span
+                                            aria-hidden
+                                            className="h-px flex-1"
+                                            style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.14), transparent)" }}
+                                        />
+                                    </div>
+                                    <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-white/95">{p.title}</p>
+                                    <p className="text-[12.5px] leading-relaxed text-white/55">{p.desc}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -1668,9 +1698,9 @@ export default function HeroSection() {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true, margin: "-40px" }}
                             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="mt-6"
+                            className="mt-6 flex justify-center"
                         >
-                            <OperationsBeforeTerminal />
+                            <ProblemCore size={210} />
                         </motion.div>
                     </div>
 
