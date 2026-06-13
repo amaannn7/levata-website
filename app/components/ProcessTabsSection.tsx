@@ -195,7 +195,7 @@ export default function ProcessTabsSection() {
                 <div className="pointer-events-none absolute inset-0" style={{ background: ["radial-gradient(ellipse 40% 60% at 20% 30%, rgba(123, 85, 234,0.06) 0%, transparent 70%)", "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)"].join(", ") }} />
                 <div className="relative mx-auto max-w-2xl">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 8 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}

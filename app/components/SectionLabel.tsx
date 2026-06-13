@@ -1,10 +1,26 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
 export default function SectionLabel() {
+    const ref = useRef<HTMLDivElement>(null);
+    const [active, setActive] = useState(false);
+
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) { setActive(true); observer.disconnect(); } },
+            { threshold: 0.1 }
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div className="flex flex-col items-center gap-0">
-            <span aria-hidden className="section-label-beam section-label-beam--active" />
-            <span aria-hidden className="section-label-dot section-label-dot--active" />
+        <div ref={ref} className="flex flex-col items-center gap-0">
+            <span aria-hidden className={`section-label-beam${active ? " section-label-beam--active" : ""}`} />
+            <span aria-hidden className={`section-label-dot${active ? " section-label-dot--active" : ""}`} />
         </div>
     );
 }

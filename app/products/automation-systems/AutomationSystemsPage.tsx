@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
@@ -29,7 +29,7 @@ function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
     return observed || forced;
 }
 
-// Problem-diagram variants — driven by ONE whileInView on the parent <div>, so the
+// Problem-diagram variants â€” driven by ONE whileInView on the parent <div>, so the
 // SVG children reveal via variant propagation (reliable on mobile, unlike per-SVG observers).
 const diagramParent = {
     hidden: { opacity: 0, y: 12 },
@@ -48,7 +48,7 @@ const diagramPill = {
     visible: (d: number) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: d, ease: EASE } }),
 };
 
-// ── Count-up hook ─────────────────────────────────────────────────────────
+// â”€â”€ Count-up hook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function useCountUp(target: number, duration = 2000) {
     const [count, setCount] = useState(0);
     const [triggered, setTriggered] = useState(false);
@@ -77,7 +77,7 @@ function useCountUp(target: number, duration = 2000) {
     return { count, elRef };
 }
 
-// ── Icons ─────────────────────────────────────────────────────────────────
+// â”€â”€ Icons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function IconCRM() {
     return (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden><circle cx="12" cy="8" r="3.5" stroke={BLUE} strokeWidth="1.5" /><path d="M5 20c1.5-3.5 4-5 7-5s5.5 1.5 7 5" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" /></svg>);
 }
@@ -109,7 +109,7 @@ function IconSpark() {
     return (<svg width="48" height="20" viewBox="0 0 34 18" fill="none" aria-hidden><path d="M2 14 L8 10 L14 12 L20 6 L26 8 L32 3" stroke={BLUE} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>);
 }
 
-// ── Data ──────────────────────────────────────────────────────────────────
+// â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const DISCONNECTED = [
     { Icon: IconCRM, label: "CRM", pos: { top: "5%", left: "8%" }, delay: 0.0 },
     { Icon: IconFinance, label: "Finance", pos: { top: "12%", right: "10%" }, delay: 0.1 },
@@ -185,7 +185,7 @@ const SUB_AUTOMATION = [
 const OPS_METRICS = [
     { value: 70, suffix: "%", label: "Avg reduction in manual processing time" },
     { value: 10, suffix: "hrs", label: "Avg hours saved per employee per week" },
-    { value: 3, suffix: "×", label: "Operational throughput increase" },
+    { value: 3, suffix: "Ã—", label: "Operational throughput increase" },
     { value: 6, suffix: "mo", label: "Typical time to full ROI" },
 ];
 
@@ -203,14 +203,14 @@ const FAQS = [
     { q: "What happens if an automation encounters an error?", a: "Every workflow has error handling and alerting built in. Critical failures trigger immediate notifications to your team with detailed logs, so nothing fails silently and every issue can be diagnosed and resolved quickly." },
     { q: "Can you automate processes that require human judgment?", a: "Yes, through human-in-the-loop checkpoints. The automation handles routing, data gathering, and preparation; a human makes the decision at defined escalation points. You get the efficiency without removing the oversight." },
     { q: "What data sources can you connect to?", a: "Any system with an API, database connector, or webhook. We also work with legacy systems that require custom ETL pipelines, file-based integrations, or screen-capture automation as a last resort." },
-    { q: "How long does implementation typically take?", a: "First production workflows ship in 3–6 weeks. Full operational coverage typically takes 3–6 months, deployed in phases so you see value at every step, not just at the end." },
+    { q: "How long does implementation typically take?", a: "First production workflows ship in 3â€“6 weeks. Full operational coverage typically takes 3â€“6 months, deployed in phases so you see value at every step, not just at the end." },
 ];
 
-// ── FAQ item ──────────────────────────────────────────────────────────────
+// â”€â”€ FAQ item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: index * 0.05, ease: EASE }}
@@ -269,7 +269,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
     );
 }
 
-// ── Metric tile ─────────────────────────────────────────────────────────
+// â”€â”€ Metric tile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, index }: { value: number; suffix?: string; prefix?: string; decimals?: number; label: string; index: number }) {
     const intTarget = Math.round(value * Math.pow(10, decimals));
     const { count, elRef } = useCountUp(intTarget, 1800);
@@ -295,7 +295,7 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
     );
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────
+// â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function AutomationSystemsPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const { open: openBookCall } = useBookCall();
@@ -305,7 +305,7 @@ export default function AutomationSystemsPage() {
     return (
         <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
-            {/* ── 1. HERO ───────────────────────────────────── */}
+            {/* â”€â”€ 1. HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <section
                 data-hero
                 className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:min-h-0 md:pb-[100px] md:pt-[150px]"
@@ -339,7 +339,7 @@ export default function AutomationSystemsPage() {
                 <HeroHorizon intensity="strong" />
             </section>
 
-            {/* ── 2. PROBLEM ── */}
+            {/* â”€â”€ 2. PROBLEM â”€â”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -352,7 +352,7 @@ export default function AutomationSystemsPage() {
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
                         {/* Left: heading + paragraphs */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-80px" }}
                             transition={{ duration: 0.7, ease: EASE }}
@@ -386,7 +386,7 @@ export default function AutomationSystemsPage() {
                                     </filter>
                                 </defs>
 
-                                {/* Silo nodes — scattered, isolated, no center hub */}
+                                {/* Silo nodes â€” scattered, isolated, no center hub */}
                                 {[
                                     { cx: 80,  cy: 75,  label: "CRM",       sub: "MANUAL",    delay: 0.05 },
                                     { cx: 310, cy: 65,  label: "FINANCE",   sub: "MANUAL",    delay: 0.12 },
@@ -409,7 +409,7 @@ export default function AutomationSystemsPage() {
                                         <rect x={p.cx - 52} y={p.cy - 22} width="3" height="44" rx="1.5"
                                             fill="rgba(255,80,80,0.5)"
                                         />
-                                        {/* Warning dot — looping blink, staggered per silo */}
+                                        {/* Warning dot â€” looping blink, staggered per silo */}
                                         <motion.circle cx={p.cx - 33} cy={p.cy - 4} r="3.5" fill="rgba(255,80,80,0.6)" filter="url(#auto_prob_glow)"
                                             animate={silosInView ? { opacity: [0.4, 1, 0.4] } : undefined}
                                             transition={{ duration: 2, repeat: Infinity, delay: p.delay * 4, ease: "easeInOut" }} />
@@ -424,7 +424,7 @@ export default function AutomationSystemsPage() {
                                     </motion.g>
                                 ))}
 
-                                {/* Broken stub lines — each system tries to connect but fails */}
+                                {/* Broken stub lines â€” each system tries to connect but fails */}
                                 {[
                                     { x1: 132, y1: 75,  x2: 175, y2: 90  },
                                     { x1: 258, y1: 65,  x2: 215, y2: 85  },
@@ -441,7 +441,7 @@ export default function AutomationSystemsPage() {
                                     />
                                 ))}
 
-                                {/* Central void — "no automation layer" */}
+                                {/* Central void â€” "no automation layer" */}
                                 <motion.g
                                     initial={{ opacity: 0 }}
                                     animate={silosInView ? { opacity: 1 } : undefined}
@@ -467,7 +467,7 @@ export default function AutomationSystemsPage() {
                                 {/* Bottom caption */}
                                 <text x="200" y="298"
                                     textAnchor="middle" fontFamily={MONO} fontSize="8" letterSpacing="0.14em"
-                                    fill="rgba(255,80,80,0.35)">SILOED · MANUAL · DISCONNECTED
+                                    fill="rgba(255,80,80,0.35)">SILOED Â· MANUAL Â· DISCONNECTED
                                 </text>
                             </svg>
                         </div>
@@ -475,7 +475,7 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 3. SOLUTION ── */}
+            {/* â”€â”€ 3. SOLUTION â”€â”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 40%, rgba(123,85,234,0.08) 0%, transparent 65%)",
@@ -484,7 +484,7 @@ export default function AutomationSystemsPage() {
                 <div className="relative z-10 mx-auto max-w-5xl">
                     <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-end">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-80px" }}
                             transition={{ duration: 0.7, ease: EASE }}
@@ -497,7 +497,7 @@ export default function AutomationSystemsPage() {
                             </h2>
                         </motion.div>
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
                             transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
@@ -513,7 +513,7 @@ export default function AutomationSystemsPage() {
 
                     {/* Pillars */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 8 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-60px" }}
                         transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
@@ -546,14 +546,14 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 4. OUR PROCESS ── */}
+            {/* â”€â”€ 4. OUR PROCESS â”€â”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123,85,234,0.06) 0%, transparent 70%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 8 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
@@ -566,7 +566,7 @@ export default function AutomationSystemsPage() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 8 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-60px" }}
                         transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
@@ -641,11 +641,11 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 5. OUR SERVICES ── */}
+            {/* â”€â”€ 5. OUR SERVICES â”€â”€ */}
             <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 8 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
@@ -704,12 +704,12 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 7. FAQ, Console style ── */}
+            {/* â”€â”€ 7. FAQ, Console style â”€â”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 8 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.7, ease: EASE }}
@@ -736,7 +736,7 @@ export default function AutomationSystemsPage() {
                 </div>
             </section>
 
-            {/* ── 8. FINAL CTA ── */}
+            {/* â”€â”€ 8. FINAL CTA â”€â”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div
                     aria-hidden

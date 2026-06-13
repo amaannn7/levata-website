@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const BLUE = "#7B55EA";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// ── Kept exports, used by HeroSection ────────────────────────────────────
+// â”€â”€ Kept exports, used by HeroSection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export function ArrowIcon() {
     return (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -30,7 +30,7 @@ export function CircleArrow({ label = "Learn More", prominent = false }: { accen
     );
 }
 
-// ── Kept mockup exports, used by HeroSection ─────────────────────────────
+// â”€â”€ Kept mockup exports, used by HeroSection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export function DashboardMockup({ accent }: { accent: string }) {
     return (
         <div className="relative h-full w-full">
@@ -108,7 +108,7 @@ export function AutomationMockup({ accent }: { accent: string }) {
     );
 }
 
-// ── Service icons ─────────────────────────────────────────────────────────
+// â”€â”€ Service icons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function IconAI() {
     return (
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -159,7 +159,7 @@ function IconTrend() {
     );
 }
 
-// ── Card motifs (white, geometric, subtle motion) ─────────────────────────
+// â”€â”€ Card motifs (white, geometric, subtle motion) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const MOTIF_STROKE = "rgba(255,255,255,0.14)";
 const MOTIF_STROKE_SOFT = "rgba(255,255,255,0.08)";
 const MOTIF_FILL = "rgba(255,255,255,0.10)";
@@ -174,7 +174,7 @@ function MotifWrap({ children }: { children: React.ReactNode }) {
     );
 }
 
-// 01 — AI & Intelligence: connected nodes with a pulsing node
+// 01 â€” AI & Intelligence: connected nodes with a pulsing node
 function MotifAINodes() {
     const nodes = [
         { cx: 150, cy: 40 }, { cx: 188, cy: 78 }, { cx: 170, cy: 128 },
@@ -203,7 +203,7 @@ function MotifAINodes() {
     );
 }
 
-// 02 — Sales Intelligence Platform: concentric rings + rotating crosshair
+// 02 â€” Sales Intelligence Platform: concentric rings + rotating crosshair
 function MotifTarget() {
     return (
         <MotifWrap>
@@ -225,7 +225,7 @@ function MotifTarget() {
     );
 }
 
-// 03 — Product Engineering: stacked isometric layers drifting up
+// 03 â€” Product Engineering: stacked isometric layers drifting up
 function MotifLayers() {
     return (
         <MotifWrap>
@@ -246,7 +246,7 @@ function MotifLayers() {
     );
 }
 
-// 04 — Digital Services: globe meridians + traveling dash
+// 04 â€” Digital Services: globe meridians + traveling dash
 function MotifGlobeArcs() {
     return (
         <MotifWrap>
@@ -271,7 +271,7 @@ function MotifGlobeArcs() {
     );
 }
 
-// 05 — Automation & Systems: parallel pipeline with flowing dashes
+// 05 â€” Automation & Systems: parallel pipeline with flowing dashes
 function MotifPipeline() {
     return (
         <MotifWrap>
@@ -302,7 +302,7 @@ function MotifPipeline() {
     );
 }
 
-// 06 — Growth & Marketing: ascending chart with a traveling dot
+// 06 â€” Growth & Marketing: ascending chart with a traveling dot
 function MotifChart() {
     return (
         <MotifWrap>
@@ -325,7 +325,7 @@ function MotifChart() {
     );
 }
 
-// ── Data ─────────────────────────────────────────────────────────────────
+// â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const SERVICES = [
     {
         num: "01",
@@ -365,7 +365,7 @@ const SERVICES = [
     },
 ];
 
-// ── Card ──────────────────────────────────────────────────────────────────
+// â”€â”€ Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function ServiceCard({ service, index }: { service: typeof SERVICES[number]; index: number }) {
     return (
         <motion.div
@@ -444,7 +444,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
     );
 }
 
-// ── Section ───────────────────────────────────────────────────────────────
+// â”€â”€ Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function ServicesSection() {
     return (
         <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-14 md:py-20">
@@ -458,7 +458,7 @@ export default function ServicesSection() {
             <div className="relative z-10 mx-auto max-w-[1120px]">
                 {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 8 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.7, ease: EASE }}
