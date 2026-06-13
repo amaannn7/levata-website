@@ -196,10 +196,10 @@ const SUB_SERVICES = [
 ];
 
 const OUTCOME_METRICS = [
-    { value: 3, suffix: "x", label: "Avg conversion rate improvement" },
+    { value: 3, suffix: "×", label: "Avg conversion rate improvement" },
     { value: 99.9, suffix: "%", label: "Uptime SLA on all platforms", decimals: 1 },
     { value: 40, suffix: "%", label: "Avg e-commerce revenue lift in 6 months" },
-    { value: 0, symbol: "", label: "Scale ceiling, built to grow" },
+    { value: 0, symbol: "∞", label: "Scale ceiling, built to grow" },
 ];
 
 const PIPELINE = [

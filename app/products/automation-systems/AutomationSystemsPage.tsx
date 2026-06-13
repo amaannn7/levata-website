@@ -185,7 +185,7 @@ const SUB_AUTOMATION = [
 const OPS_METRICS = [
     { value: 70, suffix: "%", label: "Avg reduction in manual processing time" },
     { value: 10, suffix: "hrs", label: "Avg hours saved per employee per week" },
-    { value: 3, suffix: "x", label: "Operational throughput increase" },
+    { value: 3, suffix: "×", label: "Operational throughput increase" },
     { value: 6, suffix: "mo", label: "Typical time to full ROI" },
 ];
 

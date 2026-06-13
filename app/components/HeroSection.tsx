@@ -874,9 +874,9 @@ function ServicesCarousel() {
 }
 
 const KEY_RESULTS: Array<{ leadNumber: number; suffix: string; label: string; title: string }> = [
-    { leadNumber: 3, suffix: "-5x", title: "More Revenue",      label: "Pipeline performance" },
+    { leadNumber: 3, suffix: "–5×", title: "More Revenue",      label: "Pipeline performance" },
     { leadNumber: 60, suffix: "%",  title: "Less Admin",        label: "Reduction in manual work" },
-    { leadNumber: 4, suffix: "-6wk", title: "Faster Execution", label: "Weeks to launch" },
+    { leadNumber: 4, suffix: "–6wk", title: "Faster Execution", label: "Weeks to launch" },
     { leadNumber: 12, suffix: "mo", title: "Clearer Returns",   label: "Average ROI timeline" },
 ];
 
@@ -1062,7 +1062,7 @@ function WhyLevataCard({ active }: { active: number }) {
 
                     {/* Eyebrow tags at bottom */}
                     <p className="mt-7 font-mono text-eyebrow" style={{ color: "rgba(255,255,255,0.38)" }}>
-                        {w.tags.join("  .  ")}
+                        {w.tags.join("  ·  ")}
                     </p>
                 </motion.div>
             </AnimatePresence>
@@ -1144,7 +1144,7 @@ function WhyLevataDeck() {
                                         <div className="px-6 pb-6 flex flex-col gap-3">
                                             <div className="h-px" style={{ background: "rgba(255,255,255,0.07)" }} />
                                             <p className="text-body-sm text-white/55">{w.body}</p>
-                                            <p className="font-mono text-eyebrow" style={{ color: "rgba(255,255,255,0.25)" }}>{w.tags.join("  .  ")}</p>
+                                            <p className="font-mono text-eyebrow" style={{ color: "rgba(255,255,255,0.25)" }}>{w.tags.join("  ·  ")}</p>
                                         </div>
                                     </motion.div>
                                 )}
@@ -2057,7 +2057,7 @@ export default function HeroSection() {
                                                 {[
                                                     { label: "Pipeline Value", value: "$284k", sub: "+12% this month", c: "#7B55EA" },
                                                     { label: "Leads Scored", value: "1,048", sub: "94 high-intent", c: "#7B55EA" },
-                                                    { label: "Deals Closed", value: "37", sub: "' 8 from last mo.", c: "#3ECF8E" },
+                                                    { label: "Deals Closed", value: "37", sub: "↑ 8 from last mo.", c: "#3ECF8E" },
                                                 ].map(({ label, value, sub, c }) => (
                                                     <div key={label} className="rounded-xl p-2.5"
                                                         style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>

@@ -233,7 +233,7 @@ const AI_STACK_SERVICES = [
 
 const KPI_METRICS = [
     { value: 60, suffix: "%", label: "Avg reduction in manual decision time" },
-    { value: 4, suffix: "x", label: "Increase in qualified pipeline per rep" },
+    { value: 4, suffix: "×", label: "Increase in qualified pipeline per rep" },
     { value: 85, suffix: "%", label: "Support queries resolved without escalation" },
     { value: 3, suffix: "mo", label: "Typical time to measurable ROI" },
 ];
@@ -526,7 +526,7 @@ function IntelligentWorkflowsVisual() {
             after:  { label: "SMART ROUTING", sub: "right person"  },
         },
         {
-            before: { label: "PROCESSED",     sub: "2-4 days"      },
+            before: { label: "PROCESSED",     sub: "2–4 days"      },
             after:  { label: "RESOLVED",      sub: "same day"      },
         },
     ];
@@ -672,10 +672,10 @@ function CustomAISolutionsVisual() {
     const OUTX1 = 276;  // left edge of output boxes
 
     const inputs = [
-        { y: 40,  label: "CRM DATA",    sub: "contacts . deals"  },
-        { y: 84,  label: "OPS DATA",    sub: "tasks . logs"      },
-        { y: 128, label: "PROD DATA",   sub: "events . usage"    },
-        { y: 172, label: "DOCS",        sub: "text . history"    },
+        { y: 40,  label: "CRM DATA",    sub: "contacts · deals"  },
+        { y: 84,  label: "OPS DATA",    sub: "tasks · logs"      },
+        { y: 128, label: "PROD DATA",   sub: "events · usage"    },
+        { y: 172, label: "DOCS",        sub: "text · history"    },
     ];
     const outputs = [
         { y: 62,  label: "SCORING",     sub: "leads ranked"      },

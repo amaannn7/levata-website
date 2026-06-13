@@ -242,7 +242,7 @@ function SalesDashboardVisual() {
                         >
                             <div className="flex items-center justify-between mb-3">
                                 <p className="text-[10px] font-semibold text-white/50 tracking-[0.14em] uppercase" style={{ fontFamily: MONO }}>Pipeline Activity</p>
-                                <span className="text-[9px] font-semibold" style={{ fontFamily: MONO, color: "rgba(123,85,234,0.9)" }}>^ 24% this week</span>
+                                <span className="text-[9px] font-semibold" style={{ fontFamily: MONO, color: "rgba(123,85,234,0.9)" }}>▲ 24% this week</span>
                             </div>
                             <svg viewBox={`0 0 ${sparkW} ${sparkH}`} className="w-full" style={{ height: 52 }} fill="none">
                                 <defs>
@@ -295,7 +295,7 @@ function SalesDashboardVisual() {
                             <div className="flex items-start justify-between gap-3 mb-3">
                                 <div>
                                     <p className="text-[10px] font-semibold tracking-[0.14em] text-white/30 uppercase mb-1" style={{ fontFamily: MONO }}>AI Research Brief</p>
-                                    <p className="text-sm font-semibold text-white">Meridian Group . James Chen, VP Sales</p>
+                                    <p className="text-sm font-semibold text-white">Meridian Group · James Chen, VP Sales</p>
                                 </div>
                                 <div className="flex-shrink-0 rounded-full px-2.5 py-1 text-[9px] font-bold tracking-wide uppercase" style={{ background: "rgba(123,85,234,0.12)", border: "1px solid rgba(123,85,234,0.3)", color: "rgba(123,85,234,0.95)", fontFamily: MONO }}>
                                     Score 94
@@ -322,11 +322,11 @@ function SalesDashboardVisual() {
                     <div className="col-span-3 p-4 border-l border-white/[0.04] hidden md:block">
                         <p className="text-[9px] font-semibold tracking-[0.2em] text-white/30 uppercase mb-3" style={{ fontFamily: MONO }}>Activity</p>
                         {[
-                            { icon: "@", text: "Email sent to James Chen", time: "2m ago", color: "rgba(123,85,234,0.9)" },
-                            { icon: "*", text: "Research complete: Vantage", time: "8m ago", color: "rgba(168,85,247,0.8)" },
-                            { icon: "~", text: "Call logged: Crestline Corp", time: "14m ago", color: "rgba(255,255,255,0.5)" },
-                            { icon: "^", text: "Lead pushed to CRM", time: "31m ago", color: "rgba(123,85,234,0.6)" },
-                            { icon: "+", text: "Follow-up queued: Nexford", time: "1h ago", color: "rgba(255,255,255,0.3)" },
+                            { icon: "✉", text: "Email sent to James Chen", time: "2m ago", color: "rgba(123,85,234,0.9)" },
+                            { icon: "🔍", text: "Research complete: Vantage", time: "8m ago", color: "rgba(168,85,247,0.8)" },
+                            { icon: "📞", text: "Call logged: Crestline Corp", time: "14m ago", color: "rgba(255,255,255,0.5)" },
+                            { icon: "⬆", text: "Lead pushed to CRM", time: "31m ago", color: "rgba(123,85,234,0.6)" },
+                            { icon: "✓", text: "Follow-up queued: Nexford", time: "1h ago", color: "rgba(255,255,255,0.3)" },
                         ].map((item, i) => (
                             <motion.div
                                 key={i}
@@ -432,7 +432,7 @@ const AUDIENCE = [
 
 const OUTCOMES = [
     { value: 80, suffix: "%", label: "Reduction in research time per prospect", animate: true },
-    { value: 3, suffix: "x", label: "More personalized outreach per day", animate: true },
+    { value: 3, suffix: "×", label: "More personalized outreach per day", animate: true },
     { value: 0, suffix: "", label: "Leads missed with smart work queues", animate: false },
     { value: 1, suffix: "", label: "Place for research, email, calls, and CRM", animate: false },
 ];

@@ -179,7 +179,7 @@ function WebsiteIllustration({
                         <text x="180" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.9)`}>95+</text>
                         <text x="180" y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">lighthouse score</text>
                         <text x="300" y="310" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TIME TO LIVE</text>
-                        <text x="300" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4-8w</text>
+                        <text x="300" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4–8w</text>
                         <text x="300" y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">design to launch</text>
                     </motion.g>
                 </svg>
@@ -202,7 +202,7 @@ function PlatformIllustration({
 }) {
     const nodes = [
         { x: 60, y: 70, label: "WEB", sub: "next.js" },
-        { x: 60, y: 220, label: "MOBILE", sub: "ios . android" },
+        { x: 60, y: 220, label: "MOBILE", sub: "ios · android" },
         { x: 300, y: 50, label: "AUTH", sub: "oauth + jwt" },
         { x: 320, y: 145, label: "DB", sub: "postgres" },
         { x: 300, y: 240, label: "QUEUE", sub: "redis" },
@@ -759,7 +759,7 @@ function CustomIllustration({
                         transition={{ duration: 0.4, delay: 1.0, ease: EASE }}>
                         <line x1="8" y1="296" x2="372" y2="296" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                         <text x="63"  y="310" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">DELIVERY</text>
-                        <text x="63"  y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10-20w</text>
+                        <text x="63"  y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10–20w</text>
                         <text x="63"  y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">scope to launch</text>
                         <text x="190" y="310" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">CUSTOM SCHEMA</text>
                         <text x="190" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.9)`}>100%</text>

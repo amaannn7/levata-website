@@ -45,7 +45,7 @@ function WorkflowScene({
     refEl: React.RefObject<HTMLDivElement | null>;
 }) {
     const stages = [
-        { x: 50, label: "INTAKE", sub: "form . email" },
+        { x: 50, label: "INTAKE", sub: "form · email" },
         { x: 150, label: "ROUTE", sub: "rules" },
         { x: 250, label: "PROCESS", sub: "actions" },
         { x: 350, label: "DELIVER", sub: "to system" },
@@ -245,8 +245,8 @@ function DecisionScene({
 
                     {/* Three branches: priority / nurture / escalate */}
                     {[
-                        { y: 56, label: "PRIORITY", sub: "hot . score >= 80", weight: "62%", accent: true },
-                        { y: 142, label: "NURTURE", sub: "warm . 40-80", weight: "31%", accent: false },
+                        { y: 56, label: "PRIORITY", sub: "hot · score ≥ 80", weight: "62%", accent: true },
+                        { y: 142, label: "NURTURE", sub: "warm · 40–80", weight: "31%", accent: false },
                         { y: 228, label: "ESCALATE", sub: "needs review", weight: "7%", accent: false, warn: true },
                     ].map((b, i) => (
                         <motion.g

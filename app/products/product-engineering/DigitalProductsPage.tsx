@@ -265,7 +265,7 @@ function ProductProblemVisual() {
     const inView = useReveal(ref);
     const stages = [
         { cx: 90,  label: "No validation", sub: "Build starts", icon: "?" },
-        { cx: 240, label: "Wrong scope",    sub: "Months in",   icon: "" },
+        { cx: 240, label: "Wrong scope",    sub: "Months in",   icon: "✕" },
         { cx: 390, label: "Technical debt", sub: "At launch",   icon: "!" },
     ];
     return (
@@ -480,7 +480,7 @@ function MVPVisual() {
                     transition={{ duration: 0.4, delay: 1.0, ease: EASE }}>
                     <line x1="8" y1="228" x2="472" y2="228" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                     <text x="80"  y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TIME TO VALIDATE</text>
-                    <text x="80"  y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4-6w</text>
+                    <text x="80"  y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4–6w</text>
                     <text x="80"  y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">idea to signal</text>
                     <text x="240" y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">WASTED RUNWAY</text>
                     <text x="240" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">'80%</text>
@@ -500,10 +500,10 @@ function SaaSVisual() {
     const ref = useRef<HTMLDivElement>(null);
     const inView = useReveal(ref);
     const layers = [
-        { label: "USER INTERFACE", sub: "Design . UX . Flows", accent: 0.9 },
-        { label: "APPLICATION", sub: "Logic . APIs . Auth", accent: 0.65 },
-        { label: "INTEGRATIONS", sub: "3rd-party . Webhooks", accent: 0.45 },
-        { label: "DATA LAYER", sub: "Database . Storage", accent: 0.28 },
+        { label: "USER INTERFACE", sub: "Design · UX · Flows", accent: 0.9 },
+        { label: "APPLICATION", sub: "Logic · APIs · Auth", accent: 0.65 },
+        { label: "INTEGRATIONS", sub: "3rd-party · Webhooks", accent: 0.45 },
+        { label: "DATA LAYER", sub: "Database · Storage", accent: 0.28 },
     ];
     const barY = (i: number) => 50 + i * 58;
     const barW = 320;
@@ -615,7 +615,7 @@ function SaaSVisual() {
                     transition={{ duration: 0.4, delay: 0.9, ease: EASE }}>
                     <line x1="8" y1="310" x2="352" y2="310" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                     <text x="60"  y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">BUILD TIME</text>
-                    <text x="60"  y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10-20w</text>
+                    <text x="60"  y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10–20w</text>
                     <text x="60"  y="352" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">to production</text>
                     <text x="180" y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TECH DEBT</text>
                     <text x="180" y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">Zero</text>
