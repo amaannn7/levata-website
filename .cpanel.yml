@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/stagdctc/levatahq.com
+    - /bin/cp -R * $DEPLOYPATH
+    - cd $DEPLOYPATH && npm install
+    - cd $DEPLOYPATH && npm run build
+    - cd $DEPLOYPATH && npm run start &
