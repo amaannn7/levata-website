@@ -1925,7 +1925,7 @@ export default function HeroSection() {
                             data-cta="primary"
                         >
                             Book your call
-                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">'</span>
+                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                         </button>
                     </div>
                 </motion.div>
@@ -2226,7 +2226,7 @@ export default function HeroSection() {
                         data-cta="primary"
                     >
                         Book a Strategy Call
-                        <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">'</span>
+                        <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                     </button>
                 </motion.div>
             </section>

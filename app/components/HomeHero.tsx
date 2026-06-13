@@ -441,7 +441,7 @@ export default function HomeHero() {
                             data-cta="primary"
                         >
                             Book a Consultation Call
-                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5"></span>
+                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                         </button>
                     </motion.div>
                 </div>

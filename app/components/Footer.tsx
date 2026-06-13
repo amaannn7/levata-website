@@ -132,7 +132,7 @@ export default function Footer() {
                             className="group inline-flex items-center gap-1.5 text-left text-body-sm font-semibold transition-opacity duration-200 hover:opacity-80 cursor-pointer"
                             style={{ background: "linear-gradient(135deg, #00FFDD 0%, #CC01FF 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
                         >
-                            Book a strategy call 
+                            Book a strategy call →
                         </button>
                         <a
                             href="mailto:hello@levatahq.com"
