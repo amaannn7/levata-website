@@ -18,7 +18,7 @@ import SectionBeamShared from "@/app/components/SectionBeam";
 import SectionLabelSide from "@/app/components/SectionLabelSide";
 import { useBookCall } from "@/app/components/BookCallProvider";
 
-// â”€â”€ Count-up hook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Count-up hook ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function useCountUp(target: number, duration = 2000) {
     const [count, setCount] = useState(0);
     const [triggered, setTriggered] = useState(false);
@@ -53,7 +53,7 @@ function useCountUp(target: number, duration = 2000) {
     return { count, elRef };
 }
 
-// â”€â”€ Animated stat number (extended: animate lead number, static suffix) â”€â”€â”€â”€
+// ”€”€ Animated stat number (extended: animate lead number, static suffix) ”€”€”€”€
 function StatCounter({ leadNumber, suffix, label, title }: { leadNumber: number; suffix: string; label: string; title: string }) {
     const { count, elRef } = useCountUp(leadNumber, 2000);
     return (
@@ -83,7 +83,7 @@ function SectionDivider() {
     );
 }
 
-// â”€â”€ Two-row opposing marquee, Tech Stack (replaces the old tab grid) â”€â”€â”€â”€â”€
+// ”€”€ Two-row opposing marquee, Tech Stack (replaces the old tab grid) ”€”€”€”€”€
 type TechItem = {
     name: string;
     Icon: React.ComponentType<{ size?: number; className?: string; color?: string; style?: React.CSSProperties }>;
@@ -174,7 +174,7 @@ function TechStackSection() {
     );
 }
 
-// â”€â”€ Content data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Content data ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 const PRODUCT_FEATURES = [
     "AI-powered prospect research: company profiles, pain points, buying signals, and opening hooks",
     "Lead scoring and prioritization against your ideal customer profile",
@@ -184,7 +184,7 @@ const PRODUCT_FEATURES = [
     "CRM sync, push qualified opportunities directly into your pipeline",
 ];
 
-// â”€â”€ Service icons (monochrome line-art glyph + sparkle) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Service icons (monochrome line-art glyph + sparkle) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 // `accent` prop kept for backwards compat but ignored, all homepage icons render in white.
 function ServiceIcon({ kind, size = 26 }: { kind: IconKind; accent?: string; size?: number }) {
     const ICON_COLOR = "var(--home-accent-cyan, #7B55EA)";
@@ -321,7 +321,7 @@ const SERVICE_CARDS: Array<{
         },
     ];
 
-// â”€â”€ Service card primitives (icon square + sub-services + learn-more) â”€â”€â”€â”€
+// ”€”€ Service card primitives (icon square + sub-services + learn-more) ”€”€”€”€
 // Monochrome icon square, no accent color, no radial-glow halo, no boxShadow.
 // `accent` prop kept for backwards compat but ignored.
 function ServiceIconSquare({ icon, size = "md" }: { icon: IconKind; accent?: string; size?: "sm" | "md" }) {
@@ -353,8 +353,8 @@ function ServiceLearnMore({ label, href }: { label: string; href: string }) {
     );
 }
 
-// Featured 2Ã—2 card, split content (text left, image placeholder right on lg+)
-// â”€â”€ Services accordion (Joidy-style: image left, expandable list right) â”€â”€
+// Featured 2×2 card, split content (text left, image placeholder right on lg+)
+// ”€”€ Services accordion (Joidy-style: image left, expandable list right) ”€”€
 function ServicesAccordion() {
     const [active, setActive] = useState<number | null>(0);
     return (
@@ -435,7 +435,7 @@ function ServicesAccordion() {
     );
 }
 
-// â”€â”€ Services Explorer (canonical Â§5 layout) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Services Explorer (canonical §5 layout) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 // Left = clickable numbered list, right = active service detail panel.
 function ServicesExplorer() {
     const [active, setActive] = useState(0);
@@ -542,7 +542,7 @@ function ServicesExplorer() {
     );
 }
 
-// â”€â”€ Services card background visuals (white-only, subtle continuous motion) â”€
+// ”€”€ Services card background visuals (white-only, subtle continuous motion) ”€
 function CubeVisual() {
     return (
         <svg width="180" height="180" viewBox="0 0 200 200" fill="none" aria-hidden>
@@ -683,14 +683,14 @@ function NeuralVisual() {
 
     return (
         <svg width="180" height="180" viewBox="0 0 200 200" fill="none" aria-hidden>
-            {/* Connections L1â†’L2 */}
+            {/* Connections L1†’L2 */}
             <line x1="50" y1="55" x2="100" y2="85" {...lineProps} />
             <line x1="50" y1="55" x2="100" y2="125" {...lineProps} />
             <line x1="50" y1="100" x2="100" y2="85" {...lineProps} />
             <line x1="50" y1="100" x2="100" y2="125" {...lineProps} />
             <line x1="50" y1="145" x2="100" y2="85" {...lineProps} />
             <line x1="50" y1="145" x2="100" y2="125" {...lineProps} />
-            {/* Connections L2â†’L3 */}
+            {/* Connections L2†’L3 */}
             <line x1="100" y1="85" x2="150" y2="105" {...lineProps} stroke="rgba(255,255,255,0.3)" />
             <line x1="100" y1="125" x2="150" y2="105" {...lineProps} stroke="rgba(255,255,255,0.3)" />
 
@@ -715,7 +715,7 @@ function CardVisual({ kind }: { kind: IconKind }) {
     return null;
 }
 
-// â”€â”€ Services Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Services Grid ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function ServicesCarousel() {
     const BLUE = "#7B55EA";
 
@@ -729,7 +729,7 @@ function ServicesCarousel() {
                 </h2>
             </div>
 
-            {/* 2Ã—2 grid */}
+            {/* 2×2 grid */}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                 {SERVICE_CARDS.map((card, i) => (
                     <a
@@ -752,7 +752,7 @@ function ServicesCarousel() {
                             el.style.boxShadow = "";
                         }}
                     >
-                        {/* Background image â€” slightly more visible so the image reads clearly */}
+                        {/* Background image "” slightly more visible so the image reads clearly */}
                         <Image
                             src={card.image}
                             alt={card.title}
@@ -762,7 +762,7 @@ function ServicesCarousel() {
                             priority={i < 2}
                         />
 
-                        {/* Dark vertical gradient â€” strong at bottom for text legibility, light at top */}
+                        {/* Dark vertical gradient "” strong at bottom for text legibility, light at top */}
                         <div
                             aria-hidden
                             className="pointer-events-none absolute inset-0"
@@ -772,7 +772,7 @@ function ServicesCarousel() {
                             }}
                         />
 
-                        {/* Cyanâ†’purple hover sheen, fades in */}
+                        {/* Cyan†’purple hover sheen, fades in */}
                         <div
                             aria-hidden
                             className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -818,12 +818,12 @@ function ServicesCarousel() {
 
                         {/* Bottom content */}
                         <div className="relative z-10 mt-auto p-6 md:p-7">
-                            {/* Title â€” always visible, no lift */}
+                            {/* Title "” always visible, no lift */}
                             <h3 className="display-feature-title">
                                 {card.title}
                             </h3>
 
-                            {/* Sub-service chips â€” always visible */}
+                            {/* Sub-service chips "” always visible */}
                             <ul className="mt-3 flex flex-wrap gap-1.5">
                                 {card.subServices.map((s) => (
                                     <li key={s}>
@@ -874,13 +874,13 @@ function ServicesCarousel() {
 }
 
 const KEY_RESULTS: Array<{ leadNumber: number; suffix: string; label: string; title: string }> = [
-    { leadNumber: 3, suffix: "â€“5Ã—", title: "More Revenue",      label: "Pipeline performance" },
+    { leadNumber: 3, suffix: ""“5×", title: "More Revenue",      label: "Pipeline performance" },
     { leadNumber: 60, suffix: "%",  title: "Less Admin",        label: "Reduction in manual work" },
-    { leadNumber: 4, suffix: "â€“6wk", title: "Faster Execution", label: "Weeks to launch" },
+    { leadNumber: 4, suffix: ""“6wk", title: "Faster Execution", label: "Weeks to launch" },
     { leadNumber: 12, suffix: "mo", title: "Clearer Returns",   label: "Average ROI timeline" },
 ];
 
-// â”€â”€ Why Choose Levata visual hints (monochrome schematic SVGs) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Why Choose Levata visual hints (monochrome schematic SVGs) ”€”€”€”€”€”€”€”€”€”€”€”€
 const MONO_STROKE = "var(--home-diagram-stroke, rgba(255,255,255,0.65))";
 const MONO_FILL = "var(--home-diagram-fill, rgba(255,255,255,0.08))";
 
@@ -1000,7 +1000,7 @@ const WHY_LEVATA: Array<{
         },
     ];
 
-// â”€â”€ WhyLevataDeck: sticky heading + scroll-driven single-card reveal â”€â”€â”€â”€â”€â”€
+// ”€”€ WhyLevataDeck: sticky heading + scroll-driven single-card reveal ”€”€”€”€”€”€
 function WhyLevataProgress({ active, total }: { active: number; total: number }) {
     return (
         <div className="flex items-center gap-2 mt-2" aria-hidden>
@@ -1062,7 +1062,7 @@ function WhyLevataCard({ active }: { active: number }) {
 
                     {/* Eyebrow tags at bottom */}
                     <p className="mt-7 font-mono text-eyebrow" style={{ color: "rgba(255,255,255,0.38)" }}>
-                        {w.tags.join("  Â·  ")}
+                        {w.tags.join("  ·  ")}
                     </p>
                 </motion.div>
             </AnimatePresence>
@@ -1082,7 +1082,7 @@ function WhyLevataDeck() {
                     <span className="display-strong-line">Outcomes, not outputs.</span>
                 </h2>
                 <p className="text-lead text-white/45 max-w-sm">
-                    Strategy, design, engineering, and growth â€” all under one roof with one shared goal. We commit to measurable results, not deliverables.
+                    Strategy, design, engineering, and growth "” all under one roof with one shared goal. We commit to measurable results, not deliverables.
                 </p>
             </div>
 
@@ -1144,7 +1144,7 @@ function WhyLevataDeck() {
                                         <div className="px-6 pb-6 flex flex-col gap-3">
                                             <div className="h-px" style={{ background: "rgba(255,255,255,0.07)" }} />
                                             <p className="text-body-sm text-white/55">{w.body}</p>
-                                            <p className="font-mono text-eyebrow" style={{ color: "rgba(255,255,255,0.25)" }}>{w.tags.join("  Â·  ")}</p>
+                                            <p className="font-mono text-eyebrow" style={{ color: "rgba(255,255,255,0.25)" }}>{w.tags.join("  ·  ")}</p>
                                         </div>
                                     </motion.div>
                                 )}
@@ -1157,7 +1157,7 @@ function WhyLevataDeck() {
     );
 }
 
-// â”€â”€ Problem section: pain points â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Problem section: pain points ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 const PAIN_POINTS: Array<{ title: string; desc: string }> = [
     {
         title: "Manual operations bleeding hours",
@@ -1177,7 +1177,7 @@ const PAIN_POINTS: Array<{ title: string; desc: string }> = [
     },
 ];
 
-// â”€â”€ Solution section: 4-node delivery flow â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Solution section: 4-node delivery flow ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 const FLOW_NODES: Array<{ num: string; title: string; caption: string; icon: IconKind; accent: string }> = [
     { num: "01", title: "Diagnose", caption: "Map operations, surface friction, identify ROI opportunities.", icon: "sales", accent: "#7B55EA" },
     { num: "02", title: "Architect", caption: "Design AI-native systems matched to your business model.", icon: "ai", accent: "#7B55EA" },
@@ -1185,7 +1185,7 @@ const FLOW_NODES: Array<{ num: string; title: string; caption: string; icon: Ico
     { num: "04", title: "Compound", caption: "Measure, iterate, and grow returns month over month.", icon: "growth", accent: "#7B55EA" },
 ];
 
-// â”€â”€ Reusable inline helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Reusable inline helpers ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 
 function ImagePlaceholder({
     aspect = "16 / 9",
@@ -1222,7 +1222,7 @@ function ImagePlaceholder({
     );
 }
 
-// â”€â”€ Â§4 SOLUTION: flow node + animated connector â”€â”€
+// ”€”€ §4 SOLUTION: flow node + animated connector ”€”€
 function FlowNode({ num, title, caption, icon, accent }: typeof FLOW_NODES[number]) {
     return (
         <div className="flex flex-col items-center gap-3 text-center w-36">
@@ -1290,12 +1290,12 @@ function FlowConnector({ vertical = false }: { vertical?: boolean }) {
     );
 }
 
-// â”€â”€ Problem spider: hub-and-spoke layout (desktop only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// Canvas: 960 Ã— 440. Center: (480, 220).
+// ”€”€ Problem spider: hub-and-spoke layout (desktop only) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// Canvas: 960 × 440. Center: (480, 220).
 // Pain-point copy renders as HTML cards anchored at the spoke tips, so the
 // tips are pulled inward to leave card room between them and the edges.
 const SPIDER_W = 960, SPIDER_H = 440, SPIDER_CX = 480, SPIDER_CY = 220;
-// Spoke tips â€” lines terminate here, node dot sits exactly here.
+// Spoke tips "” lines terminate here, node dot sits exactly here.
 const SPOKE_ENDS = [
     { x: 272, y: 72 },   // TL
     { x: 688, y: 72 },   // TR
@@ -1331,7 +1331,7 @@ function TravelDot({ x1, y1, x2, y2, delay, dur = 2.2, color = "rgba(255,75,75,0
     );
 }
 
-// â”€â”€ Problem core: overloaded system hub (shared mobile + desktop) â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Problem core: overloaded system hub (shared mobile + desktop) ”€”€”€”€”€”€”€”€”€
 function ProblemCore({ size = 230 }: { size?: number }) {
     const shards = [
         { x: 172, y: 112, rot: 0, delay: 0 },
@@ -1358,7 +1358,7 @@ function ProblemCore({ size = 230 }: { size?: number }) {
                 }}
             />
 
-            {/* Laptop behind the core â€” screen in error state */}
+            {/* Laptop behind the core "” screen in error state */}
             <div
                 aria-hidden
                 className="pointer-events-none absolute left-1/2"
@@ -1418,7 +1418,7 @@ function ProblemCore({ size = 230 }: { size?: number }) {
                     {/* Keyboard deck */}
                     <path d="M22 118 L218 118 L238 160 L2 160 Z"
                         fill="url(#pcore_lap_fill)" stroke="url(#pcore_lap_stroke)" strokeWidth="1.4" strokeLinejoin="round" />
-                    {/* Key rows â€” dashed strips with perspective */}
+                    {/* Key rows "” dashed strips with perspective */}
                     <line x1="38" y1="126" x2="202" y2="126" stroke="rgba(255,255,255,0.08)" strokeWidth="4" strokeDasharray="7 3" />
                     <line x1="33" y1="133.5" x2="207" y2="133.5" stroke="rgba(255,255,255,0.07)" strokeWidth="4" strokeDasharray="7 3" />
                     <line x1="28" y1="141" x2="212" y2="141" stroke="rgba(255,255,255,0.06)" strokeWidth="4" strokeDasharray="8 3" />
@@ -1596,7 +1596,7 @@ function ProblemSpider() {
                     />
                 ))}
 
-                {/* Spoke lines â€” solid with glow */}
+                {/* Spoke lines "” solid with glow */}
                 {spokes.map(({ x1, y1, x2, y2, grad, lineDelay }) => (
                     <motion.path
                         key={grad}
@@ -1611,7 +1611,7 @@ function ProblemSpider() {
                     />
                 ))}
 
-                {/* Traveling dots â€” from hub outward */}
+                {/* Traveling dots "” from hub outward */}
                 {spokes.map(({ x1, y1, x2, y2, dotDelay }, i) => (
                     <TravelDot key={i} x1={x1} y1={y1} x2={x2} y2={y2} delay={dotDelay} dur={2.2 + i * 0.3} color={dotColors[i]} />
                 ))}
@@ -1651,7 +1651,7 @@ function ProblemSpider() {
                 })}
             </svg>
 
-            {/* Pain point cards â€” HTML for crisp, readable text */}
+            {/* Pain point cards "” HTML for crisp, readable text */}
             {SPOKE_ENDS.map((end, i) => {
                 const isLeft = end.x < cx;
                 const xPct = (end.x / W) * 100;
@@ -1714,7 +1714,7 @@ function ProblemSpider() {
                 );
             })}
 
-            {/* Center visual â€” overloaded system core */}
+            {/* Center visual "” overloaded system core */}
             <motion.div
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
                 initial={{ opacity: 0, scale: 0.85 }}
@@ -1728,17 +1728,17 @@ function ProblemSpider() {
     );
 }
 
-// â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Page ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 export default function HeroSection() {
     const { open: openBookCall } = useBookCall();
     return (
         <main className="relative min-h-screen bg-[var(--background)] flex flex-col">
 
-            {/* â”€â”€ 1. HERO (cinematic) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 1. HERO (cinematic) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <HomeHero />
             <SectionDivider />
 
-            {/* â”€â”€ 2. THE PROBLEM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 2. THE PROBLEM ”€”€”€”€”€”€”€”€”€”€ */}
             <section id="problem" className="home-theme-dark relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -1762,7 +1762,7 @@ export default function HeroSection() {
                         </h2>
                     </motion.div>
 
-                    {/* â”€â”€ Mobile: stacked pain point cards + visual â”€â”€ */}
+                    {/* ”€”€ Mobile: stacked pain point cards + visual ”€”€ */}
                     <div className="flex flex-col gap-4 lg:hidden">
                         {PAIN_POINTS.map((p, i) => (
                             <motion.div
@@ -1810,7 +1810,7 @@ export default function HeroSection() {
                         </motion.div>
                     </div>
 
-                    {/* â”€â”€ Desktop: spider / hub layout â”€â”€ */}
+                    {/* ”€”€ Desktop: spider / hub layout ”€”€ */}
                     <div className="hidden lg:block">
                         <ProblemSpider />
                     </div>
@@ -1819,7 +1819,7 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* â”€â”€ 3. OUR SOLUTION (with 4-node flow diagram) â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 3. OUR SOLUTION (with 4-node flow diagram) ”€”€”€”€”€ */}
             <section id="solution" className="home-theme-dark relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0" style={{
@@ -1879,9 +1879,9 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* Â§5 Featured Product moved to Â§7, see below */}
+            {/* §5 Featured Product moved to §7, see below */}
 
-            {/* â”€â”€ 4. SERVICE CATEGORIES (Horizontal carousel) â”€â”€â”€â”€ */}
+            {/* ”€”€ 4. SERVICE CATEGORIES (Horizontal carousel) ”€”€”€”€ */}
             <section id="services" className="home-theme-dark relative w-full px-5 py-14 sm:px-6 md:py-20 overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(123, 85, 234,0.05) 0%, transparent 70%)",
@@ -1901,7 +1901,7 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* â”€â”€ 5. MID-PAGE CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 5. MID-PAGE CTA ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 md:py-20 overflow-hidden">
                 <CTAAurora variant={2} />
                 <motion.div
@@ -1925,7 +1925,7 @@ export default function HeroSection() {
                             data-cta="primary"
                         >
                             Book your call
-                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">â†’</span>
+                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">†’</span>
                         </button>
                     </div>
                 </motion.div>
@@ -1933,14 +1933,14 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* â”€â”€ 6. CLIENTS MARQUEE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 6. CLIENTS MARQUEE ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <div className="relative z-10">
                 <ClientsMarquee />
             </div>
 
             <SectionDivider />
 
-            {/* â”€â”€ 7. FEATURED PRODUCT, Sales Intelligence Platform â”€â”€ */}
+            {/* ”€”€ 7. FEATURED PRODUCT, Sales Intelligence Platform ”€”€ */}
             <section className="home-theme-dark relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0" style={{
@@ -2057,7 +2057,7 @@ export default function HeroSection() {
                                                 {[
                                                     { label: "Pipeline Value", value: "$284k", sub: "+12% this month", c: "#7B55EA" },
                                                     { label: "Leads Scored", value: "1,048", sub: "94 high-intent", c: "#7B55EA" },
-                                                    { label: "Deals Closed", value: "37", sub: "â†‘ 8 from last mo.", c: "#3ECF8E" },
+                                                    { label: "Deals Closed", value: "37", sub: "†‘ 8 from last mo.", c: "#3ECF8E" },
                                                 ].map(({ label, value, sub, c }) => (
                                                     <div key={label} className="rounded-xl p-2.5"
                                                         style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
@@ -2145,7 +2145,7 @@ export default function HeroSection() {
                 </motion.div>
             </section>
 
-            {/* â”€â”€ 8. BY THE NUMBERS â€” no divider, flows from Featured Product above â”€â”€ */}
+            {/* ”€”€ 8. BY THE NUMBERS "” no divider, flows from Featured Product above ”€”€ */}
             <section id="numbers" className="home-theme-dark relative w-full px-6 py-14 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background:
@@ -2175,17 +2175,17 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* â”€â”€ 9. TESTIMONIALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 9. TESTIMONIALS ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <TestimonialsSection />
 
             <SectionDivider />
 
-            {/* â”€â”€ 10. TECH STACK (LOCKED) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 10. TECH STACK (LOCKED) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <TechStackSection />
 
             <SectionDivider />
 
-            {/* â”€â”€ 11. WHY CHOOSE LEVATA â”€â”€ */}
+            {/* ”€”€ 11. WHY CHOOSE LEVATA ”€”€ */}
             <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" style={{
                     background: [
@@ -2201,7 +2201,7 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* â”€â”€ 12. FINAL CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 12. FINAL CTA ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <section className="home-theme-dark relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <CTAAurora variant={1} />
                 <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.5), transparent)" }} />
@@ -2226,7 +2226,7 @@ export default function HeroSection() {
                         data-cta="primary"
                     >
                         Book a Strategy Call
-                        <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">â†’</span>
+                        <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">†’</span>
                     </button>
                 </motion.div>
             </section>

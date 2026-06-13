@@ -28,7 +28,7 @@ function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
     return observed || forced;
 }
 
-// â”€â”€ Count-up hook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Count-up hook ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function useCountUp(target: number, duration = 2000) {
     const [count, setCount] = useState(0);
     const [triggered, setTriggered] = useState(false);
@@ -69,7 +69,7 @@ function KPI({ value, suffix, label, animate = true }: { value: number; suffix: 
     );
 }
 
-// â”€â”€ Icons (all blue) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Icons (all blue) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function IconLightbulb() {
     return (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -126,7 +126,7 @@ function IconChip() {
     );
 }
 
-// â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Data ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 const NEW_PROCESS_STEPS = [
     {
         num: "01",
@@ -191,19 +191,19 @@ const PROCESS_STEPS = [
 
 const FOUNDER_CONSIDERATIONS = [
     "Pivot strategy if the data points elsewhere",
-    "Scalability path for 10Ã— growth",
+    "Scalability path for 10× growth",
     "IP ownership and clean handover",
     "Launch strategy and go-to-market motion",
 ];
 
 const FAQS = [
     { q: "What's included in an MVP and what's left for later?", a: "We scope collaboratively, the core feature set needed to validate your value proposition. Everything else is clearly documented in a post-MVP roadmap." },
-    { q: "Will the MVP be scalable?", a: "Yes. We architect for scale from day one, infrastructure, codebase, and data architecture designed to support 10Ã— and 100Ã— growth without fundamental rebuilds." },
+    { q: "Will the MVP be scalable?", a: "Yes. We architect for scale from day one, infrastructure, codebase, and data architecture designed to support 10× and 100× growth without fundamental rebuilds." },
     { q: "Who owns the IP and code?", a: "You do, completely. All code, designs, and intellectual property are transferred to you in full at project completion. No lock-in." },
     { q: "What if we need to pivot after launch?", a: "Pivots happen, that's the nature of early-stage products. We build MVPs that are architecturally flexible and maintain post-launch partnerships to support and guide pivots when data demands them." },
 ];
 
-// â”€â”€ FAQ item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ FAQ item ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
     return (
         <motion.div
@@ -259,13 +259,13 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
 
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 
-// â”€â”€ Product Problem visual â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Product Problem visual ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function ProductProblemVisual() {
     const ref = useRef<HTMLDivElement>(null);
     const inView = useReveal(ref);
     const stages = [
         { cx: 90,  label: "No validation", sub: "Build starts", icon: "?" },
-        { cx: 240, label: "Wrong scope",    sub: "Months in",   icon: "âœ•" },
+        { cx: 240, label: "Wrong scope",    sub: "Months in",   icon: "œ•" },
         { cx: 390, label: "Technical debt", sub: "At launch",   icon: "!" },
     ];
     return (
@@ -297,7 +297,7 @@ function ProductProblemVisual() {
                         animate={inView ? { opacity: 1, y: 0 } : undefined}
                         transition={{ duration: 0.5, delay: 0.15 + i * 0.14, ease: EASE }}
                     >
-                        {/* Outer ring â€” looping radar pulse, staggered per node */}
+                        {/* Outer ring "” looping radar pulse, staggered per node */}
                         <motion.circle cx={s.cx} cy="148" r="30"
                             fill="rgba(10,14,28,0.0)" stroke="rgba(255,80,80,0.12)" strokeWidth="1"
                             style={{ transformOrigin: `${s.cx}px 148px` }}
@@ -353,7 +353,7 @@ function ProductProblemVisual() {
                     </motion.text>
                     <text x="240" y="268"
                         textAnchor="middle" fontFamily={MONO} fontSize="7.5"
-                        letterSpacing="0.12em" fill="rgba(255,255,255,0.2)">TIME Â· BUDGET Â· MOMENTUM
+                        letterSpacing="0.12em" fill="rgba(255,255,255,0.2)">TIME · BUDGET · MOMENTUM
                     </text>
                 </motion.g>
             </svg>
@@ -361,7 +361,7 @@ function ProductProblemVisual() {
     );
 }
 
-// â”€â”€ MVP Development visual â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ MVP Development visual ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function MVPVisual() {
     const ref = useRef<HTMLDivElement>(null);
     const inView = useReveal(ref);
@@ -480,13 +480,13 @@ function MVPVisual() {
                     transition={{ duration: 0.4, delay: 1.0, ease: EASE }}>
                     <line x1="8" y1="228" x2="472" y2="228" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                     <text x="80"  y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TIME TO VALIDATE</text>
-                    <text x="80"  y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4â€“6w</text>
+                    <text x="80"  y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4"“6w</text>
                     <text x="80"  y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">idea to signal</text>
                     <text x="240" y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">WASTED RUNWAY</text>
-                    <text x="240" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">âˆ’80%</text>
+                    <text x="240" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">ˆ’80%</text>
                     <text x="240" y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">vs build-first</text>
                     <text x="400" y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">PIVOT RISK</text>
-                    <text x="400" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3Ã—</text>
+                    <text x="400" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3×</text>
                     <text x="400" y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">lower at launch</text>
                 </motion.g>
             </svg>
@@ -495,15 +495,15 @@ function MVPVisual() {
     );
 }
 
-// â”€â”€ SaaS Product visual â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ SaaS Product visual ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function SaaSVisual() {
     const ref = useRef<HTMLDivElement>(null);
     const inView = useReveal(ref);
     const layers = [
-        { label: "USER INTERFACE", sub: "Design Â· UX Â· Flows", accent: 0.9 },
-        { label: "APPLICATION", sub: "Logic Â· APIs Â· Auth", accent: 0.65 },
-        { label: "INTEGRATIONS", sub: "3rd-party Â· Webhooks", accent: 0.45 },
-        { label: "DATA LAYER", sub: "Database Â· Storage", accent: 0.28 },
+        { label: "USER INTERFACE", sub: "Design · UX · Flows", accent: 0.9 },
+        { label: "APPLICATION", sub: "Logic · APIs · Auth", accent: 0.65 },
+        { label: "INTEGRATIONS", sub: "3rd-party · Webhooks", accent: 0.45 },
+        { label: "DATA LAYER", sub: "Database · Storage", accent: 0.28 },
     ];
     const barY = (i: number) => 50 + i * 58;
     const barW = 320;
@@ -615,7 +615,7 @@ function SaaSVisual() {
                     transition={{ duration: 0.4, delay: 0.9, ease: EASE }}>
                     <line x1="8" y1="310" x2="352" y2="310" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                     <text x="60"  y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">BUILD TIME</text>
-                    <text x="60"  y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10â€“20w</text>
+                    <text x="60"  y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10"“20w</text>
                     <text x="60"  y="352" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">to production</text>
                     <text x="180" y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TECH DEBT</text>
                     <text x="180" y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">Zero</text>
@@ -630,7 +630,7 @@ function SaaSVisual() {
     );
 }
 
-// â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Page ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 export default function DigitalProductsPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const { open: openBookCall } = useBookCall();
@@ -638,7 +638,7 @@ export default function DigitalProductsPage() {
     return (
         <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
-            {/* â”€â”€ 1. HERO â”€â”€ */}
+            {/* ”€”€ 1. HERO ”€”€ */}
             <section
                 data-hero
                 className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:min-h-0 md:pb-[100px] md:pt-[150px]"
@@ -671,7 +671,7 @@ export default function DigitalProductsPage() {
                 <HeroHorizon intensity="strong" />
             </section>
 
-            {/* â”€â”€ 2. PROBLEM â”€â”€ */}
+            {/* ”€”€ 2. PROBLEM ”€”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -713,7 +713,7 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 3. SOLUTION â”€â”€ */}
+            {/* ”€”€ 3. SOLUTION ”€”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 40%, rgba(123,85,234,0.08) 0%, transparent 65%)",
@@ -781,7 +781,7 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 4. OUR PROCESS â”€â”€ */}
+            {/* ”€”€ 4. OUR PROCESS ”€”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123,85,234,0.06) 0%, transparent 70%)",
@@ -874,7 +874,7 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 5. OUR SERVICES â”€â”€ */}
+            {/* ”€”€ 5. OUR SERVICES ”€”€ */}
             <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
@@ -936,7 +936,7 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 7. FAQ â”€â”€ */}
+            {/* ”€”€ 7. FAQ ”€”€ */}
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
@@ -968,7 +968,7 @@ export default function DigitalProductsPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 8. FINAL CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 8. FINAL CTA ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <CTAAurora variant={1} />
                 <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }} />

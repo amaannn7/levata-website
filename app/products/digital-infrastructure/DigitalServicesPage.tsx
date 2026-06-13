@@ -29,7 +29,7 @@ function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
     return observed || forced;
 }
 
-// â”€â”€ Count-up hook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Count-up hook ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function useCountUp(target: number, duration = 2000) {
     const [count, setCount] = useState(0);
     const [triggered, setTriggered] = useState(false);
@@ -58,7 +58,7 @@ function useCountUp(target: number, duration = 2000) {
     return { count, elRef };
 }
 
-// â”€â”€ Icons (all blue) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Icons (all blue) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function IconDownArrow() {
     return (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -117,7 +117,7 @@ function IconSpark({ flat = false }: { flat?: boolean }) {
     );
 }
 
-// â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Data ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 const LEAKAGE = [
     { num: "01", title: "Beautiful but passive websites", body: "They look good and get ignored in the market. No conversion architecture, no intelligence, no measurable revenue impact." },
     { num: "02", title: "Platforms that can't handle growth", body: "Built for today, not tomorrow. When you scale, performance degrades and the whole thing needs expensive remediation." },
@@ -196,10 +196,10 @@ const SUB_SERVICES = [
 ];
 
 const OUTCOME_METRICS = [
-    { value: 3, suffix: "Ã—", label: "Avg conversion rate improvement" },
+    { value: 3, suffix: "×", label: "Avg conversion rate improvement" },
     { value: 99.9, suffix: "%", label: "Uptime SLA on all platforms", decimals: 1 },
     { value: 40, suffix: "%", label: "Avg e-commerce revenue lift in 6 months" },
-    { value: 0, symbol: "âˆž", label: "Scale ceiling, built to grow" },
+    { value: 0, symbol: "ˆž", label: "Scale ceiling, built to grow" },
 ];
 
 const PIPELINE = [
@@ -225,10 +225,10 @@ const FAQS = [
     { q: "What platforms and technologies do you use?", a: "We choose the stack that fits your business, not our comfort zone. Next.js, Shopify, Medusa, Payload CMS, Sanity, Postgres, Vercel, and AWS are common selections. Every project gets a considered rationale before a line of code is written." },
     { q: "Can you work with our existing website?", a: "Yes. We handle full migrations, redesigns, and incremental improvements. We map redirects, preserve SEO equity, and migrate content cleanly, whether you're on WordPress, Webflow, Wix, or a custom legacy stack." },
     { q: "Can we self-manage the platform after launch?", a: "Always. We build for handoff, full CMS control, documentation, and team training are standard. If you want ongoing management or optimisation, we offer that too." },
-    { q: "What are your typical project timelines?", a: "Marketing sites take 4â€“8 weeks. Platforms and custom systems run 10â€“20 weeks depending on scope and integration complexity. We scope every project in detail before committing to a timeline." },
+    { q: "What are your typical project timelines?", a: "Marketing sites take 4"“8 weeks. Platforms and custom systems run 10"“20 weeks depending on scope and integration complexity. We scope every project in detail before committing to a timeline." },
 ];
 
-// â”€â”€ Digital Services Problem visual: broken infrastructure â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Digital Services Problem visual: broken infrastructure ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function DigitalProblemVisual() {
     const ref = useRef<HTMLDivElement>(null);
     const inView = useReveal(ref);
@@ -244,7 +244,7 @@ function DigitalProblemVisual() {
                     </filter>
                 </defs>
                 <g transform="translate(0,60)">
-                {/* â”€â”€ Panel 1: Passive website â”€â”€ */}
+                {/* ”€”€ Panel 1: Passive website ”€”€ */}
                 <motion.g initial={{ opacity: 0, y: -10 }} animate={inView ? { opacity: 1, y: 0 } : undefined}
                     transition={{ duration: 0.5, delay: 0.1, ease: EASE }}>
                     {/* Browser chrome */}
@@ -259,7 +259,7 @@ function DigitalProblemVisual() {
                     <circle cx="58" cy="31" r="3.5" fill="rgba(255,255,255,0.12)" />
                     <rect x="68" y="25" width="96" height="12" rx="6"
                         fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
-                    {/* Page content â€” flat/no-action layout */}
+                    {/* Page content "” flat/no-action layout */}
                     <rect x="30" y="52" width="140" height="8" rx="2" fill="rgba(255,255,255,0.18)" />
                     <rect x="30" y="66" width="110" height="6" rx="2" fill="rgba(255,255,255,0.08)" />
                     <rect x="30" y="78" width="120" height="6" rx="2" fill="rgba(255,255,255,0.06)" />
@@ -280,7 +280,7 @@ function DigitalProblemVisual() {
                         letterSpacing="0.1em" fill="rgba(255,80,80,0.55)">9% CONVERSION</text>
                 </motion.g>
 
-                {/* â”€â”€ Panel 2: Platform bottleneck â”€â”€ */}
+                {/* ”€”€ Panel 2: Platform bottleneck ”€”€ */}
                 <motion.g initial={{ opacity: 0, y: -10 }} animate={inView ? { opacity: 1, y: 0 } : undefined}
                     transition={{ duration: 0.5, delay: 0.22, ease: EASE }}>
                     <rect x="200" y="20" width="160" height="108" rx="7"
@@ -307,7 +307,7 @@ function DigitalProblemVisual() {
                         letterSpacing="0.1em" fill="rgba(255,80,80,0.55)">CAN&apos;T SCALE</text>
                 </motion.g>
 
-                {/* â”€â”€ Panel 3: Ecommerce leaking â”€â”€ */}
+                {/* ”€”€ Panel 3: Ecommerce leaking ”€”€ */}
                 <motion.g initial={{ opacity: 0, y: -10 }} animate={inView ? { opacity: 1, y: 0 } : undefined}
                     transition={{ duration: 0.5, delay: 0.34, ease: EASE }}>
                     <rect x="110" y="178" width="160" height="108" rx="7"
@@ -331,7 +331,7 @@ function DigitalProblemVisual() {
                                 transition={{ duration: 2, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }} />
                         </motion.g>
                     ))}
-                    {/* Lost revenue â€” slow looping pulse */}
+                    {/* Lost revenue "” slow looping pulse */}
                     <motion.g
                         animate={inView ? { opacity: [0.6, 1, 0.6] } : undefined}
                         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -364,7 +364,7 @@ function DigitalProblemVisual() {
     );
 }
 
-// â”€â”€ FAQ item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ FAQ item ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
     return (
         <motion.div
@@ -418,7 +418,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
     );
 }
 
-// â”€â”€ Animated metric tile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Animated metric tile ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, index, symbol }: { value: number; suffix?: string; prefix?: string; decimals?: number; label: string; index: number; symbol?: string }) {
     const intTarget = Math.round(value * Math.pow(10, decimals));
     const { count, elRef } = useCountUp(intTarget, 1800);
@@ -440,7 +440,7 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
     );
 }
 
-// â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Page ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 export default function DigitalServicesPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const { open: openBookCall } = useBookCall();
@@ -448,7 +448,7 @@ export default function DigitalServicesPage() {
     return (
         <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
-            {/* â”€â”€ 1. HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ 1. HERO ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <section
                 data-hero
                 className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:min-h-0 md:pb-[100px] md:pt-[150px]"
@@ -482,7 +482,7 @@ export default function DigitalServicesPage() {
                 <HeroHorizon intensity="strong" />
             </section>
 
-            {/* â”€â”€ 2. PROBLEM â”€â”€ */}
+            {/* ”€”€ 2. PROBLEM ”€”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -530,7 +530,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 3. SOLUTION â”€â”€ */}
+            {/* ”€”€ 3. SOLUTION ”€”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 40%, rgba(123,85,234,0.08) 0%, transparent 65%)",
@@ -601,7 +601,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 4. OUR PROCESS â”€â”€ */}
+            {/* ”€”€ 4. OUR PROCESS ”€”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123,85,234,0.06) 0%, transparent 70%)",
@@ -743,7 +743,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 5. OUR SERVICES â”€â”€ */}
+            {/* ”€”€ 5. OUR SERVICES ”€”€ */}
             <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
@@ -817,7 +817,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 7. FAQ â”€â”€ */}
+            {/* ”€”€ 7. FAQ ”€”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
@@ -849,7 +849,7 @@ export default function DigitalServicesPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ 8. FINAL CTA â”€â”€ */}
+            {/* ”€”€ 8. FINAL CTA ”€”€ */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div
                     aria-hidden

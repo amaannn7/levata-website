@@ -11,7 +11,7 @@ import dynamic from "next/dynamic";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
-// â”€â”€ Monochrome schematic diagrams (mirror homepage Â§9 WhyVisualHint set) â”€â”€
+// ”€”€ Monochrome schematic diagrams (mirror homepage §9 WhyVisualHint set) ”€”€
 const MONO_STROKE = "rgba(255,255,255,0.65)";
 const MONO_FILL = "rgba(255,255,255,0.08)";
 
@@ -66,7 +66,7 @@ function IconBarsDiagram() {
     );
 }
 
-// â”€â”€ Initials avatar (for Team cards) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Initials avatar (for Team cards) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function initialsFrom(name: string) {
     const parts = name.replace(/\./g, "").trim().split(/\s+/);
     if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
@@ -102,7 +102,7 @@ const TEAM = [
     { name: "Amaan Yusuf", role: "Co-founder", bio: "" },
 ];
 
-// â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Page ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 export default function AboutPage() {
     const ctaRef = useRef<HTMLElement>(null);
     const { open: openBookCall } = useBookCall();
@@ -110,7 +110,7 @@ export default function AboutPage() {
     return (
         <main className="relative min-h-screen bg-[#0E1014] flex flex-col overflow-hidden page-dividers">
 
-            {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ Hero ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <section
                 data-hero
                 className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:min-h-0 md:pb-[100px] md:pt-[150px]"
@@ -148,7 +148,7 @@ export default function AboutPage() {
                 <HeroHorizon intensity="strong" />
             </section>
 
-            {/* â”€â”€ Who We Are â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ Who We Are ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <section className="relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -203,7 +203,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ Team â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ Team ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <section className="relative w-full overflow-hidden px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0" style={{
                     background: [
@@ -264,7 +264,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ Why Clients Choose Us â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ Why Clients Choose Us ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <section className="relative w-full overflow-hidden px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0" style={{
                     background: [
@@ -345,7 +345,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* â”€â”€ Final CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+            {/* ”€”€ Final CTA ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
             <section ref={ctaRef} className="relative w-full px-6 py-14 md:py-20 overflow-hidden">
                 <CTAAurora variant={3} />
                 <div aria-hidden className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-32"

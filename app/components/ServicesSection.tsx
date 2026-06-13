@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const BLUE = "#7B55EA";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// â”€â”€ Kept exports, used by HeroSection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Kept exports, used by HeroSection ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 export function ArrowIcon() {
     return (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -30,7 +30,7 @@ export function CircleArrow({ label = "Learn More", prominent = false }: { accen
     );
 }
 
-// â”€â”€ Kept mockup exports, used by HeroSection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Kept mockup exports, used by HeroSection ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 export function DashboardMockup({ accent }: { accent: string }) {
     return (
         <div className="relative h-full w-full">
@@ -108,7 +108,7 @@ export function AutomationMockup({ accent }: { accent: string }) {
     );
 }
 
-// â”€â”€ Service icons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Service icons ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function IconAI() {
     return (
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -159,7 +159,7 @@ function IconTrend() {
     );
 }
 
-// â”€â”€ Card motifs (white, geometric, subtle motion) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Card motifs (white, geometric, subtle motion) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 const MOTIF_STROKE = "rgba(255,255,255,0.14)";
 const MOTIF_STROKE_SOFT = "rgba(255,255,255,0.08)";
 const MOTIF_FILL = "rgba(255,255,255,0.10)";
@@ -174,7 +174,7 @@ function MotifWrap({ children }: { children: React.ReactNode }) {
     );
 }
 
-// 01 â€” AI & Intelligence: connected nodes with a pulsing node
+// 01 "” AI & Intelligence: connected nodes with a pulsing node
 function MotifAINodes() {
     const nodes = [
         { cx: 150, cy: 40 }, { cx: 188, cy: 78 }, { cx: 170, cy: 128 },
@@ -203,7 +203,7 @@ function MotifAINodes() {
     );
 }
 
-// 02 â€” Sales Intelligence Platform: concentric rings + rotating crosshair
+// 02 "” Sales Intelligence Platform: concentric rings + rotating crosshair
 function MotifTarget() {
     return (
         <MotifWrap>
@@ -225,7 +225,7 @@ function MotifTarget() {
     );
 }
 
-// 03 â€” Product Engineering: stacked isometric layers drifting up
+// 03 "” Product Engineering: stacked isometric layers drifting up
 function MotifLayers() {
     return (
         <MotifWrap>
@@ -246,7 +246,7 @@ function MotifLayers() {
     );
 }
 
-// 04 â€” Digital Services: globe meridians + traveling dash
+// 04 "” Digital Services: globe meridians + traveling dash
 function MotifGlobeArcs() {
     return (
         <MotifWrap>
@@ -271,7 +271,7 @@ function MotifGlobeArcs() {
     );
 }
 
-// 05 â€” Automation & Systems: parallel pipeline with flowing dashes
+// 05 "” Automation & Systems: parallel pipeline with flowing dashes
 function MotifPipeline() {
     return (
         <MotifWrap>
@@ -302,7 +302,7 @@ function MotifPipeline() {
     );
 }
 
-// 06 â€” Growth & Marketing: ascending chart with a traveling dot
+// 06 "” Growth & Marketing: ascending chart with a traveling dot
 function MotifChart() {
     return (
         <MotifWrap>
@@ -325,7 +325,7 @@ function MotifChart() {
     );
 }
 
-// â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Data ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 const SERVICES = [
     {
         num: "01",
@@ -365,7 +365,7 @@ const SERVICES = [
     },
 ];
 
-// â”€â”€ Card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Card ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 function ServiceCard({ service, index }: { service: typeof SERVICES[number]; index: number }) {
     return (
         <motion.div
@@ -444,7 +444,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
     );
 }
 
-// â”€â”€ Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ”€”€ Section ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 export default function ServicesSection() {
     return (
         <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 sm:py-14 md:py-20">
