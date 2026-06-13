@@ -40,7 +40,7 @@ function XIcon() {
     );
 }
 
-const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB — within Vercel hobby tier request limit
+const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB -- within Vercel hobby tier request limit
 const ALLOWED_TYPES = ".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif,.webp";
 
 function formatFileSize(bytes: number): string {
@@ -371,7 +371,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
                                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                                                     </svg>
-                                                    Sending…
+                                                    Sending
                                                 </span>
                                             ) : "Send Request"}
                                         </button>

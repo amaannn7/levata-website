@@ -3,7 +3,7 @@
 import Image from "next/image";
 import SectionBeam from "@/app/components/SectionBeam";
 
-// ── Client logos ──────────────────────────────────────────────────────────
+// - Client logos -
 // scale = per-logo size multiplier. Square / tightly-cropped marks need >1
 // to visually balance against wide text-logos that already fill their box.
 const CLIENTS: { name: string; file: string; scale?: number }[] = [

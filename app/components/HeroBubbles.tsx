@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState, useCallback, type RefObject } from "react";
 import { motion } from "framer-motion";
@@ -48,7 +48,7 @@ export default function HeroBubbles({
                     // Natural random offset so rings don't all stack on the exact cursor
                     x: cx + (Math.random() - 0.5) * 22,
                     y: cy + (Math.random() - 0.5) * 22,
-                    size: 26 + Math.random() * 50,   // 26–76 px initial diameter
+                    size: 26 + Math.random() * 50,   // 26-76 px initial diameter
                     finalScale: 2.6 + Math.random() * 1.8,
                     duration: 0.9 + Math.random() * 0.75,
                     driftX: (Math.random() - 0.5) * 26,

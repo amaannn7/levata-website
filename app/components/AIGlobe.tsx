@@ -11,18 +11,18 @@ class WebGLErrorBoundary extends Component<{ children: ReactNode }, { failed: bo
     render() { return this.state.failed ? null : this.props.children; }
 }
 
-// ── Particle system: particles morph between abstract shape targets ───────
+// - Particle system: particles morph between abstract shape targets -
 const PARTICLE_COUNT = 1800;
 
 // Each shape is a function (i, n) -> [x,y,z]. Particle order is consistent
 // across shapes so morphing is a clean per-particle lerp.
 type ShapeFn = (i: number, n: number) => [number, number, number];
 
-// ─ Precomputed data for shapes that need it ─
+// - Precomputed data for shapes that need it -
 
-// Cube edges — 12 edges of a unit cube (each entry: [x0,y0,z0,x1,y1,z1])
+// Cube edges -- 12 edges of a unit cube (each entry: [x0,y0,z0,x1,y1,z1])
 
-// Neural cluster — 48 nodes on a sphere shell + nearest-neighbour edges
+// Neural cluster -- 48 nodes on a sphere shell + nearest-neighbour edges
 // More nodes = more links = full sphere coverage with no gaps
 const NEURAL = (() => {
     const N = 48;
@@ -56,7 +56,7 @@ const NEURAL = (() => {
 })();
 
 const SHAPES: ShapeFn[] = [
-    // 0 — Neural-web cluster (particles ride along inter-node connections)
+    // 0 -- Neural-web cluster (particles ride along inter-node connections)
     (i) => {
         const link = NEURAL.links[i % NEURAL.links.length];
         const a = NEURAL.nodes[link[0]];
@@ -73,7 +73,7 @@ const SHAPES: ShapeFn[] = [
             a[2] * (1 - t) + b[2] * t,
         ];
     },
-    // 1 — Icosahedron (20 faces, 30 edges, 12 vertices)
+    // 1 -- Icosahedron (20 faces, 30 edges, 12 vertices)
     (i) => {
         const phi = (1 + Math.sqrt(5)) / 2; // golden ratio
         // 12 icosahedron vertices
@@ -106,7 +106,7 @@ const SHAPES: ShapeFn[] = [
         const a = verts[edge[0]], b = verts[edge[1]];
         return [a[0]*(1-posInEdge)+b[0]*posInEdge, a[1]*(1-posInEdge)+b[1]*posInEdge, a[2]*(1-posInEdge)+b[2]*posInEdge];
     },
-    // 2 — DNA double helix (two strands + rungs)
+    // 2 -- DNA double helix (two strands + rungs)
     (i, n) => {
         const turns = 4;
         const R = 0.4;
@@ -128,7 +128,7 @@ const SHAPES: ShapeFn[] = [
             return [xA * (1 - rt) + xB * rt, (t - 0.5) * H, zA * (1 - rt) + zB * rt];
         }
     },
-    // 3 — Twisted torus knot, tilted 50° so its 3D structure is clearly visible
+    // 3 -- Twisted torus knot, tilted 50- so its 3D structure is clearly visible
     (i, n) => {
         const p = 2, q = 5;
         const t = (i / n) * Math.PI * 2;
@@ -141,14 +141,14 @@ const SHAPES: ShapeFn[] = [
         const x = cx + Math.cos(ang) * jitter;
         const y = cy + Math.sin(ang) * jitter * 0.6;
         const z = cz + Math.sin(ang) * jitter;
-        // Tilt 50° around X axis
+        // Tilt 50- around X axis
         const tilt = 0.88;
         const cT = Math.cos(tilt), sT = Math.sin(tilt);
         return [x, y * cT - z * sT, y * sT + z * cT];
     },
-    // 4 — Seashell / Nautilus spiral (conical helix expanding outward)
+    // 4 -- Seashell / Nautilus spiral (conical helix expanding outward)
     (i, n) => {
-        const f = i / n;                 // 0 → 1 along the curve
+        const f = i / n;                 // 0  1 along the curve
         const turns = 3;
         const t = f * Math.PI * 2 * turns;
         const maxR = 0.85;               // outermost radius
@@ -159,14 +159,14 @@ const SHAPES: ShapeFn[] = [
         const z = r * Math.sin(t);
         const y = f * H - H / 2;         // rise from bottom to top
 
-        // Tilt 30° so the spiral face is visible
+        // Tilt 30- so the spiral face is visible
         const tilt = 0.5;
         const cT = Math.cos(tilt), sT = Math.sin(tilt);
         return [x, y * cT - z * sT, y * sT + z * cT];
     },
 ];
 
-// Per-particle constant scatter — very subtle so shape silhouettes stay readable
+// Per-particle constant scatter -- very subtle so shape silhouettes stay readable
 const SCATTER = (() => {
     const arr = new Float32Array(PARTICLE_COUNT * 3);
     for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -226,7 +226,7 @@ function ParticleField({ mouseSmooth }: { mouseSmooth: React.RefObject<{ x: numb
         return { geo: g, posAttr };
     }, [shapeTargets]);
 
-    // Line geometry — pre-allocate max capacity, draw range updated each frame
+    // Line geometry -- pre-allocate max capacity, draw range updated each frame
     const { lineGeo, linePosAttr, lineColAttr } = useMemo(() => {
         const lineGeo = new THREE.BufferGeometry();
         const linePosAttr = new THREE.BufferAttribute(new Float32Array(2500 * 6), 3);
@@ -273,7 +273,7 @@ function ParticleField({ mouseSmooth }: { mouseSmooth: React.RefObject<{ x: numb
         }
         posAttr.needsUpdate = true;
 
-        // ── Build connection lines ────────────────────────────────────────────
+        // - Build connection lines -
         // Use the active shape's distance threshold so all shapes get lines
         const connectDist = SHAPE_DIST[a] * (1 - e) + SHAPE_DIST[b] * e;
         const connectDistSq = connectDist * connectDist;
@@ -367,7 +367,7 @@ function ParticleField({ mouseSmooth }: { mouseSmooth: React.RefObject<{ x: numb
     );
 }
 
-// ── Rig: tracks mouse with low-pass filter, hands smoothed value down ─────
+// - Rig: tracks mouse with low-pass filter, hands smoothed value down -
 function Rig() {
     const mouseTarget = useRef({ x: 0, y: 0 });
     const mouseSmooth = useRef({ x: 0, y: 0 });
@@ -389,12 +389,12 @@ function Rig() {
     return <ParticleField mouseSmooth={mouseSmooth} />;
 }
 
-// ── Scene ─────────────────────────────────────────────────────────────────
+// - Scene -
 function Scene() {
     return <Rig />;
 }
 
-// ── AIGlobe, main export ──────────────────────────────────────────────────
+// - AIGlobe, main export -
 export default function AIGlobe() {
     return (
         <WebGLErrorBoundary>

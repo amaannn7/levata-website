@@ -160,7 +160,7 @@ export default function OperationsBeforeTerminal() {
                                 </radialGradient>
                             </defs>
 
-                            {/* Floor glow — red tinted */}
+                            {/* Floor glow -- red tinted */}
                             <ellipse cx="115" cy="158" rx="90" ry="8" fill="url(#mob_floor)" opacity="0.9" />
 
                             {/* Screen body */}

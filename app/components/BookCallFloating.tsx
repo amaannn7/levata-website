@@ -71,7 +71,7 @@ export default function BookCallFloating() {
                     }}
                 />
 
-                {/* Calendar icon — larger, higher contrast */}
+                {/* Calendar icon -- larger, higher contrast */}
                 <span className="relative z-10 flex items-center justify-center">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
                         {/* Body outline */}
@@ -95,16 +95,16 @@ export default function BookCallFloating() {
                         {/* Divider line */}
                         <line x1="2.5" y1="10.5" x2="21.5" y2="10.5" stroke="rgba(255,255,255,0.25)" strokeWidth="1" />
 
-                        {/* Pin tabs — cyan */}
+                        {/* Pin tabs -- cyan */}
                         <rect x="7.5" y="2.5" width="2" height="4.5" rx="1" fill="#00FFDD" />
                         <rect x="14.5" y="2.5" width="2" height="4.5" rx="1" fill="#00FFDD" />
 
-                        {/* Day grid — row 1 */}
+                        {/* Day grid -- row 1 */}
                         <rect x="5.5"  y="13" width="3" height="2.2" rx="0.6" fill="rgba(255,255,255,0.75)" />
                         <rect x="10.5" y="13" width="3" height="2.2" rx="0.6" fill="rgba(255,255,255,0.75)" />
                         <rect x="15.5" y="13" width="3" height="2.2" rx="0.6" fill="rgba(255,255,255,0.75)" />
 
-                        {/* Day grid — row 2, middle one highlighted purple */}
+                        {/* Day grid -- row 2, middle one highlighted purple */}
                         <rect x="5.5"  y="16.5" width="3" height="2.2" rx="0.6" fill="rgba(255,255,255,0.3)" />
                         <rect x="10.5" y="16.5" width="3" height="2.2" rx="0.6" fill="#7B55EA" />
                         <rect x="15.5" y="16.5" width="3" height="2.2" rx="0.6" fill="rgba(255,255,255,0.3)" />

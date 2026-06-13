@@ -7,7 +7,7 @@ type Variant = 1 | 2 | 3;
 
 // Soft image backdrop for CTA sections.
 // One image per section, with a radial vignette so it fades into the page bg.
-// No animation, no node lines — just a calm photographic atmosphere at low opacity.
+// No animation, no node lines -- just a calm photographic atmosphere at low opacity.
 export default function CTAAurora({
     intent = "default",
     variant = 1,
@@ -33,7 +33,7 @@ export default function CTAAurora({
                 priority={false}
             />
 
-            {/* Soft dark vignette — fades the image into the page background at the edges */}
+            {/* Soft dark vignette -- fades the image into the page background at the edges */}
             <div
                 className="absolute inset-0"
                 style={{

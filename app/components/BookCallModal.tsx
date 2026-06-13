@@ -17,7 +17,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
 
     useEffect(() => { setMounted(true); }, []);
 
-    // Preload iframe after page is idle — so it's ready before user clicks
+    // Preload iframe after page is idle -- so it's ready before user clicks
     useEffect(() => {
         if (isTouchDevice()) return;
         const hasIdle = typeof requestIdleCallback === "function";
@@ -67,7 +67,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
 
     return createPortal(
         <>
-            {/* Hidden preload iframe — loads Calendly in background before user clicks */}
+            {/* Hidden preload iframe -- loads Calendly in background before user clicks */}
             {preloaded && (
                 <iframe
                     src={CALENDLY_URL}

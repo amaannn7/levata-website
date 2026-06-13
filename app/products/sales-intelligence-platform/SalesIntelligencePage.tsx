@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
@@ -13,7 +13,7 @@ const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr:
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// ”€”€ Count-up hook ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Count-up hook "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function useCountUp(target: number, duration = 1800) {
     const [count, setCount] = useState(0);
     const [triggered, setTriggered] = useState(false);
@@ -61,7 +61,7 @@ function AnimatedStat({ value, suffix, label, animate = true }: { value: number;
     );
 }
 
-// ”€”€ Capability glyphs ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Capability glyphs "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 type IconKind = "research" | "score" | "email" | "call" | "queue" | "crm";
 
 function CapabilityIcon({ kind }: { kind: IconKind }) {
@@ -106,7 +106,7 @@ function CapabilityIcon({ kind }: { kind: IconKind }) {
     );
 }
 
-// ”€”€ Sales Dashboard SVG Visual ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Sales Dashboard SVG Visual "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function SalesDashboardVisual() {
     const ref = useRef<HTMLDivElement>(null);
     const observed = useInView(ref, { once: true, margin: "200px" });
@@ -242,7 +242,7 @@ function SalesDashboardVisual() {
                         >
                             <div className="flex items-center justify-between mb-3">
                                 <p className="text-[10px] font-semibold text-white/50 tracking-[0.14em] uppercase" style={{ fontFamily: MONO }}>Pipeline Activity</p>
-                                <span className="text-[9px] font-semibold" style={{ fontFamily: MONO, color: "rgba(123,85,234,0.9)" }}>▲ 24% this week</span>
+                                <span className="text-[9px] font-semibold" style={{ fontFamily: MONO, color: "rgba(123,85,234,0.9)" }}>^ 24% this week</span>
                             </div>
                             <svg viewBox={`0 0 ${sparkW} ${sparkH}`} className="w-full" style={{ height: 52 }} fill="none">
                                 <defs>
@@ -295,7 +295,7 @@ function SalesDashboardVisual() {
                             <div className="flex items-start justify-between gap-3 mb-3">
                                 <div>
                                     <p className="text-[10px] font-semibold tracking-[0.14em] text-white/30 uppercase mb-1" style={{ fontFamily: MONO }}>AI Research Brief</p>
-                                    <p className="text-sm font-semibold text-white">Meridian Group · James Chen, VP Sales</p>
+                                    <p className="text-sm font-semibold text-white">Meridian Group . James Chen, VP Sales</p>
                                 </div>
                                 <div className="flex-shrink-0 rounded-full px-2.5 py-1 text-[9px] font-bold tracking-wide uppercase" style={{ background: "rgba(123,85,234,0.12)", border: "1px solid rgba(123,85,234,0.3)", color: "rgba(123,85,234,0.95)", fontFamily: MONO }}>
                                     Score 94
@@ -322,11 +322,11 @@ function SalesDashboardVisual() {
                     <div className="col-span-3 p-4 border-l border-white/[0.04] hidden md:block">
                         <p className="text-[9px] font-semibold tracking-[0.2em] text-white/30 uppercase mb-3" style={{ fontFamily: MONO }}>Activity</p>
                         {[
-                            { icon: "œ‰", text: "Email sent to James Chen", time: "2m ago", color: "rgba(123,85,234,0.9)" },
-                            { icon: "ðŸ”", text: "Research complete: Vantage", time: "8m ago", color: "rgba(168,85,247,0.8)" },
-                            { icon: "ðŸ“ž", text: "Call logged: Crestline Corp", time: "14m ago", color: "rgba(255,255,255,0.5)" },
-                            { icon: "¬†", text: "Lead pushed to CRM", time: "31m ago", color: "rgba(123,85,234,0.6)" },
-                            { icon: "œ“", text: "Follow-up queued: Nexford", time: "1h ago", color: "rgba(255,255,255,0.3)" },
+                            { icon: "@", text: "Email sent to James Chen", time: "2m ago", color: "rgba(123,85,234,0.9)" },
+                            { icon: "*", text: "Research complete: Vantage", time: "8m ago", color: "rgba(168,85,247,0.8)" },
+                            { icon: "~", text: "Call logged: Crestline Corp", time: "14m ago", color: "rgba(255,255,255,0.5)" },
+                            { icon: "^", text: "Lead pushed to CRM", time: "31m ago", color: "rgba(123,85,234,0.6)" },
+                            { icon: "+", text: "Follow-up queued: Nexford", time: "1h ago", color: "rgba(255,255,255,0.3)" },
                         ].map((item, i) => (
                             <motion.div
                                 key={i}
@@ -353,7 +353,7 @@ function SalesDashboardVisual() {
     );
 }
 
-// ”€”€ Content ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Content "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 const PAIN_POINTS = [
     {
         num: "01",
@@ -432,7 +432,7 @@ const AUDIENCE = [
 
 const OUTCOMES = [
     { value: 80, suffix: "%", label: "Reduction in research time per prospect", animate: true },
-    { value: 3, suffix: "×", label: "More personalized outreach per day", animate: true },
+    { value: 3, suffix: "x", label: "More personalized outreach per day", animate: true },
     { value: 0, suffix: "", label: "Leads missed with smart work queues", animate: false },
     { value: 1, suffix: "", label: "Place for research, email, calls, and CRM", animate: false },
 ];
@@ -455,7 +455,7 @@ const FAQS = [
     { q: "Is there a free trial?", a: "Yes. Contact us to set up a trial or book a live demo where we'll walk through the platform with your actual prospect data." },
 ];
 
-// ”€”€ FAQ Accordion ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- FAQ Accordion "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
     return (
         <motion.div
@@ -486,7 +486,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
     );
 }
 
-// ”€”€ Page ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Page "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 export default function SalesIntelligencePage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const [activeCap, setActiveCap] = useState<number>(0);
@@ -497,7 +497,7 @@ export default function SalesIntelligencePage() {
     return (
         <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
-            {/* ”€”€ 1. HERO ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" 1. HERO """"""""""""""""""""""""""""""""""""" */}
             <section
                 data-hero
                 className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:min-h-0 md:pb-[100px] md:pt-[150px]"
@@ -531,7 +531,7 @@ export default function SalesIntelligencePage() {
                 <HeroHorizon intensity="strong" />
             </section>
 
-            {/* ”€”€ 2. PROBLEM ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" 2. PROBLEM """""""""""""""""""""""""""""""""" */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -632,7 +632,7 @@ export default function SalesIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ 3. CORE CAPABILITIES ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" 3. CORE CAPABILITIES """""""""""""""""""""""" */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(0,255,221,0.04) 0%, transparent 70%)" }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
@@ -664,7 +664,7 @@ export default function SalesIntelligencePage() {
                         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                         className="grid grid-cols-1 gap-5 md:grid-cols-[1fr_1.25fr] md:gap-7"
                     >
-                        {/* Left: capability list "” accordion on mobile, selector on desktop */}
+                        {/* Left: capability list "" accordion on mobile, selector on desktop */}
                         <div className="flex flex-col gap-1.5">
                             {CAPABILITIES.map((c, i) => {
                                 const active = activeCap === i;
@@ -708,7 +708,7 @@ export default function SalesIntelligencePage() {
                                             </span>
                                         </button>
 
-                                        {/* Inline detail "” mobile only */}
+                                        {/* Inline detail "" mobile only */}
                                         <AnimatePresence initial={false}>
                                             {active && (
                                                 <motion.div
@@ -745,7 +745,7 @@ export default function SalesIntelligencePage() {
                             })}
                         </div>
 
-                        {/* Right: detail panel "” desktop only */}
+                        {/* Right: detail panel "" desktop only */}
                         <div className="relative hidden md:block overflow-hidden rounded-2xl p-px"
                             style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.14) 100%)" }}>
                             <div className="relative overflow-hidden rounded-[15px] p-7 md:p-9"
@@ -801,7 +801,7 @@ export default function SalesIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ 4. KEY OUTCOMES (STATS) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" 4. KEY OUTCOMES (STATS) """"""""""""""""""""" */}
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(204,1,255,0.07) 0%, transparent 65%)" }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
@@ -826,7 +826,7 @@ export default function SalesIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ 5. HOW IT WORKS (STEPS) ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" 5. HOW IT WORKS (STEPS) """"""""""""""""""""" */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: ["radial-gradient(ellipse 50% 50% at 20% 30%, rgba(0,255,221,0.04) 0%, transparent 70%)", "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(204,1,255,0.04) 0%, transparent 70%)"].join(", ") }} />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
@@ -872,7 +872,7 @@ export default function SalesIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ 6. BUILT FOR TEAMS ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" 6. BUILT FOR TEAMS """""""""""""""""""""""""" */}
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: ["radial-gradient(ellipse 50% 50% at 20% 50%, rgba(204,1,255,0.06) 0%, transparent 70%)", "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(0,255,221,0.05) 0%, transparent 70%)"].join(", ") }} />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
@@ -917,7 +917,7 @@ export default function SalesIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ 7. FAQ ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" 7. FAQ """"""""""""""""""""""""""""""""""""" */}
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
@@ -941,7 +941,7 @@ export default function SalesIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ 8. FINAL CTA ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" 8. FINAL CTA """"""""""""""""""""""""""""""" */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <CTAAurora variant={2} />
                 <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }} />

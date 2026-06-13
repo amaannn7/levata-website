@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
-        // Don't init Lenis on touch devices — it intercepts touch events
+        // Don't init Lenis on touch devices -- it intercepts touch events
         // and breaks iframes (Calendly, etc.)
         if ("ontouchstart" in window) return;
 

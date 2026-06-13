@@ -32,9 +32,9 @@ function Frame({
     );
 }
 
-// ─────────────────────────────────────────────────────────────────────────
-// 1. WEBSITE — illustrative landing-page scene with hero illustration + cursor
-// ─────────────────────────────────────────────────────────────────────────
+// -
+// 1. WEBSITE -- illustrative landing-page scene with hero illustration + cursor
+// -
 function WebsiteIllustration({
     inView,
     reduced,
@@ -179,7 +179,7 @@ function WebsiteIllustration({
                         <text x="180" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.9)`}>95+</text>
                         <text x="180" y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">lighthouse score</text>
                         <text x="300" y="310" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TIME TO LIVE</text>
-                        <text x="300" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4–8w</text>
+                        <text x="300" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4-8w</text>
                         <text x="300" y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">design to launch</text>
                     </motion.g>
                 </svg>
@@ -188,9 +188,9 @@ function WebsiteIllustration({
     );
 }
 
-// ─────────────────────────────────────────────────────────────────────────
-// 2. PLATFORM — system architecture topology (hub-and-spoke)
-// ─────────────────────────────────────────────────────────────────────────
+// -
+// 2. PLATFORM -- system architecture topology (hub-and-spoke)
+// -
 function PlatformIllustration({
     inView,
     reduced,
@@ -202,7 +202,7 @@ function PlatformIllustration({
 }) {
     const nodes = [
         { x: 60, y: 70, label: "WEB", sub: "next.js" },
-        { x: 60, y: 220, label: "MOBILE", sub: "ios · android" },
+        { x: 60, y: 220, label: "MOBILE", sub: "ios . android" },
         { x: 300, y: 50, label: "AUTH", sub: "oauth + jwt" },
         { x: 320, y: 145, label: "DB", sub: "postgres" },
         { x: 300, y: 240, label: "QUEUE", sub: "redis" },
@@ -304,7 +304,7 @@ function PlatformIllustration({
                             PLATFORM
                         </text>
                         <text x="190" y="167" textAnchor="middle" fontFamily={MONO} fontSize="6" letterSpacing="0.14em" fill={`${CYAN}, 0.85)`}>
-                            api · scale · secure
+                            api . scale . secure
                         </text>
                     </motion.g>
 
@@ -319,7 +319,7 @@ function PlatformIllustration({
                         <text x="190" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.9)`}>99.9%</text>
                         <text x="190" y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">guaranteed</text>
                         <text x="317" y="310" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">SCALES TO</text>
-                        <text x="317" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10×</text>
+                        <text x="317" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10x</text>
                         <text x="317" y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">without re-arch</text>
                     </motion.g>
                 </svg>
@@ -328,9 +328,9 @@ function PlatformIllustration({
     );
 }
 
-// ─────────────────────────────────────────────────────────────────────────
-// 3. ECOMMERCE — phone storefront with product + ADD button + cart badge
-// ─────────────────────────────────────────────────────────────────────────
+// -
+// 3. ECOMMERCE -- phone storefront with product + ADD button + cart badge
+// -
 function EcommerceIllustration({
     inView,
     reduced,
@@ -436,7 +436,7 @@ function EcommerceIllustration({
                             <text x="140" y="178"
                                 fontFamily={MONO} fontSize="7" letterSpacing="0.18em"
                                 fill="rgba(255,255,255,0.4)">
-                                RUNNING · M
+                                RUNNING . M
                             </text>
                             {/* Rating stars */}
                             {[0, 1, 2, 3, 4].map((i) => (
@@ -553,10 +553,10 @@ function EcommerceIllustration({
                         <text x="63"  y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">+40%</text>
                         <text x="63"  y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">avg post-launch</text>
                         <text x="190" y="310" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">CART ABANDON</text>
-                        <text x="190" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.9)`}>−28%</text>
+                        <text x="190" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.9)`}>28%</text>
                         <text x="190" y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">with AI picks</text>
                         <text x="317" y="310" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">MOBILE CVR</text>
-                        <text x="317" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3.2×</text>
+                        <text x="317" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3.2x</text>
                         <text x="317" y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">vs old store</text>
                     </motion.g>
                 </svg>
@@ -565,9 +565,9 @@ function EcommerceIllustration({
     );
 }
 
-// ─────────────────────────────────────────────────────────────────────────
-// 4. CUSTOM — bespoke data architecture: database → schema + logic/rules engine
-// ─────────────────────────────────────────────────────────────────────────
+// -
+// 4. CUSTOM -- bespoke data architecture: database - schema + logic/rules engine
+// -
 function CustomIllustration({
     inView,
     reduced,
@@ -604,7 +604,7 @@ function CustomIllustration({
                         ))}
                     </motion.g>
 
-                    {/* Connector lines: DB → schema, DB → logic */}
+                    {/* Connector lines: DB  schema, DB  logic */}
                     {([
                         [dbX + dbW, dbTop + 18, schema.x, schema.y + schema.h / 2],
                         [dbX + dbW, dbTop + dbH - 18, logic.x, logic.y + logic.h / 2],
@@ -622,7 +622,7 @@ function CustomIllustration({
                         />
                     ))}
 
-                    {/* Data pulses travelling DB → schema / logic */}
+                    {/* Data pulses travelling DB  schema / logic */}
                     {!reduced && ([
                         [dbX + dbW, dbTop + 18, schema.x, schema.y + schema.h / 2],
                         [dbX + dbW, dbTop + dbH - 18, logic.x, logic.y + logic.h / 2],
@@ -737,7 +737,7 @@ function CustomIllustration({
                         transition={{ duration: 0.4, delay: 0.1, ease: EASE }}
                     >
                         <text x="46" y="40" fontFamily={MONO} fontSize="7" letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">
-                            ▸ CUSTOM INFRASTRUCTURE
+                             CUSTOM INFRASTRUCTURE
                         </text>
                         <line x1="46" y1="46" x2="200" y2="46" stroke={`${CYAN}, 0.5)`} strokeWidth="0.8" />
                     </motion.g>
@@ -759,7 +759,7 @@ function CustomIllustration({
                         transition={{ duration: 0.4, delay: 1.0, ease: EASE }}>
                         <line x1="8" y1="296" x2="372" y2="296" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                         <text x="63"  y="310" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">DELIVERY</text>
-                        <text x="63"  y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10–20w</text>
+                        <text x="63"  y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10-20w</text>
                         <text x="63"  y="337" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">scope to launch</text>
                         <text x="190" y="310" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">CUSTOM SCHEMA</text>
                         <text x="190" y="326" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CYAN}, 0.9)`}>100%</text>
@@ -774,7 +774,7 @@ function CustomIllustration({
     );
 }
 
-// ── Public component ──────────────────────────────────────────────────────
+// - Public component -
 export default function WhatWeBuildVisual({ kind }: { kind: WhatWeBuildKind }) {
     const ref = useRef<HTMLDivElement>(null);
     const observed = useInView(ref, { once: true, margin: "200px" });

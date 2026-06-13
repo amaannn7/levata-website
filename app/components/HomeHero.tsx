@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
@@ -10,7 +10,7 @@ const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr:
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// ── Rotating word with gradient underline ─────────────────────────────────
+// - Rotating word with gradient underline -
 const ROTATING_WORDS = ["operates", "grows", "scales"];
 
 
@@ -26,7 +26,7 @@ function RotatingWord() {
     // Delay width update to match when new word starts entering (after exit anim ~500ms)
     useEffect(() => {
         if (targetWidth === null) {
-            // initial mount — set width and fire sweep immediately
+            // initial mount -- set width and fire sweep immediately
             setTargetWidth(measureRefs.current[index]?.offsetWidth ?? null);
             setSweepKey(k => k + 1);
             return;
@@ -81,7 +81,7 @@ function RotatingWord() {
                 </motion.span>
             </AnimatePresence>
 
-            {/* Base line — always visible */}
+            {/* Base line -- always visible */}
             <span
                 aria-hidden
                 style={{
@@ -97,7 +97,7 @@ function RotatingWord() {
                 }}
             />
 
-            {/* Color sweep — fires when line extends */}
+            {/* Color sweep -- fires when line extends */}
             <span
                 key={sweepKey}
                 aria-hidden
@@ -118,7 +118,7 @@ function RotatingWord() {
     );
 }
 
-// ── Glassmorphism gradient-border wrapper ─────────────────────────────────
+// - Glassmorphism gradient-border wrapper -
 function GradientBorder({ children }: { children: React.ReactNode }) {
     return (
         <div
@@ -141,7 +141,7 @@ function GradientBorder({ children }: { children: React.ReactNode }) {
     );
 }
 
-// ── Card 1: AI Metrics + trend chart ──────────────────────────────────────
+// - Card 1: AI Metrics + trend chart -
 function CardAIMetrics() {
     return (
         <GradientBorder>
@@ -220,7 +220,7 @@ function CardAIMetrics() {
     );
 }
 
-// ── Card 2: Workflow Status mini-boxes ────────────────────────────────────
+// - Card 2: Workflow Status mini-boxes -
 function CardWorkflow() {
     return (
         <GradientBorder>
@@ -274,7 +274,7 @@ function CardWorkflow() {
     );
 }
 
-// ── Card 3: Revenue Uplift + gradient swatch ──────────────────────────────
+// - Card 3: Revenue Uplift + gradient swatch -
 function CardRevenue() {
     return (
         <GradientBorder>
@@ -309,7 +309,7 @@ function CardRevenue() {
     );
 }
 
-// ── Scroll indicator ──────────────────────────────────────────────────────
+// - Scroll indicator -
 function ScrollIndicator() {
     const [visible, setVisible] = useState(true);
 
@@ -347,14 +347,14 @@ function ScrollIndicator() {
                     className="absolute inset-0"
                     style={{ background: "linear-gradient(to bottom, rgba(123,85,234,0.15), rgba(0,255,221,0.25), rgba(123,85,234,0.0))" }}
                 />
-                {/* First dot — staggered */}
+                {/* First dot -- staggered */}
                 <motion.div
                     className="absolute rounded-full"
                     style={{ width: 3, height: 3, left: -1, background: "rgba(0,255,221,0.9)", boxShadow: "0 0 6px rgba(0,255,221,0.8)" }}
                     animate={{ top: ["0%", "100%"] }}
                     transition={{ duration: 1.4, repeat: Infinity, ease: "linear", repeatDelay: 0.3 }}
                 />
-                {/* Second dot — offset */}
+                {/* Second dot -- offset */}
                 <motion.div
                     className="absolute rounded-full"
                     style={{ width: 3, height: 3, left: -1, background: "rgba(123,85,234,0.9)", boxShadow: "0 0 6px rgba(123,85,234,0.8)" }}
@@ -366,7 +366,7 @@ function ScrollIndicator() {
     );
 }
 
-// ── Page hero ─────────────────────────────────────────────────────────────
+// - Page hero -
 export default function HomeHero() {
     const heroRef = useRef<HTMLElement>(null);
     const { open: openBookCall } = useBookCall();
@@ -384,7 +384,7 @@ export default function HomeHero() {
                 style={{ background: "radial-gradient(ellipse 70% 55% at 50% -5%, rgba(123, 85, 234,0.06) 0%, transparent 60%)" }}
             />
 
-            {/* Mobile only — small particle cloud floating in front of the text, centered, subtle */}
+            {/* Mobile only -- small particle cloud floating in front of the text, centered, subtle */}
             <div
                 aria-hidden
                 className="pointer-events-none absolute z-30 md:hidden"
@@ -441,12 +441,12 @@ export default function HomeHero() {
                             data-cta="primary"
                         >
                             Book a Consultation Call
-                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                            <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5"></span>
                         </button>
                     </motion.div>
                 </div>
 
-                {/* Right column — AI Globe */}
+                {/* Right column -- AI Globe */}
                 <div className="relative hidden md:flex md:items-center justify-center w-full lg:max-w-[360px]" aria-hidden>
                     <motion.div
                         className="w-full"

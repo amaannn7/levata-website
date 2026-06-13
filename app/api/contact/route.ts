@@ -204,7 +204,7 @@ export async function POST(req: Request) {
         });
 
         if (isDev && !hasRealKey) {
-            console.log("\n📬 [contact/route] DEV MODE — email not sent. Payload:");
+            console.log("\n [contact/route] DEV MODE -- email not sent. Payload:");
             console.log({ name, email, company, phone, services, message, source, timestamp, attachment: attachment ? `${attachment.filename} (${attachment.content.length} bytes)` : "none" });
             console.log("Add a real RESEND_API_KEY to .env.local to send actual emails.\n");
             return NextResponse.json({ success: true });
@@ -216,7 +216,7 @@ export async function POST(req: Request) {
             from: FROM_ADDRESS,
             to: [TO_ADDRESS],
             replyTo: email,
-            subject: `New Levata Inquiry – ${name}`,
+            subject: `New Levata Inquiry - ${name}`,
             html: buildHtml({ name, email, company, phone, services, message, source, timestamp }),
             ...(attachment && { attachments: [attachment] }),
         });

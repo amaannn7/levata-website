@@ -9,7 +9,7 @@ export default function SectionBeam() {
     useEffect(() => {
         const el = ref.current;
         if (!el) return;
-        // Already in view on mount → reveal immediately
+        // Already in view on mount - reveal immediately
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
             setVisible(true);

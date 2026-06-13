@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
@@ -28,7 +28,7 @@ function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
     return observed || forced;
 }
 
-// ”€”€ Icons ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Icons "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function IconCheck({ size = 12 }: { size?: number }) {
     return (
         <svg width={size} height={size} viewBox="0 0 10 10" fill="none" aria-hidden>
@@ -45,7 +45,7 @@ function IconCross() {
     );
 }
 
-// ”€”€ Process step icons ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Process step icons "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 const ICON_STROKE = "rgba(0,255,221,0.9)";
 const ICON_STROKE_DIM = "rgba(0,255,221,0.45)";
 
@@ -88,9 +88,9 @@ function IconOptimise() {
 }
 const PROCESS_ICONS = [IconAssess, IconArchitect, IconIntegrate, IconOptimise];
 
-// ”€”€ AI Problem visual: pain points as SVG rows ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- AI Problem visual: pain points as SVG rows "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function AIProblemVisual() {
-    // SVG path for each icon, rendered at 10×10 centred in the badge
+    // SVG path for each icon, rendered at 10-10 centred in the badge
     const icons: Record<string, React.ReactNode> = {
         cost:    <><path d="M12 3v18" stroke="rgba(255,80,80,0.85)" strokeWidth="1.6" strokeLinecap="round" /><path d="M16 6H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H8" stroke="rgba(255,80,80,0.85)" strokeWidth="1.6" strokeLinecap="round" /></>,
         broken:  <><circle cx="12" cy="12" r="7" stroke="rgba(255,80,80,0.85)" strokeWidth="1.6" /><path d="M8 8l8 8" stroke="rgba(255,80,80,0.85)" strokeWidth="1.6" strokeLinecap="round" /></>,
@@ -124,7 +124,7 @@ function AIProblemVisual() {
                         {/* Row background */}
                         <rect x="0" y={startY + i * rowH} width="360" height={rowH - 4} rx="7"
                             fill="rgba(10,14,28,0.95)" stroke="rgba(255,80,80,0.18)" strokeWidth="1" />
-                        {/* Left accent bar "” slow looping pulse, staggered per row */}
+                        {/* Left accent bar "" slow looping pulse, staggered per row */}
                         <motion.rect x="0" y={startY + i * rowH} width="3" height={rowH - 4} rx="1.5"
                             fill="rgba(255,80,80,0.55)"
                             animate={inView ? { opacity: [0.45, 1, 0.45] } : undefined}
@@ -132,7 +132,7 @@ function AIProblemVisual() {
                         {/* Icon badge */}
                         <rect x="8" y={startY + i * rowH + 6} width="22" height="22" rx="5"
                             fill="rgba(255,80,80,0.08)" stroke="rgba(255,80,80,0.22)" strokeWidth="0.8" />
-                        {/* SVG icon centred in badge "” 24×24 viewBox mapped into 22×22 space at (8, rowY+6) */}
+                        {/* SVG icon centred in badge "" 24x24 viewBox mapped into 22x22 space at (8, rowY+6) */}
                         <g transform={`translate(8, ${startY + i * rowH + 6}) scale(${22 / 24})`}>
                             {icons[row.icon]}
                         </g>
@@ -148,7 +148,7 @@ function AIProblemVisual() {
     );
 }
 
-// ”€”€ Count-up hook ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Count-up hook "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function useCountUp(target: number, duration = 2000) {
     const [count, setCount] = useState(0);
     const [triggered, setTriggered] = useState(false);
@@ -185,7 +185,7 @@ function IconArrowRight() {
     );
 }
 
-// ”€”€ Data ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Data "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 const FAILURES = [
     { num: "01", title: "Tools Without Strategy", body: "Scattered AI apps, no central intelligence, no shared context. Every team is solving a sliver of the problem in isolation." },
     { num: "02", title: "Generic Outputs", body: "The same off-the-shelf models your competitors are running. No differentiation, no proprietary edge, no compounding advantage." },
@@ -233,7 +233,7 @@ const AI_STACK_SERVICES = [
 
 const KPI_METRICS = [
     { value: 60, suffix: "%", label: "Avg reduction in manual decision time" },
-    { value: 4, suffix: "×", label: "Increase in qualified pipeline per rep" },
+    { value: 4, suffix: "x", label: "Increase in qualified pipeline per rep" },
     { value: 85, suffix: "%", label: "Support queries resolved without escalation" },
     { value: 3, suffix: "mo", label: "Typical time to measurable ROI" },
 ];
@@ -246,7 +246,7 @@ const LIFECYCLE = [
     { num: "05", title: "Compound & Expand", body: "Continuous optimisation, model iteration, and expansion across new workflows." },
 ];
 
-// ”€”€ KPI counter ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- KPI counter "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function KPI({ value, suffix, label, index }: { value: number; suffix: string; label: string; index: number }) {
     const { count, elRef } = useCountUp(value);
     return (
@@ -265,7 +265,7 @@ function KPI({ value, suffix, label, index }: { value: number; suffix: string; l
     );
 }
 
-// ”€”€ Lifecycle step card ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Lifecycle step card "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function StepCard({ step }: { step: typeof LIFECYCLE[number] }) {
     return (
         <div className="flex flex-col gap-2">
@@ -308,7 +308,7 @@ const PROCESS_STEPS = [
 ];
 
 const FAQS = [
-    { q: "Do we need to be \"AI-ready\" to start?", a: "No. The Assess phase is designed to surface gaps and quick wins simultaneously, most engagements ship a usable AI workflow in the first 4"“6 weeks while the longer-horizon foundation is built in parallel." },
+    { q: "Do we need to be \"AI-ready\" to start?", a: "No. The Assess phase is designed to surface gaps and quick wins simultaneously, most engagements ship a usable AI workflow in the first 4-6 weeks while the longer-horizon foundation is built in parallel." },
     { q: "Which models do you use?", a: "Frontier (Claude, GPT, Gemini) for general reasoning. Fine-tuned open-source (Llama, Mistral) when latency, cost, or data residency demand it. We pick the model that fits the job, not the other way around." },
     { q: "Where does our data live?", a: "Your infrastructure by default. Private deployment, isolated retrieval, no model-provider training on your inputs. SOC 2 / ISO 27001 alignment available on request." },
     { q: "How do you measure AI success?", a: "Decision quality, time-to-decision, automation coverage, and ROI against the baseline you defined in the assessment. Vanity metrics like \"messages generated\" don't count." },
@@ -317,7 +317,7 @@ const FAQS = [
 
 const CY = "rgba(123,85,234";
 
-// ”€”€ Shared frame ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Shared frame "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function AIFrame({ refEl, inView, children }: { refEl: React.RefObject<HTMLDivElement | null>; inView: boolean; children: React.ReactNode }) {
     return (
         <motion.div ref={refEl}
@@ -332,7 +332,7 @@ function AIFrame({ refEl, inView, children }: { refEl: React.RefObject<HTMLDivEl
     );
 }
 
-// ”€”€ Service Visual 1: AI Integration ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Service Visual 1: AI Integration "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 // Browser app showing a CRM-like UI with a floating AI connector panel
 function AIIntegrationVisual() {
     const ref = useRef<HTMLDivElement>(null);
@@ -342,7 +342,7 @@ function AIIntegrationVisual() {
     // status indicator and a live data reading. A shared AI layer bar sits
     // between them and a results column, showing the AI processing each
     // system's data and producing a single enriched output per system.
-    // No nodes, no arrows "” just a clean architecture stack.
+    // No nodes, no arrows "" just a clean architecture stack.
 
     const systems = [
         {
@@ -384,7 +384,7 @@ function AIIntegrationVisual() {
             <div className="absolute inset-0 flex items-center justify-center p-3">
             <svg viewBox="0 0 380 290" className="h-full w-full" fill="none">
 
-                {/* ”€”€ AI layer centre column ”€”€ */}
+                {/* "" AI layer centre column "" */}
                 <motion.g initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
                     transition={{ duration: 0.5, delay: 0.15, ease: EASE }}>
                     {/* Full-height AI bar */}
@@ -418,13 +418,13 @@ function AIIntegrationVisual() {
                         letterSpacing="0.12em" fill={`${CY}, 0.35)`}>MODEL</text>
                 </motion.g>
 
-                {/* ”€”€ System blocks + connectors + result blocks ”€”€ */}
+                {/* "" System blocks + connectors + result blocks "" */}
                 {systems.map((s, i) => (
                     <motion.g key={s.tag}
                         initial={{ opacity: 0, y: 10 }} animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.4, delay: 0.22 + i * 0.1, ease: EASE }}>
 
-                        {/* ”€”€ System block ”€”€ */}
+                        {/* "" System block "" */}
                         <rect x={SX} y={s.y} width={SW} height={SH} rx="7"
                             fill="rgba(16,18,26,0.98)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
                         {/* Top accent */}
@@ -442,23 +442,23 @@ function AIIntegrationVisual() {
                         <text x={SX + 8} y={s.y + 47} fontFamily={MONO} fontSize="7"
                             fill="rgba(255,255,255,0.3)">{s.line2}</text>
 
-                        {/* ”€”€ Left connector: system †’ AI ”€”€ */}
+                        {/* "" Left connector: system ' AI "" */}
                         <line x1={SX + SW} y1={s.y + SH / 2} x2={AIX} y2={s.y + SH / 2}
                             stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="3 3" />
-                        {/* Pulse left †’ AI */}
+                        {/* Pulse left ' AI */}
                         <motion.circle r="2" cy={s.y + SH / 2} fill="rgba(255,255,255,0.55)"
                             animate={inView ? { cx: [SX + SW, AIX], opacity: [0, 1, 0] } : { opacity: 0 }}
                             transition={{ duration: 0.7, delay: 0.7 + i * 0.22, repeat: Infinity, ease: "easeInOut" }} />
 
-                        {/* ”€”€ Right connector: AI †’ result ”€”€ */}
+                        {/* "" Right connector: AI ' result "" */}
                         <line x1={AIX + AIW} y1={s.y + SH / 2} x2={RX} y2={s.y + SH / 2}
                             stroke={`${CY}, 0.2)`} strokeWidth="1" strokeDasharray="3 3" />
-                        {/* Pulse AI †’ result */}
+                        {/* Pulse AI ' result */}
                         <motion.circle r="2" cy={s.y + SH / 2} fill={`${CY}, 0.8)`}
                             animate={inView ? { cx: [AIX + AIW, RX], opacity: [0, 1, 0] } : { opacity: 0 }}
                             transition={{ duration: 0.65, delay: 1.0 + i * 0.25, repeat: Infinity, ease: "easeInOut" }} />
 
-                        {/* ”€”€ Result block ”€”€ */}
+                        {/* "" Result block "" */}
                         <rect x={RX} y={s.y + 8} width={RW} height={SH - 16} rx="6"
                             fill={s.resultCy ? `${CY}, 0.06)` : "rgba(255,255,255,0.03)"}
                             stroke={s.resultCy ? `${CY}, 0.3)` : "rgba(255,255,255,0.08)"} strokeWidth="1" />
@@ -468,7 +468,7 @@ function AIIntegrationVisual() {
                     </motion.g>
                 ))}
 
-                {/* ”€”€ Column headers ”€”€ */}
+                {/* "" Column headers "" */}
                 <motion.g initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
                     transition={{ duration: 0.3, delay: 0.1, ease: EASE }}>
                     <text x={SX + SW / 2} y="20" textAnchor="middle" fontFamily={MONO}
@@ -477,18 +477,18 @@ function AIIntegrationVisual() {
                         fontSize="6.5" letterSpacing="0.16em" fill={`${CY}, 0.4)`}>OUTPUT</text>
                 </motion.g>
 
-                {/* ”€”€ Stat strip ”€”€ */}
+                {/* "" Stat strip "" */}
                 <motion.g initial={{ opacity: 0, y: 5 }} animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.4, delay: 0.75, ease: EASE }}>
                     <line x1="8" y1="242" x2="372" y2="242" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                     <text x="63"  y="256" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">DATA PROCESSING</text>
-                    <text x="63"  y="272" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">40"“70%</text>
+                    <text x="63"  y="272" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">40-70%</text>
                     <text x="63"  y="282" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">faster</text>
                     <text x="190" y="256" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">MANUAL TASKS</text>
                     <text x="190" y="272" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CY}, 0.9)`}>60%</text>
                     <text x="190" y="282" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">eliminated</text>
                     <text x="317" y="256" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">DECISIONS</text>
-                    <text x="317" y="272" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3×</text>
+                    <text x="317" y="272" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3x</text>
                     <text x="317" y="282" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">faster</text>
                 </motion.g>
             </svg>
@@ -497,8 +497,8 @@ function AIIntegrationVisual() {
     );
 }
 
-// ”€”€ Service Visual 2: Intelligent Workflows ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
-// Pipeline: task in †’ AI decision diamond †’ three labelled output branches
+// "-"- Service Visual 2: Intelligent Workflows "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
+// Pipeline: task in -' AI decision diamond -' three labelled output branches
 function IntelligentWorkflowsVisual() {
     const ref = useRef<HTMLDivElement>(null);
     const inView = useReveal(ref);
@@ -526,7 +526,7 @@ function IntelligentWorkflowsVisual() {
             after:  { label: "SMART ROUTING", sub: "right person"  },
         },
         {
-            before: { label: "PROCESSED",     sub: "2"“4 days"      },
+            before: { label: "PROCESSED",     sub: "2-4 days"      },
             after:  { label: "RESOLVED",      sub: "same day"      },
         },
     ];
@@ -536,20 +536,20 @@ function IntelligentWorkflowsVisual() {
             <div className="absolute inset-0 flex items-center justify-center p-3">
                 <svg viewBox="0 0 380 290" className="h-full w-full" fill="none">
 
-                    {/* ”€”€ Column headers ”€”€ */}
+                    {/* "" Column headers "" */}
                     <motion.g initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
                         transition={{ duration: 0.35, delay: 0.05, ease: EASE }}>
-                        {/* BEFORE header "” left of centre */}
+                        {/* BEFORE header "" left of centre */}
                         <text x={CX - nodeR - gap - boxW / 2} y="18" textAnchor="middle"
                             fontFamily={MONO} fontSize="8" fontWeight="700" letterSpacing="0.18em"
                             fill="rgba(255,80,80,0.65)">MANUAL</text>
-                        {/* AFTER header "” right of centre */}
+                        {/* AFTER header "" right of centre */}
                         <text x={CX + nodeR + gap + boxW / 2} y="18" textAnchor="middle"
                             fontFamily={MONO} fontSize="8" fontWeight="700" letterSpacing="0.18em"
                             fill={`${CY}, 0.75)`}>AI-DRIVEN</text>
                     </motion.g>
 
-                    {/* ”€”€ Centre spine (shared vertical line) ”€”€ */}
+                    {/* "" Centre spine (shared vertical line) "" */}
                     <motion.line
                         x1={CX} y1={startY - nodeR + 2}
                         x2={CX} y2={startY + (steps.length - 1) * stepH + nodeR - 2}
@@ -558,7 +558,7 @@ function IntelligentWorkflowsVisual() {
                         transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
                     />
 
-                    {/* ”€”€ Animated pulses travelling down spine ”€”€ */}
+                    {/* "" Animated pulses travelling down spine "" */}
                     {steps.slice(0, -1).map((_, i) => (
                         <motion.circle key={`pulse-${i}`} r="2.4" cx={CX}
                             fill={`${CY}, 0.85)`}
@@ -570,7 +570,7 @@ function IntelligentWorkflowsVisual() {
                         />
                     ))}
 
-                    {/* ”€”€ Step rows ”€”€ */}
+                    {/* "" Step rows "" */}
                     {steps.map((step, i) => {
                         const cy = startY + i * stepH;
                         const isLast = i === steps.length - 1;
@@ -585,7 +585,7 @@ function IntelligentWorkflowsVisual() {
                                 animate={inView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ duration: 0.4, delay: 0.2 + i * 0.09, ease: EASE }}
                             >
-                                {/* ”€”€ BEFORE box (left) ”€”€ */}
+                                {/* "" BEFORE box (left) "" */}
                                 <rect x={lx} y={cy - 16} width={boxW} height="32" rx="7"
                                     fill="rgba(16,18,26,0.98)"
                                     stroke="rgba(255,80,80,0.18)" strokeWidth="1" />
@@ -599,7 +599,7 @@ function IntelligentWorkflowsVisual() {
                                     fontSize="7" letterSpacing="0.06em"
                                     fill="rgba(255,80,80,0.5)">{step.before.sub}</text>
 
-                                {/* ”€”€ Centre node ”€”€ */}
+                                {/* "" Centre node "" */}
                                 <circle cx={CX} cy={cy} r={nodeR}
                                     fill={isLast ? `${CY}, 0.1)` : "rgba(14,16,22,0.98)"}
                                     stroke={isLast ? `${CY}, 0.75)` : "rgba(255,255,255,0.2)"}
@@ -613,7 +613,7 @@ function IntelligentWorkflowsVisual() {
                                         fill="rgba(255,255,255,0.35)">{i + 1}</text>
                                 }
 
-                                {/* ”€”€ AFTER box (right) ”€”€ */}
+                                {/* "" AFTER box (right) "" */}
                                 <rect x={rx} y={cy - 16} width={boxW} height="32" rx="7"
                                     fill="rgba(14,16,22,0.98)"
                                     stroke={`${CY}, ${isLast ? "0.45" : "0.2"})`} strokeWidth="1" />
@@ -630,7 +630,7 @@ function IntelligentWorkflowsVisual() {
                         );
                     })}
 
-                    {/* ”€”€ Bottom stat strip ”€”€ */}
+                    {/* "" Bottom stat strip "" */}
                     <motion.g initial={{ opacity: 0, y: 5 }} animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.4, delay: 0.65, ease: EASE }}>
                         <line x1="8" y1="252" x2="372" y2="252"
@@ -642,7 +642,7 @@ function IntelligentWorkflowsVisual() {
                         <text x="190" y="280" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CY}, 0.9)`}>70%</text>
                         <text x="190" y="290" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.25)">reduction</text>
                         <text x="317" y="265" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">THROUGHPUT</text>
-                        <text x="317" y="280" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4×</text>
+                        <text x="317" y="280" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4x</text>
                         <text x="317" y="290" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.25)">increase</text>
                     </motion.g>
                 </svg>
@@ -651,7 +651,7 @@ function IntelligentWorkflowsVisual() {
     );
 }
 
-// ”€”€ Service Visual 3: Custom AI Solutions ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Service Visual 3: Custom AI Solutions "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function CustomAISolutionsVisual() {
     const ref = useRef<HTMLDivElement>(null);
     const inView = useReveal(ref);
@@ -672,10 +672,10 @@ function CustomAISolutionsVisual() {
     const OUTX1 = 276;  // left edge of output boxes
 
     const inputs = [
-        { y: 40,  label: "CRM DATA",    sub: "contacts · deals"  },
-        { y: 84,  label: "OPS DATA",    sub: "tasks · logs"      },
-        { y: 128, label: "PROD DATA",   sub: "events · usage"    },
-        { y: 172, label: "DOCS",        sub: "text · history"    },
+        { y: 40,  label: "CRM DATA",    sub: "contacts . deals"  },
+        { y: 84,  label: "OPS DATA",    sub: "tasks . logs"      },
+        { y: 128, label: "PROD DATA",   sub: "events . usage"    },
+        { y: 172, label: "DOCS",        sub: "text . history"    },
     ];
     const outputs = [
         { y: 62,  label: "SCORING",     sub: "leads ranked"      },
@@ -697,7 +697,7 @@ function CustomAISolutionsVisual() {
                         </radialGradient>
                     </defs>
 
-                    {/* ”€”€ Section labels ”€”€ */}
+                    {/* "" Section labels "" */}
                     <motion.g initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
                         transition={{ duration: 0.4, delay: 0.1, ease: EASE }}>
                         <text x="52" y="13" textAnchor="middle" fontFamily={MONO} fontSize="7"
@@ -708,7 +708,7 @@ function CustomAISolutionsVisual() {
                         <line x1="276" y1="18" x2="376" y2="18" stroke={`${CY}, 0.1)`} strokeWidth="0.7" />
                     </motion.g>
 
-                    {/* ”€”€ Input boxes ”€”€ */}
+                    {/* "" Input boxes "" */}
                     {inputs.map((inp, i) => (
                         <motion.g key={inp.label}
                             initial={{ opacity: 0, x: -8 }} animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -725,7 +725,7 @@ function CustomAISolutionsVisual() {
                         </motion.g>
                     ))}
 
-                    {/* ”€”€ Input connectors: straight H †’ elbow †’ diagonal to engine ”€”€ */}
+                    {/* "" Input connectors: straight H ' elbow ' diagonal to engine "" */}
                     {inputs.map((inp, i) => {
                         const ey = engineInY(i);
                         return (
@@ -740,7 +740,7 @@ function CustomAISolutionsVisual() {
                         );
                     })}
 
-                    {/* ”€”€ Input pulses: animate cx along horizontal segment only ”€”€ */}
+                    {/* "" Input pulses: animate cx along horizontal segment only "" */}
                     {inputs.map((inp, i) => (
                         <motion.circle key={`pi-${i}`} r="2.5" cy={inp.y}
                             fill={`${CY}, 0.8)`}
@@ -749,7 +749,7 @@ function CustomAISolutionsVisual() {
                         />
                     ))}
 
-                    {/* ”€”€ Central engine ”€”€ */}
+                    {/* "" Central engine "" */}
                     <motion.g initial={{ opacity: 0, scale: 0.88 }} animate={inView ? { opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 0.5, delay: 0.38, ease: EASE }}
                         style={{ transformOrigin: `${ECX}px ${ECY}px` }}>
@@ -770,7 +770,7 @@ function CustomAISolutionsVisual() {
                             fontSize="6.5" letterSpacing="0.1em" fill={`${CY}, 0.45)`}>CUSTOM-BUILT</text>
                     </motion.g>
 
-                    {/* ”€”€ Output connectors: diagonal from engine †’ elbow †’ straight H ”€”€ */}
+                    {/* "" Output connectors: diagonal from engine ' elbow ' straight H "" */}
                     {outputs.map((out, i) => {
                         const ey = engineOutY(i);
                         return (
@@ -785,7 +785,7 @@ function CustomAISolutionsVisual() {
                         );
                     })}
 
-                    {/* ”€”€ Output pulses: animate cx along horizontal segment only ”€”€ */}
+                    {/* "" Output pulses: animate cx along horizontal segment only "" */}
                     {outputs.map((out, i) => (
                         <motion.circle key={`po-${i}`} r="2.5" cy={out.y}
                             fill={`${CY}, 0.9)`}
@@ -794,7 +794,7 @@ function CustomAISolutionsVisual() {
                         />
                     ))}
 
-                    {/* ”€”€ Output boxes ”€”€ */}
+                    {/* "" Output boxes "" */}
                     {outputs.map((out, i) => (
                         <motion.g key={out.label}
                             initial={{ opacity: 0, x: 8 }} animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -810,15 +810,15 @@ function CustomAISolutionsVisual() {
                         </motion.g>
                     ))}
 
-                    {/* ”€”€ Stat strip ”€”€ */}
+                    {/* "" Stat strip "" */}
                     <motion.g initial={{ opacity: 0, y: 5 }} animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.4, delay: 0.85, ease: EASE }}>
                         <line x1="8" y1="210" x2="372" y2="210" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
                         <text x="63"  y="224" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">VS GENERIC MODELS</text>
-                        <text x="63"  y="241" textAnchor="middle" fontFamily={MONO} fontSize="16" fontWeight="700" fill="white">5×</text>
+                        <text x="63"  y="241" textAnchor="middle" fontFamily={MONO} fontSize="16" fontWeight="700" fill="white">5x</text>
                         <text x="63"  y="252" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">more accurate</text>
                         <text x="190" y="224" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">PREDICTION LIFT</text>
-                        <text x="190" y="241" textAnchor="middle" fontFamily={MONO} fontSize="16" fontWeight="700" fill={`${CY}, 0.9)`}>35"“60%</text>
+                        <text x="190" y="241" textAnchor="middle" fontFamily={MONO} fontSize="16" fontWeight="700" fill={`${CY}, 0.9)`}>35-60%</text>
                         <text x="190" y="252" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">improvement</text>
                         <text x="317" y="224" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">COMPETITIVE EDGE</text>
                         <text x="317" y="241" textAnchor="middle" fontFamily={MONO} fontSize="13" fontWeight="700" fill="white">Proprietary</text>
@@ -830,7 +830,7 @@ function CustomAISolutionsVisual() {
     );
 }
 
-// ”€”€ Data: Services ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Data: Services "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 const SERVICES = [
     {
         num: "01",
@@ -876,7 +876,7 @@ const SERVICES = [
     },
 ];
 
-// ”€”€ FAQ item ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- FAQ item "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
     return (
         <motion.div
@@ -930,7 +930,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
     );
 }
 
-// ”€”€ Page ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
+// "-"- Page "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 export default function AIIntelligencePage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const [openStack, setOpenStack] = useState<number>(0);
@@ -973,7 +973,7 @@ export default function AIIntelligencePage() {
     return (
         <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
 
-            {/* ”€”€ Block 1. HERO ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" Block 1. HERO """"""""""""""""""""""""""""""" */}
             <section
                 data-hero
                 className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center sm:px-6 md:min-h-0 md:pb-[100px] md:pt-[150px]"
@@ -1007,7 +1007,7 @@ export default function AIIntelligencePage() {
                 <HeroHorizon intensity="strong" />
             </section>
 
-            {/* ”€”€ 2. PROBLEM ”€”€ */}
+            {/* "" 2. PROBLEM "" */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: [
@@ -1053,7 +1053,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ 3. SOLUTION ”€”€ */}
+            {/* "" 3. SOLUTION "" */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 40%, rgba(123,85,234,0.08) 0%, transparent 65%)",
@@ -1122,7 +1122,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ OUR PROCESS ”€”€ */}
+            {/* "" OUR PROCESS "" */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 70%)",
@@ -1239,7 +1239,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ Block 5. OUR SERVICES ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" Block 5. OUR SERVICES """"""""""""""""""""""" */}
             <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="relative z-10 mx-auto max-w-[1120px]">
                     <motion.div
@@ -1312,7 +1312,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ FAQ ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" FAQ """"""""""""""""""""""""""""""""""""""""" */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
@@ -1344,7 +1344,7 @@ export default function AIIntelligencePage() {
                 </div>
             </section>
 
-            {/* ”€”€ FINAL CTA ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */}
+            {/* "" FINAL CTA """"""""""""""""""""""""""""""""""" */}
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div
                     aria-hidden

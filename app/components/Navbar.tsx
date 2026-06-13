@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -10,25 +10,25 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const SERVICES = [
     {
         label: "AI & Intelligence",
-        description: "AI Integration · Intelligent Workflows · Custom AI Solutions",
+        description: "AI Integration . Intelligent Workflows . Custom AI Solutions",
         href: "/products/ai-intelligence",
         accent: "#7B55EA",
     },
     {
         label: "Digital Infrastructure",
-        description: "Website Development · E-commerce · Platform Development",
+        description: "Website Development . E-commerce . Platform Development",
         href: "/products/digital-infrastructure",
         accent: "#7B55EA",
     },
     {
         label: "Automation & Systems",
-        description: "Workflow Automation · Dashboard Systems",
+        description: "Workflow Automation . Dashboard Systems",
         href: "/products/automation-systems",
         accent: "#7B55EA",
     },
     {
         label: "Product Engineering",
-        description: "MVP Development · SaaS Product Development",
+        description: "MVP Development . SaaS Product Development",
         href: "/products/product-engineering",
         accent: "#7B55EA",
     },
@@ -76,7 +76,7 @@ function ChevronIcon({ open }: { open: boolean }) {
     );
 }
 
-// ── Mobile drawer animation variants ─────────────────────────────────
+// - Mobile drawer animation variants -
 const drawerContainerVariants = {
     open: { transition: { staggerChildren: 0.055, delayChildren: 0.08 } },
     closed: {},
@@ -87,7 +87,7 @@ const drawerItemVariants = {
     closed: { opacity: 0, y: 10 },
 };
 
-// ── Mobile menu item components ───────────────────────────────────────
+// - Mobile menu item components -
 function DrawerItem({ href, onClick, children }: { href: string; onClick: () => void; children: React.ReactNode }) {
     return (
         <Link
@@ -226,7 +226,7 @@ export default function Navbar() {
                     boxShadow: "0 12px 30px rgba(14,16,20,0.35)",
                 }}
             >
-                {/* ── Main nav row ── */}
+                {/*  Main nav row  */}
                 <nav className="flex items-center justify-between px-5 py-2 md:px-6">
                     {/* Logo */}
                     <Link href="/" className="flex items-center" style={{ gap: 0 }} onClick={() => setMobileOpen(false)}>
@@ -319,7 +319,7 @@ export default function Navbar() {
                                                     onClick={() => { setDropdown(null); openBookCall(); }}
                                                     className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#E6E6E6] transition-colors hover:text-white"
                                                 >
-                                                    Book a strategy call <span aria-hidden>→</span>
+                                                    Book a strategy call <span aria-hidden></span>
                                                 </button>
                                             </div>
                                         </div>
@@ -441,7 +441,7 @@ export default function Navbar() {
                     </div>
                 </nav>
 
-                {/* ── Mobile menu, drops down inside the pill ── */}
+                {/*  Mobile menu, drops down inside the pill  */}
                 <AnimatePresence initial={false}>
                     {mobileOpen && (
                         <motion.div

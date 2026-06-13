@@ -32,9 +32,9 @@ function Frame({
     );
 }
 
-// ─────────────────────────────────────────────────────────────────────────
-// 1. WORKFLOW — horizontal process pipeline with flowing tokens
-// ─────────────────────────────────────────────────────────────────────────
+// -
+// 1. WORKFLOW -- horizontal process pipeline with flowing tokens
+// -
 function WorkflowScene({
     inView,
     reduced,
@@ -45,7 +45,7 @@ function WorkflowScene({
     refEl: React.RefObject<HTMLDivElement | null>;
 }) {
     const stages = [
-        { x: 50, label: "INTAKE", sub: "form · email" },
+        { x: 50, label: "INTAKE", sub: "form . email" },
         { x: 150, label: "ROUTE", sub: "rules" },
         { x: 250, label: "PROCESS", sub: "actions" },
         { x: 350, label: "DELIVER", sub: "to system" },
@@ -62,7 +62,7 @@ function WorkflowScene({
                         transition={{ duration: 0.4, delay: 0.05, ease: EASE }}
                     >
                         <text x="50" y="40" fontFamily={MONO} fontSize="7.5" letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">
-                            ▸ AUTOMATED WORKFLOW
+                             AUTOMATED WORKFLOW
                         </text>
                         <line x1="50" y1="48" x2="160" y2="48" stroke={`${CYAN}, 0.5)`} strokeWidth="0.8" />
                     </motion.g>
@@ -121,7 +121,7 @@ function WorkflowScene({
                         </motion.g>
                     ))}
 
-                    {/* "Manual" → "Automated" callout above stages */}
+                    {/* "Manual"  "Automated" callout above stages */}
                     <motion.g
                         initial={{ opacity: 0, y: -4 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -129,7 +129,7 @@ function WorkflowScene({
                     >
                         <line x1="50" y1="100" x2="368" y2="100" stroke="rgba(255,255,255,0.08)" strokeWidth="0.6" strokeDasharray="2 4" />
                         <text x="50" y="92" fontFamily={MONO} fontSize="6.5" letterSpacing="0.16em" fill="rgba(255,255,255,0.35)">
-                            FROM MANUAL ENTRY · 4 SYSTEMS
+                            FROM MANUAL ENTRY . 4 SYSTEMS
                         </text>
                         <text x="368" y="92" textAnchor="end" fontFamily={MONO} fontSize="6.5" letterSpacing="0.16em" fill={`${CYAN}, 0.85)`}>
                             ONE PIPE
@@ -158,9 +158,9 @@ function WorkflowScene({
     );
 }
 
-// ─────────────────────────────────────────────────────────────────────────
-// 2. DECISION — AI branching tree with weighted paths
-// ─────────────────────────────────────────────────────────────────────────
+// -
+// 2. DECISION -- AI branching tree with weighted paths
+// -
 function DecisionScene({
     inView,
     reduced,
@@ -181,7 +181,7 @@ function DecisionScene({
                         transition={{ duration: 0.4, delay: 0.05, ease: EASE }}
                     >
                         <text x="36" y="32" fontFamily={MONO} fontSize="7.5" letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">
-                            ▸ AI DECISION ENGINE
+                             AI DECISION ENGINE
                         </text>
                         <line x1="36" y1="40" x2="180" y2="40" stroke={`${CYAN}, 0.5)`} strokeWidth="0.8" />
                     </motion.g>
@@ -198,7 +198,7 @@ function DecisionScene({
                             EVENT IN
                         </text>
                         <text x="74" y="166" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.12em" fill="rgba(255,255,255,0.45)">
-                            lead · ticket · alert
+                            lead . ticket . alert
                         </text>
                     </motion.g>
 
@@ -232,7 +232,7 @@ function DecisionScene({
                         </text>
                     </motion.g>
 
-                    {/* Connector: input → diamond */}
+                    {/* Connector: input  diamond */}
                     <motion.line
                         x1="114" y1="156" x2="138" y2="156"
                         stroke="rgba(255,255,255,0.35)"
@@ -245,8 +245,8 @@ function DecisionScene({
 
                     {/* Three branches: priority / nurture / escalate */}
                     {[
-                        { y: 56, label: "PRIORITY", sub: "hot · score ≥ 80", weight: "62%", accent: true },
-                        { y: 142, label: "NURTURE", sub: "warm · 40–80", weight: "31%", accent: false },
+                        { y: 56, label: "PRIORITY", sub: "hot . score >= 80", weight: "62%", accent: true },
+                        { y: 142, label: "NURTURE", sub: "warm . 40-80", weight: "31%", accent: false },
                         { y: 228, label: "ESCALATE", sub: "needs review", weight: "7%", accent: false, warn: true },
                     ].map((b, i) => (
                         <motion.g
@@ -310,9 +310,9 @@ function DecisionScene({
     );
 }
 
-// ─────────────────────────────────────────────────────────────────────────
-// 3. INTEL — live ops "command panel" with status indicators (no charts)
-// ─────────────────────────────────────────────────────────────────────────
+// -
+// 3. INTEL -- live ops "command panel" with status indicators (no charts)
+// -
 function IntelScene({
     inView,
     reduced,
@@ -340,7 +340,7 @@ function IntelScene({
                         transition={{ duration: 0.4, delay: 0.05, ease: EASE }}
                     >
                         <text x="36" y="34" fontFamily={MONO} fontSize="7.5" letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">
-                            ▸ LIVE OPS · 24/7
+                             LIVE OPS . 24/7
                         </text>
                         <line x1="36" y1="42" x2="200" y2="42" stroke={`${CYAN}, 0.5)`} strokeWidth="0.8" />
                     </motion.g>
@@ -416,9 +416,9 @@ function IntelScene({
                         </text>
                         {[
                             { t: "14:02", msg: "ORDER #4821 processed", ok: true },
-                            { t: "14:01", msg: "INV-3992 paid · $1.2k", ok: true },
-                            { t: "13:58", msg: "TICKET routed → tier-2", ok: true },
-                            { t: "13:55", msg: "STOCK low · auto-PO sent", ok: false },
+                            { t: "14:01", msg: "INV-3992 paid . $1.2k", ok: true },
+                            { t: "13:58", msg: "TICKET routed  tier-2", ok: true },
+                            { t: "13:55", msg: "STOCK low . auto-PO sent", ok: false },
                             { t: "13:51", msg: "USER onboarded", ok: true },
                         ].map((e, i) => (
                             <g key={i}>
@@ -456,7 +456,7 @@ function IntelScene({
     );
 }
 
-// ── Public component ──────────────────────────────────────────────────────
+// - Public component -
 export default function AutomationVisual({ kind }: { kind: AutomationKind }) {
     const ref = useRef<HTMLDivElement>(null);
     const observed = useInView(ref, { once: true, margin: "200px" });

@@ -5,12 +5,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
-// ── Theme colors ───────────────────────────────────────────────────────────
+// - Theme colors -
 const ACCENT   = "#7B55EA";  // purple
 const ACCENT2  = "#00FFDD";  // cyan
 const GLOW     = "#CC01FF";  // magenta glow
 
-// ── Single animated cube ───────────────────────────────────────────────────
+// - Single animated cube -
 function Cube({
     position,
     scale,
@@ -60,7 +60,7 @@ function Cube({
     );
 }
 
-// ── Grid of dots on the floor ──────────────────────────────────────────────
+// - Grid of dots on the floor -
 function GridDots() {
     const count = 24;
     const spacing = 1.4;
@@ -99,7 +99,7 @@ function GridDots() {
     );
 }
 
-// ── Floating particles ─────────────────────────────────────────────────────
+// - Floating particles -
 function Particles() {
     const count = 120;
     const ref = useRef<THREE.Points>(null);
@@ -140,7 +140,7 @@ function Particles() {
     );
 }
 
-// ── Platform base ──────────────────────────────────────────────────────────
+// - Platform base -
 function Platform() {
     return (
         <group position={[0, -1.5, 0]}>
@@ -158,7 +158,7 @@ function Platform() {
     );
 }
 
-// ── Point light that orbits ────────────────────────────────────────────────
+// - Point light that orbits -
 function OrbitLight() {
     const ref = useRef<THREE.PointLight>(null);
     useFrame(({ clock }) => {
@@ -170,7 +170,7 @@ function OrbitLight() {
     return <pointLight ref={ref} color={GLOW} intensity={18} distance={12} decay={2} position={[4, 2, 4]} />;
 }
 
-// ── Scene composition ──────────────────────────────────────────────────────
+// - Scene composition -
 function Scene() {
     const cubes = useMemo(() => [
         { position: [-0.6,  0,    0.3 ] as [number,number,number], scale: 1.1,  delay: 0,   color: ACCENT  },
@@ -199,7 +199,7 @@ function Scene() {
     );
 }
 
-// ── Export ─────────────────────────────────────────────────────────────────
+// - Export -
 export default function HeroScene() {
     return (
         <Canvas
