@@ -279,19 +279,6 @@ const SERVICE_CARDS: Array<{
             image: "/services-5.jpeg",
         },
         {
-            title: "Product Engineering",
-            description: "Product engineering for founders and businesses: MVPs, SaaS products, and scalable digital systems built for growth.",
-            subServices: [
-                "MVPs",
-                "SaaS",
-            ],
-            learnMore: "Engineer a product",
-            href: "/products/product-engineering",
-            accent: "#7B55EA",
-            icon: "products",
-            image: "/services-1.jpeg",
-        },
-        {
             title: "Digital Infrastructure",
             description: "Building high-performance websites, ecommerce platforms, and digital systems that form the foundation of modern business.",
             subServices: [
@@ -318,6 +305,19 @@ const SERVICE_CARDS: Array<{
             accent: "#7B55EA",
             icon: "automation",
             image: "/services-6.jpeg",
+        },
+        {
+            title: "Product Engineering",
+            description: "Product engineering for founders and businesses: MVPs, SaaS products, and scalable digital systems built for growth.",
+            subServices: [
+                "MVPs",
+                "SaaS",
+            ],
+            learnMore: "Engineer a product",
+            href: "/products/product-engineering",
+            accent: "#7B55EA",
+            icon: "products",
+            image: "/services-1.jpeg",
         },
     ];
 
@@ -1071,48 +1071,87 @@ function WhyLevataCard({ active }: { active: number }) {
 }
 
 function WhyLevataDeck() {
-    const containerRef = useRef<HTMLDivElement>(null);
     const [active, setActive] = useState(0);
-
-    useEffect(() => {
-        const onScroll = () => {
-            const el = containerRef.current;
-            if (!el) return;
-            const rect = el.getBoundingClientRect();
-            const viewportH = window.innerHeight;
-            const total = rect.height - viewportH;
-            const scrolled = Math.max(0, Math.min(total, -rect.top));
-            const progress = total > 0 ? scrolled / total : 0;
-            const n = WHY_LEVATA.length;
-            const segSize = 1 / n;
-            let idx = Math.min(n - 1, Math.floor(progress * n));
-            if (progress >= 1 - segSize * 0.15) idx = n - 1;
-            setActive((prev) => {
-                if (idx > prev + 1) return prev + 1;
-                if (idx < prev - 1) return prev - 1;
-                return idx;
-            });
-        };
-        onScroll();
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
-
     return (
-        <div ref={containerRef} className="hidden lg:block relative py-14 md:py-20" style={{ height: `${WHY_LEVATA.length * 100}vh` }}>
-            <div className="sticky w-full" style={{ top: "max(24px, calc(50vh - 220px))" }}>
-                <div className="mx-auto w-full max-w-6xl px-6">
-                    <div className="grid grid-cols-2 gap-16 items-center">
-                        <div className="flex flex-col gap-6">
-                            <SectionLabelSide />
-                            <h2 className="display-section-title display-inline">
-                                <span className="display-muted-line">Why teams pick Levata. </span><span className="display-strong-line">Outcomes, not outputs.</span>
-                            </h2>
-                            <WhyLevataProgress active={active} total={WHY_LEVATA.length} />
-                        </div>
-                        <WhyLevataCard active={active} />
-                    </div>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-8 md:gap-16 items-center">
+            {/* Left: heading + body */}
+            <div className="flex flex-col gap-4">
+                <SectionLabelSide />
+                <h2 className="display-section-title display-inline">
+                    <span className="display-muted-line">Why teams pick Levata.</span>
+                    <span className="display-strong-line">Outcomes, not outputs.</span>
+                </h2>
+                <p className="text-lead text-white/45 max-w-sm">
+                    Strategy, design, engineering, and growth — all under one roof with one shared goal. We commit to measurable results, not deliverables.
+                </p>
+            </div>
+
+            {/* Right: stacked accordion cards */}
+            <div className="flex flex-col" style={{ gap: 0 }}>
+                {WHY_LEVATA.map((w, i) => {
+                    const isActive = active === i;
+                    return (
+                        <motion.div
+                            key={w.num}
+                            onClick={() => setActive(i)}
+                            className="rounded-2xl overflow-hidden cursor-pointer relative"
+                            animate={{ y: isActive ? -4 : 0, zIndex: isActive ? 10 : WHY_LEVATA.length - i }}
+                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                            style={{
+                                background: isActive
+                                    ? "rgba(18,16,32,0.98)"
+                                    : `rgba(${10 + i * 3},${10 + i * 3},${20 + i * 3},0.97)`,
+                                border: `1px solid ${isActive ? "rgba(123,85,234,0.3)" : "rgba(255,255,255,0.07)"}`,
+                                boxShadow: isActive ? "0 -4px 0 0 rgba(123,85,234,0.35), 0 16px 48px rgba(0,0,0,0.5)" : "none",
+                                marginTop: i === 0 ? 0 : -12,
+                            }}
+                        >
+                            {/* Header row */}
+                            <div className="flex items-center gap-4 px-6 py-5">
+                                <span
+                                    className="text-[10px] font-bold tabular-nums flex-shrink-0"
+                                    style={{ fontFamily: "var(--font-code), ui-monospace, monospace", letterSpacing: "0.22em", color: isActive ? "rgba(123,85,234,0.85)" : "rgba(255,255,255,0.28)" }}
+                                >
+                                    {w.num}
+                                </span>
+                                <span
+                                    className="flex-1 font-semibold leading-snug text-[15px]"
+                                    style={{ color: isActive ? "#fff" : "rgba(255,255,255,0.6)" }}
+                                >
+                                    {w.title}
+                                </span>
+                                <motion.span
+                                    animate={{ rotate: isActive ? 180 : 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    style={{ color: isActive ? "rgba(123,85,234,0.7)" : "rgba(255,255,255,0.2)" }}
+                                >
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </motion.span>
+                            </div>
+
+                            {/* Expandable body */}
+                            <AnimatePresence initial={false}>
+                                {isActive && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="px-6 pb-6 flex flex-col gap-3">
+                                            <div className="h-px" style={{ background: "rgba(255,255,255,0.07)" }} />
+                                            <p className="text-body-sm text-white/55">{w.body}</p>
+                                            <p className="font-mono text-eyebrow" style={{ color: "rgba(255,255,255,0.25)" }}>{w.tags.join("  ·  ")}</p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+                    );
+                })}
             </div>
         </div>
     );
@@ -1252,16 +1291,16 @@ function FlowConnector({ vertical = false }: { vertical?: boolean }) {
 }
 
 // ── Problem spider: hub-and-spoke layout (desktop only) ───────────────────
-// Canvas: 960 × 480. Center: (480, 240).
+// Canvas: 960 × 440. Center: (480, 220).
 // Pain-point copy renders as HTML cards anchored at the spoke tips, so the
 // tips are pulled inward to leave card room between them and the edges.
-const SPIDER_W = 960, SPIDER_H = 400, SPIDER_CX = 480, SPIDER_CY = 200;
+const SPIDER_W = 960, SPIDER_H = 440, SPIDER_CX = 480, SPIDER_CY = 220;
 // Spoke tips — lines terminate here, node dot sits exactly here.
 const SPOKE_ENDS = [
-    { x: 272, y: 88 },   // TL
-    { x: 688, y: 88 },   // TR
-    { x: 272, y: 312 },  // BL
-    { x: 688, y: 312 },  // BR
+    { x: 272, y: 72 },   // TL
+    { x: 688, y: 72 },   // TR
+    { x: 272, y: 340 },  // BL
+    { x: 688, y: 340 },  // BR
 ] as const;
 
 function TravelDot({ x1, y1, x2, y2, delay, dur = 2.2, color = "rgba(255,75,75,0.95)" }: {
@@ -1517,7 +1556,7 @@ function ProblemSpider() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: EASE }}
             className="relative mx-auto w-full max-w-5xl"
-            style={{ aspectRatio: `${W} / ${H}`, minHeight: "clamp(240px, 42vw, 430px)" }}
+            style={{ aspectRatio: `${W} / ${H}` }}
         >
             <svg
                 viewBox={`0 0 ${W} ${H}`}
@@ -1765,7 +1804,7 @@ export default function HeroSection() {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true, margin: "-40px" }}
                             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="mt-6 flex justify-center pb-16"
+                            className="mt-6 flex justify-center"
                         >
                             <ProblemCore size={210} />
                         </motion.div>
@@ -1777,6 +1816,8 @@ export default function HeroSection() {
                     </div>
                 </div>
             </section>
+
+            <SectionDivider />
 
             {/* ── 3. OUR SOLUTION (with 4-node flow diagram) ───── */}
             <section id="solution" className="home-theme-dark relative w-full px-6 py-14 md:py-20 overflow-hidden">
@@ -2104,9 +2145,7 @@ export default function HeroSection() {
                 </motion.div>
             </section>
 
-            <SectionDivider />
-
-            {/* ── 8. BY THE NUMBERS (clean 4-counter row) ──────── */}
+            {/* ── 8. BY THE NUMBERS — no divider, flows from Featured Product above ── */}
             <section id="numbers" className="home-theme-dark relative w-full px-6 py-14 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0" style={{
                     background:
@@ -2146,8 +2185,8 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* ── 11. WHY CHOOSE LEVATA (sticky deck) ── */}
-            <section className="home-theme-dark relative w-full">
+            {/* ── 11. WHY CHOOSE LEVATA ── */}
+            <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 md:py-20">
                 <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" style={{
                     background: [
                         "radial-gradient(ellipse 50% 60% at 15% 50%, rgba(123,85,234,0.07) 0%, transparent 70%)",
@@ -2155,37 +2194,9 @@ export default function HeroSection() {
                     ].join(", "),
                 }} />
 
-                {/* Mobile fallback */}
-                <div className="relative z-10 mx-auto max-w-[1120px] px-5 sm:px-6 block lg:hidden py-14 md:py-20">
-                    <div className="mb-10 flex flex-col gap-3">
-                        <SectionLabelSide />
-                        <h2 className="display-section-title display-inline">
-                            <span className="display-muted-line">Why teams pick Levata. </span><span className="display-strong-line">Outcomes, not outputs.</span>
-                        </h2>
-                    </div>
-                    <div className="flex flex-col gap-4">
-                        {WHY_LEVATA.map((w, i) => (
-                            <motion.div
-                                key={w.num}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-40px" }}
-                                transition={{ duration: 0.55, delay: i * 0.07, ease: [0.16,1,0.3,1] }}
-                                className="rounded-2xl p-7"
-                                style={{ background: "var(--home-card-bg)", border: "1px solid var(--home-card-border)" }}
-                            >
-                                <div className="flex items-center justify-between mb-5">
-                                    <span className="text-3xl font-bold tabular-nums" style={{ color: "rgba(123,85,234,0.7)" }}>{w.num}.</span>
-                                </div>
-                                <h3 className="display-card-title mb-2">{w.title}</h3>
-                                <p className="text-body-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{w.body}</p>
-                            </motion.div>
-                        ))}
-                    </div>
+                <div className="relative z-10 mx-auto max-w-[1120px]">
+                    <WhyLevataDeck />
                 </div>
-
-                {/* Desktop: pinned heading + scrolling cards */}
-                <WhyLevataDeck />
             </section>
 
             <SectionDivider />

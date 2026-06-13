@@ -376,7 +376,7 @@ export default function HomeHero() {
             ref={heroRef}
             data-hero
             aria-labelledby="hero-heading"
-            className="home-theme-dark relative flex w-full flex-col justify-center overflow-hidden min-h-[88svh] lg:min-h-0"
+            className="home-theme-dark relative flex w-full flex-col justify-center overflow-hidden min-h-[88svh] lg:min-h-[90vh]"
         >
             {/* Subtle top-center accent glow */}
             <div
@@ -402,7 +402,7 @@ export default function HomeHero() {
             </div>
 
             {/* Content layer (left text / right globe) */}
-            <div className="relative z-20 mx-auto grid w-full max-w-[1240px] items-center gap-10 px-6 pb-14 pt-24 sm:px-10 md:gap-12 md:pb-20 md:pt-28 lg:grid-cols-[1fr_380px] lg:gap-10 lg:min-h-[min(86vh,760px)] lg:px-12 lg:pt-24 xl:px-14">
+            <div className="relative z-20 mx-auto grid w-full max-w-[1240px] items-center gap-10 px-8 py-16 sm:px-12 md:gap-8 md:py-20 lg:grid-cols-[1fr_380px] lg:gap-4 lg:min-h-[min(86vh,760px)] lg:px-16 lg:pt-10 lg:pb-0 xl:px-20">
                 <div className="flex flex-col items-start text-left">
                     <motion.h1
                         id="hero-heading"

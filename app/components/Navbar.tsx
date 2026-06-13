@@ -15,12 +15,6 @@ const SERVICES = [
         accent: "#7B55EA",
     },
     {
-        label: "Product Engineering",
-        description: "MVP Development · SaaS Product Development",
-        href: "/products/product-engineering",
-        accent: "#7B55EA",
-    },
-    {
         label: "Digital Infrastructure",
         description: "Website Development · E-commerce · Platform Development",
         href: "/products/digital-infrastructure",
@@ -30,6 +24,12 @@ const SERVICES = [
         label: "Automation & Systems",
         description: "Workflow Automation · Dashboard Systems",
         href: "/products/automation-systems",
+        accent: "#7B55EA",
+    },
+    {
+        label: "Product Engineering",
+        description: "MVP Development · SaaS Product Development",
+        href: "/products/product-engineering",
         accent: "#7B55EA",
     },
 ];
