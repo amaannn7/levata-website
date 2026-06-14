@@ -55,10 +55,10 @@ export default function Footer() {
             <div className="relative mx-auto max-w-[1120px] px-5 sm:px-8 md:px-10">
 
                 {/* Main footer body */}
-                <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:grid-cols-2 md:grid-cols-[1.7fr_1fr_1fr_1fr_1fr] md:gap-8 md:py-14">
+                <div className="grid grid-cols-1 gap-y-10 py-12 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10 md:grid-cols-[1.7fr_1fr_1fr_1fr_1fr] md:gap-8 md:py-14">
 
-                    {/* Brand column, full width on mobile */}
-                    <div className="col-span-2 flex flex-col gap-5 md:col-span-1">
+                    {/* Brand column — centred on mobile, left-aligned from sm up */}
+                    <div className="flex flex-col items-center text-center gap-5 sm:col-span-2 sm:items-start sm:text-left md:col-span-1">
                         <Link href="/" className="flex items-center gap-1.5">
                             <div style={{ overflow: "hidden", width: 34, height: 34, flexShrink: 0, WebkitMaskImage: "linear-gradient(to right, black 80%, transparent 100%)", maskImage: "linear-gradient(to right, black 80%, transparent 100%)" }}>
                                 <img src="/levatalogo.png" alt="" style={{ height: 34, width: "auto", maxWidth: "none", display: "block" }} />
@@ -66,7 +66,7 @@ export default function Footer() {
                             <span className="text-lead font-semibold" style={{ color: "#E6E6E6", letterSpacing: "-0.02em", lineHeight: 1 }}>Levata</span>
                         </Link>
 
-                        <p className="max-w-[240px] text-body-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                        <p className="max-w-[260px] text-body-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
                             AI-native systems, platforms, and automation built for businesses that want to compound.
                         </p>
 
@@ -124,7 +124,7 @@ export default function Footer() {
                     <FooterColumn heading="Company" items={COMPANY} />
 
                     {/* Connect */}
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col items-center gap-4 sm:items-start">
                         <p className="text-eyebrow text-white/35">Connect</p>
                         <button
                             type="button"
@@ -144,11 +144,11 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="flex items-center justify-between border-t border-white/[0.06] py-6">
+                <div className="flex flex-col items-center gap-2 border-t border-white/[0.06] py-6 sm:flex-row sm:justify-between">
                     <p className="text-micro text-white/30">
                         &copy; {new Date().getFullYear()} Levata. All rights reserved.
                     </p>
-                    <p className="hidden text-micro text-white/20 md:block" style={{ letterSpacing: "0.15em" }}>
+                    <p className="text-micro text-white/20 sm:block" style={{ letterSpacing: "0.15em" }}>
                         INTELLIGENCE, BUILT.
                     </p>
                 </div>
@@ -160,9 +160,9 @@ export default function Footer() {
 
 function FooterColumn({ heading, items }: { heading: string; items: { label: string; href: string }[] }) {
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col items-center gap-4 sm:items-start">
             <p className="text-eyebrow text-white/35">{heading}</p>
-            <ul className="flex flex-col gap-2.5">
+            <ul className="flex flex-col items-center gap-2.5 sm:items-start">
                 {items.map((link) => (
                     <li key={link.label}>
                         <Link

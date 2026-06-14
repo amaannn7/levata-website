@@ -1804,7 +1804,8 @@ export default function HeroSection() {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true, margin: "-40px" }}
                             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="mt-6 flex justify-center"
+                            className="mt-6 flex justify-center overflow-hidden"
+                            style={{ height: 220 }}
                         >
                             <ProblemCore size={210} />
                         </motion.div>
