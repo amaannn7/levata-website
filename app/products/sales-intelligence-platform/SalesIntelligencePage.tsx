@@ -152,8 +152,8 @@ function SalesDashboardVisual() {
                             <div className="h-3 w-3 rounded-full bg-white/10" />
                             <div className="h-3 w-3 rounded-full bg-white/10" />
                         </div>
-                        <span className="ml-2 text-[10px] font-semibold tracking-[0.2em] text-white/30 uppercase" style={{ fontFamily: MONO }}>
-                            Sales Intelligence Platform
+                        <span className="ml-2 text-[10px] font-semibold tracking-[0.12em] text-white/30 uppercase whitespace-nowrap" style={{ fontFamily: MONO }}>
+                            Sales Intelligence
                         </span>
                     </div>
                     <div className="flex items-center gap-3">
@@ -222,11 +222,11 @@ function SalesDashboardVisual() {
                                     initial={{ opacity: 0, y: 8 }}
                                     animate={inView ? { opacity: 1, y: 0 } : {}}
                                     transition={{ duration: 0.4, delay: 0.3 + i * 0.08, ease: EASE }}
-                                    className="rounded-xl p-3"
+                                    className="rounded-xl p-3 flex flex-col"
                                     style={{ background: "rgba(123,85,234,0.06)", border: "1px solid rgba(123,85,234,0.15)" }}
                                 >
-                                    <p className="text-[9px] text-white/35 font-medium mb-1.5 leading-none">{kpi.label}</p>
-                                    <p className="text-xl font-thin text-white leading-none mb-1">{kpi.val}</p>
+                                    <p className="text-[9px] text-white/35 font-medium leading-tight flex-1" style={{ minHeight: "2.4em" }}>{kpi.label}</p>
+                                    <p className="text-xl font-thin text-white leading-none mt-1.5 mb-1">{kpi.val}</p>
                                     <span className="text-[9px] font-semibold" style={{ color: "rgba(123,85,234,0.9)" }}>{kpi.delta}</span>
                                 </motion.div>
                             ))}
@@ -292,12 +292,12 @@ function SalesDashboardVisual() {
                             className="rounded-xl p-4"
                             style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
                         >
-                            <div className="flex items-start justify-between gap-3 mb-3">
-                                <div>
+                            <div className="flex items-center justify-between gap-2 mb-3">
+                                <div className="min-w-0">
                                     <p className="text-[10px] font-semibold tracking-[0.14em] text-white/30 uppercase mb-1" style={{ fontFamily: MONO }}>AI Research Brief</p>
-                                    <p className="text-sm font-semibold text-white">Meridian Group · James Chen, VP Sales</p>
+                                    <p className="text-sm font-semibold text-white leading-snug truncate">Meridian Group · James Chen</p>
                                 </div>
-                                <div className="flex-shrink-0 rounded-full px-2.5 py-1 text-[9px] font-bold tracking-wide uppercase" style={{ background: "rgba(123,85,234,0.12)", border: "1px solid rgba(123,85,234,0.3)", color: "rgba(123,85,234,0.95)", fontFamily: MONO }}>
+                                <div className="flex-shrink-0 rounded-full px-2.5 py-1 text-[9px] font-bold tracking-wide uppercase whitespace-nowrap" style={{ background: "rgba(123,85,234,0.12)", border: "1px solid rgba(123,85,234,0.3)", color: "rgba(123,85,234,0.95)", fontFamily: MONO }}>
                                     Score 94
                                 </div>
                             </div>
