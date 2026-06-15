@@ -18,9 +18,51 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Levata, Digital Solutions & Software",
+  metadataBase: new URL("https://levatahq.com"),
+  title: {
+    default: "Levata — AI & Digital Solutions",
+    template: "%s | Levata",
+  },
   description:
-    "Levata builds digital products, platforms, and automation that move ambitious businesses forward, engineered to compound, not just ship.",
+    "Levata builds AI systems, automation, and digital infrastructure that help businesses operate smarter and scale faster.",
+  keywords: [
+    "AI solutions", "business automation", "digital infrastructure",
+    "product engineering", "sales intelligence", "AI agency",
+  ],
+  authors: [{ name: "Levata", url: "https://levatahq.com" }],
+  openGraph: {
+    type: "website",
+    siteName: "Levata",
+    title: "Levata — AI & Digital Solutions",
+    description:
+      "Levata builds AI systems, automation, and digital infrastructure that help businesses operate smarter and scale faster.",
+    url: "https://levatahq.com",
+    images: [
+      {
+        url: "/levatalogo.png",
+        width: 1200,
+        height: 630,
+        alt: "Levata",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Levata — AI & Digital Solutions",
+    description:
+      "Levata builds AI systems, automation, and digital infrastructure that help businesses operate smarter and scale faster.",
+    images: ["/levatalogo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
+  icons: {
+    icon: "/levatalogo.png",
+    shortcut: "/levatalogo.png",
+    apple: "/levatalogo.png",
+  },
 };
 
 export default function RootLayout({

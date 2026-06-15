@@ -4,8 +4,9 @@ import ContactHero from "@/app/components/ContactHero";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Contact | Levata",
+    title: "Contact",
     description: "Book a free AI strategy call or send us your project brief. We respond within 48 hours.",
+    openGraph: { url: "https://levatahq.com/contact" },
 };
 
 export default function ContactPage() {
