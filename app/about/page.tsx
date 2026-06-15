@@ -90,24 +90,28 @@ const WHY_ITEMS = [
     },
 ];
 
+// Mobile order: Shameer → Rahman → Amaan. Desktop order uses CSS order property: Rahman (order-1), Shameer (order-2), Amaan (order-3).
 const TEAM = [
-    {
-        name: "Rahman Zubair",
-        role: "Chief Operating Officer",
-        photo: "/team/abdulrahman.jpeg",
-        bio: "Leads Levata's operations and project delivery, turning ambitious ideas into structured, well-executed engagements. Oversees internal systems, resource planning, client delivery, and quality across every project. The role centres on creating the discipline, accountability, and processes required to deliver complex AI and automation solutions efficiently, while keeping them scalable, commercially sound, and aligned with each client's objectives.",
-    },
     {
         name: "Shameer Refai",
         role: "Chief Executive Officer",
         photo: "/team/shameer.png",
         bio: "Leads Levata's vision, commercial strategy, and long-term growth. Works closely with businesses to identify where AI can create genuine operational and financial value, then turns those opportunities into practical, high-impact solutions. The focus is on moving clients beyond experimentation and towards implementation, with every engagement built around clear business outcomes, strong execution, and sustainable growth.",
+        desktopOrder: "md:order-2",
+    },
+    {
+        name: "Rahman Zubair",
+        role: "Chief Operating Officer",
+        photo: "/team/abdulrahman.jpeg",
+        bio: "Leads Levata's operations and project delivery, turning ambitious ideas into structured, well-executed engagements. Oversees internal systems, resource planning, client delivery, and quality across every project. The role centres on creating the discipline, accountability, and processes required to deliver complex AI and automation solutions efficiently, while keeping them scalable, commercially sound, and aligned with each client's objectives.",
+        desktopOrder: "md:order-1",
     },
     {
         name: "Amaan Yusuf",
         role: "Artificial Intelligence Solutions Developer",
         photo: "/team/amaan.png",
         bio: "Designs and builds the intelligent systems behind Levata's solutions. Works across AI-powered automation, custom workflows, business integrations, and practical tools that reduce manual effort, improve accuracy, and help teams operate more effectively. The focus is on translating real operational challenges into reliable, user-friendly technology that performs in day-to-day business environments and delivers measurable value.",
+        desktopOrder: "md:order-3",
     },
 ];
 
@@ -241,15 +245,15 @@ export default function AboutPage() {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-7 md:items-stretch">
-                        {TEAM.map(({ name, role, photo, bio }, i) => (
+                    <div className="flex flex-col gap-6 md:flex-row md:gap-7 md:items-stretch">
+                        {TEAM.map(({ name, role, photo, bio, desktopOrder }, i) => (
                             <motion.div
                                 key={name}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0.15 }}
                                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                                className="team-card group flex h-full flex-col items-center rounded-3xl p-7 text-center md:p-8"
+                                className={`team-card group flex h-full flex-col items-center rounded-3xl p-7 text-center md:p-8 md:flex-1 ${desktopOrder}`}
                                 style={{
                                     background: "var(--home-card-bg)",
                                     border: "1px solid var(--home-card-border)",
