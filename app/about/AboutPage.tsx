@@ -251,8 +251,8 @@ export default function AboutPage() {
                                 key={name}
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
-                                viewport={{ once: true, amount: 0.1 }}
-                                transition={{ duration: 0.4, delay: i * 0.06, ease: "easeOut" }}
+                                viewport={{ once: true, amount: 0.05 }}
+                                transition={{ duration: 0.5, delay: i * 0.06, ease: "easeOut" }}
                                 className={`team-card group flex flex-1 flex-col rounded-3xl p-7 md:p-8 ${desktopOrder}`}
                                 style={{
                                     background: "var(--home-card-bg)",
@@ -260,7 +260,7 @@ export default function AboutPage() {
                                     willChange: "transform, opacity",
                                 }}
                             >
-                                <div className="flex flex-col items-center text-center" style={{ minHeight: "17rem" }}>
+                                <div className="flex flex-col items-center text-center">
                                     <div className="team-photo-ring relative h-32 w-32 flex-shrink-0 rounded-full p-[2px]">
                                         <div className="relative h-full w-full overflow-hidden rounded-full">
                                             <Image
@@ -283,7 +283,7 @@ export default function AboutPage() {
                                     />
                                 </div>
                                 {bio && (
-                                    <p className="mt-5 text-body-sm leading-relaxed text-white/55">{bio}</p>
+                                    <p className="mt-auto pt-5 text-body-sm leading-relaxed text-white/55">{bio}</p>
                                 )}
                             </motion.div>
                         ))}
