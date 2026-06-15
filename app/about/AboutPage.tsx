@@ -261,7 +261,7 @@ export default function AboutPage() {
                                 }}
                             >
                                 <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-bg opacity-60" />
-                                <div className="relative flex flex-col items-center text-center">
+                                <div className="relative flex flex-shrink-0 flex-col items-center text-center" style={{ minHeight: "14rem" }}>
                                     <div className="team-photo-ring relative h-32 w-32 flex-shrink-0 rounded-full p-[2px]">
                                         <div className="relative h-full w-full overflow-hidden rounded-full">
                                             <Image
@@ -277,14 +277,14 @@ export default function AboutPage() {
                                     </div>
                                     <p className="mt-6 display-card-title">{name}</p>
                                     <p className="mt-1.5 text-eyebrow text-white/45 leading-snug">{role}</p>
-                                    <span
-                                        aria-hidden
-                                        className="mx-auto mt-5 block h-px w-10 flex-shrink-0"
-                                        style={{ background: "linear-gradient(to right, transparent, rgba(123,85,234,0.5), transparent)" }}
-                                    />
                                 </div>
+                                <span
+                                    aria-hidden
+                                    className="mx-auto mt-5 block h-px w-10 flex-shrink-0"
+                                    style={{ background: "linear-gradient(to right, transparent, rgba(123,85,234,0.5), transparent)" }}
+                                />
                                 {bio && (
-                                    <p className="relative mt-auto pt-5 text-body-sm leading-relaxed text-white/55 text-center">{bio}</p>
+                                    <p className="relative mt-5 text-body-sm leading-relaxed text-white/55 text-center">{bio}</p>
                                 )}
                             </motion.div>
                         ))}
