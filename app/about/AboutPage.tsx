@@ -253,7 +253,7 @@ export default function AboutPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0.15 }}
                                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                                className={`team-card group flex flex-1 flex-col items-center rounded-3xl p-7 text-center md:p-8 ${desktopOrder}`}
+                                className={`team-card group flex flex-1 flex-col items-center rounded-3xl p-7 md:p-8 ${desktopOrder}`}
                                 style={{
                                     background: "var(--home-card-bg)",
                                     border: "1px solid var(--home-card-border)",
@@ -272,15 +272,15 @@ export default function AboutPage() {
                                         />
                                     </div>
                                 </div>
-                                <p className="mt-6 display-card-title">{name}</p>
-                                <p className="mt-1.5 text-eyebrow text-white/45">{role}</p>
+                                <p className="mt-6 display-card-title text-center w-full">{name}</p>
+                                <p className="mt-1.5 text-eyebrow text-white/45 text-center w-full">{role}</p>
                                 <span
                                     aria-hidden
                                     className="mt-5 h-px w-10 flex-shrink-0"
                                     style={{ background: "linear-gradient(to right, transparent, rgba(123,85,234,0.5), transparent)" }}
                                 />
                                 {bio && (
-                                    <p className="mt-5 text-body-sm leading-relaxed text-white/55">{bio}</p>
+                                    <p className="mt-5 text-body-sm leading-relaxed text-white/55 text-left">{bio}</p>
                                 )}
                             </motion.div>
                         ))}
