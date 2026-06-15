@@ -283,7 +283,7 @@ export default function AboutPage() {
                                     />
                                 </div>
                                 {bio && (
-                                    <p className="mt-auto pt-5 text-body-sm leading-relaxed text-white/55">{bio}</p>
+                                    <p className="mt-auto pt-5 text-body-sm leading-relaxed text-white/55 text-center">{bio}</p>
                                 )}
                             </motion.div>
                         ))}
