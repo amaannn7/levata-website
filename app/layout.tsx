@@ -20,8 +20,8 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://levatahq.com"),
   title: {
-    default: "Levata — AI & Digital Solutions",
-    template: "%s | Levata",
+    default: "Levata - AI & Digital Solutions",
+    template: "%s - Levata",
   },
   description:
     "Levata builds AI systems, automation, and digital infrastructure that help businesses operate smarter and scale faster.",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Levata",
-    title: "Levata — AI & Digital Solutions",
+    title: "Levata - AI & Digital Solutions",
     description:
       "Levata builds AI systems, automation, and digital infrastructure that help businesses operate smarter and scale faster.",
     url: "https://levatahq.com",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Levata — AI & Digital Solutions",
+    title: "Levata - AI & Digital Solutions",
     description:
       "Levata builds AI systems, automation, and digital infrastructure that help businesses operate smarter and scale faster.",
     images: ["/levatalogo.png"],
