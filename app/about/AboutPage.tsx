@@ -249,10 +249,10 @@ export default function AboutPage() {
                         {TEAM.map(({ name, role, photo, bio, desktopOrder }, i) => (
                             <motion.div
                                 key={name}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.15 }}
-                                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true, amount: 0.1 }}
+                                transition={{ duration: 0.4, delay: i * 0.06, ease: "easeOut" }}
                                 className={`team-card group flex flex-1 flex-col rounded-3xl p-7 md:p-8 ${desktopOrder}`}
                                 style={{
                                     background: "var(--home-card-bg)",
@@ -260,7 +260,7 @@ export default function AboutPage() {
                                     willChange: "transform, opacity",
                                 }}
                             >
-                                <div className="flex flex-col items-center text-center">
+                                <div className="flex flex-col items-center text-center" style={{ minHeight: "17rem" }}>
                                     <div className="team-photo-ring relative h-32 w-32 flex-shrink-0 rounded-full p-[2px]">
                                         <div className="relative h-full w-full overflow-hidden rounded-full">
                                             <Image
@@ -269,17 +269,16 @@ export default function AboutPage() {
                                                 width={300}
                                                 height={300}
                                                 className="h-full w-full object-cover object-top"
+                                                priority
                                                 unoptimized
                                             />
                                         </div>
                                     </div>
-                                    <div className="mt-6 flex min-h-[3.5rem] flex-col items-center justify-center gap-1.5 w-full">
-                                        <p className="display-card-title">{name}</p>
-                                        <p className="text-eyebrow text-white/45">{role}</p>
-                                    </div>
+                                    <p className="mt-6 display-card-title">{name}</p>
+                                    <p className="mt-1.5 text-eyebrow text-white/45 leading-snug">{role}</p>
                                     <span
                                         aria-hidden
-                                        className="mt-4 h-px w-10 flex-shrink-0"
+                                        className="mx-auto mt-5 block h-px w-10 flex-shrink-0"
                                         style={{ background: "linear-gradient(to right, transparent, rgba(123,85,234,0.5), transparent)" }}
                                     />
                                 </div>
