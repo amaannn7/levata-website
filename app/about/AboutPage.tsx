@@ -260,23 +260,25 @@ export default function AboutPage() {
                                     willChange: "transform, opacity",
                                 }}
                             >
-                                <div className="team-photo-ring relative h-28 w-28 flex-shrink-0 rounded-full p-[2px] sm:h-32 sm:w-32">
+                                <div className="team-photo-ring relative h-32 w-32 flex-shrink-0 rounded-full p-[2px]">
                                     <div className="relative h-full w-full overflow-hidden rounded-full">
                                         <Image
                                             src={photo}
                                             alt={name}
                                             width={300}
                                             height={300}
-                                            className="h-full w-full object-cover"
+                                            className="h-full w-full object-cover object-top"
                                             unoptimized
                                         />
                                     </div>
                                 </div>
-                                <p className="mt-6 display-card-title text-center w-full">{name}</p>
-                                <p className="mt-1.5 text-eyebrow text-white/45 text-center w-full">{role}</p>
+                                <div className="mt-6 flex min-h-[3.5rem] flex-col items-center justify-center gap-1.5 w-full">
+                                    <p className="display-card-title text-center">{name}</p>
+                                    <p className="text-eyebrow text-white/45 text-center">{role}</p>
+                                </div>
                                 <span
                                     aria-hidden
-                                    className="mt-5 h-px w-10 flex-shrink-0"
+                                    className="mt-4 h-px w-10 flex-shrink-0"
                                     style={{ background: "linear-gradient(to right, transparent, rgba(123,85,234,0.5), transparent)" }}
                                 />
                                 {bio && (
