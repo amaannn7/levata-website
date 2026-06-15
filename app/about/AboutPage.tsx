@@ -171,7 +171,7 @@ export default function AboutPage() {
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
 
-                <div className="relative z-10 mx-auto w-full max-w-6xl">
+                <div className="relative z-10 mx-auto w-full max-w-[1120px]">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
                         <motion.div
                             initial={{ opacity: 0, y: 8 }}
