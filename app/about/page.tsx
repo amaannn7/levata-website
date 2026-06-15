@@ -172,7 +172,7 @@ export default function AboutPage() {
                         <motion.div
                             initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-80px" }}
+                            viewport={{ once: true, amount: 0.2 }}
                             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                             className="flex flex-col gap-5"
                         >
@@ -196,7 +196,7 @@ export default function AboutPage() {
                         <motion.div
                             initial={{ opacity: 0, y: 8 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-80px" }}
+                            viewport={{ once: true, amount: 0.2 }}
                             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                             className="rounded-2xl p-7 md:p-9"
                             style={{
@@ -226,7 +226,7 @@ export default function AboutPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 8 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
+                        viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-10 flex flex-col items-center text-center gap-3"
                     >
@@ -241,18 +241,19 @@ export default function AboutPage() {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-7">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-7 md:items-stretch">
                         {TEAM.map(({ name, role, photo, bio }, i) => (
                             <motion.div
                                 key={name}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                className="team-card group flex flex-col items-center rounded-3xl p-7 text-center md:p-8"
+                                viewport={{ once: true, amount: 0.15 }}
+                                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                                className="team-card group flex h-full flex-col items-center rounded-3xl p-7 text-center md:p-8"
                                 style={{
                                     background: "var(--home-card-bg)",
                                     border: "1px solid var(--home-card-border)",
+                                    willChange: "transform, opacity",
                                 }}
                             >
                                 <div className="team-photo-ring relative h-28 w-28 flex-shrink-0 rounded-full p-[2px] sm:h-32 sm:w-32">
@@ -297,7 +298,7 @@ export default function AboutPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 8 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
+                        viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                         className="mb-10 flex flex-col items-center text-center gap-4"
                     >
@@ -324,7 +325,7 @@ export default function AboutPage() {
                                     key={title}
                                     initial={{ opacity: 0, y: 24 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-60px" }}
+                                    viewport={{ once: true, amount: 0.2 }}
                                     transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                                     className="relative flex items-start gap-5 md:gap-7"
                                 >
@@ -374,7 +375,7 @@ export default function AboutPage() {
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 mx-auto max-w-3xl flex flex-col items-center text-center gap-8"
                 >
