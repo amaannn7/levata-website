@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
@@ -66,13 +67,6 @@ function IconBarsDiagram() {
     );
 }
 
-// "-"- Initials avatar (for Team cards) "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-function initialsFrom(name: string) {
-    const parts = name.replace(/\./g, "").trim().split(/\s+/);
-    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-}
-
 const WHY_ITEMS = [
     {
         Icon: IconLayersDiagram,
@@ -97,9 +91,24 @@ const WHY_ITEMS = [
 ];
 
 const TEAM = [
-    { name: "Shameer Refai", role: "Co-founder", bio: "" },
-    { name: "Abdur Rahman", role: "Co-founder", bio: "" },
-    { name: "Amaan Yusuf", role: "Co-founder", bio: "" },
+    {
+        name: "Rahman Zubair",
+        role: "Chief Operating Officer",
+        photo: "/team/abdulrahman.jpeg",
+        bio: "Leads Levata's operations and project delivery, turning ambitious ideas into structured, well-executed engagements. Oversees internal systems, resource planning, client delivery, and quality across every project. The role centres on creating the discipline, accountability, and processes required to deliver complex AI and automation solutions efficiently, while keeping them scalable, commercially sound, and aligned with each client's objectives.",
+    },
+    {
+        name: "Shameer Refai",
+        role: "Chief Executive Officer",
+        photo: "/team/shameer.png",
+        bio: "Leads Levata's vision, commercial strategy, and long-term growth. Works closely with businesses to identify where AI can create genuine operational and financial value, then turns those opportunities into practical, high-impact solutions. The focus is on moving clients beyond experimentation and towards implementation, with every engagement built around clear business outcomes, strong execution, and sustainable growth.",
+    },
+    {
+        name: "Amaan Yusuf",
+        role: "Artificial Intelligence Solutions Developer",
+        photo: "/team/amaan.png",
+        bio: "Designs and builds the intelligent systems behind Levata's solutions. Works across AI-powered automation, custom workflows, business integrations, and practical tools that reduce manual effort, improve accuracy, and help teams operate more effectively. The focus is on translating real operational challenges into reliable, user-friendly technology that performs in day-to-day business environments and delivers measurable value.",
+    },
 ];
 
 // "-"- Page "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
@@ -121,9 +130,9 @@ export default function AboutPage() {
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     className="relative z-10 flex flex-col items-center gap-6 max-w-4xl mx-auto"
                 >
-                                        <h1 className="display-hero-title max-w-4xl text-center">
-                        <span className="display-muted-line">Most agencies build assets.</span>
-                        <span className="display-strong-line">We build advantage.</span>
+                                        <h1 className="display-hero-title max-w-5xl text-center">
+                        <span className="display-muted-line sm:whitespace-nowrap">Most agencies build assets.</span>
+                        <span className="display-strong-line sm:whitespace-nowrap">We build advantage.</span>
                     </h1>
                     <p className="max-w-2xl text-lead text-white/55">
                         Every business has hidden inefficiencies, disconnected systems, and untapped leverage
@@ -156,6 +165,7 @@ export default function AboutPage() {
                         "radial-gradient(ellipse 40% 50% at 85% 50%, rgba(0,255,221,0.04) 0%, transparent 65%)",
                     ].join(", "),
                 }} />
+                <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
 
                 <div className="relative z-10 mx-auto w-full max-w-6xl">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
@@ -167,8 +177,8 @@ export default function AboutPage() {
                             className="flex flex-col gap-5"
                         >
                             <SectionLabelSide />
-                            <h2 className="display-section-title">
-                                <span className="display-muted-line">Intelligence,</span>
+                            <h2 className="display-section-title display-inline">
+                                <span className="display-muted-line">Intelligence, </span>
                                 <span className="display-strong-line">built in.</span>
                             </h2>
                             <p className="text-lead text-white/55">
@@ -231,32 +241,41 @@ export default function AboutPage() {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 gap-8 sm:gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-                        {TEAM.map(({ name, role, bio }, i) => (
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-7">
+                        {TEAM.map(({ name, role, photo, bio }, i) => (
                             <motion.div
                                 key={name}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-60px" }}
                                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                className="flex flex-col items-center text-center"
+                                className="team-card group flex flex-col items-center rounded-3xl p-7 text-center md:p-8"
+                                style={{
+                                    background: "var(--home-card-bg)",
+                                    border: "1px solid var(--home-card-border)",
+                                }}
                             >
-                                <div
-                                    aria-hidden
-                                    className="flex h-28 w-28 items-center justify-center rounded-full border-2 border-dashed sm:h-32 sm:w-32 md:h-36 md:w-36"
-                                    style={{
-                                        borderColor: "rgba(255,255,255,0.18)",
-                                        background: "radial-gradient(circle, rgba(123, 85, 234,0.08) 0%, rgba(8,1,28,0.5) 70%)",
-                                    }}
-                                >
-                                    <span className="display-feature-title text-white/85">
-                                        {initialsFrom(name)}
-                                    </span>
+                                <div className="team-photo-ring relative h-28 w-28 flex-shrink-0 rounded-full p-[2px] sm:h-32 sm:w-32">
+                                    <div className="relative h-full w-full overflow-hidden rounded-full">
+                                        <Image
+                                            src={photo}
+                                            alt={name}
+                                            width={300}
+                                            height={300}
+                                            className="h-full w-full object-cover"
+                                            unoptimized
+                                        />
+                                    </div>
                                 </div>
                                 <p className="mt-6 display-card-title">{name}</p>
-                                <p className="mt-1 text-eyebrow text-white/45">{role}</p>
+                                <p className="mt-1.5 text-eyebrow text-white/45">{role}</p>
+                                <span
+                                    aria-hidden
+                                    className="mt-5 h-px w-10"
+                                    style={{ background: "linear-gradient(to right, transparent, rgba(123,85,234,0.5), transparent)" }}
+                                />
                                 {bio && (
-                                    <p className="mt-3 max-w-xs text-body-sm text-white/55">{bio}</p>
+                                    <p className="mt-5 text-body-sm leading-relaxed text-white/55">{bio}</p>
                                 )}
                             </motion.div>
                         ))}

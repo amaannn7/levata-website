@@ -409,10 +409,10 @@ export default function HomeHero() {
                         initial={{ opacity: 0, y: 18 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.65, delay: 0.05, ease: EASE }}
-                        className="display-hero-title max-w-4xl"
+                        className="display-hero-title home-hero-title max-w-4xl"
                     >
-                        <span className="display-muted-line">Custom intelligence for</span>
-                        <span className="display-strong-line">
+                        <span className="display-muted-line xl:whitespace-nowrap">Custom intelligence for</span>
+                        <span className="display-strong-line xl:whitespace-nowrap">
                             how your business <RotatingWord />
                         </span>
                     </motion.h1>

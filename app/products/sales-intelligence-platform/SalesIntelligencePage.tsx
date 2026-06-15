@@ -509,8 +509,8 @@ export default function SalesIntelligencePage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Most lead lists go cold.</span>
-                        <span className="display-strong-line">Ours turn into pipeline.</span>
+                        <span className="display-muted-line sm:whitespace-nowrap">Most lead lists go cold.</span>
+                        <span className="display-strong-line sm:whitespace-nowrap">Ours turn into pipeline.</span>
                     </h1>
                     <p className="max-w-2xl text-lead text-white/55">
                         Research, qualification, outreach, and follow-up often consume more time than the conversations that drive revenue.

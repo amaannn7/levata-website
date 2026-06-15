@@ -985,8 +985,8 @@ export default function AIIntelligencePage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Most teams bolt AI on.</span>
-                        <span className="display-strong-line">We engineer it in.</span>
+                        <span className="display-muted-line sm:whitespace-nowrap">Most teams bolt AI on.</span>
+                        <span className="display-strong-line sm:whitespace-nowrap">We engineer it in.</span>
                     </h1>
                     <p className="max-w-2xl text-lead text-white/55">
                         We architect AI as a layer within your business, not a tool on the shelf. Connecting

@@ -317,8 +317,8 @@ export default function AutomationSystemsPage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Most automations break.</span>
-                        <span className="display-strong-line">Ours run your business.</span>
+                        <span className="display-muted-line sm:whitespace-nowrap">Most automations break.</span>
+                        <span className="display-strong-line sm:whitespace-nowrap">Ours run your business.</span>
                     </h1>
                     <p className="max-w-2xl text-lead text-white/55">
                         Your people are at their best when they&apos;re solving problems, serving customers, and

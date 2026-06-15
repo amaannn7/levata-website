@@ -19,9 +19,9 @@ export default function ContactHero() {
                 transition={{ duration: 0.6, ease: EASE }}
                 className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
             >
-                <h1 className="display-hero-title max-w-3xl text-center">
-                    <span className="display-muted-line">Build the intelligence layer</span>
-                    <span className="display-strong-line">your business deserves.</span>
+                <h1 className="display-hero-title max-w-4xl text-center">
+                    <span className="display-muted-line sm:whitespace-nowrap">Build the intelligence layer</span>
+                    <span className="display-strong-line sm:whitespace-nowrap">your business deserves.</span>
                 </h1>
                 <p className="max-w-2xl text-lead text-white/55">
                     Tell us about your business, operations, and goals. We&apos;ll assess where smarter systems,

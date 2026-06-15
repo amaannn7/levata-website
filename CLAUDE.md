@@ -126,6 +126,14 @@ Font weight scale:
 
 Never use `max-w-xl` for a centered hero h1. Never use `ch`-based max-widths.
 
+### Hero lines must stay on one line (no 3rd line)
+
+Each `display-muted-line` / `display-strong-line` span is a single intended line — hero headings must render as **exactly 2 lines** on tablet/desktop, never wrapping a span to a 3rd line. Because the hero font uses `clamp()` (`--text-hero`), a span can grow enough at mid-size desktop widths to wrap even when within the char limit above.
+
+- **Centered hero h1s:** add `sm:whitespace-nowrap` to each span. If a span exceeds its container's char limit, also bump the container one step (e.g. `max-w-3xl` → `max-w-4xl`).
+- **Home hero** (left-aligned in the 2-column `1fr 380px` grid): the text column is narrow at `lg`. Its `<h1>` uses class `home-hero-title`; globals.css forces `white-space: nowrap` on its spans at `min-width: 1024px`. Do not reduce its font size to fix wrapping — keep nowrap.
+- Below `sm`/`lg` (single-column mobile) wrapping is allowed and expected.
+
 ### Section label pattern
 
 ```jsx
@@ -210,3 +218,27 @@ Cards must use CSS variables for all colors. Never hardcode surface or border co
 - Headings scale via `clamp()` through the display classes
 - Mobile: single column, centered text
 - Desktop (lg+): two-column hero layout, horizontal carousels unlock
+
+---
+
+## Team section (About page)
+
+Team data lives in the `TEAM` array in [app/about/page.tsx](app/about/page.tsx). Each member: `{ name, role, photo, bio }`. Photos are in `public/team/`. Order is intentional: **Rahman (COO) → Shameer (CEO, middle) → Amaan**. Cards use `.team-card` + `.team-photo-ring` (gradient ring, hover lift/glow) from globals.css; photos are full color (no grayscale). Member photos should be kept reasonably small for web (≤ ~600px / a few hundred KB).
+
+---
+
+## Deployment (Namecheap, cPanel Node.js App)
+
+Hosted on Namecheap shared hosting via **Setup Node.js App**. App root is the home-level folder **`levatahq.com`** (`/home/stagdctc/levatahq.com`), NOT `public_html`. App settings: Node **22**, mode **Production**, startup file **`server.js`**, env vars `NODE_ENV=production` and `RESEND_API_KEY` (the contact form needs it; `.env.local` is never uploaded). `package.json` `start` must be `node server.js`.
+
+**Deploy loop for any change:**
+1. Edit + `npm run build` locally (always delete a stale `.next` first if it ever grows huge — a `.next/dev` folder from `npm run dev` must never be deployed).
+2. Build the upload zip from these only: `.next/` (minus `cache`), `app/`, `lib/`, `public/`, `scripts/`, `package.json`, `package-lock.json`, `server.js`, `next.config.ts`, `postcss.config.mjs`, `tsconfig.json`, `eslint.config.mjs`. Zip the **contents** (files at zip root, no nested folder). A correct zip is ~20 MB.
+3. cPanel File Manager → `levatahq.com` → Upload → Extract (confirm `server.js`/`package.json` at root) → delete zip.
+4. **Fix permissions (always — Windows zips lose the execute bit, causing `EACCES` on `.next/static`):** cPanel → Terminal:
+   ```
+   cd /home/stagdctc/levatahq.com
+   find .next -type d -exec chmod 755 {} \;
+   find .next -type f -exec chmod 644 {} \;
+   ```
+5. Setup Node.js App → Stop → **Run NPM Install** → Start.

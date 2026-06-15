@@ -460,8 +460,8 @@ export default function DigitalServicesPage() {
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
                     <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Digital infrastructure</span>
-                        <span className="display-strong-line">built for growth.</span>
+                        <span className="display-muted-line sm:whitespace-nowrap">Digital infrastructure</span>
+                        <span className="display-strong-line sm:whitespace-nowrap">built for growth.</span>
                     </h1>
                     <p className="max-w-2xl text-lead text-white/55">
                         Modern businesses are built on digital infrastructure. We design and engineer scalable

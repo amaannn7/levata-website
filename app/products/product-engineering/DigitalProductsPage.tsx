@@ -649,9 +649,9 @@ export default function DigitalProductsPage() {
                     transition={{ duration: 0.6, ease: EASE }}
                     className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6"
                 >
-                    <h1 className="display-hero-title max-w-3xl text-center">
-                        <span className="display-muted-line">Most products burn runway.</span>
-                        <span className="display-strong-line">Ours buy you traction.</span>
+                    <h1 className="display-hero-title max-w-4xl text-center">
+                        <span className="display-muted-line sm:whitespace-nowrap">Most products burn runway.</span>
+                        <span className="display-strong-line sm:whitespace-nowrap">Ours buy you traction.</span>
                     </h1>
                     <p className="max-w-2xl text-lead text-white/55">
                         We help founders and businesses test assumptions, validate market demand, and transform
