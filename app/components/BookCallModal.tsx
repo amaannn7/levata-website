@@ -36,18 +36,49 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
         // Mobile: use Calendly's own native popup widget
         if (isTouchDevice()) {
             window.Calendly?.closePopupWidget?.();
+
+            // Show a loading overlay until Calendly's popup is rendered
+            const overlay = document.createElement("div");
+            overlay.id = "cal-loading-overlay";
+            Object.assign(overlay.style, {
+                position: "fixed", inset: "0", zIndex: "999998",
+                background: "#07080F", display: "flex",
+                alignItems: "center", justifyContent: "center",
+                transition: "opacity 0.3s ease",
+            });
+            overlay.innerHTML = `<div style="width:28px;height:28px;border:2.5px solid rgba(123,85,234,0.25);border-top-color:#7B55EA;border-radius:50%;animation:cal-spin 0.7s linear infinite"></div><style>@keyframes cal-spin{to{transform:rotate(360deg)}}</style>`;
+            document.body.appendChild(overlay);
+
+            const removeOverlay = () => {
+                overlay.style.opacity = "0";
+                setTimeout(() => overlay.remove(), 300);
+            };
+
             const launch = () => window.Calendly?.initPopupWidget({ url: CALENDLY_URL });
             const t = setTimeout(() => {
                 if (window.Calendly) launch();
                 else setTimeout(launch, 500);
             }, 50);
+
+            // Remove overlay once Calendly widget is ready
             const onMsg = (e: MessageEvent) => {
-                if (e.data?.event === "calendly.popup_closed") onClose();
+                if (e.data?.event === "calendly.event_type_viewed" || e.data?.event === "calendly.profile_page_viewed") {
+                    removeOverlay();
+                }
+                if (e.data?.event === "calendly.popup_closed") {
+                    removeOverlay();
+                    onClose();
+                }
             };
+            // Fallback: remove overlay after 2.5s regardless
+            const fallback = setTimeout(removeOverlay, 2500);
+
             window.addEventListener("message", onMsg);
             return () => {
                 clearTimeout(t);
+                clearTimeout(fallback);
                 window.removeEventListener("message", onMsg);
+                document.getElementById("cal-loading-overlay")?.remove();
             };
         }
 
