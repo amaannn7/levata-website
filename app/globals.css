@@ -485,6 +485,13 @@ h6 {
   mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 30%, transparent 80%);
 }
 
+.dot-grid-bg-card {
+  background-image: radial-gradient(rgba(167, 139, 250, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, #000 40%, transparent 90%);
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, #000 40%, transparent 90%);
+}
+
 /* Cursor-spotlight dot grid — dim grid that brightens near the pointer.
    Cursor position comes from --mx / --my set by SpotlightGrid.tsx. */
 .spotlight-grid {
