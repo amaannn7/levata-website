@@ -253,36 +253,38 @@ export default function AboutPage() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0.15 }}
                                 transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                                className={`team-card group flex flex-1 flex-col items-center rounded-3xl p-7 md:p-8 ${desktopOrder}`}
+                                className={`team-card group flex flex-1 flex-col rounded-3xl p-7 md:p-8 ${desktopOrder}`}
                                 style={{
                                     background: "var(--home-card-bg)",
                                     border: "1px solid var(--home-card-border)",
                                     willChange: "transform, opacity",
                                 }}
                             >
-                                <div className="team-photo-ring relative h-32 w-32 flex-shrink-0 rounded-full p-[2px]">
-                                    <div className="relative h-full w-full overflow-hidden rounded-full">
-                                        <Image
-                                            src={photo}
-                                            alt={name}
-                                            width={300}
-                                            height={300}
-                                            className="h-full w-full object-cover object-top"
-                                            unoptimized
-                                        />
+                                <div className="flex flex-col items-center text-center">
+                                    <div className="team-photo-ring relative h-32 w-32 flex-shrink-0 rounded-full p-[2px]">
+                                        <div className="relative h-full w-full overflow-hidden rounded-full">
+                                            <Image
+                                                src={photo}
+                                                alt={name}
+                                                width={300}
+                                                height={300}
+                                                className="h-full w-full object-cover object-top"
+                                                unoptimized
+                                            />
+                                        </div>
                                     </div>
+                                    <div className="mt-6 flex min-h-[3.5rem] flex-col items-center justify-center gap-1.5 w-full">
+                                        <p className="display-card-title">{name}</p>
+                                        <p className="text-eyebrow text-white/45">{role}</p>
+                                    </div>
+                                    <span
+                                        aria-hidden
+                                        className="mt-4 h-px w-10 flex-shrink-0"
+                                        style={{ background: "linear-gradient(to right, transparent, rgba(123,85,234,0.5), transparent)" }}
+                                    />
                                 </div>
-                                <div className="mt-6 flex min-h-[3.5rem] flex-col items-center justify-center gap-1.5 w-full">
-                                    <p className="display-card-title text-center">{name}</p>
-                                    <p className="text-eyebrow text-white/45 text-center">{role}</p>
-                                </div>
-                                <span
-                                    aria-hidden
-                                    className="mt-4 h-px w-10 flex-shrink-0"
-                                    style={{ background: "linear-gradient(to right, transparent, rgba(123,85,234,0.5), transparent)" }}
-                                />
                                 {bio && (
-                                    <p className="mt-5 text-body-sm leading-relaxed text-white/55 text-left">{bio}</p>
+                                    <p className="mt-5 text-body-sm leading-relaxed text-white/55">{bio}</p>
                                 )}
                             </motion.div>
                         ))}
