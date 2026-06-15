@@ -261,7 +261,7 @@ export default function AboutPage() {
                                 }}
                             >
                                 <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-bg opacity-60" />
-                                <div className="relative flex flex-shrink-0 flex-col items-center text-center" style={{ minHeight: "14rem" }}>
+                                <div className="relative flex flex-shrink-0 flex-col items-center text-center" style={{ minHeight: "12rem" }}>
                                     <div className="team-photo-ring relative h-32 w-32 flex-shrink-0 rounded-full p-[2px]">
                                         <div className="relative h-full w-full overflow-hidden rounded-full">
                                             <Image
