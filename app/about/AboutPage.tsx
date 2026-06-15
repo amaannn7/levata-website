@@ -253,14 +253,15 @@ export default function AboutPage() {
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true, amount: 0.05 }}
                                 transition={{ duration: 0.5, delay: i * 0.06, ease: "easeOut" }}
-                                className={`team-card group flex flex-1 flex-col rounded-3xl p-7 md:p-8 ${desktopOrder}`}
+                                className={`team-card group relative flex flex-1 flex-col overflow-hidden rounded-3xl p-7 md:p-8 ${desktopOrder}`}
                                 style={{
                                     background: "var(--home-card-bg)",
                                     border: "1px solid var(--home-card-border)",
                                     willChange: "transform, opacity",
                                 }}
                             >
-                                <div className="flex flex-col items-center text-center">
+                                <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-bg opacity-60" />
+                                <div className="relative flex flex-col items-center text-center">
                                     <div className="team-photo-ring relative h-32 w-32 flex-shrink-0 rounded-full p-[2px]">
                                         <div className="relative h-full w-full overflow-hidden rounded-full">
                                             <Image
@@ -283,7 +284,7 @@ export default function AboutPage() {
                                     />
                                 </div>
                                 {bio && (
-                                    <p className="mt-auto pt-5 text-body-sm leading-relaxed text-white/55 text-center">{bio}</p>
+                                    <p className="relative mt-auto pt-5 text-body-sm leading-relaxed text-white/55 text-center">{bio}</p>
                                 )}
                             </motion.div>
                         ))}
