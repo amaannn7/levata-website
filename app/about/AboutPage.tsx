@@ -98,6 +98,7 @@ const TEAM = [
         photo: "/team/shameer.png",
         bio: "Leads Levata's vision, commercial strategy, and long-term growth. Works closely with businesses to identify where AI can create genuine operational and financial value, then turns those opportunities into practical, high-impact solutions. The focus is on moving clients beyond experimentation and towards implementation, with every engagement built around clear business outcomes, strong execution, and sustainable growth.",
         desktopOrder: "md:order-1",
+        photoScale: 1.25,
     },
     {
         name: "Rahman Zubair",
@@ -105,6 +106,7 @@ const TEAM = [
         photo: "/team/abdulrahman.jpeg",
         bio: "Leads Levata's operations and project delivery, turning ambitious ideas into structured, well-executed engagements. Oversees internal systems, resource planning, client delivery, and quality across every project. The role centres on creating the discipline, accountability, and processes required to deliver complex AI and automation solutions efficiently, while keeping them scalable, commercially sound, and aligned with each client's objectives.",
         desktopOrder: "md:order-2",
+        photoScale: 1,
     },
     {
         name: "Amaan Yusuf",
@@ -112,6 +114,7 @@ const TEAM = [
         photo: "/team/amaan.png",
         bio: "Designs and builds the intelligent systems behind Levata's solutions. Works across AI-powered automation, custom workflows, business integrations, and practical tools that reduce manual effort, improve accuracy, and help teams operate more effectively. The focus is on translating real operational challenges into reliable, user-friendly technology that performs in day-to-day business environments and delivers measurable value.",
         desktopOrder: "md:order-3",
+        photoScale: 1,
     },
 ];
 
@@ -246,7 +249,7 @@ export default function AboutPage() {
                     </motion.div>
 
                     <div className="flex flex-col gap-6 md:flex-row md:gap-7">
-                        {TEAM.map(({ name, role, photo, bio, desktopOrder }, i) => (
+                        {TEAM.map(({ name, role, photo, bio, desktopOrder, photoScale }, i) => (
                             <motion.div
                                 key={name}
                                 initial={{ opacity: 0 }}
@@ -270,6 +273,7 @@ export default function AboutPage() {
                                                 width={300}
                                                 height={300}
                                                 className="h-full w-full object-cover object-top"
+                                                style={{ transform: `scale(${photoScale})`, transformOrigin: "center top" }}
                                                 priority
                                                 unoptimized
                                             />
