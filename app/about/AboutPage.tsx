@@ -97,14 +97,14 @@ const TEAM = [
         role: "Chief Executive Officer",
         photo: "/team/shameer.png",
         bio: "Leads Levata's vision, commercial strategy, and long-term growth. Works closely with businesses to identify where AI can create genuine operational and financial value, then turns those opportunities into practical, high-impact solutions. The focus is on moving clients beyond experimentation and towards implementation, with every engagement built around clear business outcomes, strong execution, and sustainable growth.",
-        desktopOrder: "md:order-2",
+        desktopOrder: "md:order-1",
     },
     {
         name: "Rahman Zubair",
         role: "Chief Operating Officer",
         photo: "/team/abdulrahman.jpeg",
         bio: "Leads Levata's operations and project delivery, turning ambitious ideas into structured, well-executed engagements. Oversees internal systems, resource planning, client delivery, and quality across every project. The role centres on creating the discipline, accountability, and processes required to deliver complex AI and automation solutions efficiently, while keeping them scalable, commercially sound, and aligned with each client's objectives.",
-        desktopOrder: "md:order-1",
+        desktopOrder: "md:order-2",
     },
     {
         name: "Amaan Yusuf",
