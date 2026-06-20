@@ -158,6 +158,20 @@ export async function POST(req: Request) {
             message = form.get("message")?.toString();
             source = form.get("source")?.toString() || undefined;
 
+            // Verify reCAPTCHA token
+            const recaptchaToken = form.get("recaptchaToken")?.toString();
+            if (recaptchaToken && process.env.RECAPTCHA_SECRET_KEY) {
+                const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+                });
+                const verifyData = await verifyRes.json() as { success: boolean; score: number };
+                if (!verifyData.success || verifyData.score < 0.5) {
+                    return NextResponse.json({ error: "reCAPTCHA verification failed." }, { status: 400 });
+                }
+            }
+
             const file = form.get("attachment");
             if (file instanceof File && file.size > 0) {
                 if (file.size > MAX_ATTACHMENT_BYTES) {

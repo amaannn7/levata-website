@@ -119,6 +119,27 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
         e.preventDefault();
         if (isLoading) return;
 
+        setStatus("loading");
+        setErrorMsg("");
+
+        // Get reCAPTCHA v3 token
+        let recaptchaToken = "";
+        try {
+            recaptchaToken = await new Promise<string>((resolve, reject) => {
+                const w = window as typeof window & { grecaptcha?: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } };
+                w.grecaptcha?.ready(async () => {
+                    try {
+                        const token = await w.grecaptcha!.execute("6Lc7XiotAAAAAHnhwQ1haiQ6iaEv3MuWkQJ-2LIj", { action: "contact" });
+                        resolve(token);
+                    } catch { reject(new Error("reCAPTCHA failed")); }
+                });
+            });
+        } catch {
+            setErrorMsg("reCAPTCHA check failed. Please refresh and try again.");
+            setStatus("error");
+            return;
+        }
+
         const data = new FormData(e.currentTarget);
         const phoneNumber = (data.get("phone") as string | null)?.trim() ?? "";
         const phone = phoneNumber ? `${selected.dial} ${phoneNumber}` : "";
@@ -129,10 +150,8 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
         if (phone) payload.append("phone", phone);
         payload.append("message", (data.get("message") as string).trim());
         payload.append("source", "Contact Form");
+        payload.append("recaptchaToken", recaptchaToken);
         if (attachedFile) payload.append("attachment", attachedFile);
-
-        setStatus("loading");
-        setErrorMsg("");
 
         try {
             const res = await fetch("/api/contact", {

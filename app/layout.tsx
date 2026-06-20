@@ -82,6 +82,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://calendly.com" />
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
         <script src="https://assets.calendly.com/assets/external/widget.js" async />
+        <script src="https://www.google.com/recaptcha/api.js?render=6Lc7XiotAAAAAHnhwQ1haiQ6iaEv3MuWkQJ-2LIj" async />
       </head>
       <body className="min-h-screen bg-[#0E1014] text-[#E6E6E6]">
         <SmoothScrollProvider>
