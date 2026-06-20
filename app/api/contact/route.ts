@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 // TODO: Replace "onboarding@resend.dev" with "hello@levata.ai" once the
 // levata.ai domain is verified inside the Resend dashboard.
 const FROM_ADDRESS = "Levata <onboarding@resend.dev>";
-const TO_ADDRESS = "hello@levatahq.com";
+const TO_ADDRESS = "tigo.yusuf@gmail.com";
 
 function buildHtml(fields: {
     name: string;
