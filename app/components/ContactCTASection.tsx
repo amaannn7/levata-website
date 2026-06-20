@@ -377,7 +377,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
                                     {/* Submit */}
                                     <div className="mt-2 flex items-center justify-between border-t border-white/8 pt-5" data-form-field>
-                                        <p className="text-micro text-white/25">All fields marked * are required</p>
+                                        <p className="text-micro text-white/25">Protected by reCAPTCHA — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/40">Privacy</a> &amp; <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/40">Terms</a></p>
                                         <button
                                             type="submit"
                                             disabled={isLoading}
