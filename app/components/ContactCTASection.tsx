@@ -376,12 +376,12 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
                                     )}
 
                                     {/* Submit */}
-                                    <div className="mt-2 flex items-center justify-between border-t border-white/8 pt-5" data-form-field>
+                                    <div className="mt-2 flex flex-col gap-4 border-t border-white/8 pt-5 sm:flex-row sm:items-center sm:justify-between" data-form-field>
                                         <p className="text-micro text-white/25">Protected by reCAPTCHA — <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/40">Privacy</a> &amp; <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/40">Terms</a></p>
                                         <button
                                             type="submit"
                                             disabled={isLoading}
-                                            className="relative px-5 py-2.5 rounded-full text-sm font-semibold text-white  sm:px-6 sm:py-3 disabled:opacity-60 disabled:cursor-not-allowed"
+                                            className="relative w-full rounded-full px-5 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-6"
                                             data-cta="primary"
                                         >
                                             {isLoading ? (

@@ -257,10 +257,6 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
                     >
                         <div className="flex flex-col gap-3 px-6 pb-6">
                             <p className="text-lead text-white/55">{a}</p>
-                            <div className="flex items-center gap-3">
-                                <IconSpark />
-                                <span className="text-eyebrow text-white/50">Live monitoring</span>
-                            </div>
                         </div>
                     </motion.div>
                 )}
