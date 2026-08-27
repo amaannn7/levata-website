@@ -80,6 +80,16 @@ const INFO_ITEMS = [
         label: "Timezone",
         value: "Worldwide, async friendly",
     },
+    {
+        icon: (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M12 21C12 21 19 15.5 19 10C19 5.6 15.9 2 12 2C8.1 2 5 5.6 5 10C5 15.5 12 21 12 21Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+        ),
+        label: "Address",
+        value: "21A, 17th Lane, Colombo 03, Sri Lanka",
+    },
 ];
 
 export default function ContactCTASection({ showHeading = true }: { showHeading?: boolean }) {
@@ -119,28 +129,44 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
         e.preventDefault();
         if (isLoading) return;
 
+        // Read the form values now, before anything else. React nulls out
+        // e.currentTarget once this handler yields (e.g. at the first
+        // `await`), and setting status to "loading" disables every field
+        // on re-render — disabled fields are excluded from FormData, so
+        // reading it after either point would return nulls.
+        const formEl = e.currentTarget;
+        const data = new FormData(formEl);
+
         setStatus("loading");
         setErrorMsg("");
 
-        // Get reCAPTCHA v3 token
+        // Get reCAPTCHA v3 token (bounded so a slow/blocked script can't hang the form forever)
         let recaptchaToken = "";
         try {
-            recaptchaToken = await new Promise<string>((resolve, reject) => {
-                const w = window as typeof window & { grecaptcha?: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } };
-                w.grecaptcha?.ready(async () => {
-                    try {
-                        const token = await w.grecaptcha!.execute("6Lc7XiotAAAAAHnhwQ1haiQ6iaEv3MuWkQJ-2LIj", { action: "contact" });
-                        resolve(token);
-                    } catch { reject(new Error("reCAPTCHA failed")); }
-                });
-            });
+            recaptchaToken = await Promise.race([
+                new Promise<string>((resolve, reject) => {
+                    const w = window as typeof window & { grecaptcha?: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } };
+                    if (!w.grecaptcha) {
+                        reject(new Error("reCAPTCHA not loaded"));
+                        return;
+                    }
+                    w.grecaptcha.ready(async () => {
+                        try {
+                            const token = await w.grecaptcha!.execute("6Lc7XiotAAAAAHnhwQ1haiQ6iaEv3MuWkQJ-2LIj", { action: "contact" });
+                            resolve(token);
+                        } catch { reject(new Error("reCAPTCHA failed")); }
+                    });
+                }),
+                new Promise<string>((_, reject) =>
+                    setTimeout(() => reject(new Error("reCAPTCHA timed out")), 10000)
+                ),
+            ]);
         } catch {
-            setErrorMsg("reCAPTCHA check failed. Please refresh and try again.");
+            setErrorMsg("reCAPTCHA check failed or timed out. Please refresh and try again.");
             setStatus("error");
             return;
         }
 
-        const data = new FormData(e.currentTarget);
         const phoneNumber = (data.get("phone") as string | null)?.trim() ?? "";
         const phone = phoneNumber ? `${selected.dial} ${phoneNumber}` : "";
 

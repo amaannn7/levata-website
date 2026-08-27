@@ -27,36 +27,6 @@ const CLIENTS: { name: string; country: string; file: string }[] = [
 
 const TRACK = [...CLIENTS, ...CLIENTS];
 
-// AI "sparkle" between logos — a 4-point shimmer star plus a tiny companion sparkle,
-// gently twinkling in the brand gradient. viewBox 44 x 44.
-// A 4-point star: pinched diamond with concave sides, drawn from the center outward.
-const SPARKLE_MAIN =
-    "M22 6 C23 16 28 21 38 22 C28 23 23 28 22 38 C21 28 16 23 6 22 C16 21 21 16 22 6 Z";
-const SPARKLE_MINI =
-    "M36 30 C36.6 33 38 34.4 41 35 C38 35.6 36.6 37 36 40 C35.4 37 34 35.6 31 35 C34 34.4 35.4 33 36 30 Z";
-
-function CircuitTrace({ i }: { i: number }) {
-    const gid = `clients-spark-grad-${i}`;
-    return (
-        <span
-            aria-hidden
-            className="clients-trace flex h-[120px] w-[52px] flex-shrink-0 items-center justify-center self-start md:h-[140px]"
-            style={{ ["--d" as string]: `${(i % 5) * 0.5}s` }}
-        >
-            <svg viewBox="0 0 44 44" fill="none" className="h-[34px] w-[34px] overflow-visible">
-                <defs>
-                    <linearGradient id={gid} x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stopColor="#00FFDD" />
-                        <stop offset="100%" stopColor="#CC01FF" />
-                    </linearGradient>
-                </defs>
-                <path d={SPARKLE_MAIN} fill={`url(#${gid})`} className="clients-spark-main" />
-                <path d={SPARKLE_MINI} fill={`url(#${gid})`} className="clients-spark-mini" />
-            </svg>
-        </span>
-    );
-}
-
 function ClientItem({ client }: { client: typeof CLIENTS[number] }) {
     return (
         <div
@@ -106,15 +76,12 @@ export default function ClientsMarquee() {
                     <div
                         className="flex w-max items-center"
                         style={{
-                            gap: "clamp(12px, 1.6vw, 22px)",
+                            gap: "clamp(40px, 5vw, 72px)",
                             animation: "marquee 48s linear infinite",
                         }}
                     >
                         {TRACK.map((client, i) => (
-                            <div key={i} className="flex items-start" style={{ gap: "clamp(40px, 5vw, 72px)" }}>
-                                <ClientItem client={client} />
-                                <CircuitTrace i={i} />
-                            </div>
+                            <ClientItem key={i} client={client} />
                         ))}
                     </div>
                 </div>

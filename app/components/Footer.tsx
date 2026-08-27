@@ -20,6 +20,12 @@ const COMPANY = [
     { label: "Contact", href: "/contact" },
 ];
 
+const LEGAL = [
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms & Conditions", href: "/terms-and-conditions" },
+    { label: "Refund Policy", href: "/refund-policy" },
+];
+
 const SOCIALS = [
     { icon: <FaLinkedinIn size={13} />, href: "https://www.linkedin.com/company/levatahq/", label: "LinkedIn" },
     { icon: <FaInstagram size={13} />, href: "https://instagram.com/levatahq", label: "Instagram" },
@@ -144,10 +150,21 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-                <div className="flex flex-col items-center gap-2 border-t border-white/[0.06] py-6 sm:flex-row sm:justify-between">
+                <div className="flex flex-col items-center gap-4 border-t border-white/[0.06] py-6 sm:flex-row sm:justify-between sm:gap-2">
                     <p className="text-micro text-white/30">
                         &copy; {new Date().getFullYear()} Levata. All rights reserved.
                     </p>
+                    <div className="flex items-center gap-4">
+                        {LEGAL.map((link) => (
+                            <Link
+                                key={link.label}
+                                href={link.href}
+                                className="text-micro text-white/30 transition-colors duration-200 hover:text-white/60"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                    </div>
                     <p className="text-micro text-white/20 sm:block" style={{ letterSpacing: "0.15em" }}>
                         INTELLIGENCE, BUILT.
                     </p>
