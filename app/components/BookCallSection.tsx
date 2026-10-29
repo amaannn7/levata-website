@@ -18,7 +18,7 @@ export default function BookCallSection() {
 
                 <div className="h-px w-full bg-white/8" />
 
-                <div className="mt-16">
+                <div className="mt-16" data-reveal>
                     <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <h2 className="display-section-title">

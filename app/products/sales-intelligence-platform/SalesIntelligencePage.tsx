@@ -458,11 +458,9 @@ const FAQS = [
 // "-"- FAQ Accordion "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+        <div
+            data-reveal
+            data-reveal-delay={Math.round((index * 0.05) * 1000)}
             className="overflow-hidden rounded-2xl"
             style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${isOpen ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.06)"}`, transition: "border-color 300ms ease" }}
         >
@@ -482,7 +480,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.div>
+        </div>
     );
 }
 
@@ -637,11 +635,8 @@ export default function SalesIntelligencePage() {
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: "radial-gradient(ellipse 60% 70% at 50% 40%, rgba(0,255,221,0.04) 0%, transparent 70%)" }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center md:mb-12 gap-3 text-center"
                     >
                         <SectionLabel />
@@ -649,7 +644,7 @@ export default function SalesIntelligencePage() {
                             <span className="display-muted-line">Everything your team needs</span>
                             <span className="display-strong-line">in one intelligent workspace.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     {/* Dashboard visual */}
                     <div className="mb-16 md:mb-20">
@@ -657,11 +652,8 @@ export default function SalesIntelligencePage() {
                     </div>
 
                     {/* Capabilities selector */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="grid grid-cols-1 gap-5 md:grid-cols-[1fr_1.25fr] md:gap-7"
                     >
                         {/* Left: capability list "" accordion on mobile, selector on desktop */}
@@ -723,7 +715,7 @@ export default function SalesIntelligencePage() {
                                                         style={{ background: "linear-gradient(160deg, rgba(28,30,38,0.96) 0%, rgba(20,22,28,0.96) 100%)", border: "1px solid rgba(255,255,255,0.18)", borderTop: "none" }}>
                                                         <p className="text-body-sm text-white/60">{c.description}</p>
                                                         <div className="h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
-                                                        <p className="text-eyebrow text-white/35">What's included</p>
+                                                        <p className="text-eyebrow text-white/35">What&apos;s included</p>
                                                         <ul className="flex flex-col gap-2.5">
                                                             {c.bullets.map((b) => (
                                                                 <li key={b} className="flex items-center gap-3 text-[14px] text-white/85">
@@ -779,7 +771,7 @@ export default function SalesIntelligencePage() {
                                                 {CAPABILITIES[activeCap].description}
                                             </p>
                                             <div aria-hidden className="relative my-1 h-px w-full" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.18) 0%, transparent 100%)" }} />
-                                            <p className="relative -mb-1 text-eyebrow text-white/35">What's included</p>
+                                            <p className="relative -mb-1 text-eyebrow text-white/35">What&apos;s included</p>
                                             <ul className="relative mt-auto flex flex-col gap-2.5">
                                                 {CAPABILITIES[activeCap].bullets.map((b, bi) => (
                                                     <motion.li key={b} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: 0.08 + bi * 0.05, ease: [0.16, 1, 0.3, 1] }} className="flex items-center gap-3 text-[14px] text-white/85">
@@ -797,7 +789,7 @@ export default function SalesIntelligencePage() {
                                 </AnimatePresence>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -806,18 +798,15 @@ export default function SalesIntelligencePage() {
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(204,1,255,0.07) 0%, transparent 65%)" }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center md:mb-12 gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
                             <span className="display-muted-line">Real results, </span><span className="display-strong-line">not hype.</span>
                         </h2>
-                    </motion.div>
+                    </div>
                     <div className="grid grid-cols-2 gap-10 md:grid-cols-4 md:gap-6">
                         {OUTCOMES.map((o) => (
                             <AnimatedStat key={o.label} value={o.value} suffix={o.suffix} label={o.label} animate={o.animate} />
@@ -830,11 +819,8 @@ export default function SalesIntelligencePage() {
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: ["radial-gradient(ellipse 50% 50% at 20% 30%, rgba(0,255,221,0.04) 0%, transparent 70%)", "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(204,1,255,0.04) 0%, transparent 70%)"].join(", ") }} />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center md:mb-12 gap-3 text-center"
                     >
                         <SectionLabel />
@@ -842,19 +828,17 @@ export default function SalesIntelligencePage() {
                             <span className="display-muted-line">From lead list</span>
                             <span className="display-strong-line">to closed deal in 6 steps.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     <div className="relative">
                         <div aria-hidden className="pointer-events-none absolute hidden lg:block lg:left-0 lg:right-0"
                             style={{ top: "28px", height: "1px", background: "linear-gradient(to right, transparent, rgba(255,255,255,0.18) 6%, rgba(255,255,255,0.18) 94%, transparent)" }} />
                         <div className="grid grid-cols-1 gap-x-4 gap-y-12 sm:grid-cols-2 lg:grid-cols-6">
                             {STEPS.map((step, i) => (
-                                <motion.div
+                                <div
+                                    data-reveal
+                                    data-reveal-delay={Math.round((i * 0.08) * 1000)}
                                     key={step.num}
-                                    initial={{ opacity: 0, y: 8 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-60px" }}
-                                    transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                                     className="flex flex-col items-center text-center"
                                 >
                                     <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full md:h-14 md:w-14"
@@ -865,7 +849,7 @@ export default function SalesIntelligencePage() {
                                     </div>
                                     <h3 className="mt-4 display-card-title" style={{ minHeight: "2.8em" }}>{step.title}</h3>
                                     <p className="mt-2 max-w-[180px] text-caption text-white/55">{step.body}</p>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -876,11 +860,8 @@ export default function SalesIntelligencePage() {
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0" style={{ background: ["radial-gradient(ellipse 50% 50% at 20% 50%, rgba(204,1,255,0.06) 0%, transparent 70%)", "radial-gradient(ellipse 50% 50% at 80% 50%, rgba(0,255,221,0.05) 0%, transparent 70%)"].join(", ") }} />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center gap-3 text-center"
                     >
                         <SectionLabel />
@@ -888,16 +869,14 @@ export default function SalesIntelligencePage() {
                             <span className="display-muted-line">Built for teams that do</span>
                             <span className="display-strong-line">real outbound sales.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {AUDIENCE.map((line, i) => (
-                            <motion.div
+                            <div
+                                data-reveal
+                                data-reveal-delay={Math.round(((i % 3) * 0.1) * 1000)}
                                 key={line}
-                                initial={{ opacity: 0, y: 8 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-60px" }}
-                                transition={{ duration: 0.6, delay: (i % 3) * 0.1, ease: [0.16, 1, 0.3, 1] }}
                                 className="flex items-start gap-4 rounded-xl px-5 py-4"
                                 style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
                             >
@@ -911,7 +890,7 @@ export default function SalesIntelligencePage() {
                                     </svg>
                                 </span>
                                 <span className="text-body-sm text-white/75">{line}</span>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -921,18 +900,15 @@ export default function SalesIntelligencePage() {
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
                             <span className="display-muted-line">Frequently asked </span><span className="display-strong-line">questions.</span>
                         </h2>
-                    </motion.div>
+                    </div>
                     <div className="flex flex-col gap-3">
                         {FAQS.map((f, i) => (
                             <FAQItem key={f.q} q={f.q} a={f.a} index={i} isOpen={openFaq === i} onToggle={() => setOpenFaq(openFaq === i ? null : i)} />
@@ -945,11 +921,8 @@ export default function SalesIntelligencePage() {
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <CTAAurora variant={2} />
                 <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }} />
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                <div
+                    data-reveal
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
                 >
                     <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -968,7 +941,7 @@ export default function SalesIntelligencePage() {
                             Book a Demo
                         </button>
                     </div>
-                </motion.div>
+                </div>
             </section>
         </main>
     );

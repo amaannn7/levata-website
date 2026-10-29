@@ -40,7 +40,12 @@ const PRODUCTS = [
         description: "AI-powered B2B prospecting & outreach workspace",
         href: "/products/sales-intelligence-platform",
         accent: "#7B55EA",
-        meta: "Featured",
+    },
+    {
+        label: "Helm",
+        description: "Leadership operating system: scorecard, priorities, Monday meetings",
+        href: "/products/helm",
+        accent: "#7B55EA",
     },
 ];
 
@@ -370,12 +375,6 @@ export default function Navbar() {
                                                                 <span className="text-sm font-semibold text-[#E6E6E6] transition-colors duration-200 group-hover/item:text-white">
                                                                     {p.label}
                                                                 </span>
-                                                                <span
-                                                                    className="rounded-full px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em]"
-                                                                    style={{ background: "rgba(123, 85, 234,0.12)", border: "1px solid rgba(123, 85, 234,0.35)", color: p.accent }}
-                                                                >
-                                                                    {p.meta}
-                                                                </span>
                                                             </div>
                                                             <span className="text-[12px] leading-snug text-[#71717A]">
                                                                 {p.description}
@@ -505,12 +504,6 @@ export default function Navbar() {
                                             >
                                                 <span className="flex items-center gap-2">
                                                     {p.label}
-                                                    <span
-                                                        className="rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em]"
-                                                        style={{ background: "rgba(123, 85, 234,0.12)", border: "1px solid rgba(123, 85, 234,0.3)", color: "#7B55EA" }}
-                                                    >
-                                                        {p.meta}
-                                                    </span>
                                                 </span>
                                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden style={{ opacity: 0.3 }}>
                                                     <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

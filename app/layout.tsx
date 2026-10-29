@@ -1,21 +1,12 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SmoothScrollProvider from "./components/SmoothScrollProvider";
-import TextReveal from "./components/TextReveal";
-import RevealFallback from "./components/RevealFallback";
+import ScrollReveal from "./components/ScrollReveal";
 import BookCallProvider from "./components/BookCallProvider";
 import BookCallFloating from "./components/BookCallFloating";
 import "./globals.css";
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://levatahq.com"),
@@ -73,9 +64,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`antialiased ${dmSans.variable} ${GeistMono.variable}`}
+      className={`antialiased ${GeistMono.variable}`}
+      suppressHydrationWarning
     >
       <head>
+        {/* Hide [data-reveal] blocks before first paint (see ScrollReveal). Skipped for
+            reduced motion; un-hides everything if the app script never starts. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var d=document.documentElement;if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('reveal-on');setTimeout(function(){if(!d.hasAttribute('data-reveal-ready'))d.classList.remove('reveal-on')},6000)})();",
+          }}
+        />
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500,600,700&display=swap" />
         <link rel="preconnect" href="https://calendly.com" />
         <link rel="preconnect" href="https://assets.calendly.com" />
@@ -87,8 +89,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-[#0E1014] text-[#E6E6E6]">
         <SmoothScrollProvider>
           <BookCallProvider>
-            <TextReveal />
-            <RevealFallback />
+            <ScrollReveal />
             <Navbar />
             {children}
             <Footer />

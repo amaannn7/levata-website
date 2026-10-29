@@ -10,10 +10,10 @@ Next.js (App Router), TypeScript, Tailwind CSS, Framer Motion.
 
 | Purpose | Font | CSS variable | Weights |
 |---|---|---|---|
-| All text — headings, body, UI | **DM Sans** | `--font-dm-sans` → `--font-display` / `--font-ui` | 300, 400, 500, 600, 700 |
+| All text — headings, body, UI | **Switzer** (Fontshare stylesheet in `<head>`) | `--font-display` / `--font-ui` | 300, 400, 500, 600, 700 |
 | Terminal / logs / code (`code`, `pre`, `kbd`, `[class*="font-mono"]`) | **GeistMono** | `--font-geist-mono` → `--font-code` | 400, 500 |
 
-Hero and section titles use **DM Sans weight 300** — light, airy, with `letter-spacing: 0.01em`. Do not import additional font families or set `font-family` inline.
+Hero and section titles use **Switzer**: the muted line at weight 300, the strong line at weight 400, with `letter-spacing: -0.02em` (set in globals.css). Do not import additional font families or set `font-family` inline.
 
 ---
 
@@ -87,12 +87,12 @@ Font weight scale:
 
 | Class | Compiled weight | Use |
 |---|---|---|
-| `font-thin` | 300 | hero titles, section titles, all `.display-*` lines |
+| `font-thin` | 300 | `.display-muted-line`, light numbers/stats |
 | `font-normal` | 400 | body text, paragraphs, h3/h4 |
 | `font-medium` | 500 | UI labels, nav items |
 | `font-semibold` | 600 | buttons, section eyebrow labels |
 
-**Display headings use weight 300.** Never apply 500+ to `.display-hero-title`, `.display-section-title`, `.display-muted-line`, or `.display-strong-line`.
+**Display headings use weight 300 (muted line) and 400 (strong line).** Never apply 500+ to `.display-hero-title`, `.display-section-title`, `.display-muted-line`, or `.display-strong-line`.
 
 ---
 
@@ -112,9 +112,9 @@ Font weight scale:
 </h2>
 ```
 
-- `display-muted-line`: `color: var(--text-secondary)`, weight **300** (DM Sans)
-- `display-strong-line`: `color: var(--text-primary)`, weight **300** (DM Sans)
-- Hierarchy comes from **color contrast only** — secondary vs primary, not weight difference
+- `display-muted-line`: `color: var(--text-secondary)`, weight **300** (Switzer)
+- `display-strong-line`: `color: var(--text-primary)`, weight **400** (Switzer)
+- Hierarchy comes mainly from **color contrast** (secondary vs primary), with a one-step weight lift on the strong line
 
 ### Span length rules (prevent 4-line wrap at hero font size)
 
@@ -190,8 +190,8 @@ Cards must use CSS variables for all colors. Never hardcode surface or border co
 
 ## Non-Negotiable Rules
 
-- No weight above 300 on `.display-hero-title`, `.display-section-title`, `.display-muted-line`, `.display-strong-line`
-- No negative `letter-spacing` on hero/section titles — must be `0` or positive (`0.01em`)
+- No weight above 400 on `.display-hero-title`, `.display-section-title`, `.display-muted-line`, `.display-strong-line`
+- Hero/section title tracking comes from globals.css (`-0.02em`) — do not override it per component
 - No `font-extrabold` / `font-black`
 - No `font-bold` on body copy, captions, labels, or buttons
 - No gradient text
@@ -202,7 +202,7 @@ Cards must use CSS variables for all colors. Never hardcode surface or border co
 - No hardcoded hex color values in new TSX components — use CSS variables or the gradient constant
 - No pink on text, numbers, or headings
 - No `home-theme-light` on any section — entire home page is dark
-- Only two approved font families: DM Sans (all text) + GeistMono (code/terminal). Do not introduce a third family or set inline `font-family`.
+- Only two approved font families: Switzer (all text) + GeistMono (code/terminal). Do not introduce a third family or set inline `font-family`.
 
 ---
 
@@ -212,6 +212,13 @@ Cards must use CSS variables for all colors. Never hardcode surface or border co
 - Hero top padding: accounts for navbar height (~72px) + breathing room
 - Card internal padding: `p-7 md:p-9`
 - Heading to body gap: `gap-4` or `gap-5` in flex column
+
+## Scroll animations
+
+- One reveal for the whole site: add `data-reveal` to a block and it fades up (opacity + 20px rise, 0.8s, `cubic-bezier(0.16,1,0.3,1)`) once when it scrolls into view. Stagger siblings with `data-reveal-delay="80"` (ms, capped at 450). Styles live in globals.css (`.reveal-on [data-reveal]`); [ScrollReveal.tsx](app/components/ScrollReveal.tsx) only ever adds `is-revealed`, so nothing can flicker.
+- Do **not** use framer-motion `whileInView` for section/card reveals, and do not add GSAP/SplitText text effects — two systems fighting over the same element is what caused the scroll blinking. Framer is still fine for hero intros on load (`initial`/`animate`), accordions, tabs and dashboard internals.
+- Reduced motion and no-JS show everything immediately. Smooth scrolling is Lenis ([SmoothScrollProvider.tsx](app/components/SmoothScrollProvider.tsx)), desktop only; a scrollable child (modal, drawer) needs `data-lenis-prevent`.
+- Hover-only reveals (`opacity-0 group-hover:opacity-100`) must also show on touch screens: add `[@media(hover:none)]:opacity-100`.
 
 ## Responsive
 

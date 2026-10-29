@@ -368,11 +368,9 @@ const SERVICES = [
 // "-"- Card "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function ServiceCard({ service, index }: { service: typeof SERVICES[number]; index: number }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: index * 0.07, ease: EASE }}
+        <div
+            data-reveal
+            data-reveal-delay={Math.round((index * 0.07) * 1000)}
         >
             <Link
                 href={service.href}
@@ -423,7 +421,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
                 </ul>
 
                 {/* Hover reveal: description + link */}
-                <div className="relative z-10 grid grid-rows-[0fr] opacity-0 transition-all duration-[380ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100">
+                <div className="relative z-10 grid grid-rows-[0fr] opacity-0 transition-all duration-[380ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100 [@media(hover:none)]:grid-rows-[1fr] [@media(hover:none)]:opacity-100">
                     <div className="overflow-hidden">
                         <div className="mt-5 border-t pt-4" style={{ borderColor: "rgba(123,85,234,0.15)" }}>
                             <p className="text-body-sm text-white/55">{service.description}</p>
@@ -440,7 +438,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[number]; ind
                     </div>
                 </div>
             </Link>
-        </motion.div>
+        </div>
     );
 }
 
@@ -457,17 +455,14 @@ export default function ServicesSection() {
 
             <div className="relative z-10 mx-auto max-w-[1120px]">
                 {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.7, ease: EASE }}
+                <div
+                    data-reveal
                     className="mb-10 flex flex-col items-center gap-3 text-center"
                 >
                     <h2 className="display-section-title display-inline max-w-2xl text-center">
                         <span className="display-muted-line">Four ways we build </span><span className="display-strong-line">smarter businesses</span>
                     </h2>
-                </motion.div>
+                </div>
 
                 {/* Card grid */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

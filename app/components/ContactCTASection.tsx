@@ -203,7 +203,7 @@ export default function ContactCTASection({ showHeading = true }: { showHeading?
 
     return (
         <section ref={sectionRef} id="contact-cta" className="relative w-full bg-[#0E1014] px-5 py-8 sm:px-6 md:py-14">
-            <div className="relative z-10 mx-auto max-w-[1120px]">
+            <div className="relative z-10 mx-auto max-w-[1120px]" data-reveal>
 
                 {showHeading && (
                     <div className="mb-12" data-form-heading>

@@ -176,11 +176,8 @@ export default function AboutPage() {
 
                 <div className="relative z-10 mx-auto w-full max-w-[1120px]">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                        <div
+                            data-reveal
                             className="flex flex-col gap-5"
                         >
                             <SectionLabelSide />
@@ -198,13 +195,11 @@ export default function AboutPage() {
                                 scale, and drive measurable business growth instead of relying on fragmented tools
                                 or short-term solutions.
                             </p>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                        <div
+                            data-reveal
+                            data-reveal-delay="150"
                             className="rounded-2xl p-7 md:p-9"
                             style={{
                                 background: "var(--home-card-bg)",
@@ -215,7 +210,7 @@ export default function AboutPage() {
                             <p className="display-quote text-white/90">
                                 To help businesses unlock scalable growth through intelligent infrastructure.
                             </p>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -230,11 +225,8 @@ export default function AboutPage() {
                 }} />
 
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center text-center gap-3"
                     >
                         <SectionLabel />
@@ -246,16 +238,14 @@ export default function AboutPage() {
                             Bringing together strategy, technology, and operational thinking to help businesses
                             build what comes next.
                         </p>
-                    </motion.div>
+                    </div>
 
                     <div className="flex flex-col gap-6 md:flex-row md:gap-7">
                         {TEAM.map(({ name, role, photo, bio, desktopOrder, photoScale }, i) => (
-                            <motion.div
+                            <div
+                                data-reveal
+                                data-reveal-delay={Math.round((i * 0.06) * 1000)}
                                 key={name}
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true, amount: 0.05 }}
-                                transition={{ duration: 0.5, delay: i * 0.06, ease: "easeOut" }}
                                 className={`team-card group relative flex flex-1 flex-col overflow-hidden rounded-3xl p-7 md:p-8 ${desktopOrder}`}
                                 style={{
                                     background: "var(--home-card-bg)",
@@ -290,7 +280,7 @@ export default function AboutPage() {
                                 {bio && (
                                     <p className="relative mt-5 text-body-sm leading-relaxed text-white/55 text-center">{bio}</p>
                                 )}
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -307,11 +297,8 @@ export default function AboutPage() {
                 <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-bg" />
 
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center text-center gap-4"
                     >
                         <SectionLabel />
@@ -319,7 +306,7 @@ export default function AboutPage() {
                             <span className="display-muted-line">Four reasons we earn</span>
                             <span className="display-strong-line">long-term partnerships.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     <div className="relative mx-auto max-w-3xl">
                         <div
@@ -333,12 +320,10 @@ export default function AboutPage() {
                         />
                         <div className="flex flex-col gap-6">
                             {WHY_ITEMS.map(({ Icon, title, body }, i) => (
-                                <motion.div
+                                <div
+                                    data-reveal
+                                    data-reveal-delay={Math.round((i * 0.08) * 1000)}
                                     key={title}
-                                    initial={{ opacity: 0, y: 24 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, amount: 0.2 }}
-                                    transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                                     className="relative flex items-start gap-5 md:gap-7"
                                 >
                                     <div
@@ -370,7 +355,7 @@ export default function AboutPage() {
                                             <p className="text-body-sm text-white/55">{body}</p>
                                         </div>
                                     </div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -384,11 +369,8 @@ export default function AboutPage() {
                     style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.4), transparent)" }}
                 />
 
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                <div
+                    data-reveal
                     className="relative z-10 mx-auto max-w-3xl flex flex-col items-center text-center gap-8"
                 >
                                         <h2 className="display-section-title max-w-2xl text-center">
@@ -411,7 +393,7 @@ export default function AboutPage() {
                         </button>
 
                     </div>
-                </motion.div>
+                </div>
             </section>
         </main>
     );

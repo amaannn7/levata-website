@@ -194,11 +194,8 @@ export default function ProcessTabsSection() {
             <div className="relative px-6 py-20 lg:hidden">
                 <div className="pointer-events-none absolute inset-0" style={{ background: ["radial-gradient(ellipse 40% 60% at 20% 30%, rgba(123, 85, 234,0.06) 0%, transparent 70%)", "radial-gradient(ellipse 40% 50% at 80% 70%, rgba(123, 85, 234,0.05) 0%, transparent 70%)"].join(", ") }} />
                 <div className="relative mx-auto max-w-2xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
+                    <div
+                        data-reveal
                         className="mb-12 flex flex-col items-center gap-4 text-center"
                     >
                                                 <h2 className="display-section-title max-w-xl text-center">
@@ -206,18 +203,16 @@ export default function ProcessTabsSection() {
                             <span className="display-strong-line">compounding success.</span>
                         </h2>
                         <p className="max-w-xl text-lead text-white/50">A repeatable system that turns strategic clarity into measurable outcomes fast.</p>
-                    </motion.div>
+                    </div>
 
                     <div className="relative">
                         <div className="pointer-events-none absolute left-6 top-8 bottom-8 w-px" style={{ background: "linear-gradient(to bottom, transparent 0%, rgba(148,163,184,0.3) 12%, rgba(148,163,184,0.3) 88%, transparent 100%)" }} />
                         <div className="flex flex-col gap-12">
                             {STEPS.map((step, i) => (
-                                <motion.div
+                                <div
+                                    data-reveal
+                                    data-reveal-delay={Math.round((i * 0.12) * 1000)}
                                     key={step.num}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-80px" }}
-                                    transition={{ duration: 0.7, delay: i * 0.12, ease: EASE }}
                                     className="relative flex items-start gap-6"
                                 >
                                     <div className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl" style={{ background: "rgba(23,26,34,0.98)", border: "1px solid #7B55EA80", boxShadow: "0 0 0 6px rgba(7,0,31,1), 0 0 20px #7B55EA25" }}>
@@ -240,7 +235,7 @@ export default function ProcessTabsSection() {
                                             <span className="font-semibold text-white/75">Result: </span>{step.result}
                                         </p>
                                     </div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>

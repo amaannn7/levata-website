@@ -2,32 +2,17 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
-        // Don't init Lenis on touch devices -- it intercepts touch events
-        // and breaks iframes (Calendly, etc.)
-        if ("ontouchstart" in window) return;
+        // No smooth scrolling on touch devices (Lenis intercepts touch events and
+        // breaks iframes like Calendly) or for people who asked for reduced motion.
+        if ("ontouchstart" in window || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-        gsap.registerPlugin(ScrollTrigger);
-
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        });
-
-        lenis.on("scroll", ScrollTrigger.update);
-
-        const ticker = (time: number) => lenis.raf(time * 1000);
-        gsap.ticker.add(ticker);
-        gsap.ticker.lagSmoothing(0);
-
-        return () => {
-            gsap.ticker.remove(ticker);
-            lenis.destroy();
-        };
+        // lerp-based smoothing follows the wheel closely. Scrollable children can
+        // opt out with `data-lenis-prevent`.
+        const lenis = new Lenis({ lerp: 0.12, autoRaf: true });
+        return () => lenis.destroy();
     }, []);
 
     return <>{children}</>;

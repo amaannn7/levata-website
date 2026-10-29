@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, useEffect, Suspense, Component, ReactNode } from "react";
+import { useRef, useMemo, useEffect, useState, Suspense, Component, ReactNode } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
@@ -395,10 +395,36 @@ function Scene() {
 }
 
 // - AIGlobe, main export -
+// The canvas only mounts once its box is actually on screen (so a CSS-hidden
+// copy never starts a WebGL context) and stops rendering while scrolled away.
 export default function AIGlobe() {
+    const wrapRef = useRef<HTMLDivElement>(null);
+    const [mounted, setMounted] = useState(false);
+    const [inView, setInView] = useState(false);
+
+    useEffect(() => {
+        const el = wrapRef.current;
+        if (!el) return;
+        const io = new IntersectionObserver(([entry]) => {
+            setInView(entry.isIntersecting);
+            if (entry.isIntersecting) setMounted(true);
+        });
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
+
+    return (
+        <div ref={wrapRef} style={{ width: "100%", height: "100%" }}>
+            {mounted && <GlobeCanvas active={inView} />}
+        </div>
+    );
+}
+
+function GlobeCanvas({ active }: { active: boolean }) {
     return (
         <WebGLErrorBoundary>
             <Canvas
+                frameloop={active ? "always" : "never"}
                 camera={{ position: [0, 0, 4.0], fov: 40 }}
                 gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
                 dpr={[1, 1.75]}

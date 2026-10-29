@@ -38,6 +38,7 @@ yarn-error.log*
 
 # deploy artifacts
 /levata-deploy/
+/levata-source/
 *.zip
 
 # typescript

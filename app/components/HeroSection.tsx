@@ -848,8 +848,8 @@ function ServicesCarousel() {
                                 ))}
                             </ul>
 
-                            {/* Hover reveal: description + Explore link */}
-                            <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100">
+                            {/* Hover reveal: description + Explore link (always shown on touch screens, which have no hover) */}
+                            <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100 [@media(hover:none)]:grid-rows-[1fr] [@media(hover:none)]:opacity-100">
                                 <div className="overflow-hidden">
                                     <p className="mt-4 text-caption text-white/60">
                                         {card.description}
@@ -1082,7 +1082,7 @@ function WhyLevataDeck() {
                     <span className="display-strong-line">Outcomes, not outputs.</span>
                 </h2>
                 <p className="text-lead text-white/45 max-w-sm">
-                    Strategy, design, engineering, and growth "" all under one roof with one shared goal. We commit to measurable results, not deliverables.
+                    Strategy, design, engineering, and growth, all under one roof with one shared goal. We commit to measurable results, not deliverables.
                 </p>
             </div>
 
@@ -1550,11 +1550,8 @@ function ProblemSpider() {
     ];
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: EASE }}
+        <div
+            data-reveal
             className="relative mx-auto w-full max-w-5xl"
             style={{ aspectRatio: `${W} / ${H}` }}
         >
@@ -1670,11 +1667,9 @@ function ProblemSpider() {
                                 : { right: 0, width: `calc(${100 - xPct}% - 24px)` }),
                         }}
                     >
-                        <motion.div
-                            initial={{ opacity: 0, x: isLeft ? 14 : -14 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.55, delay: 0.35 + i * 0.1, ease: EASE }}
+                        <div
+                            data-reveal
+                            data-reveal-delay={Math.round((0.35 + i * 0.1) * 1000)}
                             className="rounded-2xl p-px"
                             style={{
                                 background: `linear-gradient(135deg, ${accentSoft} 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.05) 100%)`,
@@ -1709,22 +1704,20 @@ function ProblemSpider() {
                                     {PAIN_POINTS[i].desc}
                                 </p>
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 );
             })}
 
             {/* Center visual "" overloaded system core */}
-            <motion.div
+            <div
+                data-reveal
+                data-reveal-delay="200"
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-                initial={{ opacity: 0, scale: 0.85 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             >
                 <ProblemCore size={200} />
-            </motion.div>
-        </motion.div>
+            </div>
+        </div>
     );
 }
 
@@ -1748,11 +1741,8 @@ export default function HeroSection() {
                 }} />
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center text-center gap-3 md:mb-12"
                     >
                         <SectionBeam />
@@ -1760,17 +1750,15 @@ export default function HeroSection() {
                             <span className="display-muted-line">Most businesses are</span>
                             <span className="display-strong-line">scaling chaos, not systems.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     {/* "" Mobile: stacked pain point cards + visual "" */}
                     <div className="flex flex-col gap-4 lg:hidden">
                         {PAIN_POINTS.map((p, i) => (
-                            <motion.div
+                            <div
+                                data-reveal
+                                data-reveal-delay={Math.round((i * 0.08) * 1000)}
                                 key={i}
-                                initial={{ opacity: 0, y: 12 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-40px" }}
-                                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                                 className="rounded-2xl p-px"
                                 style={{
                                     background: "linear-gradient(135deg, rgba(255,75,75,0.38) 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.05) 100%)",
@@ -1797,18 +1785,16 @@ export default function HeroSection() {
                                     <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em]" style={{ color: "rgba(255,105,105,0.95)" }}>{p.title}</p>
                                     <p className="text-[12.5px] leading-relaxed text-white/55">{p.desc}</p>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true, margin: "-40px" }}
-                            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        <div
+                            data-reveal
+                            data-reveal-delay="200"
                             className="mt-6 flex justify-center overflow-hidden"
                             style={{ height: 220 }}
                         >
                             <ProblemCore size={210} />
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* "" Desktop: spider / hub layout "" */}
@@ -1832,11 +1818,8 @@ export default function HeroSection() {
                 </div>
                 <div aria-hidden className="pointer-events-none absolute inset-0 home-ai-grid opacity-[0.3]" />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mx-auto mb-10 flex max-w-4xl flex-col items-center text-center gap-3"
                     >
                         <SectionBeam />
@@ -1847,14 +1830,12 @@ export default function HeroSection() {
                         <p className="max-w-2xl text-lead text-white/55">
                             Levata designs and operates custom intelligence systems built for your business. Strategy, automation, technology, and digital experience, all aligned under one team, one vision.
                         </p>
-                    </motion.div>
+                    </div>
 
                     {/* Flow diagram, horizontal on md+, vertical on mobile */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
+                        data-reveal-delay="150"
                     >
                         {/* Desktop: horizontal centered */}
                         <div className="hidden md:flex items-start justify-center gap-0">
@@ -1874,7 +1855,7 @@ export default function HeroSection() {
                                 </div>
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -1889,14 +1870,11 @@ export default function HeroSection() {
                 }} />
 
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                     >
                         <ServicesCarousel />
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -1905,11 +1883,8 @@ export default function HeroSection() {
             {/* "" 5. MID-PAGE CTA """""""""""""""""""""""""""""""" */}
             <section className="home-theme-dark relative w-full px-5 py-14 sm:px-6 md:py-20 overflow-hidden">
                 <CTAAurora variant={2} />
-                <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                <div
+                    data-reveal
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-7 text-center"
                 >
                     <h2 className="display-section-title display-inline max-w-2xl text-center">
@@ -1929,7 +1904,7 @@ export default function HeroSection() {
                             <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                         </button>
                     </div>
-                </motion.div>
+                </div>
             </section>
 
             <SectionDivider />
@@ -1952,11 +1927,8 @@ export default function HeroSection() {
                     }} />
                 </div>
                 <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-bg" />
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                <div
+                    data-reveal
                     className="relative z-10 mx-auto mb-10 flex max-w-3xl flex-col items-center text-center gap-3"
                 >
                     <SectionBeam />
@@ -1968,13 +1940,10 @@ export default function HeroSection() {
                         Turn your raw lead list into a researched, prioritized, and actionable pipeline, in hours,
                         not days.
                     </p>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                <div
+                    data-reveal
                     className="mx-auto w-full max-w-5xl"
                 >
                     <div className="rounded-3xl p-px" style={{
@@ -2143,7 +2112,7 @@ export default function HeroSection() {
                             </div>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </section>
 
             {/* "" 8. BY THE NUMBERS "" no divider, flows from Featured Product above "" */}
@@ -2153,18 +2122,15 @@ export default function HeroSection() {
                         "radial-gradient(ellipse 50% 60% at 50% 50%, rgba(123, 85, 234,0.06) 0%, transparent 65%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center md:mb-12 text-center gap-3"
                     >
                         <SectionBeam />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
                             <span className="display-muted-line">What smarter operations </span><span className="display-strong-line">deliver.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     <div className="grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-y-12 sm:gap-x-8 md:grid-cols-4 md:gap-x-12 text-center">
                         {KEY_RESULTS.map((r) => (
@@ -2206,11 +2172,8 @@ export default function HeroSection() {
             <section className="home-theme-dark relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <CTAAurora variant={1} />
                 <div aria-hidden className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2" style={{ background: "linear-gradient(to right, transparent, rgba(123, 85, 234,0.5), transparent)" }} />
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                <div
+                    data-reveal
                     className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center"
                 >
                     <h2 className="display-section-title max-w-2xl text-center">
@@ -2229,7 +2192,7 @@ export default function HeroSection() {
                         Book a Strategy Call
                         <span aria-hidden className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                     </button>
-                </motion.div>
+                </div>
             </section>
 
         </main>

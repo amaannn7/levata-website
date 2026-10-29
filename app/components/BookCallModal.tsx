@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -12,10 +12,9 @@ function isTouchDevice() {
 }
 
 export default function BookCallModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-    const [mounted, setMounted] = useState(false);
+    // true in the browser, false during SSR: the portal needs document.body
+    const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
     const [preloaded, setPreloaded] = useState(false);
-
-    useEffect(() => { setMounted(true); }, []);
 
     // Preload iframe after page is idle -- so it's ready before user clicks
     useEffect(() => {
@@ -121,6 +120,7 @@ export default function BookCallModal({ open, onClose }: { open: boolean; onClos
                 {open && (
                     <motion.div
                         key="cal-overlay"
+                        data-lenis-prevent
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}

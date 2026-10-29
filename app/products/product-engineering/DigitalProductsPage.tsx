@@ -206,11 +206,9 @@ const FAQS = [
 // "-"- FAQ item "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: index * 0.05, ease: EASE }}
+        <div
+            data-reveal
+            data-reveal-delay={Math.round((index * 0.05) * 1000)}
             className="overflow-hidden rounded-2xl"
             style={{
                 background: "rgba(255,255,255,0.02)",
@@ -253,7 +251,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.div>
+        </div>
     );
 }
 
@@ -483,7 +481,7 @@ function MVPVisual() {
                     <text x="80"  y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4–6w</text>
                     <text x="80"  y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">idea to signal</text>
                     <text x="240" y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">WASTED RUNWAY</text>
-                    <text x="240" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">'80%</text>
+                    <text x="240" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">80%</text>
                     <text x="240" y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">vs build-first</text>
                     <text x="400" y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">PIVOT RISK</text>
                     <text x="400" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3x</text>
@@ -682,11 +680,8 @@ export default function DigitalProductsPage() {
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-80px" }}
-                            transition={{ duration: 0.7, ease: EASE }}
+                        <div
+                            data-reveal
                             className="flex flex-col gap-6"
                         >
                             <SectionLabelSide />
@@ -699,16 +694,14 @@ export default function DigitalProductsPage() {
                                 or defining the right product strategy. By launch, valuable time, budget, and
                                 momentum have already been lost.
                             </p>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+                        </div>
+                        <div
+                            data-reveal
+                            data-reveal-delay="150"
                             className="block"
                         >
                             <ProductProblemVisual />
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -721,23 +714,18 @@ export default function DigitalProductsPage() {
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-5xl">
                     <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-end">
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-80px" }}
-                            transition={{ duration: 0.7, ease: EASE }}
+                        <div
+                            data-reveal
                             className="flex flex-col gap-5"
                         >
                             <SectionLabelSide />
                             <h2 className="display-section-title display-inline">
                                 <span className="display-muted-line">Validate first. </span><span className="display-strong-line">Build second.</span>
                             </h2>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
+                        </div>
+                        <div
+                            data-reveal
+                            data-reveal-delay="100"
                             className="flex flex-col gap-5"
                         >
                             <p className="text-lead text-white/55">
@@ -745,13 +733,11 @@ export default function DigitalProductsPage() {
                                 testing ideas, and refining priorities early, businesses can reduce risk, move
                                 faster, and invest with greater confidence.
                             </p>
-                        </motion.div>
+                        </div>
                     </div>
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
+                    <div
+                        data-reveal
+                        data-reveal-delay="200"
                         className="mt-16 grid grid-cols-2 md:grid-cols-4 md:mt-20"
                         style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
                     >
@@ -761,12 +747,10 @@ export default function DigitalProductsPage() {
                             { title: "Validate Demand",        desc: "Real user signal before a line of production code.", icon: <><path d="M3 10c0 0 2-5 7-5s7 5 7 5-2 5-7 5-7-5-7-5z" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinejoin="round"/><circle cx="10" cy="10" r="2.5" fill="rgba(0,255,221,0.1)" stroke="rgba(0,255,221,0.8)" strokeWidth="1.4"/></> },
                             { title: "Invest with Confidence", desc: "Every decision backed by data, not assumption.", icon: <><path d="M4 15l3-4 3 2 3-5 3 3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><rect x="3" y="3" width="14" height="14" rx="2" stroke="rgba(0,255,221,0.8)" strokeWidth="1.4"/></> },
                         ].map((p, i) => (
-                            <motion.div
+                            <div
+                                data-reveal
+                                data-reveal-delay={Math.round((0.25 + i * 0.08) * 1000)}
                                 key={p.title}
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-40px" }}
-                                transition={{ duration: 0.5, delay: 0.25 + i * 0.08, ease: EASE }}
                                 className="flex flex-col gap-3 pt-10 pb-7 px-6"
                                 style={{ borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.06)" : "none" }}
                             >
@@ -775,9 +759,9 @@ export default function DigitalProductsPage() {
                                 </div>
                                 <p className="display-card-title" style={{ minHeight: "2.6em" }}>{p.title}</p>
                                 <p className="text-body-sm text-white/45">{p.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -787,23 +771,18 @@ export default function DigitalProductsPage() {
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123,85,234,0.06) 0%, transparent 70%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
                             <span className="display-muted-line">How products </span><span className="display-strong-line">get built.</span>
                         </h2>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+                    </div>
+                    <div
+                        data-reveal
+                        data-reveal-delay="150"
                     >
                         {/* Desktop: horizontal flow */}
                         <div className="hidden items-start justify-center gap-6 md:flex">
@@ -870,35 +849,29 @@ export default function DigitalProductsPage() {
                                 </div>
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* "" 5. OUR SERVICES "" */}
             <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
                             <span className="display-muted-line">Two product </span><span className="display-strong-line">layers we build.</span>
                         </h2>
-                    </motion.div>
+                    </div>
                     <div className="flex flex-col gap-14 md:gap-20">
                         {NEW_SERVICES.map((svc, i) => {
                             const isOdd = i % 2 === 1;
                             return (
-                                <motion.div
+                                <div
+                                    data-reveal
                                     key={svc.num}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-80px" }}
-                                    transition={{ duration: 0.7, ease: EASE }}
                                     className={`grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-16 lg:gap-20 ${isOdd ? "md:[&>div:first-child]:order-2" : ""}`}
                                 >
                                     <div className={`flex flex-col gap-4 ${isOdd ? "md:ml-auto md:w-full md:max-w-md" : ""}`}>
@@ -929,7 +902,7 @@ export default function DigitalProductsPage() {
                                     <div className="mx-auto block w-full max-w-md sm:max-w-none">
                                         {i === 0 ? <MVPVisual /> : <SaaSVisual />}
                                     </div>
-                                </motion.div>
+                                </div>
                             );
                         })}
                     </div>
@@ -940,18 +913,15 @@ export default function DigitalProductsPage() {
             <section className="relative w-full overflow-hidden px-5 sm:px-6 py-14 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center gap-3 text-center"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
                             <span className="display-muted-line">Founder questions, </span><span className="display-strong-line">answered.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     <div className="flex flex-col gap-3">
                         {FAQS.map((f, i) => (
@@ -972,11 +942,8 @@ export default function DigitalProductsPage() {
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <CTAAurora variant={1} />
                 <div aria-hidden className="pointer-events-none absolute left-0 right-0 top-0 mx-auto h-px max-w-3xl" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }} />
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.8, ease: EASE }}
+                <div
+                    data-reveal
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center"
                 >
                                         <h2 className="display-section-title max-w-2xl text-center">
@@ -997,7 +964,7 @@ export default function DigitalProductsPage() {
                         </button>
 
                     </div>
-                </motion.div>
+                </div>
             </section>
         </main>
     );

@@ -62,6 +62,12 @@
   --home-button-color: #ffffff;
   --home-button-shadow: none;
   --home-button-shadow-hover: none;
+
+  /* Status colors for product dashboards (scorecards, priorities). Reserved for
+     state only — always paired with an icon or label, never used for text. */
+  --status-on: #00FFDD;
+  --status-warn: #FFB547;
+  --status-off: #FF5A6E;
 }
 
 @theme inline {
@@ -1219,4 +1225,27 @@ h6 {
 
 .services-carousel-scroll::-webkit-scrollbar {
   display: none;
+}
+/* Horizontal scroll strips inside product dashboards — scrollable, no visible bar. */
+.helm-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.helm-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Scroll reveal (driven by app/components/ScrollReveal.tsx) ─────────────
+   Add `data-reveal` to any block to fade it up once as it scrolls into view.
+   `.reveal-on` is set on <html> before first paint (skipped for reduced motion),
+   so without it everything renders visible. */
+.reveal-on [data-reveal]:not(.reveal-done) {
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-on [data-reveal]:not(.is-revealed) {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
 }

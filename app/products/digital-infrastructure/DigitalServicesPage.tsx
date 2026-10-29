@@ -367,11 +367,9 @@ function DigitalProblemVisual() {
 // "-"- FAQ item "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: index * 0.05, ease: EASE }}
+        <div
+            data-reveal
+            data-reveal-delay={Math.round((index * 0.05) * 1000)}
             className="overflow-hidden rounded-2xl"
             style={{
                 background: "rgba(255,255,255,0.02)",
@@ -414,7 +412,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.div>
+        </div>
     );
 }
 
@@ -424,11 +422,9 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
     const { count, elRef } = useCountUp(intTarget, 1800);
     const display = symbol ? symbol : (decimals > 0 ? (count / Math.pow(10, decimals)).toFixed(decimals) : count.toString());
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: index * 0.08, ease: EASE }}
+        <div
+            data-reveal
+            data-reveal-delay={Math.round((index * 0.08) * 1000)}
             className="flex flex-col items-center gap-3 px-4 py-8 text-center md:gap-4"
         >
             <IconSpark />
@@ -436,7 +432,7 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
                 {symbol ? "" : prefix}{display}{symbol ? "" : suffix}
             </span>
             <span className="text-caption text-white/55">{label}</span>
-        </motion.div>
+        </div>
     );
 }
 
@@ -494,11 +490,8 @@ export default function DigitalServicesPage() {
                 <div className="relative z-10 mx-auto max-w-[1120px]">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-center">
                         {/* Left: heading + paragraph */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-80px" }}
-                            transition={{ duration: 0.7, ease: EASE }}
+                        <div
+                            data-reveal
                             className="flex flex-col gap-6"
                         >
                             <SectionLabelSide />
@@ -514,18 +507,16 @@ export default function DigitalServicesPage() {
                             <p className="text-lead text-white/55">
                                 Businesses built for growth need infrastructure built for scale.
                             </p>
-                        </motion.div>
+                        </div>
 
                         {/* Right: visual */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+                        <div
+                            data-reveal
+                            data-reveal-delay="150"
                             className="block"
                         >
                             <DigitalProblemVisual />
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -538,11 +529,8 @@ export default function DigitalServicesPage() {
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-5xl">
                     <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16 lg:gap-20 md:items-end">
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-80px" }}
-                            transition={{ duration: 0.7, ease: EASE }}
+                        <div
+                            data-reveal
                             className="flex flex-col gap-5"
                         >
                             <SectionLabelSide />
@@ -550,12 +538,10 @@ export default function DigitalServicesPage() {
                                 <span className="display-muted-line">Modern growth requires</span>
                                 <span className="display-strong-line">scalable digital infrastructure.</span>
                             </h2>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
+                        </div>
+                        <div
+                            data-reveal
+                            data-reveal-delay="100"
                             className="flex flex-col gap-5"
                         >
                             <p className="text-lead text-white/55">
@@ -563,15 +549,13 @@ export default function DigitalServicesPage() {
                                 to attract customers, support operations, and scale efficiently. Infrastructure
                                 becomes more than a business asset. It becomes a platform for sustainable growth.
                             </p>
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* Pillars */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
+                    <div
+                        data-reveal
+                        data-reveal-delay="200"
                         className="mt-16 grid grid-cols-2 md:grid-cols-4 md:mt-20"
                         style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
                     >
@@ -581,12 +565,10 @@ export default function DigitalServicesPage() {
                             { title: "Scale Efficiently",  desc: "Systems built to grow without rebuilding from scratch.", icon: <><path d="M3 14l4-5 3 3 3-4 4-4" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 4h3v3" stroke="rgba(0,255,221,0.8)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></> },
                             { title: "Build Advantage",    desc: "Digital assets that compound value over time.", icon: <><path d="M10 3l2 4h4l-3 3 1 4-4-2.5L6 14l1-4-3-3h4z" stroke="rgba(0,255,221,0.8)" strokeWidth="1.4" strokeLinejoin="round" fill="rgba(0,255,221,0.08)"/></> },
                         ].map((p, i) => (
-                            <motion.div
+                            <div
+                                data-reveal
+                                data-reveal-delay={Math.round((0.25 + i * 0.08) * 1000)}
                                 key={p.title}
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-40px" }}
-                                transition={{ duration: 0.5, delay: 0.25 + i * 0.08, ease: EASE }}
                                 className="flex flex-col gap-3 pt-10 pb-7 px-6"
                                 style={{ borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.06)" : "none" }}
                             >
@@ -595,9 +577,9 @@ export default function DigitalServicesPage() {
                                 </div>
                                 <p className="display-card-title" style={{ minHeight: "2.6em" }}>{p.title}</p>
                                 <p className="text-body-sm text-white/45">{p.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -607,25 +589,20 @@ export default function DigitalServicesPage() {
                     background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123,85,234,0.06) 0%, transparent 70%)",
                 }} />
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
                             <span className="display-muted-line">How infrastructure </span><span className="display-strong-line">gets built.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     {/* Desktop: horizontal flow */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
+                    <div
+                        data-reveal
+                        data-reveal-delay="150"
                     >
                         <div className="hidden items-start justify-center gap-6 md:flex">
                             {PROCESS_STEPS.map((step, i) => (
@@ -739,18 +716,15 @@ export default function DigitalServicesPage() {
                                 </div>
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* "" 5. OUR SERVICES "" */}
             <section id="services" className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div className="relative z-10 mx-auto max-w-[1120px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
@@ -758,19 +732,16 @@ export default function DigitalServicesPage() {
                             <span className="display-muted-line">Three infrastructure</span>
                             <span className="display-strong-line">layers we build.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     <div className="flex flex-col gap-14 md:gap-20">
                         {SUB_SERVICES.map((svc, i) => {
                             const isOdd = i % 2 === 1;
                             const IconForRow = i === 0 ? IconGlobe : i === 1 ? IconCart : IconLayers;
                             return (
-                                <motion.div
+                                <div
+                                    data-reveal
                                     key={svc.num}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-80px" }}
-                                    transition={{ duration: 0.7, ease: EASE }}
                                     className={`grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center md:gap-16 lg:gap-20 ${isOdd ? "md:[&>div:first-child]:order-2" : ""}`}
                                 >
                                     {/* text */}
@@ -810,7 +781,7 @@ export default function DigitalServicesPage() {
                                     <div className="mx-auto block w-full max-w-md sm:max-w-none">
                                         <WhatWeBuildVisual kind={svc.visual} />
                                     </div>
-                                </motion.div>
+                                </div>
                             );
                         })}
                     </div>
@@ -821,18 +792,15 @@ export default function DigitalServicesPage() {
             <section className="relative w-full overflow-hidden px-5 py-14 sm:px-6 md:py-20">
                 <div aria-hidden className="pointer-events-none absolute inset-0 z-0 dot-grid-bg" />
                 <div className="relative z-10 mx-auto max-w-3xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ duration: 0.7, ease: EASE }}
+                    <div
+                        data-reveal
                         className="mb-10 flex flex-col items-center gap-3 text-center md:mb-12"
                     >
                         <SectionLabel />
                         <h2 className="display-section-title display-inline max-w-2xl text-center">
                             <span className="display-muted-line">The </span><span className="display-strong-line">common questions.</span>
                         </h2>
-                    </motion.div>
+                    </div>
 
                     <div className="flex flex-col gap-3">
                         {FAQS.map((f, i) => (
@@ -857,11 +825,8 @@ export default function DigitalServicesPage() {
                     style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)" }}
                 />
                 <CTAAurora variant={2} />
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-80px" }}
-                    transition={{ duration: 0.8, ease: EASE }}
+                <div
+                    data-reveal
                     className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-6 text-center"
                 >
                     <h2 className="display-section-title max-w-2xl text-center">
@@ -882,7 +847,7 @@ export default function DigitalServicesPage() {
                         </button>
 
                     </div>
-                </motion.div>
+                </div>
             </section>
         </main>
     );
