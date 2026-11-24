@@ -7,6 +7,7 @@ import CTAAurora from "@/app/components/CTAAurora";
 import SectionLabel from "@/app/components/SectionLabel";
 import SectionLabelSide from "@/app/components/SectionLabelSide";
 import dynamic from "next/dynamic";
+import { SalesWorkspaceMock } from "@/app/components/mockups/SalesMockup";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
@@ -106,252 +107,6 @@ function CapabilityIcon({ kind }: { kind: IconKind }) {
     );
 }
 
-// "-"- Sales Dashboard SVG Visual "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-function SalesDashboardVisual() {
-    const ref = useRef<HTMLDivElement>(null);
-    const observed = useInView(ref, { once: true, margin: "200px" });
-    // Fallback so the dashboard reveals even if the observer never fires (iOS Safari).
-    const [forced, setForced] = useState(false);
-    useEffect(() => {
-        const t = setTimeout(() => setForced(true), 600);
-        return () => clearTimeout(t);
-    }, []);
-    const inView = observed || forced;
-    const prefersReducedMotion = useReducedMotion();
-    const reduced = !!prefersReducedMotion;
-
-    const pipelineData = [38, 52, 44, 68, 58, 74, 82, 71, 88, 94, 86, 98];
-    const maxVal = 100;
-    const sparkW = 280, sparkH = 60;
-    const pts = pipelineData.map((v, i) => `${(i / (pipelineData.length - 1)) * sparkW},${sparkH - (v / maxVal) * sparkH}`).join(" ");
-
-    return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="relative w-full mx-auto max-w-[900px]"
-        >
-            {/* Outer glow */}
-            <div aria-hidden className="pointer-events-none absolute inset-0 rounded-2xl" style={{ boxShadow: "0 0 80px rgba(123,85,234,0.12), 0 0 40px rgba(123,85,234,0.06)" }} />
-
-            <div
-                className="relative overflow-hidden rounded-2xl"
-                style={{
-                    background: "linear-gradient(160deg, rgba(18,20,28,0.98) 0%, rgba(13,14,22,0.99) 100%)",
-                    border: "1px solid rgba(123,85,234,0.18)",
-                    boxShadow: "0 24px 80px rgba(0,0,0,0.5)",
-                }}
-            >
-                {/* Top bar */}
-                <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.06]">
-                    <div className="flex items-center gap-2">
-                        <div className="flex gap-1.5">
-                            <div className="h-3 w-3 rounded-full bg-white/10" />
-                            <div className="h-3 w-3 rounded-full bg-white/10" />
-                            <div className="h-3 w-3 rounded-full bg-white/10" />
-                        </div>
-                        <span className="ml-2 text-[10px] font-semibold tracking-[0.12em] text-white/30 uppercase whitespace-nowrap" style={{ fontFamily: MONO }}>
-                            Sales Intelligence
-                        </span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <span className="text-[10px] text-white/25 font-medium" style={{ fontFamily: MONO }}>Live</span>
-                        <motion.div
-                            className="h-2 w-2 rounded-full"
-                            style={{ background: "rgba(123,85,234,0.9)" }}
-                            animate={reduced ? undefined : { opacity: [1, 0.3, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                        />
-                    </div>
-                </div>
-
-                {/* Dashboard grid */}
-                <div className="grid grid-cols-12 gap-0 divide-x divide-white/[0.04]">
-
-                    {/* Left sidebar: lead list */}
-                    <div className="col-span-3 p-4 border-r border-white/[0.04] hidden md:block">
-                        <p className="text-[9px] font-semibold tracking-[0.2em] text-white/30 uppercase mb-3" style={{ fontFamily: MONO }}>Lead Queue</p>
-                        {[
-                            { name: "Meridian Group", role: "VP Sales", score: 94, hot: true },
-                            { name: "Vantage Capital", role: "CEO", score: 88, hot: true },
-                            { name: "Crestline Corp", role: "RevOps", score: 71, hot: false },
-                            { name: "Nexford Ltd", role: "Dir. Sales", score: 65, hot: false },
-                            { name: "Pinnacle Co", role: "Head BD", score: 58, hot: false },
-                        ].map((lead, i) => (
-                            <motion.div
-                                key={lead.name}
-                                initial={{ opacity: 0, x: -8 }}
-                                animate={inView ? { opacity: 1, x: 0 } : {}}
-                                transition={{ duration: 0.4, delay: 0.2 + i * 0.07, ease: EASE }}
-                                className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 mb-1 cursor-default"
-                                style={{
-                                    background: i === 0 ? "rgba(123,85,234,0.08)" : "transparent",
-                                    border: i === 0 ? "1px solid rgba(123,85,234,0.2)" : "1px solid transparent",
-                                }}
-                            >
-                                <div className="h-6 w-6 rounded-full flex-shrink-0 flex items-center justify-center text-[8px] font-bold text-white/60"
-                                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
-                                    {lead.name[0]}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-[10px] font-semibold text-white/80 truncate leading-none mb-0.5">{lead.name}</p>
-                                    <p className="text-[9px] text-white/30 truncate leading-none">{lead.role}</p>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                    {lead.hot && <div className="h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ background: "rgba(123,85,234,0.9)" }} />}
-                                    <span className="text-[9px] font-semibold text-white/50" style={{ fontFamily: MONO }}>{lead.score}</span>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    {/* Center: main panel */}
-                    <div className="col-span-12 md:col-span-6 p-5">
-
-                        {/* KPI row */}
-                        <div className="grid grid-cols-3 gap-3 mb-5">
-                            {[
-                                { label: "Researched Today", val: "12", delta: "+4" },
-                                { label: "Emails Sent", val: "28", delta: "+11" },
-                                { label: "Pipeline Value", val: "$84k", delta: "+22%" },
-                            ].map((kpi, i) => (
-                                <motion.div
-                                    key={kpi.label}
-                                    initial={{ opacity: 0, y: 8 }}
-                                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                                    transition={{ duration: 0.4, delay: 0.3 + i * 0.08, ease: EASE }}
-                                    className="rounded-xl p-3 flex flex-col"
-                                    style={{ background: "rgba(123,85,234,0.06)", border: "1px solid rgba(123,85,234,0.15)" }}
-                                >
-                                    <p className="text-[9px] text-white/35 font-medium leading-tight flex-1" style={{ minHeight: "2.4em" }}>{kpi.label}</p>
-                                    <p className="text-xl font-thin text-white leading-none mt-1.5 mb-1">{kpi.val}</p>
-                                    <span className="text-[9px] font-semibold" style={{ color: "rgba(123,85,234,0.9)" }}>{kpi.delta}</span>
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        {/* Pipeline sparkline */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={inView ? { opacity: 1 } : {}}
-                            transition={{ duration: 0.5, delay: 0.55, ease: EASE }}
-                            className="rounded-xl p-4 mb-4"
-                            style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}
-                        >
-                            <div className="flex items-center justify-between mb-3">
-                                <p className="text-[10px] font-semibold text-white/50 tracking-[0.14em] uppercase" style={{ fontFamily: MONO }}>Pipeline Activity</p>
-                                <span className="text-[9px] font-semibold" style={{ fontFamily: MONO, color: "rgba(123,85,234,0.9)" }}>▲ 24% this week</span>
-                            </div>
-                            <svg viewBox={`0 0 ${sparkW} ${sparkH}`} className="w-full" style={{ height: 52 }} fill="none">
-                                <defs>
-                                    <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="0%" stopColor="rgba(123,85,234,0.4)" />
-                                        <stop offset="100%" stopColor="rgba(123,85,234,0)" />
-                                    </linearGradient>
-                                </defs>
-                                <motion.path
-                                    d={`M0,${sparkH} L0,${sparkH - (pipelineData[0] / maxVal) * sparkH} ${pts} L${sparkW},${sparkH} Z`}
-                                    fill="url(#sparkGrad)"
-                                    initial={{ opacity: 0 }}
-                                    animate={inView ? { opacity: 1 } : {}}
-                                    transition={{ duration: 0.8, delay: 0.6, ease: EASE }}
-                                />
-                                <motion.polyline
-                                    points={pts}
-                                    stroke="rgba(123,85,234,0.85)"
-                                    strokeWidth="1.8"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    fill="none"
-                                    initial={{ pathLength: 0, opacity: 0 }}
-                                    animate={inView ? { pathLength: 1, opacity: 1 } : {}}
-                                    transition={{ duration: 1.2, delay: 0.65, ease: EASE }}
-                                />
-                                {pipelineData.map((v, i) => (
-                                    <motion.circle
-                                        key={i}
-                                        cx={(i / (pipelineData.length - 1)) * sparkW}
-                                        cy={sparkH - (v / maxVal) * sparkH}
-                                        r={i === pipelineData.length - 1 ? 3.5 : 2}
-                                        fill={i === pipelineData.length - 1 ? "rgba(123,85,234,1)" : "rgba(123,85,234,0.5)"}
-                                        initial={{ opacity: 0, scale: 0 }}
-                                        animate={inView ? { opacity: 1, scale: 1 } : {}}
-                                        transition={{ duration: 0.3, delay: 0.9 + i * 0.04, ease: EASE }}
-                                    />
-                                ))}
-                            </svg>
-                        </motion.div>
-
-                        {/* Active lead card */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={inView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.5, delay: 0.75, ease: EASE }}
-                            className="rounded-xl p-4"
-                            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
-                        >
-                            <div className="flex items-center justify-between gap-2 mb-3">
-                                <div className="min-w-0">
-                                    <p className="text-[10px] font-semibold tracking-[0.14em] text-white/30 uppercase mb-1" style={{ fontFamily: MONO }}>AI Research Brief</p>
-                                    <p className="text-sm font-semibold text-white leading-snug truncate">Meridian Group · James Chen</p>
-                                </div>
-                                <div className="flex-shrink-0 rounded-full px-2.5 py-1 text-[9px] font-bold tracking-wide uppercase whitespace-nowrap" style={{ background: "rgba(123,85,234,0.12)", border: "1px solid rgba(123,85,234,0.3)", color: "rgba(123,85,234,0.95)", fontFamily: MONO }}>
-                                    Score 94
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-1.5">
-                                {["Scaling outbound team, needs prospecting automation", "Pain: reps spend 3h/day on manual research", "Hook: reference recent $12M Series B"].map((line, i) => (
-                                    <motion.div
-                                        key={i}
-                                        className="flex items-start gap-2"
-                                        initial={{ opacity: 0, x: -4 }}
-                                        animate={inView ? { opacity: 1, x: 0 } : {}}
-                                        transition={{ duration: 0.3, delay: 0.9 + i * 0.07, ease: EASE }}
-                                    >
-                                        <div className="mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ background: "rgba(123,85,234,0.7)" }} />
-                                        <p className="text-[11px] text-white/60 leading-relaxed">{line}</p>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
-                    </div>
-
-                    {/* Right panel: activity feed */}
-                    <div className="col-span-3 p-4 border-l border-white/[0.04] hidden md:block">
-                        <p className="text-[9px] font-semibold tracking-[0.2em] text-white/30 uppercase mb-3" style={{ fontFamily: MONO }}>Activity</p>
-                        {[
-                            { icon: "✉", text: "Email sent to James Chen", time: "2m ago", color: "rgba(123,85,234,0.9)" },
-                            { icon: "🔍", text: "Research complete: Vantage", time: "8m ago", color: "rgba(168,85,247,0.8)" },
-                            { icon: "📞", text: "Call logged: Crestline Corp", time: "14m ago", color: "rgba(255,255,255,0.5)" },
-                            { icon: "⬆", text: "Lead pushed to CRM", time: "31m ago", color: "rgba(123,85,234,0.6)" },
-                            { icon: "✓", text: "Follow-up queued: Nexford", time: "1h ago", color: "rgba(255,255,255,0.3)" },
-                        ].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, x: 8 }}
-                                animate={inView ? { opacity: 1, x: 0 } : {}}
-                                transition={{ duration: 0.4, delay: 0.3 + i * 0.08, ease: EASE }}
-                                className="flex items-start gap-2 mb-3"
-                            >
-                                <div className="mt-0.5 h-5 w-5 rounded-md flex-shrink-0 flex items-center justify-center text-[10px]"
-                                    style={{ background: "rgba(123,85,234,0.08)", border: "1px solid rgba(123,85,234,0.2)", color: item.color }}>
-                                    {item.icon}
-                                </div>
-                                <div>
-                                    <p className="text-[10px] text-white/60 leading-snug">{item.text}</p>
-                                    <p className="text-[9px] text-white/25 mt-0.5" style={{ fontFamily: MONO }}>{item.time}</p>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-        </motion.div>
-    );
-}
 
 // "-"- Content "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 const PAIN_POINTS = [
@@ -488,6 +243,7 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
 export default function SalesIntelligencePage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const [activeCap, setActiveCap] = useState<number>(0);
+    const [capPicked, setCapPicked] = useState(false);
     const [openPain, setOpenPain] = useState<number>(-1);
     const [activeCard, setActiveCard] = useState(0);
     const { open: openBookCall } = useBookCall();
@@ -648,7 +404,12 @@ export default function SalesIntelligencePage() {
 
                     {/* Dashboard visual */}
                     <div className="mb-16 md:mb-20">
-                        <SalesDashboardVisual />
+                        <SalesWorkspaceMock
+                            active={Math.max(activeCap, 0)}
+                            onChange={setActiveCap}
+                            autoplay={!capPicked}
+                            className="mx-auto max-w-5xl"
+                        />
                     </div>
 
                     {/* Capabilities selector */}
@@ -664,7 +425,7 @@ export default function SalesIntelligencePage() {
                                     <div key={c.title} className="flex flex-col">
                                         <button
                                             type="button"
-                                            onClick={() => setActiveCap(active ? -1 : i)}
+                                            onClick={() => { setCapPicked(true); setActiveCap(active ? -1 : i); }}
                                             className="group relative flex items-center gap-4 overflow-hidden rounded-xl px-4 py-3.5 text-left transition-all duration-300"
                                             style={{
                                                 background: active ? "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.015) 100%)" : "transparent",

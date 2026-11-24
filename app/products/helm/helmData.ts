@@ -2,8 +2,9 @@
 // Mirrors Helm's own demo company (Northwind Consulting, a 25-person consultancy).
 // Everything here is illustrative and only drives the interactive dashboards.
 
-export const HELM_URL = "https://helm-six-bice.vercel.app";
-export const HELM_START_URL = `${HELM_URL}/welcome`;
+export const HELM_URL = "https://helm.levatahq.com";
+// "Start free" and the Health Check both begin at company setup (Helm: "Set up your company, take the Health Check").
+export const HELM_START_URL = `${HELM_URL}/onboarding`;
 export const HELM_DEMO_URL = `${HELM_URL}/demo`;
 
 export const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";

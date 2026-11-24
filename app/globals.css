@@ -1249,3 +1249,19 @@ h6 {
   opacity: 0;
   transform: translate3d(0, 20px, 0);
 }
+
+/* ── Coded product mockups (app/components/mockups) ──────────────────────────
+   Dense app screens set exact small sizes. Let their own size utilities win
+   over the base paragraph size and the 12px floor used for regular copy. */
+.lv-mockup p,
+.lv-mockup li {
+  font-size: revert-layer;
+  line-height: revert-layer;
+}
+.lv-mockup [class*="text-[8px]"] { font-size: 8px !important; }
+.lv-mockup [class*="text-[9px]"] { font-size: 9px !important; }
+.lv-mockup [class*="text-[10px]"] { font-size: 10px !important; }
+.lv-mockup [class*="text-[11px]"] { font-size: 11px !important; }
+.lv-mockup [class*="text-[12px]"] { font-size: 12px !important; }
+.lv-mockup [class*="text-[13px]"] { font-size: 13px !important; }
+.lv-mockup [class*="text-[15px]"] { font-size: 15px !important; }

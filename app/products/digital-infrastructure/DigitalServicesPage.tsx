@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
-import WhatWeBuildVisual from "@/app/components/WhatWeBuildVisual";
+import { DigitalProblemMock, EcommerceMock, PlatformMock, WebsiteMock } from "@/app/components/mockups/DigitalMockups";
 import SectionLabel from "@/app/components/SectionLabel";
 import SectionLabelSide from "@/app/components/SectionLabelSide";
 import dynamic from "next/dynamic";
@@ -16,18 +16,6 @@ const GREEN = "#FFFFFF";
 const BLUE = "#FFFFFF";
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-// Reveal once in view, with a timed fallback so SVG visuals still animate even if
-// the IntersectionObserver never fires (iOS Safari + smooth scroll).
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-    const observed = useInView(ref, { once: true, margin: "200px" });
-    const [forced, setForced] = useState(false);
-    useEffect(() => {
-        const t = setTimeout(() => setForced(true), 700);
-        return () => clearTimeout(t);
-    }, []);
-    return observed || forced;
-}
 
 // "-"- Count-up hook "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function useCountUp(target: number, duration = 2000) {
@@ -228,143 +216,6 @@ const FAQS = [
     { q: "What are your typical project timelines?", a: "Marketing sites take 4-8 weeks. Platforms and custom systems run 10-20 weeks depending on scope and integration complexity. We scope every project in detail before committing to a timeline." },
 ];
 
-// "-"- Digital Services Problem visual: broken infrastructure "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-function DigitalProblemVisual() {
-    const ref = useRef<HTMLDivElement>(null);
-    const inView = useReveal(ref);
-    return (
-        <div ref={ref} className="relative mx-auto w-full max-w-md sm:max-w-none" style={{ aspectRatio: "5 / 4" }}>
-            <svg viewBox="0 0 380 380" className="block h-full w-full" fill="none">
-                <text x="0" y="53" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
-                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">WHERE GROWTH STALLS</text>
-                <defs>
-                    <filter id="dp_glow">
-                        <feGaussianBlur stdDeviation="3" result="blur" />
-                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                    </filter>
-                </defs>
-                <g transform="translate(0,60)">
-                {/* "" Panel 1: Passive website "" */}
-                <motion.g initial={{ opacity: 0, y: -10 }} animate={inView ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.5, delay: 0.1, ease: EASE }}>
-                    {/* Browser chrome */}
-                    <rect x="20" y="20" width="160" height="108" rx="7"
-                        fill="rgba(10,14,28,0.98)" stroke="rgba(255,80,80,0.22)" strokeWidth="1.2" />
-                    <rect x="20" y="20" width="160" height="22" rx="7"
-                        fill="rgba(255,80,80,0.06)" />
-                    <motion.circle cx="34" cy="31" r="3.5" fill="rgba(255,80,80,0.3)"
-                        animate={inView ? { opacity: [0.5, 1, 0.5] } : undefined}
-                        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} />
-                    <circle cx="46" cy="31" r="3.5" fill="rgba(255,255,255,0.12)" />
-                    <circle cx="58" cy="31" r="3.5" fill="rgba(255,255,255,0.12)" />
-                    <rect x="68" y="25" width="96" height="12" rx="6"
-                        fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)" strokeWidth="0.8" />
-                    {/* Page content "" flat/no-action layout */}
-                    <rect x="30" y="52" width="140" height="8" rx="2" fill="rgba(255,255,255,0.18)" />
-                    <rect x="30" y="66" width="110" height="6" rx="2" fill="rgba(255,255,255,0.08)" />
-                    <rect x="30" y="78" width="120" height="6" rx="2" fill="rgba(255,255,255,0.06)" />
-                    {/* Flat "no CTA" area */}
-                    <rect x="30" y="94" width="60" height="20" rx="5"
-                        fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                    <text x="60" y="108" textAnchor="middle" fontFamily={MONO} fontSize="7"
-                        fill="rgba(255,255,255,0.25)">NO ACTION</text>
-                    {/* Flat conversion bar */}
-                    <rect x="30" y="118" width="140" height="4" rx="2" fill="rgba(255,255,255,0.05)" />
-                    <motion.rect x="30" y="118" width="14" height="4" rx="2" fill="rgba(255,80,80,0.5)"
-                        initial={{ width: 0 }} animate={inView ? { width: 14 } : undefined}
-                        transition={{ duration: 0.8, delay: 0.6, ease: EASE }} />
-                    {/* Label */}
-                    <text x="100" y="142" textAnchor="middle" fontFamily={MONO} fontSize="8.5" fontWeight="700"
-                        letterSpacing="0.12em" fill="rgba(255,255,255,0.6)">PASSIVE WEBSITE</text>
-                    <text x="100" y="154" textAnchor="middle" fontFamily={MONO} fontSize="7.5"
-                        letterSpacing="0.1em" fill="rgba(255,80,80,0.55)">9% CONVERSION</text>
-                </motion.g>
-
-                {/* "" Panel 2: Platform bottleneck "" */}
-                <motion.g initial={{ opacity: 0, y: -10 }} animate={inView ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.5, delay: 0.22, ease: EASE }}>
-                    <rect x="200" y="20" width="160" height="108" rx="7"
-                        fill="rgba(10,14,28,0.98)" stroke="rgba(255,80,80,0.22)" strokeWidth="1.2" />
-                    {/* Server stack */}
-                    {[0, 1, 2].map((idx) => (
-                        <g key={idx}>
-                            <rect x="214" y={36 + idx * 26} width="132" height="18" rx="4"
-                                fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.09)" strokeWidth="0.8" />
-                            <motion.circle cx="224" cy={45 + idx * 26} r="3" fill={idx === 1 ? "rgba(255,80,80,0.7)" : "rgba(255,255,255,0.15)"}
-                                animate={inView && idx === 1 ? { opacity: [0.4, 1, 0.4] } : undefined}
-                                transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }} />
-                            <rect x="232" y={41 + idx * 26} width={idx === 1 ? 60 : 88} height="8" rx="2"
-                                fill={idx === 1 ? "rgba(255,80,80,0.12)" : "rgba(255,255,255,0.06)"} />
-                        </g>
-                    ))}
-                    {/* Overload indicator */}
-                    <text x="280" y="116" textAnchor="middle" fontFamily={MONO} fontSize="7.5" fontWeight="700"
-                        letterSpacing="0.12em" fill="rgba(255,80,80,0.6)">BOTTLENECK</text>
-                    <path d="M248 104 L312 104" stroke="rgba(255,80,80,0.3)" strokeWidth="1" strokeDasharray="3 3" />
-                    <text x="280" y="142" textAnchor="middle" fontFamily={MONO} fontSize="8.5" fontWeight="700"
-                        letterSpacing="0.12em" fill="rgba(255,255,255,0.6)">RIGID PLATFORM</text>
-                    <text x="280" y="154" textAnchor="middle" fontFamily={MONO} fontSize="7.5"
-                        letterSpacing="0.1em" fill="rgba(255,80,80,0.55)">CAN&apos;T SCALE</text>
-                </motion.g>
-
-                {/* "" Panel 3: Ecommerce leaking "" */}
-                <motion.g initial={{ opacity: 0, y: -10 }} animate={inView ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.5, delay: 0.34, ease: EASE }}>
-                    <rect x="110" y="178" width="160" height="108" rx="7"
-                        fill="rgba(10,14,28,0.98)" stroke="rgba(255,80,80,0.22)" strokeWidth="1.2" />
-                    {/* Cart funnel */}
-                    <rect x="122" y="192" width="136" height="12" rx="3" fill="rgba(255,255,255,0.06)" />
-                    <text x="190" y="202" textAnchor="middle" fontFamily={MONO} fontSize="6.5" fill="rgba(255,255,255,0.3)">VISITORS</text>
-                    <rect x="133" y="210" width="114" height="12" rx="3" fill="rgba(255,255,255,0.05)" />
-                    <text x="190" y="220" textAnchor="middle" fontFamily={MONO} fontSize="6.5" fill="rgba(255,255,255,0.25)">ADD TO CART</text>
-                    <rect x="150" y="228" width="80" height="12" rx="3" fill="rgba(255,255,255,0.04)" />
-                    <text x="190" y="238" textAnchor="middle" fontFamily={MONO} fontSize="6.5" fill="rgba(255,255,255,0.2)">CHECKOUT</text>
-                    {/* Drop-off arrows */}
-                    {[{ x: 248, y: 215 }, { x: 234, y: 233 }].map((pt, i) => (
-                        <motion.g key={i}
-                            initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : undefined}
-                            transition={{ duration: 0.4, delay: 0.7 + i * 0.1, ease: EASE }}>
-                            <path d={`M${pt.x} ${pt.y} L${pt.x + 14} ${pt.y + 10}`}
-                                stroke="rgba(255,80,80,0.5)" strokeWidth="1.2" strokeLinecap="round" />
-                            <motion.circle cx={pt.x + 14} cy={pt.y + 10} r="2.5" fill="rgba(255,80,80,0.5)" filter="url(#dp_glow)"
-                                animate={inView ? { opacity: [0.4, 1, 0.4] } : undefined}
-                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }} />
-                        </motion.g>
-                    ))}
-                    {/* Lost revenue "" slow looping pulse */}
-                    <motion.g
-                        animate={inView ? { opacity: [0.6, 1, 0.6] } : undefined}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                        <rect x="122" y="252" width="136" height="18" rx="4"
-                            fill="rgba(255,80,80,0.05)" stroke="rgba(255,80,80,0.2)" strokeWidth="0.8" />
-                        <text x="190" y="264" textAnchor="middle" fontFamily={MONO} fontSize="7.5" fontWeight="700"
-                            letterSpacing="0.1em" fill="rgba(255,80,80,0.6)">REVENUE LOST AT CHECKOUT</text>
-                    </motion.g>
-                    <text x="190" y="300" textAnchor="middle" fontFamily={MONO} fontSize="8.5" fontWeight="700"
-                        letterSpacing="0.12em" fill="rgba(255,255,255,0.6)">LEAKING ECOMMERCE</text>
-                </motion.g>
-
-                {/* Connecting dotted lines between panels */}
-                {[
-                    { x1: 180, y1: 74, x2: 200, y2: 74 },
-                    { x1: 100, y1: 155, x2: 110, y2: 178 },
-                    { x1: 280, y1: 155, x2: 270, y2: 178 },
-                ].map((l, i) => (
-                    <motion.line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
-                        stroke="rgba(255,80,80,0.15)" strokeWidth="1" strokeDasharray="3 4"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={inView ? { pathLength: 1, opacity: 1 } : undefined}
-                        transition={{ duration: 0.4, delay: 0.5 + i * 0.08, ease: EASE }}
-                    />
-                ))}
-                </g>
-            </svg>
-        </div>
-    );
-}
-
-// "-"- FAQ item "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; index: number; isOpen: boolean; onToggle: () => void }) {
     return (
         <div
@@ -515,7 +366,7 @@ export default function DigitalServicesPage() {
                             data-reveal-delay="150"
                             className="block"
                         >
-                            <DigitalProblemVisual />
+                            <DigitalProblemMock />
                         </div>
                     </div>
                 </div>
@@ -779,7 +630,7 @@ export default function DigitalServicesPage() {
                                     </div>
                                     {/* visual */}
                                     <div className="mx-auto block w-full max-w-md sm:max-w-none">
-                                        <WhatWeBuildVisual kind={svc.visual} />
+                                        {svc.visual === "website" ? <WebsiteMock /> : svc.visual === "ecommerce" ? <EcommerceMock /> : <PlatformMock />}
                                     </div>
                                 </div>
                             );

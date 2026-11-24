@@ -47,6 +47,12 @@ const PRODUCTS = [
         href: "/products/helm",
         accent: "#7B55EA",
     },
+    {
+        label: "Sable",
+        description: "Restaurant system for Sri Lanka: till, kitchen, stock, payroll, books",
+        href: "/products/sable",
+        accent: "#7B55EA",
+    },
 ];
 
 const TOP_LINKS = [

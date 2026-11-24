@@ -1,32 +1,21 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import Link from "next/link";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import SectionLabel from "@/app/components/SectionLabel";
 import SectionLabelSide from "@/app/components/SectionLabelSide";
 import dynamic from "next/dynamic";
+import { AIIntegrationMock, AIProblemMock, CustomAIMock, IntelligentWorkflowsMock } from "@/app/components/mockups/AIMockups";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
 const GREEN = "#FFFFFF";
 const BLUE = "rgba(0,255,221,0.9)";
 const EASE = [0.16, 1, 0.3, 1] as const;
-const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 
-// Reveal once in view, with a timed fallback so visuals still show even if the
-// IntersectionObserver never fires (iOS Safari + smooth scroll can miss it).
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-    const observed = useInView(ref, { once: true, margin: "200px" });
-    const [forced, setForced] = useState(false);
-    useEffect(() => {
-        const t = setTimeout(() => setForced(true), 600);
-        return () => clearTimeout(t);
-    }, []);
-    return observed || forced;
-}
 
 // "-"- Icons "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function IconCheck({ size = 12 }: { size?: number }) {
@@ -88,67 +77,6 @@ function IconOptimise() {
 }
 const PROCESS_ICONS = [IconAssess, IconArchitect, IconIntegrate, IconOptimise];
 
-// "-"- AI Problem visual: pain points as SVG rows "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-function AIProblemVisual() {
-    // SVG path for each icon, rendered at 10-10 centred in the badge
-    const icons: Record<string, React.ReactNode> = {
-        cost:    <><path d="M12 3v18" stroke="rgba(255,80,80,0.85)" strokeWidth="1.6" strokeLinecap="round" /><path d="M16 6H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H8" stroke="rgba(255,80,80,0.85)" strokeWidth="1.6" strokeLinecap="round" /></>,
-        broken:  <><circle cx="12" cy="12" r="7" stroke="rgba(255,80,80,0.85)" strokeWidth="1.6" /><path d="M8 8l8 8" stroke="rgba(255,80,80,0.85)" strokeWidth="1.6" strokeLinecap="round" /></>,
-        complex: <><path d="M4 6h16M4 12h10M4 18h6" stroke="rgba(255,80,80,0.85)" strokeWidth="1.6" strokeLinecap="round" /><circle cx="18" cy="18" r="3" stroke="rgba(255,80,80,0.55)" strokeWidth="1.3" /><path d="M16.8 18l.8.8 1.6-1.6" stroke="rgba(255,80,80,0.85)" strokeWidth="1.2" strokeLinecap="round" /></>,
-        down:    <path d="M12 5v14M5 12l7 7 7-7" stroke="rgba(255,80,80,0.85)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />,
-    };
-    const rows = [
-        { text: "More AI tools = More subscription fees",   icon: "cost"    },
-        { text: "More disconnected systems",                icon: "broken"  },
-        { text: "More operational complexity",              icon: "complex" },
-        { text: "More fragmented workflows",                icon: "broken"  },
-        { text: "Less visibility across operations",        icon: "down"    },
-        { text: "Less efficiency at scale",                 icon: "down"    },
-    ];
-    const rowH = 38;
-    const startY = 50;
-    const ref = useRef<HTMLDivElement>(null);
-    const inView = useReveal(ref);
-
-    return (
-        <div ref={ref} className="relative mx-auto w-full max-w-md sm:max-w-none" style={{ aspectRatio: "5 / 4" }}>
-            <svg viewBox={`0 0 360 ${startY + rows.length * rowH + 24}`} className="block h-full w-full" fill="none">
-                <text x="0" y="32" fontFamily={MONO} fontSize="9" fontWeight="700"
-                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">THE PATTERN WE SEE</text>
-                {rows.map((row, i) => (
-                    <motion.g key={row.text}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={inView ? { opacity: 1, x: 0 } : undefined}
-                        transition={{ duration: 0.45, delay: 0.1 + i * 0.08, ease: EASE }}
-                    >
-                        {/* Row background */}
-                        <rect x="0" y={startY + i * rowH} width="360" height={rowH - 4} rx="7"
-                            fill="rgba(10,14,28,0.95)" stroke="rgba(255,80,80,0.18)" strokeWidth="1" />
-                        {/* Left accent bar "" slow looping pulse, staggered per row */}
-                        <motion.rect x="0" y={startY + i * rowH} width="3" height={rowH - 4} rx="1.5"
-                            fill="rgba(255,80,80,0.55)"
-                            animate={inView ? { opacity: [0.45, 1, 0.45] } : undefined}
-                            transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.35, ease: "easeInOut" }} />
-                        {/* Icon badge */}
-                        <rect x="8" y={startY + i * rowH + 6} width="22" height="22" rx="5"
-                            fill="rgba(255,80,80,0.08)" stroke="rgba(255,80,80,0.22)" strokeWidth="0.8" />
-                        {/* SVG icon centred in badge "" 24x24 viewBox mapped into 22x22 space at (8, rowY+6) */}
-                        <g transform={`translate(8, ${startY + i * rowH + 6}) scale(${22 / 24})`}>
-                            {icons[row.icon]}
-                        </g>
-                        {/* Pain point text */}
-                        <text x="40" y={startY + i * rowH + 22}
-                            fontFamily={MONO} fontSize="10" fontWeight="500"
-                            fill="rgba(255,255,255,0.65)">{row.text}
-                        </text>
-                    </motion.g>
-                ))}
-            </svg>
-        </div>
-    );
-}
-
-// "-"- Count-up hook "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function useCountUp(target: number, duration = 2000) {
     const [count, setCount] = useState(0);
     const [triggered, setTriggered] = useState(false);
@@ -313,522 +241,7 @@ const FAQS = [
     { q: "What happens after launch?", a: "Continuous-optimisation packages cover monitoring, drift detection, prompt + model iteration, and expansion of coverage into adjacent workflows. AI systems compound, we keep them compounding." },
 ];
 
-const CY = "rgba(123,85,234";
 
-// "-"- Shared frame "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-function AIFrame({ refEl, inView, children }: { refEl: React.RefObject<HTMLDivElement | null>; inView: boolean; children: React.ReactNode }) {
-    return (
-        <motion.div ref={refEl}
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-            transition={{ duration: 0.5, ease: EASE }}
-            className="relative w-full"
-            style={{ aspectRatio: "5 / 4" }}
-        >
-            {children}
-        </motion.div>
-    );
-}
-
-// "-"- Service Visual 1: AI Integration "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-// Browser app showing a CRM-like UI with a floating AI connector panel
-function AIIntegrationVisual() {
-    const ref = useRef<HTMLDivElement>(null);
-    const inView = useReveal(ref);
-
-    // Three stacked system blocks (CRM, DATABASE, WORKFLOW) each with a
-    // status indicator and a live data reading. A shared AI layer bar sits
-    // between them and a results column, showing the AI processing each
-    // system's data and producing a single enriched output per system.
-    // No nodes, no arrows "" just a clean architecture stack.
-
-    const systems = [
-        {
-            y: 32,
-            tag: "CRM",
-            line1: "1,240 contacts",
-            line2: "84 deals open",
-            result: "12 leads ready to contact",
-            resultCy: true,
-        },
-        {
-            y: 98,
-            tag: "DATABASE",
-            line1: "Sales history",
-            line2: "Order & billing data",
-            result: "3 accounts need follow-up",
-            resultCy: false,
-        },
-        {
-            y: 164,
-            tag: "WORKFLOW",
-            line1: "48 tasks pending",
-            line2: "6 overdue callbacks",
-            result: "6 calls overdue, act now",
-            resultCy: true,
-        },
-    ];
-
-    const SX = 8;    // system block left x
-    const SW = 120;  // system block width
-    const SH = 54;   // system block height
-    const AIX = 148; // AI layer left x
-    const AIW = 84;  // AI layer width
-    const RX = 252;  // result block left x
-    const RW = 120;  // result block width
-
-    return (
-        <AIFrame refEl={ref} inView={inView}>
-            <div className="absolute inset-0 flex items-center justify-center p-3">
-            <svg viewBox="0 0 380 290" className="h-full w-full" fill="none">
-
-                {/* "" AI layer centre column "" */}
-                <motion.g initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-                    transition={{ duration: 0.5, delay: 0.15, ease: EASE }}>
-                    {/* Full-height AI bar */}
-                    <rect x={AIX} y={systems[0].y} width={AIW}
-                        height={systems[systems.length - 1].y + SH - systems[0].y}
-                        rx="8" fill="rgba(14,16,22,0.98)"
-                        stroke={`${CY}, 0.35)`} strokeWidth="1.2" />
-                    {/* Top label */}
-                    <text x={AIX + AIW / 2} y={systems[0].y - 8} textAnchor="middle"
-                        fontFamily={MONO} fontSize="6.5" fontWeight="700" letterSpacing="0.16em"
-                        fill={`${CY}, 0.65)`}>AI LAYER</text>
-                    {/* Pulsing centre dot */}
-                    <motion.circle cx={AIX + AIW / 2} cy={systems[1].y + SH / 2} r="5"
-                        fill={`${CY}, 0.12)`} stroke={`${CY}, 0.55)`} strokeWidth="1.2"
-                        animate={inView ? { r: [4, 7, 4], opacity: [0.7, 1, 0.7] } : {}}
-                        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }} />
-                    <motion.circle cx={AIX + AIW / 2} cy={systems[1].y + SH / 2} r="2.5"
-                        fill={`${CY}, 0.9)`}
-                        animate={inView ? { opacity: [0.6, 1, 0.6] } : {}}
-                        transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }} />
-                    {/* Tick marks per system */}
-                    {systems.map((s) => (
-                        <g key={`tick-${s.y}`}>
-                            <line x1={AIX + 10} y1={s.y + SH / 2} x2={AIX + AIW - 10} y2={s.y + SH / 2}
-                                stroke={`${CY}, 0.15)`} strokeWidth="0.8" />
-                        </g>
-                    ))}
-                    {/* MODEL label bottom */}
-                    <text x={AIX + AIW / 2} y={systems[systems.length - 1].y + SH + 14}
-                        textAnchor="middle" fontFamily={MONO} fontSize="6"
-                        letterSpacing="0.12em" fill={`${CY}, 0.35)`}>MODEL</text>
-                </motion.g>
-
-                {/* "" System blocks + connectors + result blocks "" */}
-                {systems.map((s, i) => (
-                    <motion.g key={s.tag}
-                        initial={{ opacity: 0, y: 10 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.4, delay: 0.22 + i * 0.1, ease: EASE }}>
-
-                        {/* "" System block "" */}
-                        <rect x={SX} y={s.y} width={SW} height={SH} rx="7"
-                            fill="rgba(16,18,26,0.98)" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-                        {/* Top accent */}
-                        <rect x={SX} y={s.y} width={SW} height="3" rx="1.5"
-                            fill="rgba(255,255,255,0.16)" />
-                        {/* Tag */}
-                        <rect x={SX + 8} y={s.y + 9} width="44" height="13" rx="3"
-                            fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" strokeWidth="0.7" />
-                        <text x={SX + 30} y={s.y + 19} textAnchor="middle" fontFamily={MONO}
-                            fontSize="6" fontWeight="700" letterSpacing="0.1em"
-                            fill="rgba(255,255,255,0.5)">{s.tag}</text>
-                        {/* Data lines */}
-                        <text x={SX + 8} y={s.y + 34} fontFamily={MONO} fontSize="7.5"
-                            fill="rgba(255,255,255,0.65)">{s.line1}</text>
-                        <text x={SX + 8} y={s.y + 47} fontFamily={MONO} fontSize="7"
-                            fill="rgba(255,255,255,0.3)">{s.line2}</text>
-
-                        {/* "" Left connector: system ' AI "" */}
-                        <line x1={SX + SW} y1={s.y + SH / 2} x2={AIX} y2={s.y + SH / 2}
-                            stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="3 3" />
-                        {/* Pulse left ' AI */}
-                        <motion.circle r="2" cy={s.y + SH / 2} fill="rgba(255,255,255,0.55)"
-                            animate={inView ? { cx: [SX + SW, AIX], opacity: [0, 1, 0] } : { opacity: 0 }}
-                            transition={{ duration: 0.7, delay: 0.7 + i * 0.22, repeat: Infinity, ease: "easeInOut" }} />
-
-                        {/* "" Right connector: AI ' result "" */}
-                        <line x1={AIX + AIW} y1={s.y + SH / 2} x2={RX} y2={s.y + SH / 2}
-                            stroke={`${CY}, 0.2)`} strokeWidth="1" strokeDasharray="3 3" />
-                        {/* Pulse AI ' result */}
-                        <motion.circle r="2" cy={s.y + SH / 2} fill={`${CY}, 0.8)`}
-                            animate={inView ? { cx: [AIX + AIW, RX], opacity: [0, 1, 0] } : { opacity: 0 }}
-                            transition={{ duration: 0.65, delay: 1.0 + i * 0.25, repeat: Infinity, ease: "easeInOut" }} />
-
-                        {/* "" Result block "" */}
-                        <rect x={RX} y={s.y + 8} width={RW} height={SH - 16} rx="6"
-                            fill={s.resultCy ? `${CY}, 0.06)` : "rgba(255,255,255,0.03)"}
-                            stroke={s.resultCy ? `${CY}, 0.3)` : "rgba(255,255,255,0.08)"} strokeWidth="1" />
-                        <text x={RX + 10} y={s.y + SH / 2 + 4} fontFamily={MONO} fontSize="7.5"
-                            fontWeight="700"
-                            fill={s.resultCy ? `${CY}, 0.88)` : "rgba(255,255,255,0.45)"}>{s.result}</text>
-                    </motion.g>
-                ))}
-
-                {/* "" Column headers "" */}
-                <motion.g initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-                    transition={{ duration: 0.3, delay: 0.1, ease: EASE }}>
-                    <text x={SX + SW / 2} y="20" textAnchor="middle" fontFamily={MONO}
-                        fontSize="6.5" letterSpacing="0.16em" fill="rgba(255,255,255,0.2)">YOUR SYSTEMS</text>
-                    <text x={RX + RW / 2} y="20" textAnchor="middle" fontFamily={MONO}
-                        fontSize="6.5" letterSpacing="0.16em" fill={`${CY}, 0.4)`}>OUTPUT</text>
-                </motion.g>
-
-                {/* "" Stat strip "" */}
-                <motion.g initial={{ opacity: 0, y: 5 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.4, delay: 0.75, ease: EASE }}>
-                    <line x1="8" y1="242" x2="372" y2="242" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
-                    <text x="63"  y="256" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">DATA PROCESSING</text>
-                    <text x="63"  y="272" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">40-70%</text>
-                    <text x="63"  y="282" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">faster</text>
-                    <text x="190" y="256" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">MANUAL TASKS</text>
-                    <text x="190" y="272" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CY}, 0.9)`}>60%</text>
-                    <text x="190" y="282" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">eliminated</text>
-                    <text x="317" y="256" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">DECISIONS</text>
-                    <text x="317" y="272" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3x</text>
-                    <text x="317" y="282" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">faster</text>
-                </motion.g>
-            </svg>
-            </div>
-        </AIFrame>
-    );
-}
-
-// "-"- Service Visual 2: Intelligent Workflows "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-// Pipeline: task in -' AI decision diamond -' three labelled output branches
-function IntelligentWorkflowsVisual() {
-    const ref = useRef<HTMLDivElement>(null);
-    const inView = useReveal(ref);
-
-    // Node spine sits at x=190 centre. Label boxes extend left (BEFORE) or right (AFTER).
-    // 4 rows, 52px apart, starting at y=40. Stat strip at y=254.
-    const CX = 190;
-    const stepH = 50;
-    const startY = 44;
-    const nodeR = 14;
-    const boxW = 128;
-    const gap = 10; // gap between node edge and box
-
-    const steps = [
-        {
-            before: { label: "REQUEST IN",    sub: "email / Slack" },
-            after:  { label: "REQUEST IN",    sub: "any channel"   },
-        },
-        {
-            before: { label: "MANUAL REVIEW", sub: "15 min avg"    },
-            after:  { label: "AUTO-CLASSIFY", sub: "instant"       },
-        },
-        {
-            before: { label: "MANUAL ASSIGN", sub: "manager picks" },
-            after:  { label: "SMART ROUTING", sub: "right person"  },
-        },
-        {
-            before: { label: "PROCESSED",     sub: "2–4 days"      },
-            after:  { label: "RESOLVED",      sub: "same day"      },
-        },
-    ];
-
-    return (
-        <AIFrame refEl={ref} inView={inView}>
-            <div className="absolute inset-0 flex items-center justify-center p-3">
-                <svg viewBox="0 0 380 290" className="h-full w-full" fill="none">
-
-                    {/* "" Column headers "" */}
-                    <motion.g initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-                        transition={{ duration: 0.35, delay: 0.05, ease: EASE }}>
-                        {/* BEFORE header "" left of centre */}
-                        <text x={CX - nodeR - gap - boxW / 2} y="18" textAnchor="middle"
-                            fontFamily={MONO} fontSize="8" fontWeight="700" letterSpacing="0.18em"
-                            fill="rgba(255,80,80,0.65)">MANUAL</text>
-                        {/* AFTER header "" right of centre */}
-                        <text x={CX + nodeR + gap + boxW / 2} y="18" textAnchor="middle"
-                            fontFamily={MONO} fontSize="8" fontWeight="700" letterSpacing="0.18em"
-                            fill={`${CY}, 0.75)`}>AI-DRIVEN</text>
-                    </motion.g>
-
-                    {/* "" Centre spine (shared vertical line) "" */}
-                    <motion.line
-                        x1={CX} y1={startY - nodeR + 2}
-                        x2={CX} y2={startY + (steps.length - 1) * stepH + nodeR - 2}
-                        stroke="rgba(255,255,255,0.08)" strokeWidth="1"
-                        initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : {}}
-                        transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
-                    />
-
-                    {/* "" Animated pulses travelling down spine "" */}
-                    {steps.slice(0, -1).map((_, i) => (
-                        <motion.circle key={`pulse-${i}`} r="2.4" cx={CX}
-                            fill={`${CY}, 0.85)`}
-                            animate={inView ? {
-                                cy: [startY + i * stepH + nodeR + 2, startY + (i + 1) * stepH - nodeR - 2],
-                                opacity: [0, 1, 0],
-                            } : {}}
-                            transition={{ duration: 0.9, delay: 0.85 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                    ))}
-
-                    {/* "" Step rows "" */}
-                    {steps.map((step, i) => {
-                        const cy = startY + i * stepH;
-                        const isLast = i === steps.length - 1;
-                        // Left box: x from (CX - nodeR - gap - boxW) to (CX - nodeR - gap)
-                        const lx = CX - nodeR - gap - boxW;
-                        // Right box: x from (CX + nodeR + gap) to (CX + nodeR + gap + boxW)
-                        const rx = CX + nodeR + gap;
-
-                        return (
-                            <motion.g key={i}
-                                initial={{ opacity: 0, y: 6 }}
-                                animate={inView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ duration: 0.4, delay: 0.2 + i * 0.09, ease: EASE }}
-                            >
-                                {/* "" BEFORE box (left) "" */}
-                                <rect x={lx} y={cy - 16} width={boxW} height="32" rx="7"
-                                    fill="rgba(16,18,26,0.98)"
-                                    stroke="rgba(255,80,80,0.18)" strokeWidth="1" />
-                                {/* right accent bar flush against node */}
-                                <rect x={lx + boxW - 3} y={cy - 16} width="3" height="32" rx="1.5"
-                                    fill="rgba(255,80,80,0.35)" />
-                                <text x={lx + 10} y={cy - 3} fontFamily={MONO}
-                                    fontSize="8.5" fontWeight="700" letterSpacing="0.07em"
-                                    fill="rgba(255,255,255,0.6)">{step.before.label}</text>
-                                <text x={lx + 10} y={cy + 11} fontFamily={MONO}
-                                    fontSize="7" letterSpacing="0.06em"
-                                    fill="rgba(255,80,80,0.5)">{step.before.sub}</text>
-
-                                {/* "" Centre node "" */}
-                                <circle cx={CX} cy={cy} r={nodeR}
-                                    fill={isLast ? `${CY}, 0.1)` : "rgba(14,16,22,0.98)"}
-                                    stroke={isLast ? `${CY}, 0.75)` : "rgba(255,255,255,0.2)"}
-                                    strokeWidth={isLast ? "1.8" : "1"} />
-                                {isLast
-                                    ? <path d={`M${CX - 6} ${cy + 1} l4.5 4.5 l7.5 -8`}
-                                        stroke={`${CY}, 0.95)`} strokeWidth="1.7"
-                                        strokeLinecap="round" strokeLinejoin="round" />
-                                    : <text x={CX} y={cy + 4} textAnchor="middle"
-                                        fontFamily={MONO} fontSize="8" fontWeight="700"
-                                        fill="rgba(255,255,255,0.35)">{i + 1}</text>
-                                }
-
-                                {/* "" AFTER box (right) "" */}
-                                <rect x={rx} y={cy - 16} width={boxW} height="32" rx="7"
-                                    fill="rgba(14,16,22,0.98)"
-                                    stroke={`${CY}, ${isLast ? "0.45" : "0.2"})`} strokeWidth="1" />
-                                {/* left accent bar flush against node */}
-                                <rect x={rx} y={cy - 16} width="3" height="32" rx="1.5"
-                                    fill={`${CY}, ${isLast ? "0.7" : "0.35"})`} />
-                                <text x={rx + 12} y={cy - 3} fontFamily={MONO}
-                                    fontSize="8.5" fontWeight="700" letterSpacing="0.07em"
-                                    fill={`${CY}, ${isLast ? "0.95" : "0.75"})`}>{step.after.label}</text>
-                                <text x={rx + 12} y={cy + 11} fontFamily={MONO}
-                                    fontSize="7" letterSpacing="0.06em"
-                                    fill={`${CY}, 0.4)`}>{step.after.sub}</text>
-                            </motion.g>
-                        );
-                    })}
-
-                    {/* "" Bottom stat strip "" */}
-                    <motion.g initial={{ opacity: 0, y: 5 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.4, delay: 0.65, ease: EASE }}>
-                        <line x1="8" y1="252" x2="372" y2="252"
-                            stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
-                        <text x="63"  y="265" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">SPEED</text>
-                        <text x="63"  y="280" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">65%</text>
-                        <text x="63"  y="290" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.25)">faster</text>
-                        <text x="190" y="265" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">ERROR RATE</text>
-                        <text x="190" y="280" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill={`${CY}, 0.9)`}>70%</text>
-                        <text x="190" y="290" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.25)">reduction</text>
-                        <text x="317" y="265" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">THROUGHPUT</text>
-                        <text x="317" y="280" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4x</text>
-                        <text x="317" y="290" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.25)">increase</text>
-                    </motion.g>
-                </svg>
-            </div>
-        </AIFrame>
-    );
-}
-
-// "-"- Service Visual 3: Custom AI Solutions "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-function CustomAISolutionsVisual() {
-    const ref = useRef<HTMLDivElement>(null);
-    const inView = useReveal(ref);
-
-    // Layout: 4 input rows on left (y=40,84,128,172), engine centre at (190,106),
-    // 3 output rows on right (y=62,106,150).
-    // Connectors are straight elbow lines (horizontal then diagonal) so pulses
-    // can animate cleanly on a single axis without bezier tracking issues.
-    // Engine right edge = 190+38 = 228. Engine left edge = 190-38 = 152.
-    // Input right edge = 4+96 = 100. Output left edge = 276.
-    // Elbow bend point for inputs: x=126 (midway between 100 and 152).
-    // Elbow bend point for outputs: x=252 (midway between 228 and 276).
-
-    const ECX = 190, ECY = 106, ER = 38;
-    const INX2 = 100;   // right edge of input boxes
-    const ELBOWL = 126; // left elbow x
-    const ELBOWR = 252; // right elbow x
-    const OUTX1 = 276;  // left edge of output boxes
-
-    const inputs = [
-        { y: 40,  label: "CRM DATA",    sub: "contacts · deals"  },
-        { y: 84,  label: "OPS DATA",    sub: "tasks · logs"      },
-        { y: 128, label: "PROD DATA",   sub: "events · usage"    },
-        { y: 172, label: "DOCS",        sub: "text · history"    },
-    ];
-    const outputs = [
-        { y: 62,  label: "SCORING",     sub: "leads ranked"      },
-        { y: 106, label: "AUTOMATION",  sub: "decisions made"    },
-        { y: 150, label: "FORECASTING", sub: "outcomes predicted" },
-    ];
-    // Engine entry/exit y positions spread evenly across left/right arcs
-    const engineInY  = (i: number) => ECY + (i - 1.5) * 16; // 4 inputs
-    const engineOutY = (i: number) => ECY + (i - 1)   * 22; // 3 outputs
-
-    return (
-        <AIFrame refEl={ref} inView={inView}>
-            <div className="absolute inset-0 flex items-center justify-center p-3">
-                <svg viewBox="0 0 380 290" className="h-full w-full" fill="none">
-                    <defs>
-                        <radialGradient id="cai_core" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stopColor={`${CY}, 0.15)`} />
-                            <stop offset="100%" stopColor={`${CY}, 0.01)`} />
-                        </radialGradient>
-                    </defs>
-
-                    {/* "" Section labels "" */}
-                    <motion.g initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
-                        transition={{ duration: 0.4, delay: 0.1, ease: EASE }}>
-                        <text x="52" y="13" textAnchor="middle" fontFamily={MONO} fontSize="7"
-                            letterSpacing="0.16em" fill="rgba(255,255,255,0.22)">YOUR DATA</text>
-                        <line x1="4" y1="18" x2="100" y2="18" stroke="rgba(255,255,255,0.06)" strokeWidth="0.7" />
-                        <text x="325" y="13" textAnchor="middle" fontFamily={MONO} fontSize="7"
-                            letterSpacing="0.16em" fill={`${CY}, 0.38)`}>OUTPUTS</text>
-                        <line x1="276" y1="18" x2="376" y2="18" stroke={`${CY}, 0.1)`} strokeWidth="0.7" />
-                    </motion.g>
-
-                    {/* "" Input boxes "" */}
-                    {inputs.map((inp, i) => (
-                        <motion.g key={inp.label}
-                            initial={{ opacity: 0, x: -8 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-                            transition={{ duration: 0.4, delay: 0.08 + i * 0.07, ease: EASE }}>
-                            <rect x="4" y={inp.y - 18} width="96" height="36" rx="7"
-                                fill="rgba(18,20,28,0.98)" stroke="rgba(255,255,255,0.09)" strokeWidth="1" />
-                            <rect x="4" y={inp.y - 18} width="3" height="36" rx="1.5"
-                                fill="rgba(255,255,255,0.18)" />
-                            <circle cx="92" cy={inp.y - 6} r="2.5" fill={`${CY}, 0.55)`} />
-                            <text x="14" y={inp.y - 3} fontFamily={MONO} fontSize="8" fontWeight="700"
-                                letterSpacing="0.09em" fill="rgba(255,255,255,0.72)">{inp.label}</text>
-                            <text x="14" y={inp.y + 10} fontFamily={MONO} fontSize="6.5"
-                                letterSpacing="0.06em" fill="rgba(255,255,255,0.28)">{inp.sub}</text>
-                        </motion.g>
-                    ))}
-
-                    {/* "" Input connectors: straight H ' elbow ' diagonal to engine "" */}
-                    {inputs.map((inp, i) => {
-                        const ey = engineInY(i);
-                        return (
-                            <motion.path key={`li-${i}`}
-                                d={`M${INX2} ${inp.y} L${ELBOWL} ${inp.y} L${ECX - ER} ${ey}`}
-                                stroke="rgba(255,255,255,0.09)" strokeWidth="1"
-                                strokeDasharray="3 4" fill="none"
-                                initial={{ pathLength: 0, opacity: 0 }}
-                                animate={inView ? { pathLength: 1, opacity: 1 } : {}}
-                                transition={{ duration: 0.45, delay: 0.28 + i * 0.06, ease: EASE }}
-                            />
-                        );
-                    })}
-
-                    {/* "" Input pulses: animate cx along horizontal segment only "" */}
-                    {inputs.map((inp, i) => (
-                        <motion.circle key={`pi-${i}`} r="2.5" cy={inp.y}
-                            fill={`${CY}, 0.8)`}
-                            animate={inView ? { cx: [INX2, ELBOWL], opacity: [0, 1, 0] } : { opacity: 0 }}
-                            transition={{ duration: 0.7, delay: 0.75 + i * 0.25, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                    ))}
-
-                    {/* "" Central engine "" */}
-                    <motion.g initial={{ opacity: 0, scale: 0.88 }} animate={inView ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ duration: 0.5, delay: 0.38, ease: EASE }}
-                        style={{ transformOrigin: `${ECX}px ${ECY}px` }}>
-                        <circle cx={ECX} cy={ECY} r={ER + 14} fill="url(#cai_core)" />
-                        <motion.circle cx={ECX} cy={ECY} r={ER + 7}
-                            fill="none" stroke={`${CY}, 0.14)`} strokeWidth="1"
-                            animate={inView ? { r: [ER + 5, ER + 13, ER + 5], opacity: [0.5, 1, 0.5] } : {}}
-                            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }} />
-                        <circle cx={ECX} cy={ECY} r={ER}
-                            fill="rgba(14,16,24,0.98)" stroke={`${CY}, 0.58)`} strokeWidth="1.5" />
-                        <circle cx={ECX} cy={ECY} r={ER - 10}
-                            fill="none" stroke={`${CY}, 0.11)`} strokeWidth="1" strokeDasharray="4 3" />
-                        <text x={ECX} y={ECY - 7} textAnchor="middle" fontFamily={MONO}
-                            fontSize="9" fontWeight="700" letterSpacing="0.14em" fill={`${CY}, 0.95)`}>YOUR AI</text>
-                        <text x={ECX} y={ECY + 8} textAnchor="middle" fontFamily={MONO}
-                            fontSize="7" letterSpacing="0.1em" fill="rgba(255,255,255,0.38)">MODEL</text>
-                        <text x={ECX} y={ECY + 21} textAnchor="middle" fontFamily={MONO}
-                            fontSize="6.5" letterSpacing="0.1em" fill={`${CY}, 0.45)`}>CUSTOM-BUILT</text>
-                    </motion.g>
-
-                    {/* "" Output connectors: diagonal from engine ' elbow ' straight H "" */}
-                    {outputs.map((out, i) => {
-                        const ey = engineOutY(i);
-                        return (
-                            <motion.path key={`lo-${i}`}
-                                d={`M${ECX + ER} ${ey} L${ELBOWR} ${out.y} L${OUTX1} ${out.y}`}
-                                stroke={`${CY}, 0.2)`} strokeWidth="1"
-                                strokeDasharray="3 4" fill="none"
-                                initial={{ pathLength: 0, opacity: 0 }}
-                                animate={inView ? { pathLength: 1, opacity: 1 } : {}}
-                                transition={{ duration: 0.45, delay: 0.5 + i * 0.07, ease: EASE }}
-                            />
-                        );
-                    })}
-
-                    {/* "" Output pulses: animate cx along horizontal segment only "" */}
-                    {outputs.map((out, i) => (
-                        <motion.circle key={`po-${i}`} r="2.5" cy={out.y}
-                            fill={`${CY}, 0.9)`}
-                            animate={inView ? { cx: [ELBOWR, OUTX1], opacity: [0, 1, 0] } : { opacity: 0 }}
-                            transition={{ duration: 0.65, delay: 1.05 + i * 0.28, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                    ))}
-
-                    {/* "" Output boxes "" */}
-                    {outputs.map((out, i) => (
-                        <motion.g key={out.label}
-                            initial={{ opacity: 0, x: 8 }} animate={inView ? { opacity: 1, x: 0 } : {}}
-                            transition={{ duration: 0.4, delay: 0.52 + i * 0.09, ease: EASE }}>
-                            <rect x={OUTX1} y={out.y - 20} width="100" height="40" rx="7"
-                                fill="rgba(14,16,24,0.98)" stroke={`${CY}, 0.26)`} strokeWidth="1.2" />
-                            <rect x="373" y={out.y - 20} width="3" height="40" rx="1.5"
-                                fill={`${CY}, 0.48)`} />
-                            <text x={OUTX1 + 10} y={out.y - 4} fontFamily={MONO} fontSize="8" fontWeight="700"
-                                letterSpacing="0.09em" fill={`${CY}, 0.88)`}>{out.label}</text>
-                            <text x={OUTX1 + 10} y={out.y + 10} fontFamily={MONO} fontSize="6.5"
-                                letterSpacing="0.06em" fill="rgba(255,255,255,0.32)">{out.sub}</text>
-                        </motion.g>
-                    ))}
-
-                    {/* "" Stat strip "" */}
-                    <motion.g initial={{ opacity: 0, y: 5 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.4, delay: 0.85, ease: EASE }}>
-                        <line x1="8" y1="210" x2="372" y2="210" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
-                        <text x="63"  y="224" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">VS GENERIC MODELS</text>
-                        <text x="63"  y="241" textAnchor="middle" fontFamily={MONO} fontSize="16" fontWeight="700" fill="white">5x</text>
-                        <text x="63"  y="252" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">more accurate</text>
-                        <text x="190" y="224" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">PREDICTION LIFT</text>
-                        <text x="190" y="241" textAnchor="middle" fontFamily={MONO} fontSize="16" fontWeight="700" fill={`${CY}, 0.9)`}>35-60%</text>
-                        <text x="190" y="252" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">improvement</text>
-                        <text x="317" y="224" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.28)">COMPETITIVE EDGE</text>
-                        <text x="317" y="241" textAnchor="middle" fontFamily={MONO} fontSize="13" fontWeight="700" fill="white">Proprietary</text>
-                        <text x="317" y="252" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">AI = durable moat</text>
-                    </motion.g>
-                </svg>
-            </div>
-        </AIFrame>
-    );
-}
-
-// "-"- Data: Services "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 const SERVICES = [
     {
         num: "01",
@@ -842,7 +255,7 @@ const SERVICES = [
             "Prompt engineering and optimisation",
             "Performance monitoring and ongoing refinement",
         ],
-        Visual: AIIntegrationVisual,
+        Visual: AIIntegrationMock,
     },
     {
         num: "02",
@@ -856,7 +269,7 @@ const SERVICES = [
             "Connected workflows across multiple systems",
             "Workflow monitoring and performance optimisation",
         ],
-        Visual: IntelligentWorkflowsVisual,
+        Visual: IntelligentWorkflowsMock,
     },
     {
         num: "03",
@@ -870,7 +283,7 @@ const SERVICES = [
             "Deployment and infrastructure setup",
             "Monitoring, maintenance, and continuous improvement",
         ],
-        Visual: CustomAISolutionsVisual,
+        Visual: CustomAIMock,
     },
 ];
 
@@ -1038,7 +451,7 @@ export default function AIIntelligencePage() {
                             data-reveal-delay="150"
                             className="block"
                         >
-                            <AIProblemVisual />
+                            <AIProblemMock />
                         </div>
                     </div>
                 </div>

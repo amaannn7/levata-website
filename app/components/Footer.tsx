@@ -14,6 +14,7 @@ const SERVICES = [
 const PRODUCTS = [
     { label: "Sales Intelligence Platform", href: "/products/sales-intelligence-platform" },
     { label: "Helm", href: "/products/helm" },
+    { label: "Sable", href: "/products/sable" },
 ];
 
 const COMPANY = [

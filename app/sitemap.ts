@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: `${base}/products/automation-systems`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
         { url: `${base}/products/sales-intelligence-platform`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
         { url: `${base}/products/helm`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+        { url: `${base}/products/sable`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
         { url: `${base}/products/digital-infrastructure`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
         { url: `${base}/products/product-engineering`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     ];

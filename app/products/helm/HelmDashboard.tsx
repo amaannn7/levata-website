@@ -831,7 +831,9 @@ export default function HelmDashboard() {
     const reduced = !!useReducedMotion();
 
     const [view, setView] = useState<ViewId>("command");
-    const [autoplay, setAutoplay] = useState(true);
+    // No automatic tour: each view shows in full at its own height, so it may only
+    // change size when the visitor picks a view, never on its own while they read.
+    const [autoplay, setAutoplay] = useState(false);
     const [todos, setTodos] = useState<Todo[]>(() => TODOS.map((t) => ({ ...t })));
     const [priorities, setPriorities] = useState<Priority[]>(clonePriorities);
     const [issues, setIssues] = useState<Issue[]>(ISSUES);

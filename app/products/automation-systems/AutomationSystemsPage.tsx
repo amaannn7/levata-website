@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
-import AutomationVisual from "@/app/components/AutomationVisual";
+import { AutomationSilosMock, DashboardSystemMock, WorkflowAutomationMock } from "@/app/components/mockups/AutomationMockups";
 import SectionLabel from "@/app/components/SectionLabel";
 import SectionLabelSide from "@/app/components/SectionLabelSide";
 import dynamic from "next/dynamic";
@@ -16,18 +16,6 @@ const GREEN = "#FFFFFF";
 const BLUE = "rgba(0,255,221,0.9)";
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-// Reveal once in view, with a timed fallback so SVG visuals still animate even if
-// the IntersectionObserver never fires (iOS Safari + smooth scroll).
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-    const observed = useInView(ref, { once: true, margin: "200px" });
-    const [forced, setForced] = useState(false);
-    useEffect(() => {
-        const t = setTimeout(() => setForced(true), 700);
-        return () => clearTimeout(t);
-    }, []);
-    return observed || forced;
-}
 
 // Problem-diagram variants "" driven by ONE whileInView on the parent <div>, so the
 // SVG children reveal via variant propagation (reliable on mobile, unlike per-SVG observers).
@@ -291,8 +279,6 @@ function MetricTile({ value, suffix = "", prefix = "", decimals = 0, label, inde
 export default function AutomationSystemsPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const { open: openBookCall } = useBookCall();
-    const silosRef = useRef<HTMLDivElement>(null);
-    const silosInView = useReveal(silosRef);
 
     return (
         <main className="relative min-h-screen bg-[#0E1014] overflow-hidden page-dividers">
@@ -363,102 +349,9 @@ export default function AutomationSystemsPage() {
                             </p>
                         </div>
 
-                        {/* Right: disconnected silos visual */}
-                        <div ref={silosRef} className="relative mx-auto w-full max-w-md sm:max-w-none" style={{ aspectRatio: "5 / 4" }}>
-                            <svg viewBox="0 0 400 320" className="block h-full w-full" fill="none">
-                                <text x="0" y="28" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
-                                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">DISCONNECTED OPERATIONS</text>
-                                <defs>
-                                    <filter id="auto_prob_glow">
-                                        <feGaussianBlur stdDeviation="3" result="blur" />
-                                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                                    </filter>
-                                </defs>
-
-                                {/* Silo nodes "" scattered, isolated, no center hub */}
-                                {[
-                                    { cx: 80,  cy: 75,  label: "CRM",       sub: "MANUAL",    delay: 0.05 },
-                                    { cx: 310, cy: 65,  label: "FINANCE",   sub: "MANUAL",    delay: 0.12 },
-                                    { cx: 55,  cy: 200, label: "OPS",       sub: "MANUAL",    delay: 0.19 },
-                                    { cx: 330, cy: 195, label: "SUPPORT",   sub: "MANUAL",    delay: 0.26 },
-                                    { cx: 195, cy: 240, label: "REPORTING", sub: "MANUAL",    delay: 0.33 },
-                                ].map((p) => (
-                                    <motion.g key={p.label}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={silosInView ? { opacity: 1, scale: 1 } : undefined}
-                                        transition={{ duration: 0.45, delay: p.delay, ease: EASE }}
-                                        style={{ transformOrigin: `${p.cx}px ${p.cy}px` }}
-                                    >
-                                        <rect x={p.cx - 52} y={p.cy - 22} width="104" height="44" rx="9"
-                                            fill="rgba(10,14,28,0.98)"
-                                            stroke="rgba(255,80,80,0.28)"
-                                            strokeWidth="1.2"
-                                        />
-                                        {/* Red left accent */}
-                                        <rect x={p.cx - 52} y={p.cy - 22} width="3" height="44" rx="1.5"
-                                            fill="rgba(255,80,80,0.5)"
-                                        />
-                                        {/* Warning dot "" looping blink, staggered per silo */}
-                                        <motion.circle cx={p.cx - 33} cy={p.cy - 4} r="3.5" fill="rgba(255,80,80,0.6)" filter="url(#auto_prob_glow)"
-                                            animate={silosInView ? { opacity: [0.4, 1, 0.4] } : undefined}
-                                            transition={{ duration: 2, repeat: Infinity, delay: p.delay * 4, ease: "easeInOut" }} />
-                                        <text x={p.cx - 22} y={p.cy - 1}
-                                            fontFamily={MONO} fontSize="10" fontWeight="700" letterSpacing="0.14em"
-                                            fill="rgba(255,255,255,0.75)">{p.label}
-                                        </text>
-                                        <text x={p.cx - 22} y={p.cy + 13}
-                                            fontFamily={MONO} fontSize="7.5" letterSpacing="0.16em"
-                                            fill="rgba(255,80,80,0.5)">{p.sub}
-                                        </text>
-                                    </motion.g>
-                                ))}
-
-                                {/* Broken stub lines "" each system tries to connect but fails */}
-                                {[
-                                    { x1: 132, y1: 75,  x2: 175, y2: 90  },
-                                    { x1: 258, y1: 65,  x2: 215, y2: 85  },
-                                    { x1: 107, y1: 200, x2: 150, y2: 205 },
-                                    { x1: 278, y1: 195, x2: 247, y2: 200 },
-                                    { x1: 195, y1: 218, x2: 195, y2: 185 },
-                                ].map((l, i) => (
-                                    <motion.line key={i}
-                                        x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
-                                        stroke="rgba(255,80,80,0.2)" strokeWidth="1" strokeDasharray="3 5"
-                                        initial={{ pathLength: 0, opacity: 0 }}
-                                        animate={silosInView ? { pathLength: 1, opacity: 1 } : undefined}
-                                        transition={{ duration: 0.4, delay: 0.45 + i * 0.07, ease: EASE }}
-                                    />
-                                ))}
-
-                                {/* Central void "" "no automation layer" */}
-                                <motion.g
-                                    initial={{ opacity: 0 }}
-                                    animate={silosInView ? { opacity: 1 } : undefined}
-                                    transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
-                                >
-                                    <motion.g
-                                        animate={silosInView ? { opacity: [0.55, 1, 0.55] } : undefined}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                    >
-                                        <rect x="130" y="120" width="140" height="30" rx="15"
-                                            fill="rgba(255,60,60,0.05)"
-                                            stroke="rgba(255,60,60,0.22)"
-                                            strokeWidth="1"
-                                            strokeDasharray="4 3"
-                                        />
-                                        <text x="200" y="139"
-                                            textAnchor="middle" fontFamily={MONO} fontSize="8" fontWeight="700"
-                                            letterSpacing="0.18em" fill="rgba(255,80,80,0.65)">NO AUTOMATION
-                                        </text>
-                                    </motion.g>
-                                </motion.g>
-
-                                {/* Bottom caption */}
-                                <text x="200" y="298"
-                                    textAnchor="middle" fontFamily={MONO} fontSize="8" letterSpacing="0.14em"
-                                    fill="rgba(255,80,80,0.35)">SILOED . MANUAL . DISCONNECTED
-                                </text>
-                            </svg>
+                        {/* Right: one customer, five disconnected systems */}
+                        <div className="relative mx-auto w-full max-w-md sm:max-w-none">
+                            <AutomationSilosMock />
                         </div>
                     </div>
                 </div>
@@ -664,7 +557,7 @@ export default function AutomationSystemsPage() {
                                         </div>
                                     </div>
                                     <div className="mx-auto block w-full max-w-md sm:max-w-none">
-                                        <AutomationVisual kind={svc.visual} />
+                                        {svc.visual === "workflow" ? <WorkflowAutomationMock /> : <DashboardSystemMock />}
                                     </div>
                                 </div>
                             );

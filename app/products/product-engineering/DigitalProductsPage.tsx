@@ -1,32 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button as NeonButton } from "@/app/components/ui/neon-button";
 import { useBookCall } from "@/app/components/BookCallProvider";
 import CTAAurora from "@/app/components/CTAAurora";
 import SectionLabel from "@/app/components/SectionLabel";
 import SectionLabelSide from "@/app/components/SectionLabelSide";
 import dynamic from "next/dynamic";
+import { MVPMock, ProductProblemMock, SaaSMock } from "@/app/components/mockups/ProductMockups";
 
 const HeroHorizon = dynamic(() => import("@/app/components/HeroHorizon"), { ssr: false });
 
 const GREEN = "#FFFFFF";
 const BLUE = "#FFFFFF";
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-// Reveal once in view, with a timed fallback so SVG visuals still animate even if
-// the IntersectionObserver never fires (iOS Safari + smooth scroll). Drive the
-// visual's children from this single boolean instead of per-element observers.
-function useReveal(ref: React.RefObject<HTMLDivElement | null>) {
-    const observed = useInView(ref, { once: true, margin: "200px" });
-    const [forced, setForced] = useState(false);
-    useEffect(() => {
-        const t = setTimeout(() => setForced(true), 700);
-        return () => clearTimeout(t);
-    }, []);
-    return observed || forced;
-}
 
 // "-"- Count-up hook "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function useCountUp(target: number, duration = 2000) {
@@ -257,378 +245,6 @@ function FAQItem({ q, a, index, isOpen, onToggle }: { q: string; a: string; inde
 
 const MONO = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
 
-// "-"- Product Problem visual "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-function ProductProblemVisual() {
-    const ref = useRef<HTMLDivElement>(null);
-    const inView = useReveal(ref);
-    const stages = [
-        { cx: 90,  label: "No validation", sub: "Build starts", icon: "?" },
-        { cx: 240, label: "Wrong scope",    sub: "Months in",   icon: "✕" },
-        { cx: 390, label: "Technical debt", sub: "At launch",   icon: "!" },
-    ];
-    return (
-        <div ref={ref} className="relative mx-auto w-full max-w-md sm:max-w-none" style={{ aspectRatio: "5 / 4" }}>
-            <svg viewBox="0 0 480 290" className="block h-full w-full" fill="none">
-                <text x="0" y="62" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
-                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">WHERE PRODUCTS FAIL</text>
-                <defs>
-                    <filter id="pp_glow">
-                        <feGaussianBlur stdDeviation="4" result="blur" />
-                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                    </filter>
-                </defs>
-                {/* Spine */}
-                <motion.line x1="40" y1="148" x2="440" y2="148"
-                    stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="4 4"
-                    initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : undefined}
-                    transition={{ duration: 0.8, ease: EASE }}
-                />
-                {/* Declining momentum curve */}
-                <motion.path d="M40 100 Q160 110 240 148 Q320 185 440 220"
-                    stroke="rgba(255,80,80,0.25)" strokeWidth="1.5" fill="none" strokeDasharray="5 4"
-                    initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : undefined}
-                    transition={{ duration: 1.2, delay: 0.5, ease: EASE }}
-                />
-                {stages.map((s, i) => (
-                    <motion.g key={s.label}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={inView ? { opacity: 1, y: 0 } : undefined}
-                        transition={{ duration: 0.5, delay: 0.15 + i * 0.14, ease: EASE }}
-                    >
-                        {/* Outer ring "" looping radar pulse, staggered per node */}
-                        <motion.circle cx={s.cx} cy="148" r="30"
-                            fill="rgba(10,14,28,0.0)" stroke="rgba(255,80,80,0.12)" strokeWidth="1"
-                            style={{ transformOrigin: `${s.cx}px 148px` }}
-                            animate={inView ? { scale: [1, 1.18, 1], opacity: [0.9, 0.25, 0.9] } : undefined}
-                            transition={{ duration: 2.6, repeat: Infinity, delay: i * 0.6, ease: "easeInOut" }} />
-                        {/* Node */}
-                        <circle cx={s.cx} cy="148" r="22"
-                            fill="rgba(10,14,28,0.98)" stroke="rgba(255,80,80,0.35)" strokeWidth="1.2" />
-                        {/* Icon */}
-                        <text x={s.cx} y="154"
-                            textAnchor="middle" fontFamily={MONO} fontSize="14" fontWeight="700"
-                            fill="rgba(255,80,80,0.7)">{s.icon}
-                        </text>
-                        {/* Label above */}
-                        <text x={s.cx} y="100"
-                            textAnchor="middle" fontSize="10.5" fontWeight="600"
-                            fill="rgba(255,255,255,0.75)">{s.label}
-                        </text>
-                        {/* Sub below */}
-                        <text x={s.cx} y="114"
-                            textAnchor="middle" fontFamily={MONO} fontSize="8" letterSpacing="0.08em"
-                            fill="rgba(255,255,255,0.3)">{s.sub}
-                        </text>
-                        {/* Connector to label */}
-                        <line x1={s.cx} y1="118" x2={s.cx} y2="126"
-                            stroke="rgba(255,80,80,0.2)" strokeWidth="1" />
-                        {/* Step number */}
-                        <text x={s.cx} y="196"
-                            textAnchor="middle" fontFamily={MONO} fontSize="8" fontWeight="700"
-                            letterSpacing="0.16em" fill="rgba(123,85,234,0.5)">
-                            {String(i + 1).padStart(2, "0")}
-                        </text>
-                    </motion.g>
-                ))}
-                {/* Budget drain bar */}
-                <motion.g
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={inView ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
-                >
-                    <rect x="70" y="228" width="340" height="6" rx="3" fill="rgba(255,255,255,0.04)" />
-                    <motion.rect x="70" y="228" width="340" height="6" rx="3"
-                        fill="rgba(255,80,80,0.35)"
-                        style={{ transformOrigin: "70px 231px", scaleX: 0 }}
-                        initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : undefined}
-                        transition={{ duration: 1.0, delay: 0.9, ease: EASE }}
-                    />
-                    <motion.text x="240" y="252"
-                        textAnchor="middle" fontFamily={MONO} fontSize="8.5" fontWeight="700"
-                        letterSpacing="0.18em" fill="rgba(255,80,80,0.5)"
-                        animate={inView ? { opacity: [0.6, 1, 0.6] } : undefined}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}>RUNWAY LOST
-                    </motion.text>
-                    <text x="240" y="268"
-                        textAnchor="middle" fontFamily={MONO} fontSize="7.5"
-                        letterSpacing="0.12em" fill="rgba(255,255,255,0.2)">TIME . BUDGET . MOMENTUM
-                    </text>
-                </motion.g>
-            </svg>
-        </div>
-    );
-}
-
-// "-"- MVP Development visual "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-function MVPVisual() {
-    const ref = useRef<HTMLDivElement>(null);
-    const inView = useReveal(ref);
-    const steps = [
-        { label: "Idea", sub: "Assumption" },
-        { label: "Validate", sub: "Real signal" },
-        { label: "Scope", sub: "Core only" },
-        { label: "Build", sub: "Sprints" },
-        { label: "Launch", sub: "Live users" },
-    ];
-    const cx = [60, 150, 240, 330, 420];
-    const cy = 120;
-
-    return (
-        <div ref={ref} className="relative w-full" style={{ aspectRatio: "5 / 4" }}>
-            <div className="absolute inset-0 flex items-center justify-center p-3">
-            <svg viewBox="0 0 480 282" className="h-full w-full" fill="none">
-                <text x="0" y="74" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
-                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">VALIDATION PATH</text>
-                <defs>
-                    <filter id="mvp_glow">
-                        <feGaussianBlur stdDeviation="3" result="blur" />
-                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                    </filter>
-                </defs>
-
-                {/* Connecting spine */}
-                {cx.slice(0, -1).map((x, i) => (
-                    <motion.line
-                        key={`spine-${i}`}
-                        x1={x + 18} y1={cy} x2={cx[i + 1] - 18} y2={cy}
-                        stroke="rgba(123,85,234,0.18)" strokeWidth="1" strokeDasharray="4 4"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        animate={inView ? { pathLength: 1, opacity: 1 } : undefined}
-                        transition={{ duration: 0.4, delay: 0.3 + i * 0.12, ease: EASE }}
-                    />
-                ))}
-
-                {/* Animated travel dot */}
-                <motion.circle
-                    r="3" fill="rgba(123,85,234,0.9)" filter="url(#mvp_glow)"
-                    initial={{ opacity: 0 }}
-                    animate={inView ? {
-                        cx: [cx[0], cx[1], cx[2], cx[3], cx[4]],
-                        cy: [cy, cy, cy, cy, cy],
-                        opacity: [0, 1, 1, 1, 1],
-                    } : undefined}
-                    transition={{ duration: 2.4, delay: 1.2, ease: "easeInOut" }}
-                />
-
-                {steps.map((s, i) => {
-                    const isLast = i === steps.length - 1;
-                    return (
-                        <motion.g key={s.label}
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={inView ? { opacity: 1, y: 0 } : undefined}
-                            transition={{ duration: 0.5, delay: 0.1 + i * 0.1, ease: EASE }}
-                        >
-                            {/* Outer glow ring for last node */}
-                            {isLast && (
-                                <motion.circle cx={cx[i]} cy={cy} r="24"
-                                    fill="rgba(123,85,234,0.06)" stroke="rgba(123,85,234,0.2)" strokeWidth="1"
-                                    animate={{ r: [22, 28, 22], opacity: [0.5, 0.2, 0.5] }}
-                                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-                                />
-                            )}
-                            {/* Node circle */}
-                            <circle cx={cx[i]} cy={cy} r="17"
-                                fill="rgba(10,14,28,0.98)"
-                                stroke={isLast ? "rgba(123,85,234,0.85)" : "rgba(123,85,234,0.3)"}
-                                strokeWidth={isLast ? "1.5" : "1"}
-                            />
-                            {/* Inner dot */}
-                            <circle cx={cx[i]} cy={cy} r="4"
-                                fill={isLast ? "rgba(123,85,234,0.95)" : "rgba(123,85,234,0.45)"}
-                            />
-                            {/* Step number */}
-                            <text x={cx[i]} y={cy - 26}
-                                textAnchor="middle" fontFamily={MONO} fontSize="8" fontWeight="700"
-                                letterSpacing="0.16em" fill="rgba(123,85,234,0.7)">
-                                {String(i + 1).padStart(2, "0")}
-                            </text>
-                            {/* Label */}
-                            <text x={cx[i]} y={cy + 33}
-                                textAnchor="middle" fontFamily={MONO} fontSize="9" fontWeight="700"
-                                letterSpacing="0.1em"
-                                fill={isLast ? "rgba(123,85,234,0.95)" : "rgba(255,255,255,0.75)"}>
-                                {s.label}
-                            </text>
-                            {/* Sub */}
-                            <text x={cx[i]} y={cy + 46}
-                                textAnchor="middle" fontFamily={MONO} fontSize="7.5"
-                                letterSpacing="0.08em" fill="rgba(255,255,255,0.35)">
-                                {s.sub}
-                            </text>
-                        </motion.g>
-                    );
-                })}
-
-                {/* Outcome chip */}
-                <motion.g
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={inView ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.5, delay: 0.9, ease: EASE }}
-                >
-                    <rect x="155" y="190" width="170" height="26" rx="13"
-                        fill="rgba(123,85,234,0.07)" stroke="rgba(123,85,234,0.25)" strokeWidth="1" />
-                    <circle cx="174" cy="203" r="3" fill="rgba(123,85,234,0.9)" />
-                    <text x="250" y="207" textAnchor="middle" fontFamily={MONO} fontSize="8.5" fontWeight="700"
-                        letterSpacing="0.18em" fill="rgba(123,85,234,0.85)">VALIDATED MVP</text>
-                </motion.g>
-
-                {/* Stat strip */}
-                <motion.g initial={{ opacity: 0, y: 5 }}
-                    animate={inView ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.4, delay: 1.0, ease: EASE }}>
-                    <line x1="8" y1="228" x2="472" y2="228" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
-                    <text x="80"  y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TIME TO VALIDATE</text>
-                    <text x="80"  y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">4–6w</text>
-                    <text x="80"  y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">idea to signal</text>
-                    <text x="240" y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">WASTED RUNWAY</text>
-                    <text x="240" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">80%</text>
-                    <text x="240" y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">vs build-first</text>
-                    <text x="400" y="243" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">PIVOT RISK</text>
-                    <text x="400" y="260" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">3x</text>
-                    <text x="400" y="271" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">lower at launch</text>
-                </motion.g>
-            </svg>
-            </div>
-        </div>
-    );
-}
-
-// "-"- SaaS Product visual "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-function SaaSVisual() {
-    const ref = useRef<HTMLDivElement>(null);
-    const inView = useReveal(ref);
-    const layers = [
-        { label: "USER INTERFACE", sub: "Design · UX · Flows", accent: 0.9 },
-        { label: "APPLICATION", sub: "Logic · APIs · Auth", accent: 0.65 },
-        { label: "INTEGRATIONS", sub: "3rd-party · Webhooks", accent: 0.45 },
-        { label: "DATA LAYER", sub: "Database · Storage", accent: 0.28 },
-    ];
-    const barY = (i: number) => 50 + i * 58;
-    const barW = 320;
-    const barX = 20;
-
-    return (
-        <div ref={ref} className="relative w-full" style={{ aspectRatio: "5 / 4" }}>
-            <div className="absolute inset-0 flex items-center justify-center p-3">
-            <svg viewBox="0 0 360 360" className="h-full w-full" fill="none">
-                <text x="0" y="38" fontFamily="var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="9" fontWeight="700"
-                    letterSpacing="0.22em" fill="rgba(255,255,255,0.45)">PRODUCT ARCHITECTURE</text>
-                <defs>
-                    <filter id="saas_glow">
-                        <feGaussianBlur stdDeviation="2.5" result="blur" />
-                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                    </filter>
-                </defs>
-
-                {/* Connection lines between layers */}
-                {layers.slice(0, -1).map((_, i) => (
-                    <motion.g key={`conn-${i}`}
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : undefined}
-                        transition={{ duration: 0.3, delay: 0.4 + i * 0.1, ease: EASE }}
-                    >
-                        <line x1={barX + barW * 0.35} y1={barY(i) + 20} x2={barX + barW * 0.35} y2={barY(i + 1) - 2}
-                            stroke="rgba(123,85,234,0.15)" strokeWidth="1" strokeDasharray="3 3" />
-                        <line x1={barX + barW * 0.65} y1={barY(i) + 20} x2={barX + barW * 0.65} y2={barY(i + 1) - 2}
-                            stroke="rgba(123,85,234,0.1)" strokeWidth="1" strokeDasharray="3 3" />
-                    </motion.g>
-                ))}
-
-                {layers.map((layer, i) => (
-                    <motion.g key={layer.label}
-                        initial={{ opacity: 0, x: -16 }}
-                        animate={inView ? { opacity: 1, x: 0 } : undefined}
-                        transition={{ duration: 0.55, delay: 0.1 + i * 0.11, ease: EASE }}
-                    >
-                        {/* Bar background */}
-                        <rect x={barX} y={barY(i) - 2} width={barW} height="40" rx="7"
-                            fill="rgba(10,14,28,0.98)"
-                            stroke={`rgba(123,85,234,${layer.accent * 0.28})`}
-                            strokeWidth="1.2"
-                        />
-                        {/* Left accent bar */}
-                        <rect x={barX} y={barY(i) - 2} width="3" height="40" rx="1.5"
-                            fill={`rgba(123,85,234,${layer.accent * 0.8})`}
-                        />
-                        {/* Pulsing dot for top layer */}
-                        {i === 0 && (
-                            <motion.circle cx={barX + 18} cy={barY(i) + 18} r="4"
-                                fill="rgba(123,85,234,0.9)" filter="url(#saas_glow)"
-                                animate={{ opacity: [0.6, 1, 0.6] }}
-                                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                            />
-                        )}
-                        {i > 0 && (
-                            <circle cx={barX + 18} cy={barY(i) + 18} r="3.5"
-                                fill={`rgba(123,85,234,${layer.accent * 0.7})`}
-                            />
-                        )}
-                        {/* Label */}
-                        <text x={barX + 34} y={barY(i) + 14}
-                            fontFamily={MONO} fontSize="9" fontWeight="700" letterSpacing="0.18em"
-                            fill={`rgba(255,255,255,${0.45 + layer.accent * 0.55})`}>
-                            {layer.label}
-                        </text>
-                        {/* Sub */}
-                        <text x={barX + 34} y={barY(i) + 28}
-                            fontFamily={MONO} fontSize="8" letterSpacing="0.1em"
-                            fill={`rgba(255,255,255,${layer.accent * 0.55})`}>
-                            {layer.sub}
-                        </text>
-                        {/* Right scale badge */}
-                        <rect x={barX + barW - 68} y={barY(i) + 8} width="58" height="18" rx="9"
-                            fill={`rgba(123,85,234,${layer.accent * 0.08})`}
-                            stroke={`rgba(123,85,234,${layer.accent * 0.2})`}
-                            strokeWidth="0.8"
-                        />
-                        <text x={barX + barW - 39} y={barY(i) + 21}
-                            textAnchor="middle" fontFamily={MONO} fontSize="7" fontWeight="700" letterSpacing="0.14em"
-                            fill={`rgba(123,85,234,${layer.accent * 0.9})`}>
-                            {["SCALABLE", "MODULAR", "FLEXIBLE", "RELIABLE"][i]}
-                        </text>
-                    </motion.g>
-                ))}
-
-                {/* Growth arrow at bottom */}
-                <motion.g
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={inView ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.5, delay: 0.7, ease: EASE }}
-                >
-                    <motion.path
-                        d="M50 278 Q180 260 310 278"
-                        stroke="rgba(123,85,234,0.3)" strokeWidth="1.2" fill="none"
-                        strokeDasharray="5 4"
-                        initial={{ pathLength: 0 }} animate={inView ? { pathLength: 1 } : undefined}
-                        transition={{ duration: 1, delay: 0.8, ease: EASE }}
-                    />
-                    <path d="M306 274 L312 278 L306 282" stroke="rgba(123,85,234,0.45)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                    <text x="180" y="296" textAnchor="middle" fontFamily={MONO} fontSize="8" fontWeight="700"
-                        letterSpacing="0.2em" fill="rgba(123,85,234,0.45)">BUILT TO GROW</text>
-                </motion.g>
-
-                {/* Stat strip */}
-                <motion.g initial={{ opacity: 0, y: 5 }}
-                    animate={inView ? { opacity: 1, y: 0 } : undefined}
-                    transition={{ duration: 0.4, delay: 0.9, ease: EASE }}>
-                    <line x1="8" y1="310" x2="352" y2="310" stroke="rgba(255,255,255,0.05)" strokeWidth="0.7" />
-                    <text x="60"  y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">BUILD TIME</text>
-                    <text x="60"  y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">10–20w</text>
-                    <text x="60"  y="352" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">to production</text>
-                    <text x="180" y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">TECH DEBT</text>
-                    <text x="180" y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="rgba(123,85,234,0.9)">Zero</text>
-                    <text x="180" y="352" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">architecture first</text>
-                    <text x="300" y="324" textAnchor="middle" fontFamily={MONO} fontSize="7" letterSpacing="0.14em" fill="rgba(255,255,255,0.3)">OWNERSHIP</text>
-                    <text x="300" y="341" textAnchor="middle" fontFamily={MONO} fontSize="15" fontWeight="700" fill="white">100%</text>
-                    <text x="300" y="352" textAnchor="middle" fontFamily={MONO} fontSize="6.5" letterSpacing="0.08em" fill="rgba(255,255,255,0.24)">yours, always</text>
-                </motion.g>
-            </svg>
-            </div>
-        </div>
-    );
-}
-
-// "-"- Page "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 export default function DigitalProductsPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(0);
     const { open: openBookCall } = useBookCall();
@@ -700,7 +316,7 @@ export default function DigitalProductsPage() {
                             data-reveal-delay="150"
                             className="block"
                         >
-                            <ProductProblemVisual />
+                            <ProductProblemMock />
                         </div>
                     </div>
                 </div>
@@ -900,7 +516,7 @@ export default function DigitalProductsPage() {
                                     </div>
                                     {/* visual */}
                                     <div className="mx-auto block w-full max-w-md sm:max-w-none">
-                                        {i === 0 ? <MVPVisual /> : <SaaSVisual />}
+                                        {i === 0 ? <MVPMock /> : <SaaSMock />}
                                     </div>
                                 </div>
                             );

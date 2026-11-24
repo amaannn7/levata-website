@@ -2,14 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
     SiReact, SiAngular,
     SiExpress, SiFastapi, SiDjango, SiLaravel, SiShopify,
     SiWordpress, SiPostgresql, SiMysql, SiMongodb, SiSupabase, SiFirebase, SiRedis,
 } from "react-icons/si";
 import ClientsMarquee from "@/app/components/ClientsMarquee";
-import { CircleArrow } from "@/app/components/ServicesSection";
 import TestimonialsSection from "@/app/components/TestimonialsSection";
 import HomeHero from "@/app/components/HomeHero";
 import CTAAurora from "@/app/components/CTAAurora";
@@ -17,6 +16,8 @@ import SectionLabel from "@/app/components/SectionLabel";
 import SectionBeamShared from "@/app/components/SectionBeam";
 import SectionLabelSide from "@/app/components/SectionLabelSide";
 import { useBookCall } from "@/app/components/BookCallProvider";
+import ProductsShowcase from "@/app/components/ProductsShowcase";
+import { UnifiedOpsMock } from "@/app/components/mockups/HomeMockups";
 
 // "-"- Count-up hook "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 function useCountUp(target: number, duration = 2000) {
@@ -175,15 +176,6 @@ function TechStackSection() {
 }
 
 // "-"- Content data "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
-const PRODUCT_FEATURES = [
-    "AI-powered prospect research: company profiles, pain points, buying signals, and opening hooks",
-    "Lead scoring and prioritization against your ideal customer profile",
-    "Personalized cold email and follow-up generation in seconds",
-    "Call scripts tailored to prospect, role, and industry",
-    "Work queues that surface the right leads at the right time",
-    "CRM sync, push qualified opportunities directly into your pipeline",
-];
-
 // "-"- Service icons (monochrome line-art glyph + sparkle) "-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-"-
 // `accent` prop kept for backwards compat but ignored, all homepage icons render in white.
 function ServiceIcon({ kind, size = 26 }: { kind: IconKind; accent?: string; size?: number }) {
@@ -276,7 +268,7 @@ const SERVICE_CARDS: Array<{
             href: "/products/ai-intelligence",
             accent: "#7B55EA",
             icon: "ai",
-            image: "/services-5.jpeg",
+            image: "/services-5-web.jpg",
         },
         {
             title: "Digital Infrastructure",
@@ -290,7 +282,7 @@ const SERVICE_CARDS: Array<{
             href: "/products/digital-infrastructure",
             accent: "#7B55EA",
             icon: "services",
-            image: "/services-3.jpeg",
+            image: "/services-3-web.jpg",
         },
         {
             title: "Automation & Systems",
@@ -304,7 +296,7 @@ const SERVICE_CARDS: Array<{
             href: "/products/automation-systems",
             accent: "#7B55EA",
             icon: "automation",
-            image: "/services-6.jpeg",
+            image: "/services-6-web.jpg",
         },
         {
             title: "Product Engineering",
@@ -317,7 +309,7 @@ const SERVICE_CARDS: Array<{
             href: "/products/product-engineering",
             accent: "#7B55EA",
             icon: "products",
-            image: "/services-1.jpeg",
+            image: "/services-1-web.jpg",
         },
     ];
 
@@ -759,7 +751,9 @@ function ServicesCarousel() {
                             fill
                             sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
                             className="object-cover opacity-[0.6] transition-all duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-[0.75] group-hover:scale-[1.06]"
-                            priority={i < 2}
+                            // Web-sized copies served as-is: no on-the-fly resizing, and all four load up front.
+                            unoptimized
+                            loading="eager"
                         />
 
                         {/* Dark vertical gradient "" strong at bottom for text legibility, light at top */}
@@ -1303,419 +1297,244 @@ const SPOKE_ENDS = [
     { x: 688, y: 340 },  // BR
 ] as const;
 
-function TravelDot({ x1, y1, x2, y2, delay, dur = 2.2, color = "rgba(255,75,75,0.95)" }: {
-    x1: number; y1: number; x2: number; y2: number; delay: number; dur?: number; color?: string;
-}) {
+// A concrete, live symptom under each pain point (illustrative figures).
+const PAIN_SIGNALS = [
+    { value: (t: number) => `${(11.5 + (t % 6) * 0.25).toFixed(2)}h`, label: "a week on manual reports" },
+    { value: () => "3", label: "revenue numbers, none agree" },
+    { value: (t: number) => `${(12480 + t * 7).toLocaleString("en-US")} → 3`, label: "visits to qualified leads" },
+    { value: () => "7", label: "AI tools, none connected" },
+]
+
+function usePainTicker() {
+    const [t, setT] = useState(0);
+    const reduced = useReducedMotion();
+    useEffect(() => {
+        if (reduced) return;
+        const id = window.setInterval(() => setT((x) => x + 1), 1600);
+        return () => window.clearInterval(id);
+    }, [reduced]);
+    return t;
+}
+
+function PainCard({ i, t }: { i: number; t: number }) {
+    const sig = PAIN_SIGNALS[i];
     return (
-        <g filter="url(#prob_glow)">
-            <circle r="2.5" fill={color}>
-                <animateMotion
-                    dur={`${dur}s`}
-                    begin={`${delay}s`}
-                    repeatCount="indefinite"
-                    calcMode="spline"
-                    keyTimes="0;0.6;1"
-                    keySplines="0.4 0 0.2 1;0.4 0 0.2 1"
-                    path={`M${x1} ${y1} L${x2} ${y2}`}
-                />
-                <animate
-                    attributeName="opacity"
-                    values="0;1;0"
-                    dur={`${dur}s`}
-                    begin={`${delay}s`}
-                    repeatCount="indefinite"
-                    keyTimes="0;0.5;1"
-                />
-            </circle>
-        </g>
+        <div
+            className="rounded-2xl p-px"
+            style={{
+                background: "linear-gradient(135deg, rgba(255,90,110,0.36) 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.05) 100%)",
+                boxShadow: "0 16px 40px rgba(0,0,0,0.4)",
+            }}
+        >
+            <div
+                className="flex flex-col gap-1.5 rounded-[15px] px-5 py-4"
+                style={{ background: "linear-gradient(180deg, rgba(19,16,30,0.96) 0%, rgba(11,9,20,0.98) 100%)" }}
+            >
+                <div className="flex items-center gap-2.5">
+                    <span className="text-[10px] font-semibold tabular-nums tracking-[0.2em]" style={{ color: "var(--status-off)", fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" }}>
+                        {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span aria-hidden className="h-px flex-1" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.14), transparent)" }} />
+                </div>
+                <p className="text-[15px] font-medium leading-snug tracking-[-0.01em] text-white/90">{PAIN_POINTS[i].title}</p>
+                <p className="text-[12.5px] leading-relaxed text-white/55">{PAIN_POINTS[i].desc}</p>
+                <div className="mt-1.5 flex items-center gap-2 border-t pt-2.5" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                    <span className="relative flex h-1.5 w-1.5 flex-shrink-0" aria-hidden>
+                        <span className="absolute inset-0 animate-ping rounded-full opacity-60" style={{ background: "var(--status-off)" }} />
+                        <span className="relative h-1.5 w-1.5 rounded-full" style={{ background: "var(--status-off)" }} />
+                    </span>
+                    <span className="flex-shrink-0 whitespace-nowrap text-[12px] tabular-nums text-white/90" style={{ fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" }}>{sig.value(t)}</span>
+                    <span className="min-w-0 truncate text-[12px] text-white/45">{sig.label}</span>
+                </div>
+            </div>
+        </div>
     );
 }
 
-// "-"- Problem core: overloaded system hub (shared mobile + desktop) "-"-"-"-"-"-"-"-"-
+// "-"- Problem core: an overloaded system with its tools cut off (shared mobile + desktop) "-"-
+const CORE_TOOLS = [
+    { label: "CRM", x: 120, y: 18 },
+    { label: "Sheets", x: 222, y: 120 },
+    { label: "Inbox", x: 120, y: 222 },
+    { label: "AI tools", x: 18, y: 120 },
+];
+
 function ProblemCore({ size = 230 }: { size?: number }) {
-    const shards = [
-        { x: 172, y: 112, rot: 0, delay: 0 },
-        { x: 96, y: 170, rot: 30, delay: 0.9 },
-        { x: 76, y: 92, rot: -20, delay: 1.7 },
-    ];
-    const blips = [
-        { x: 64, y: 66, delay: 0.4 },
-        { x: 182, y: 58, delay: 1.6 },
-        { x: 188, y: 176, delay: 2.8 },
-    ];
-    const lapW = size * 1.45;
+    const MONO_FONT = "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace";
+    const R = 58; // gauge radius
+    const C = 2 * Math.PI * R;
     return (
         <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
-            {/* Ambient glow */}
-            <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{
-                    borderRadius: "50%",
-                    background:
-                        "radial-gradient(circle at 50% 50%, rgba(255,75,75,0.09) 0%, rgba(123,85,234,0.07) 42%, transparent 70%)",
-                    transform: "scale(1.7)",
-                }}
-            />
-
-            {/* Laptop behind the core "" screen in error state */}
-            <div
-                aria-hidden
-                className="pointer-events-none absolute left-1/2"
-                style={{ width: lapW, top: "50%", transform: "translate(-50%, -32%)", zIndex: 0 }}
-            >
-                <svg viewBox="0 0 240 190" width="100%" style={{ display: "block" }} fill="none">
-                    <defs>
-                        <linearGradient id="pcore_lap_fill" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="rgba(22,17,36,0.96)" />
-                            <stop offset="100%" stopColor="rgba(10,8,20,0.98)" />
-                        </linearGradient>
-                        <linearGradient id="pcore_lap_stroke" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stopColor="rgba(255,75,75,0.5)" />
-                            <stop offset="50%" stopColor="rgba(255,255,255,0.12)" />
-                            <stop offset="100%" stopColor="rgba(255,75,75,0.4)" />
-                        </linearGradient>
-                        <radialGradient id="pcore_lap_floor" cx="0.5" cy="0.5">
-                            <stop offset="0%" stopColor="rgba(255,75,75,0.15)" />
-                            <stop offset="100%" stopColor="rgba(255,75,75,0)" />
-                        </radialGradient>
-                    </defs>
-                    {/* Floor glow */}
-                    <ellipse cx="120" cy="172" rx="104" ry="9" fill="url(#pcore_lap_floor)" />
-
-                    {/* Screen bezel + display */}
-                    <rect x="42" y="8" width="156" height="106" rx="8"
-                        fill="url(#pcore_lap_fill)" stroke="url(#pcore_lap_stroke)" strokeWidth="1.4" />
-                    <rect x="50" y="16" width="140" height="86" rx="4"
-                        fill="rgba(255,75,75,0.03)" stroke="rgba(255,75,75,0.1)" strokeWidth="0.8" />
-                    {/* Camera notch */}
-                    <circle cx="120" cy="12" r="1.2" fill="rgba(255,255,255,0.2)" />
-                    {/* Window chrome dots */}
-                    <circle cx="57" cy="22.5" r="1.6" fill="rgba(255,75,75,0.6)" />
-                    <circle cx="63" cy="22.5" r="1.6" fill="rgba(255,255,255,0.18)" />
-                    <circle cx="69" cy="22.5" r="1.6" fill="rgba(255,255,255,0.18)" />
-                    {/* Blinking ERR badge */}
-                    <motion.g
-                        animate={{ opacity: [0.4, 1, 0.4] }}
-                        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                        <rect x="156" y="18" width="28" height="10" rx="2.5"
-                            fill="rgba(255,75,75,0.12)" stroke="rgba(255,75,75,0.5)" strokeWidth="0.7" />
-                        <text x="170" y="25.5" textAnchor="middle" fontSize="6" fontWeight="700"
-                            letterSpacing="0.12em" fontFamily="ui-monospace, monospace"
-                            fill="rgba(255,110,110,0.95)">ERR</text>
-                    </motion.g>
-                    {/* Dim error log lines at screen edges */}
-                    <g opacity="0.55">
-                        <rect x="56" y="88" width="40" height="3" rx="1.5" fill="rgba(255,75,75,0.35)" />
-                        <rect x="56" y="94" width="28" height="3" rx="1.5" fill="rgba(255,255,255,0.12)" />
-                        <rect x="146" y="91" width="38" height="3" rx="1.5" fill="rgba(255,255,255,0.1)" />
-                    </g>
-
-                    {/* Hinge */}
-                    <rect x="42" y="114" width="156" height="3.5" rx="1.75" fill="rgba(255,255,255,0.06)" />
-
-                    {/* Keyboard deck */}
-                    <path d="M22 118 L218 118 L238 160 L2 160 Z"
-                        fill="url(#pcore_lap_fill)" stroke="url(#pcore_lap_stroke)" strokeWidth="1.4" strokeLinejoin="round" />
-                    {/* Key rows "" dashed strips with perspective */}
-                    <line x1="38" y1="126" x2="202" y2="126" stroke="rgba(255,255,255,0.08)" strokeWidth="4" strokeDasharray="7 3" />
-                    <line x1="33" y1="133.5" x2="207" y2="133.5" stroke="rgba(255,255,255,0.07)" strokeWidth="4" strokeDasharray="7 3" />
-                    <line x1="28" y1="141" x2="212" y2="141" stroke="rgba(255,255,255,0.06)" strokeWidth="4" strokeDasharray="8 3" />
-                    {/* Trackpad */}
-                    <rect x="100" y="147" width="40" height="8" rx="2.5"
-                        fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.8" />
-                </svg>
-            </div>
-
+            <div aria-hidden className="pointer-events-none absolute inset-0" style={{
+                borderRadius: "50%",
+                background: "radial-gradient(circle at 50% 50%, rgba(255,90,110,0.12) 0%, rgba(123,85,234,0.07) 42%, transparent 70%)",
+                transform: "scale(1.6)",
+            }} />
             <svg width={size} height={size} viewBox="0 0 240 240" fill="none" className="relative z-10 overflow-visible" aria-hidden>
                 <defs>
-                    <radialGradient id="pcore_fill" cx="50%" cy="40%" r="65%">
-                        <stop offset="0%" stopColor="rgba(123,85,234,0.28)" />
-                        <stop offset="55%" stopColor="rgba(36,20,64,0.6)" />
-                        <stop offset="100%" stopColor="rgba(12,8,24,0.96)" />
+                    <radialGradient id="pcore_fill" cx="50%" cy="38%" r="65%">
+                        <stop offset="0%" stopColor="rgba(123,85,234,0.22)" />
+                        <stop offset="60%" stopColor="rgba(30,18,52,0.85)" />
+                        <stop offset="100%" stopColor="rgba(12,8,24,0.98)" />
                     </radialGradient>
                     <filter id="pcore_glow" x="-80%" y="-80%" width="260%" height="260%">
-                        <feGaussianBlur stdDeviation="4" result="blur" />
+                        <feGaussianBlur stdDeviation="3.5" result="blur" />
                         <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                     </filter>
                 </defs>
 
+                {/* Broken tethers to each tool: they flicker and never connect */}
+                {CORE_TOOLS.map((t, i) => {
+                    const dx = t.x - 120, dy = t.y - 120;
+                    const len = Math.hypot(dx, dy);
+                    const ux = dx / len, uy = dy / len;
+                    const a1 = { x: 120 + ux * 74, y: 120 + uy * 74 };
+                    const b1 = { x: 120 + ux * 84, y: 120 + uy * 84 };
+                    const b2 = { x: 120 + ux * 90, y: 120 + uy * 90 };
+                    const a2 = { x: t.x - ux * 16, y: t.y - uy * 16 };
+                    return (
+                        <motion.g key={t.label} animate={{ opacity: [0.35, 0.9, 0.35] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.6 }}>
+                            <line x1={a1.x} y1={a1.y} x2={b1.x} y2={b1.y} stroke="rgba(255,90,110,0.7)" strokeWidth="1.2" strokeDasharray="2 3" />
+                            <line x1={b2.x} y1={b2.y} x2={a2.x} y2={a2.y} stroke="rgba(255,90,110,0.7)" strokeWidth="1.2" strokeDasharray="2 3" />
+                        </motion.g>
+                    );
+                })}
+
                 {/* Expanding pulse rings */}
                 {[0, 1.3].map((delay) => (
-                    <motion.circle
-                        key={delay}
-                        cx="120" cy="120" r="70"
-                        fill="none" stroke="rgba(255,75,75,0.3)" strokeWidth="1"
-                        initial={{ opacity: 0 }}
-                        animate={{ r: [68, 100], opacity: [0.4, 0] }}
-                        transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut", delay }}
-                    />
+                    <motion.circle key={delay} cx="120" cy="120" r="70" fill="none" stroke="rgba(255,90,110,0.3)" strokeWidth="1"
+                        initial={{ opacity: 0 }} animate={{ r: [66, 98], opacity: [0.4, 0] }}
+                        transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut", delay }} />
                 ))}
 
-                {/* Rotating segmented rings */}
-                <motion.circle
-                    cx="120" cy="120" r="86"
-                    fill="none" stroke="rgba(123,85,234,0.3)" strokeWidth="1.2"
-                    strokeDasharray="66 32" strokeLinecap="round"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-                    style={{ transformOrigin: "120px 120px" }}
-                />
-                <motion.circle
-                    cx="120" cy="120" r="64"
-                    fill="none" stroke="rgba(255,75,75,0.22)" strokeWidth="1"
-                    strokeDasharray="10 16"
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-                    style={{ transformOrigin: "120px 120px" }}
-                />
+                {/* Core */}
+                <circle cx="120" cy="120" r="70" fill="url(#pcore_fill)" stroke="rgba(123,85,234,0.35)" strokeWidth="1.2" />
 
-                {/* Orbiting debris shards */}
-                <motion.g
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-                    style={{ transformOrigin: "120px 120px" }}
-                >
-                    {shards.map(({ x, y, rot, delay }, i) => (
-                        <motion.rect
-                            key={i}
-                            x={x} y={y} width="6" height="6" rx="1.2"
-                            fill="rgba(255,75,75,0.8)"
-                            transform={`rotate(${rot} ${x + 3} ${y + 3})`}
-                            animate={{ opacity: [0.25, 0.9, 0.25] }}
-                            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay }}
-                        />
-                    ))}
-                </motion.g>
-
-                {/* Core orb */}
-                <circle cx="120" cy="120" r="42" fill="url(#pcore_fill)" stroke="rgba(123,85,234,0.4)" strokeWidth="1.2" />
-                <circle cx="120" cy="120" r="30" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-
-                {/* Strained vitals trace drawing across the core */}
-                <g filter="url(#pcore_glow)">
-                    <motion.path
-                        d="M88 120 H102 L108 104 L116 136 L122 110 L127 120 H152"
-                        stroke="rgba(255,75,75,0.95)" strokeWidth="1.6"
-                        strokeLinecap="round" strokeLinejoin="round" fill="none"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: [0, 1, 1], opacity: [1, 1, 0] }}
-                        transition={{ duration: 2.4, times: [0, 0.7, 1], repeat: Infinity, ease: "easeInOut" }}
-                    />
+                {/* Load gauge: red arc straining near the top */}
+                <circle cx="120" cy="120" r={R} fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="5" />
+                <g filter="url(#pcore_glow)" transform="rotate(-90 120 120)">
+                    <motion.circle cx="120" cy="120" r={R} fill="none" stroke="rgba(255,90,110,0.95)" strokeWidth="5" strokeLinecap="round"
+                        strokeDasharray={C}
+                        animate={{ strokeDashoffset: [C * 0.06, C * 0.02, C * 0.045, C * 0.015, C * 0.06] }}
+                        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }} />
                 </g>
 
-                {/* Hairline cracks flickering on the core */}
-                <motion.path
-                    d="M120 78 L114 96 L124 104 M150 144 L136 138 L132 148"
-                    stroke="rgba(255,75,75,0.55)" strokeWidth="1" fill="none" strokeLinecap="round"
-                    animate={{ opacity: [0, 0.8, 0] }}
-                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-                />
+                {/* Readout */}
+                <text x="120" y="117" textAnchor="middle" fill="rgba(240,240,242,0.95)" style={{ fontSize: 26, fontWeight: 300, letterSpacing: "-0.02em" }}>97%</text>
+                <text x="120" y="133" textAnchor="middle" fill="rgba(163,163,172,0.75)" style={{ fontSize: 7.5, letterSpacing: "0.22em", fontFamily: MONO_FONT }}>SYSTEM LOAD</text>
+                <motion.g animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>
+                    <rect x="97" y="141" width="46" height="13" rx="6.5" fill="rgba(255,90,110,0.12)" stroke="rgba(255,90,110,0.5)" strokeWidth="0.8" />
+                    <text x="120" y="150.5" textAnchor="middle" fill="rgba(255,120,135,0.95)" style={{ fontSize: 7, fontWeight: 600, letterSpacing: "0.1em", fontFamily: MONO_FONT }}>4 ALERTS</text>
+                </motion.g>
 
-                {/* Warning blips */}
-                {blips.map(({ x, y, delay }, i) => (
-                    <motion.g
-                        key={i}
-                        animate={{ opacity: [0, 1, 0], scale: [0.8, 1, 0.8] }}
-                        transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay }}
-                        style={{ transformOrigin: `${x}px ${y}px` }}
-                    >
-                        <circle cx={x} cy={y} r="9" fill="rgba(14,12,24,0.95)" stroke="rgba(255,75,75,0.4)" strokeWidth="1" />
-                        <line x1={x} y1={y - 4} x2={x} y2={y + 1.5} stroke="rgba(255,100,100,0.95)" strokeWidth="1.4" strokeLinecap="round" />
-                        <circle cx={x} cy={y + 4.5} r="1" fill="rgba(255,100,100,0.95)" />
-                    </motion.g>
-                ))}
+                {/* The tools, cut off from the core */}
+                {CORE_TOOLS.map((t) => {
+                    const w = t.label.length * 5.4 + 16;
+                    return (
+                        <g key={t.label}>
+                            <rect x={t.x - w / 2} y={t.y - 9} width={w} height="18" rx="9" fill="rgba(14,12,24,0.96)" stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+                            <circle cx={t.x - w / 2 + 8} cy={t.y} r="2" fill="rgba(255,90,110,0.95)" />
+                            <text x={t.x + 3} y={t.y + 3} textAnchor="middle" fill="rgba(240,240,242,0.8)" style={{ fontSize: 8, fontFamily: MONO_FONT }}>{t.label}</text>
+                        </g>
+                    );
+                })}
             </svg>
         </div>
     );
 }
 
 function ProblemSpider() {
-    const EASE = [0.16, 1, 0.3, 1] as const;
     const W = SPIDER_W, H = SPIDER_H, cx = SPIDER_CX, cy = SPIDER_CY;
-
-    const spokes = SPOKE_ENDS.map((e, i) => ({
-        x1: cx, y1: cy, x2: e.x, y2: e.y,
-        grad: `psp_${i}`,
-        lineDelay: i * 0.08,
-        dotDelay: 0.4 + i * 0.5,
-    }));
-
-    const dotColors = [
-        "rgba(255,75,75,0.95)",
-        "rgba(255,75,75,0.95)",
-        "rgba(255,75,75,0.95)",
-        "rgba(255,75,75,0.95)",
-    ];
+    const t = usePainTicker();
+    // Spokes run from each pain point into the hub: the chaos converges on the business.
+    const spokes = SPOKE_ENDS.map((e, i) => ({ d: `M${e.x} ${e.y} L${cx} ${cy}`, grad: `psp_${i}`, e, i }));
 
     return (
-        <div
-            data-reveal
-            className="relative mx-auto w-full max-w-5xl"
-            style={{ aspectRatio: `${W} / ${H}` }}
-        >
-            <svg
-                viewBox={`0 0 ${W} ${H}`}
-                className="absolute inset-0 w-full h-full overflow-visible"
-                aria-hidden
-            >
+        <div className="relative mx-auto w-full max-w-5xl" style={{ aspectRatio: `${W} / ${H}` }}>
+            <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full overflow-visible" aria-hidden>
                 <defs>
-                    <filter id="prob_glow" x="-100%" y="-100%" width="300%" height="300%">
-                        <feGaussianBlur stdDeviation="4" result="blur" />
-                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                    </filter>
                     <filter id="prob_node_glow" x="-150%" y="-150%" width="400%" height="400%">
                         <feGaussianBlur stdDeviation="6" result="blur" />
                         <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                     </filter>
-                    {spokes.map(({ x1, y1, x2, y2, grad }, i) => (
-                        <linearGradient key={grad} id={grad} x1={x1} y1={y1} x2={x2} y2={y2} gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"   stopColor="rgba(123,85,234,0.0)" />
-                            <stop offset="30%"  stopColor="rgba(255,75,75,0.25)" />
-                            <stop offset="100%" stopColor="rgba(255,75,75,0.35)" />
+                    {spokes.map(({ e, grad }) => (
+                        <linearGradient key={grad} id={grad} x1={e.x} y1={e.y} x2={cx} y2={cy} gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stopColor="rgba(255,90,110,0.45)" />
+                            <stop offset="75%" stopColor="rgba(255,90,110,0.18)" />
+                            <stop offset="100%" stopColor="rgba(123,85,234,0)" />
                         </linearGradient>
                     ))}
                 </defs>
 
-                {/* Ambient rings around hub */}
-                {[130, 165].map((r, i) => (
-                    <motion.circle
-                        key={r}
-                        cx={cx} cy={cy} r={r}
-                        fill="none"
-                        stroke="rgba(123,85,234,0.06)"
-                        strokeWidth="1"
-                        strokeDasharray="4 8"
+                {[150, 185].map((r, i) => (
+                    <motion.circle key={r} cx={cx} cy={cy} r={r} fill="none" stroke="rgba(123,85,234,0.07)" strokeWidth="1" strokeDasharray="4 8"
                         animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-                        transition={{ duration: 20 + i * 8, repeat: Infinity, ease: "linear" }}
-                        style={{ transformOrigin: `${cx}px ${cy}px` }}
-                    />
+                        transition={{ duration: 22 + i * 8, repeat: Infinity, ease: "linear" }}
+                        style={{ transformOrigin: `${cx}px ${cy}px` }} />
                 ))}
 
-                {/* Spoke lines "" solid with glow */}
-                {spokes.map(({ x1, y1, x2, y2, grad, lineDelay }) => (
-                    <motion.path
-                        key={grad}
-                        d={`M${x1} ${y1} L${x2} ${y2}`}
-                        stroke={`url(#${grad})`}
-                        strokeWidth="1.5"
-                        fill="none"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        whileInView={{ pathLength: 1, opacity: 1 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.8, delay: lineDelay, ease: EASE }}
-                    />
+                {/* Spoke + flowing dashes heading into the hub */}
+                {spokes.map(({ d, grad, i }) => (
+                    <g key={grad}>
+                        <path d={d} stroke={`url(#${grad})`} strokeWidth="1.5" fill="none" />
+                        <motion.path d={d} stroke="rgba(255,110,125,0.85)" strokeWidth="1.6" strokeLinecap="round" fill="none" strokeDasharray="3 14"
+                            animate={{ strokeDashoffset: [0, -68] }}
+                            transition={{ duration: 2.2 + i * 0.25, repeat: Infinity, ease: "linear" }} />
+                    </g>
                 ))}
 
-                {/* Traveling dots "" from hub outward */}
-                {spokes.map(({ x1, y1, x2, y2, dotDelay }, i) => (
-                    <TravelDot key={i} x1={x1} y1={y1} x2={x2} y2={y2} delay={dotDelay} dur={2.2 + i * 0.3} color={dotColors[i]} />
+                {/* Pain point nodes */}
+                {SPOKE_ENDS.map((end, i) => (
+                    <g key={i}>
+                        <g filter="url(#prob_node_glow)">
+                            <motion.circle cx={end.x} cy={end.y} r="10" fill="none" stroke="rgba(255,90,110,0.5)" strokeWidth="1"
+                                animate={{ r: [8, 14, 8], opacity: [0.6, 0.1, 0.6] }}
+                                transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: i * 0.7 }} />
+                        </g>
+                        <circle cx={end.x} cy={end.y} r="6" fill="rgba(255,90,110,0.95)" opacity="0.15" />
+                        <circle cx={end.x} cy={end.y} r="4" fill="rgba(255,90,110,0.95)" />
+                        <circle cx={end.x} cy={end.y} r="2" fill="rgba(255,255,255,0.9)" />
+                    </g>
                 ))}
-
-                {/* Pain point node dots */}
-                {SPOKE_ENDS.map((end, i) => {
-                    const nodeDelay = 0.3 + i * 0.1;
-                    const nodeColor = "rgba(255,75,75,0.95)";
-                    const nodeGlow  = "rgba(255,75,75,0.5)";
-
-                    return (
-                        <motion.g
-                            key={i}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.5, delay: nodeDelay, ease: EASE }}
-                            style={{ transformOrigin: `${end.x}px ${end.y}px` }}
-                        >
-                            {/* Outer glow ring */}
-                            <g filter="url(#prob_node_glow)">
-                                <motion.circle
-                                    cx={end.x} cy={end.y} r="10"
-                                    fill="none"
-                                    stroke={nodeGlow}
-                                    strokeWidth="1"
-                                    animate={{ r: [8, 14, 8], opacity: [0.6, 0.1, 0.6] }}
-                                    transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: i * 0.7 }}
-                                />
-                            </g>
-                            {/* Node dot */}
-                            <circle cx={end.x} cy={end.y} r="6" fill={nodeColor} opacity="0.15" />
-                            <circle cx={end.x} cy={end.y} r="4" fill={nodeColor} />
-                            <circle cx={end.x} cy={end.y} r="2" fill="rgba(255,255,255,0.9)" />
-                        </motion.g>
-                    );
-                })}
             </svg>
 
-            {/* Pain point cards "" HTML for crisp, readable text */}
+            {/* Pain point cards, HTML for crisp text */}
             {SPOKE_ENDS.map((end, i) => {
                 const isLeft = end.x < cx;
                 const xPct = (end.x / W) * 100;
                 const yPct = (end.y / H) * 100;
-                const accent = "rgba(255,75,75,0.9)";
-                const accentSoft = "rgba(255,75,75,0.38)";
                 return (
-                    <div
-                        key={i}
-                        className="absolute"
-                        style={{
-                            top: `${yPct}%`,
-                            transform: "translateY(-50%)",
-                            ...(isLeft
-                                ? { left: 0, width: `calc(${xPct}% - 24px)` }
-                                : { right: 0, width: `calc(${100 - xPct}% - 24px)` }),
-                        }}
-                    >
-                        <div
-                            data-reveal
-                            data-reveal-delay={Math.round((0.35 + i * 0.1) * 1000)}
-                            className="rounded-2xl p-px"
-                            style={{
-                                background: `linear-gradient(135deg, ${accentSoft} 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.05) 100%)`,
-                                boxShadow: "0 16px 40px rgba(0,0,0,0.4)",
-                            }}
-                        >
-                            <div
-                                className="flex flex-col gap-1.5 rounded-[15px] px-5 py-4"
-                                style={{
-                                    background: "linear-gradient(180deg, rgba(19,16,30,0.96) 0%, rgba(11,9,20,0.98) 100%)",
-                                    backdropFilter: "blur(10px)",
-                                    WebkitBackdropFilter: "blur(10px)",
-                                }}
-                            >
-                                <div className="flex items-center gap-2.5">
-                                    <span
-                                        className="text-[10px] font-semibold tabular-nums tracking-[0.2em]"
-                                        style={{ color: accent, fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" }}
-                                    >
-                                        {String(i + 1).padStart(2, "0")}
-                                    </span>
-                                    <span
-                                        aria-hidden
-                                        className="h-px flex-1"
-                                        style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.14), transparent)" }}
-                                    />
-                                </div>
-                                <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em]" style={{ color: "rgba(255,105,105,0.95)" }}>
-                                    {PAIN_POINTS[i].title}
-                                </p>
-                                <p className="text-[12.5px] leading-relaxed text-white/55">
-                                    {PAIN_POINTS[i].desc}
-                                </p>
-                            </div>
+                    <div key={i} className="absolute" style={{
+                        top: `${yPct}%`,
+                        transform: "translateY(-50%)",
+                        ...(isLeft ? { left: 0, width: `calc(${xPct}% - 24px)` } : { right: 0, width: `calc(${100 - xPct}% - 24px)` }),
+                    }}>
+                        <div data-reveal data-reveal-delay={Math.round((0.35 + i * 0.1) * 1000)}>
+                            <PainCard i={i} t={t} />
                         </div>
                     </div>
                 );
             })}
 
-            {/* Center visual "" overloaded system core */}
-            <div
-                data-reveal
-                data-reveal-delay="200"
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-            >
-                <ProblemCore size={200} />
+            {/* Center: the overloaded system */}
+            <div data-reveal data-reveal-delay="200" className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+                <ProblemCore size={250} />
+            </div>
+        </div>
+    );
+}
+
+function ProblemMobile() {
+    const t = usePainTicker();
+    return (
+        <div className="flex flex-col gap-4 lg:hidden">
+            {PAIN_POINTS.map((_, i) => (
+                <div data-reveal data-reveal-delay={i * 80} key={i}>
+                    <PainCard i={i} t={t} />
+                </div>
+            ))}
+            <div data-reveal data-reveal-delay="200" className="mt-6 flex justify-center">
+                <ProblemCore size={230} />
             </div>
         </div>
     );
@@ -1752,50 +1571,8 @@ export default function HeroSection() {
                         </h2>
                     </div>
 
-                    {/* "" Mobile: stacked pain point cards + visual "" */}
-                    <div className="flex flex-col gap-4 lg:hidden">
-                        {PAIN_POINTS.map((p, i) => (
-                            <div
-                                data-reveal
-                                data-reveal-delay={Math.round((i * 0.08) * 1000)}
-                                key={i}
-                                className="rounded-2xl p-px"
-                                style={{
-                                    background: "linear-gradient(135deg, rgba(255,75,75,0.38) 0%, rgba(255,255,255,0.08) 45%, rgba(255,255,255,0.05) 100%)",
-                                    boxShadow: "0 16px 40px rgba(0,0,0,0.4)",
-                                }}
-                            >
-                                <div
-                                    className="flex flex-col gap-1.5 rounded-[15px] px-5 py-4"
-                                    style={{ background: "linear-gradient(180deg, rgba(19,16,30,0.96) 0%, rgba(11,9,20,0.98) 100%)" }}
-                                >
-                                    <div className="flex items-center gap-2.5">
-                                        <span
-                                            className="text-[10px] font-semibold tabular-nums tracking-[0.2em]"
-                                            style={{ color: "rgba(255,75,75,0.9)", fontFamily: "var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace" }}
-                                        >
-                                            {String(i + 1).padStart(2, "0")}
-                                        </span>
-                                        <span
-                                            aria-hidden
-                                            className="h-px flex-1"
-                                            style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.14), transparent)" }}
-                                        />
-                                    </div>
-                                    <p className="text-[15px] font-semibold leading-snug tracking-[-0.01em]" style={{ color: "rgba(255,105,105,0.95)" }}>{p.title}</p>
-                                    <p className="text-[12.5px] leading-relaxed text-white/55">{p.desc}</p>
-                                </div>
-                            </div>
-                        ))}
-                        <div
-                            data-reveal
-                            data-reveal-delay="200"
-                            className="mt-6 flex justify-center overflow-hidden"
-                            style={{ height: 220 }}
-                        >
-                            <ProblemCore size={210} />
-                        </div>
-                    </div>
+                    {/* Mobile: stacked pain point cards + the overloaded core */}
+                    <ProblemMobile />
 
                     {/* "" Desktop: spider / hub layout "" */}
                     <div className="hidden lg:block">
@@ -1855,6 +1632,10 @@ export default function HeroSection() {
                                 </div>
                             ))}
                         </div>
+                    </div>
+
+                    <div data-reveal data-reveal-delay="200" className="mx-auto mt-12 max-w-4xl md:mt-14">
+                        <UnifiedOpsMock />
                     </div>
                 </div>
             </section>
@@ -1916,204 +1697,8 @@ export default function HeroSection() {
 
             <SectionDivider />
 
-            {/* "" 7. FEATURED PRODUCT, Sales Intelligence Platform "" */}
-            <section className="home-theme-dark relative w-full px-6 py-14 md:py-20 overflow-hidden">
-                <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-                    <div className="absolute inset-0" style={{
-                        background: [
-                            "radial-gradient(ellipse 65% 55% at 50% 30%, rgba(123, 85, 234,0.09) 0%, transparent 65%)",
-                            "radial-gradient(ellipse 40% 50% at 85% 70%, rgba(204,1,255,0.07) 0%, transparent 60%)",
-                        ].join(", ")
-                    }} />
-                </div>
-                <div aria-hidden className="pointer-events-none absolute inset-0 dot-grid-bg" />
-                <div
-                    data-reveal
-                    className="relative z-10 mx-auto mb-10 flex max-w-3xl flex-col items-center text-center gap-3"
-                >
-                    <SectionBeam />
-                    <h2 className="display-section-title max-w-2xl text-center">
-                        <span className="display-muted-line">Sales Intelligence Platform</span>
-                        <span className="display-strong-line">Built for B2B Teams.</span>
-                    </h2>
-                    <p className="max-w-2xl text-lead text-white/45">
-                        Turn your raw lead list into a researched, prioritized, and actionable pipeline, in hours,
-                        not days.
-                    </p>
-                </div>
-
-                <div
-                    data-reveal
-                    className="mx-auto w-full max-w-5xl"
-                >
-                    <div className="rounded-3xl p-px" style={{
-                        background: "linear-gradient(105deg, rgba(123, 85, 234,0.45) 0%, rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.06) 60%, rgba(123, 85, 234,0.4) 100%)",
-                        boxShadow: "-8px 0 40px rgba(123, 85, 234,0.12), 8px 0 40px rgba(123, 85, 234,0.12)",
-                    }}>
-                        <div
-                            className="relative rounded-3xl overflow-hidden"
-                            style={{ background: "rgba(6,0,20,0.98)" }}
-                        >
-                            <div className="relative flex flex-col lg:flex-row">
-                                <div className="flex flex-col justify-center gap-6 p-6 sm:p-8 lg:p-14 lg:w-[48%]">
-                                    <div className="flex items-center gap-2">
-                                        <span
-                                            className="rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest"
-                                            style={{ background: "rgba(123, 85, 234,0.08)", color: "rgba(123, 85, 234,0.8)", border: "1px solid rgba(123, 85, 234,0.22)" }}
-                                        >
-                                            Sales Intelligence Platform
-                                        </span>
-                                    </div>
-                                    <h3 className="display-feature-title">
-                                        Pipeline that builds itself.
-                                    </h3>
-                                    <p className="text-body-sm text-white/50 leading-relaxed">
-                                        Perfect for B2B sales teams, founder-led outbound, and agencies running
-                                        lead generation campaigns.
-                                    </p>
-                                    <ul className="flex flex-col gap-2.5">
-                                        {PRODUCT_FEATURES.map((feat) => (
-                                            <li key={feat} className="flex items-start gap-3 text-body-sm text-white/65">
-                                                <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center"
-                                                    style={{ background: "rgba(123, 85, 234,0.15)", border: "1px solid rgba(123, 85, 234,0.3)" }}>
-                                                    <svg viewBox="0 0 10 10" fill="none" className="w-2.5 h-2.5" aria-hidden="true">
-                                                        <path d="M2 5l2.5 2.5L8 3" stroke="#7B55EA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                    </svg>
-                                                </span>
-                                                <span className="leading-snug">{feat}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <a href="/products/sales-intelligence-platform" className="mt-2 inline-flex w-fit items-center">
-                                        <CircleArrow label="Explore the platform" />
-                                    </a>
-                                </div>
-
-                                {/* Dashboard mockup */}
-                                <div className="relative flex-1 min-h-[360px] lg:min-h-0 overflow-hidden"
-                                    style={{ borderLeft: "1px solid rgba(255,255,255,0.06)", background: "#06001a" }}>
-                                    <div className="pointer-events-none absolute inset-0"
-                                        style={{
-                                            background: [
-                                                "radial-gradient(ellipse 55% 55% at 10% 85%, rgba(123, 85, 234,0.22) 0%, transparent 65%)",
-                                                "radial-gradient(ellipse 45% 50% at 90% 20%, rgba(123, 85, 234,0.18) 0%, transparent 65%)",
-                                            ].join(", ")
-                                        }} />
-                                    <div className="absolute inset-0 p-4 sm:p-5 flex gap-3 text-[10px]">
-                                        <div className="hidden sm:flex flex-col gap-1 w-28 flex-shrink-0" style={{ borderRight: "1px solid rgba(255,255,255,0.06)", paddingRight: "10px" }}>
-                                            <div className="mb-3">
-                                                <div className="h-2 w-16 rounded" style={{ background: "rgba(255,255,255,0.5)" }} />
-                                                <div className="mt-1 h-1.5 w-10 rounded" style={{ background: "rgba(255,255,255,0.15)" }} />
-                                            </div>
-                                            {[
-                                                { label: "Dashboard", active: true },
-                                                { label: "Leads", active: false },
-                                                { label: "Pipeline", active: false },
-                                                { label: "Outreach", active: false },
-                                                { label: "Analytics", active: false },
-                                                { label: "Settings", active: false },
-                                            ].map(({ label, active }) => (
-                                                <div key={label} className="flex items-center gap-2 rounded-md px-2 py-1.5"
-                                                    style={{ background: active ? "rgba(123, 85, 234,0.08)" : "transparent" }}>
-                                                    <div className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
-                                                        style={{ background: active ? "rgba(123, 85, 234,0.5)" : "rgba(255,255,255,0.12)" }} />
-                                                    <span style={{ color: active ? "rgba(123, 85, 234,0.9)" : "rgba(255,255,255,0.3)", fontSize: "9px", fontWeight: active ? 600 : 400 }}>{label}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        <div className="flex flex-col gap-3 flex-1 min-w-0">
-                                            <div className="grid grid-cols-3 gap-2">
-                                                {[
-                                                    { label: "Pipeline Value", value: "$284k", sub: "+12% this month", c: "#7B55EA" },
-                                                    { label: "Leads Scored", value: "1,048", sub: "94 high-intent", c: "#7B55EA" },
-                                                    { label: "Deals Closed", value: "37", sub: "↑ 8 from last mo.", c: "#3ECF8E" },
-                                                ].map(({ label, value, sub, c }) => (
-                                                    <div key={label} className="rounded-xl p-2.5"
-                                                        style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                                                        <p style={{ color: c, fontSize: "8px", fontWeight: 600, marginBottom: "3px" }}>{label}</p>
-                                                        <p style={{ color: "#fff", fontSize: "13px", fontWeight: 700, lineHeight: 1 }}>{value}</p>
-                                                        <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "8px", marginTop: "3px" }}>{sub}</p>
-                                                    </div>
-                                                ))}
-                                            </div>
-
-                                            <div className="rounded-xl p-3 flex-1"
-                                                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "9px", fontWeight: 600 }}>Revenue vs Forecast</p>
-                                                    <div className="flex gap-2">
-                                                        {["Actual", "Forecast"].map((l, i) => (
-                                                            <div key={l} className="flex items-center gap-1">
-                                                                <div className="w-2 h-0.5 rounded" style={{ background: i === 0 ? "#7B55EA" : "rgba(123, 85, 234,0.5)" }} />
-                                                                <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "8px" }}>{l}</span>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                                <svg viewBox="0 0 280 70" className="w-full" style={{ height: "70px" }} aria-hidden="true">
-                                                    {[0, 1, 2, 3].map(i => (
-                                                        <line key={i} x1="0" y1={i * 22 + 4} x2="280" y2={i * 22 + 4}
-                                                            stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-                                                    ))}
-                                                    <polyline
-                                                        points="0,55 40,50 80,45 120,42 160,38 200,35 240,33 280,30"
-                                                        fill="none" stroke="rgba(123, 85, 234,0.35)" strokeWidth="1.5" strokeDasharray="4 3"
-                                                    />
-                                                    <polygon
-                                                        points="0,70 0,58 40,52 80,40 120,48 160,35 200,28 240,32 280,22 280,70"
-                                                        fill="url(#chartFillFeatured)" opacity="0.4"
-                                                    />
-                                                    <polyline
-                                                        points="0,58 40,52 80,40 120,48 160,35 200,28 240,32 280,22"
-                                                        fill="none" stroke="#7B55EA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                                                    />
-                                                    <circle cx="200" cy="28" r="3" fill="#7B55EA" />
-                                                    <circle cx="200" cy="28" r="5" fill="rgba(123, 85, 234,0.2)" />
-                                                    <defs>
-                                                        <linearGradient id="chartFillFeatured" x1="0" y1="0" x2="0" y2="1">
-                                                            <stop offset="0%" stopColor="#7B55EA" />
-                                                            <stop offset="100%" stopColor="#7B55EA" stopOpacity="0" />
-                                                        </linearGradient>
-                                                    </defs>
-                                                </svg>
-                                                <div className="flex justify-between mt-1">
-                                                    {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"].map(m => (
-                                                        <span key={m} style={{ color: "rgba(255,255,255,0.2)", fontSize: "7px" }}>{m}</span>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            <div className="rounded-xl overflow-hidden"
-                                                style={{ border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                <div className="grid grid-cols-4 px-3 py-1.5"
-                                                    style={{ background: "rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                                                    {["Lead", "Score", "Stage", "Value"].map(h => (
-                                                        <span key={h} style={{ color: "rgba(255,255,255,0.25)", fontSize: "8px", fontWeight: 600 }}>{h}</span>
-                                                    ))}
-                                                </div>
-                                                {[
-                                                    { lead: "Acme Corp", score: "94", stage: "Proposal", value: "$42k", sc: "#3ECF8E" },
-                                                    { lead: "Vertex AI", score: "87", stage: "Discovery", value: "$18k", sc: "#7B55EA" },
-                                                    { lead: "Nexus Ltd", score: "71", stage: "Qualified", value: "$29k", sc: "#FFD21E" },
-                                                ].map((row, i) => (
-                                                    <div key={i} className="grid grid-cols-4 px-3 py-1.5"
-                                                        style={{ borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.03)" : "none", background: i % 2 === 0 ? "rgba(255,255,255,0.01)" : "transparent" }}>
-                                                        <span style={{ color: "rgba(255,255,255,0.55)", fontSize: "8px" }}>{row.lead}</span>
-                                                        <span style={{ color: row.sc, fontSize: "8px", fontWeight: 700 }}>{row.score}</span>
-                                                        <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "8px" }}>{row.stage}</span>
-                                                        <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "8px" }}>{row.value}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {/* "" 7. PRODUCTS: Sales Intelligence, Helm, Sable "" */}
+            <ProductsShowcase />
 
             {/* "" 8. BY THE NUMBERS "" no divider, flows from Featured Product above "" */}
             <section id="numbers" className="home-theme-dark relative w-full px-6 py-14 md:py-20">
